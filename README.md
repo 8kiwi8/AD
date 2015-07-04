@@ -5,6 +5,6 @@ Next Commit
 
 Conflict Commit local
 
-Conflict Commit Remote
+Conflict Commit Remote, Okay I'm remote
 
 Commit from Aidan, Remote accept me
