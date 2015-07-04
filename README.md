@@ -7,4 +7,4 @@ Conflict Commit local
 
 Conflict Commit Remote
 
-Commit from Aidan, I don't want remote!!
+Commit from Aidan, Remote accept me
