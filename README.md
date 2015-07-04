@@ -7,4 +7,4 @@ Conflict Commit local
 
 Conflict Commit Remote
 
-Commit from Aidan
+Commit from Aidan, Remote: I dom't want Aidan
