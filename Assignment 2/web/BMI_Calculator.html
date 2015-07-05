@@ -11,6 +11,27 @@ and open the template in the editor.
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
     </head>
     <body>
-        <div>TODO write content</div>
+        <form action="./BMIServlet">
+            <table border="0" align="center">
+                <thead>
+                    <tr>
+                        <th colspan = "2"> BMI Calculator </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td> Please Enter your height</td>
+                        <td><input type="text" name="height" value="" /> meters </td>
+                    </tr>
+                    <tr>
+                        <td>Please Enter your Weight</td>
+                        <td><input type="text" name="weight" value="" /> kg </td>
+                    </tr>
+                    <tr>
+                        <td colspan = "2"><input type="submit" value="Submit" name="Submit" /></td>
+                    </tr>
+                </tbody>
+            </table>
+        </form>
     </body>
 </html>

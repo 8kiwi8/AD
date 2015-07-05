@@ -34,13 +34,19 @@ public class BMIServlet extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
+            double height, weight, bmi;
+            height = Double.parseDouble(request.getParameter("height"));
+            weight = Double.parseDouble(request.getParameter("weight"));
+            bmi = weight/(height*height);
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
             out.println("<title>Servlet BMIServlet</title>");            
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet BMIServlet at " + request.getContextPath() + "</h1>");
+            String result = "<p>Your BMI is ";
+            result += String.format("%.2f", bmi);
+            out.println(result);
             out.println("</body>");
             out.println("</html>");
         }
