@@ -12,26 +12,29 @@ and open the template in the editor.
     </head>
     <body>
         <form action="./BMIServlet">
-            <table border="0" align="center">
+            <div align = "center">
+            <table border="1" width = "350">
                 <thead>
-                    <tr>
-                        <th colspan = "2"> BMI Calculator </th>
+                    <tr>                       
+                        <th colspan = "2" bgcolor = "Bisque"><font color = "BlueViolet"> BMI Calculator </font></th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr>
-                        <td> Please Enter your height</td>
+                        <td><font color = "CornflowerBlue"> Height:</font></td>
                         <td><input type="text" name="height" value="" /> meters </td>
                     </tr>
                     <tr>
-                        <td>Please Enter your Weight</td>
+                        <td><font color = "CornflowerBlue">Weight:</font></td>
                         <td><input type="text" name="weight" value="" /> kg </td>
                     </tr>
                     <tr>
-                        <td colspan = "2"><input type="submit" value="Submit" name="Submit" /></td>
+                        <td> </td>
+                        <td><input type="submit" value="Submit" name="Submit" /></td>
                     </tr>
                 </tbody>
             </table>
+            </div>
         </form>
     </body>
 </html>

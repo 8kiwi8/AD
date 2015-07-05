@@ -11,26 +11,31 @@ and open the template in the editor.
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
     </head>
     <body>
-        <form action = "./Mark_converter">
-            <table border="0" align="center">
+        <div align = "center">
+        <table border = "1" width = "350">
             <thead>
                 <tr>
-                    <th colspan = "2"> MARK CONVERTER </th>
+                    <th scope = "col" bgcolor = "MistyRose"><font color = "Salmon"> MARK CONVERTER </font></th>
                 <tr>
             </thead>
-            <tbody>
+            </table>
+                 <td scope = "col">          
+        <form action = "./Mark_converter">
+          <table border = "1" width = "350">             
+            <tbody>     
                 <tr>
-                   <td> Mark in percent </td>
-                   <td><input type="text" name="markTextBox" value="" /> </td>
+                   <td> <font color = "SpringGreen">Mark in percent <input type="text" name="markTextBox" value="" /> </font></td>
                 </tr>
                 <tr>
-                    <td><input type="checkbox" name="gradeCheckBox" value="Grade" /> Grade <input type="checkbox" name="pointCheckBox" value="Point" /> Point </td>                            
+                    <td style = "padding: 3px 105px"><input type="checkbox" name="gradeCheckBox" value="Grade" /> Grade <input type="checkbox" name="pointCheckBox" value="Point" /> Point </td>                            
                 </tr>
-                <tr>
-                    <td colspan = "2"><input type="submit" value="Convert" name="Convert" /></td>
-                </tr>
+                <tr>                   
+                    <td style = "padding: 3px 105px"><input type="submit" value="Convert" name="Convert" /></td>
+                </tr>              
             </tbody>
             </table>
-        </form>
+                    </form> 
+                    </td>
+            </div>
     </body>
 </html>
