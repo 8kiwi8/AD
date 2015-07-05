@@ -21,16 +21,16 @@
                 <td style="padding:5px 15px"><a href="BMI_Calculator.html">BMI Calculator</a></td>
             </tr>
             <tr>
-                <td style="padding:5px 15px"><a href="currencyCalculator.html">Currency Calculator</a></td>
+                <td style="padding:5px 15px"><a href="currencyConverter.html">Currency Calculator</a></td>
             </tr>
             <tr>
                 <td style="padding:5px 15px"><a href="tuitionCalculator.html">Tuition Calculator</a></td>
             </tr>
             <tr>
-                <td style="padding:5px 15px"><a href="">Mark Converter</a></td>
+                <td style="padding:5px 15px"><a href="mark_converter.html">Mark Converter</a></td>
             </tr>
             <tr>
-                <td style="padding:5px 15px" hre="gradeCalculator.html">Grade Calculator</a></td>
+                <td style="padding:5px 15px"><a href="gradeCalculator.html">Grade Calculator</a></td>
             </tr>
         </table>
         </div>
