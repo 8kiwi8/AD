@@ -47,6 +47,17 @@ public class BMIServlet extends HttpServlet {
             String result = "<p>Your BMI is ";
             result += String.format("%.2f", bmi);
             out.println(result);
+            double kg = bmi;
+            String mass = "<p> You are ";
+            if (kg < 18.5)   
+                out.println (mass + "Underweight");
+            else if (kg >= 18.5 && kg <= 24.9)
+                out.println (mass + "Normal");
+            else if (kg >= 25.0 && kg <= 29.9)
+                out.println (mass + "Overweight");
+            else
+                out.println (mass + "Obese");
+                                          
             out.println("</body>");
             out.println("</html>");
         }
