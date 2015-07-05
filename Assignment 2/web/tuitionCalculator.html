@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title>Tuition Calculator</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    <body>
+        <table style="text-align: left; width: 499px; height: 127px;" border="1"
+        cellpadding="2" cellspacing="2">
+        <tbody>
+            <tr align="center">
+                <td style="vertical-align: top;"><span style="font-weight: bold;">TUITION
+                CALCULATOR</span><br>
+                </td>
+            </tr>
+            <tr align="center">
+                    <td style="vertical-align: top;">
+                    <form action="./TuitionCalculator">
+                        Number of AAS course(s): <input
+                        name="numAAS"> ($120)<br>
+                        Number of ESL course(s): <input name="numESL"> ($75)<br>
+                        Type of Student:
+                        <select name="studentType">
+                        <option selected="selected" value="normal">Normal</option>
+                        <option value="tenDollarDiscount">$10 Discount</option>
+                        <option value="twentyPercentDiscount">20% Discount</option>
+                        <option value="fiftyPercentDiscount">50% Discount</option>
+                        </select>
+                        <br>
+                        <br>
+                        <input value="Calculate" name="calculate" type="submit">
+                    </form>
+                </td>
+            </tr>
+        </tbody>
+        </table>
+    </body>
+</html>

@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package CurrencyCalc;
+package TuitionCalc;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -15,10 +15,10 @@ import javax.servlet.http.HttpServletResponse;
 
 /**
  *
- * @author Kiwi
+ * @author ahmadrafiuddin
  */
-@WebServlet(name = "CurrencyExchange", urlPatterns = {"/CurrencyExchange"})
-public class CurrencyExchange extends HttpServlet {
+@WebServlet(name = "TuitionCalculator", urlPatterns = {"/TuitionCalculator"})
+public class TuitionCalculator extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -33,36 +33,29 @@ public class CurrencyExchange extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
-            String type = request.getParameter("currency");
             
-            double input_vnd = Double.parseDouble(request.getParameter("vnd"));
-            double rate = 0;
-            switch(type) {
-                case "usd" :
-                    rate = 16452;
-                    break;
-                case "eur" :
-                    rate = 25170.38;
-                    break;
-                case "jpy" :
-                    rate = 15123;
-                    break;
+            String studentSel = request.getParameter("studentType");
+            int numOfAASCourses = Integer.parseInt(request.getParameter("numAAS")); // $120 each
+            int numOfESLCourses = Integer.parseInt(request.getParameter("numESL")); // $75 each
+            
+            double totalCost = (120 * numOfAASCourses) + (75 * numOfESLCourses);
+            
+            if (studentSel.equals("normal")) {
+                //asd
+            } else if (studentSel.equals("tenDollarDiscount")) {
+                totalCost = totalCost - 10;
+            } else if (studentSel.equals("twentyPercentDiscount")) {
+                totalCost = totalCost * 0.8;
+            } else if (studentSel.equals("fiftyPercentDiscount")) {
+                totalCost = totalCost * 0.5;
+            } else {
+                out.println("Error: Invalid selection!");
             }
             
-            double output_currency = input_vnd / rate;
-            
-            
-            
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet CurrencyExchange</title>");            
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1> " + String.format("%.2f", input_vnd) + " VND equals " + String.format("%.2f ", output_currency) + type.toUpperCase() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
+            //out.println("studentType = " + studentSel + "<br>");
+            //out.println(numOfAASCourses + "<br>");
+            //out.println(numOfESLCourses + "<br>");
+            out.println("Your tuition is: " + totalCost + " USD");
         }
     }
 
@@ -106,4 +99,3 @@ public class CurrencyExchange extends HttpServlet {
     }// </editor-fold>
 
 }
-
