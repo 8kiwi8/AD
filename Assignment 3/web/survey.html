@@ -8,100 +8,106 @@
 <body>
     <div id="container">
         <form name="surveyresults" method="post" onsubmit = "return validate ();"  action="./PreviewSurvey">
-            <div>
-                <label for="name" class="require">Name*</label>
+            <div class="category">
+                <label for="name">Name</label>
                 <input id="name" name="name" type="text" required/>
             </div>
 
-            <div>
-                <label for="email" class="require">Email*</label>
+            <div class="category">
+                <label for="email">Email</label>
                 <input id="email" name="email" type="email" required/>
             </div>
 
-            <div>
+            <div class="category">
                 <label for="telno">Contact number</label>
                 <input id="telno" name="telno" type="tel"/>
             </div>
+            
+            <div class="category">
+                <label>Music preference</label>
+                <div>
+                    <input id="easy" name="pref" type="checkbox" value="Easy listening"/>
+                    <label for="easy">Easy listening</label>
+                </div>
 
-            <label>Music preference</label>
-            <div>
-                <input id="easy" name="pref" type="checkbox" value="Easy listening"/>
-                <label for="easy">Easy listening</label>
+                <div>
+                    <input id="rocknroll" name="pref" type="checkbox" value="Rock n' Roll"/>
+                    <label for="rocknroll">Rock n' Roll</label>
+                </div>
+
+                <div>
+                    <input id="jazz" name="pref" type="checkbox" value="Jazz"/>
+                    <label for="jazz">Jazz</label>
+                </div>
+
+                <div>
+                    <input id="classical" name="pref" type="checkbox" value="Classical"/>
+                    <label for="classical">Classical</label>
+                </div>
+
+                <div>
+                    <input id="rock" name="pref" type="checkbox" value="Rock"/>
+                    <label for="rock">Rock</label>
+                </div>
+
+                <div>
+                    <input id="heavy" name="pref" type="checkbox" value="Heavy metal"/>
+                    <label for="heavy">Heavy metal</label>
+                </div>
             </div>
             
-            <div>
-                <input id="rocknroll" name="pref" type="checkbox" value="Rock n' Roll"/>
-                <label for="rocknroll">Rock n' Roll</label>
+            <div class="category">
+                <label for="decade">Favorite music decade</label>
+                <select id="decade" name="decade">
+                    <option value="Invalid selection">Select decade</option>
+                    <option value="Fifites">Fifties</option>
+                    <option value="Sixties">Sixties</option>
+                    <option value="Seventies">Seventies</option>
+                    <option value="Eighties">Eighties</option>
+                    <option value="Nineties">Nineties</option>
+                    <option value="Tens">Tens</option>
+                </select>
             </div>
             
-            <div>
-                <input id="jazz" name="pref" type="checkbox" value="Jazz"/>
-                <label for="jazz">Jazz</label>
-            </div>
-            
-            <div>
-                <input id="classical" name="pref" type="checkbox" value="Classical"/>
-                <label for="classical">Classical</label>
-            </div>
-            
-            <div>
-                <input id="rock" name="pref" type="checkbox" value="Rock"/>
-                <label for="rock">Rock</label>
-            </div>
-            
-            <div>
-                <input id="heavy" name="pref" type="checkbox" value="Heavy metal"/>
-                <label for="heavy">Heavy metal</label>
-            </div>
-        
-            <label for="decade">Favorite music decade</label>
-            <select id="decade" name="decade">
-                <option value="Invalid selection">Select decade</option>
-                <option value="Fifites">Fifties</option>
-                <option value="Sixties">Sixties</option>
-                <option value="Seventies">Seventies</option>
-                <option value="Eighties">Eighties</option>
-                <option value="Nineties">Nineties</option>
-                <option value="Tens">Tens</option>
-            </select>
+            <div class="category">
+                <label>Favorite day to listen</label>
+                <div>
+                    <input id="monday" name="day" type="radio" value="Monday"/>
+                    <label for="monday">Monday</label>
+                </div>
 
-            <label>Favorite day to listen</label>
-            <div>
-                <input id="monday" name="day" type="radio" value="Monday"/>
-                <label for="monday">Monday</label>
-            </div>
+                <div>
+                    <input id="tuesday" name="day" type="radio" value="Tuesday"/>
+                    <label for="tuesday">Tuesday</label>
+                </div>
 
-            <div>
-                <input id="tuesday" name="day" type="radio" value="Tuesday"/>
-                <label for="tuesday">Tuesday</label>
+                <div>
+                    <input id="wednesday" name="day" type="radio" value="Wednesday"/>
+                    <label for="wednesday">Wednesday</label>
+                </div>
+
+                <div>
+                    <input id="thursday" name="day" type="radio" value="Thursday"/>
+                    <label for="thursday">Thursday</label>
+                </div>
+
+                <div>
+                    <input id="friday" name="day" type="radio" value="Friday"/>
+                    <label for="friday">Friday</label>
+                </div>
+
+                <div>
+                    <input id="saturday" name="day" type="radio" value="Saturday"/>
+                    <label for="saturday">Saturday</label>
+                </div>
+
+                <div>
+                    <input id="sunday" name="day" type="radio" value="Sunday"/>
+                    <label for="sunday">Sunday</label>
+                </div>
             </div>
 
-            <div>
-                <input id="wednesday" name="day" type="radio" value="Wednesday"/>
-                <label for="wednesday">Wednesday</label>
-            </div>
-
-            <div>
-                <input id="thursday" name="day" type="radio" value="Thursday"/>
-                <label for="thursday">Thursday</label>
-            </div>
-
-            <div>
-                <input id="friday" name="day" type="radio" value="Friday"/>
-                <label for="friday">Friday</label>
-            </div>
-
-            <div>
-                <input id="saturday" name="day" type="radio" value="Saturday"/>
-                <label for="saturday">Saturday</label>
-            </div>
-
-            <div>
-                <input id="sunday" name="day" type="radio" value="Sunday"/>
-                <label for="sunday">Sunday</label>
-            </div>
-
-            <div>
+            <div class="category">
                 <label for="freq">I listen to WARNA</label>
                 <select id="freq" name="freq">
                     <option value="Invalid selection">Select frequency</option>
@@ -111,24 +117,26 @@
                     <option value="4 or 5 days">4 or 5 days</option>
                 </select>
             </div>
-
-            <label>Prefer to listen</label>
-            <div>
-                <input id="home" name="placepref" type="checkbox" value="At home"/>
-                <label for="home">At home</label>
-            </div>
             
-            <div>
-                <input id="car" name="placepref" type="checkbox" value="In car"/>
-                <label for="car">In car</label>
-            </div>
-            
-            <div>
-                <input id="work" name="placepref" type="checkbox" value="At work"/>
-                <label for="work">At work</label>
+            <div class="category">
+                <label>Prefer to listen</label>
+                <div>
+                    <input id="home" name="placepref" type="checkbox" value="At home"/>
+                    <label for="home">At home</label>
+                </div>
+
+                <div>
+                    <input id="car" name="placepref" type="checkbox" value="In car"/>
+                    <label for="car">In car</label>
+                </div>
+
+                <div>
+                    <input id="work" name="placepref" type="checkbox" value="At work"/>
+                    <label for="work">At work</label>
+                </div>
             </div>
 
-            <div>
+            <div class="category">
                 <label for="comments">Additional comments</label>
                 <textarea id="comments" name="comments"></textarea>
             </div>
