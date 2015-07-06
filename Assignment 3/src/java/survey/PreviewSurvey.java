@@ -45,6 +45,20 @@ public class PreviewSurvey extends HttpServlet {
             String additionalComments = request.getParameter("comments");
             String subscribedToNewsletter = request.getParameter("subscribe");
             
+            if (musicPreference.equals("easy")) {
+                musicPreference = "Easy Listening";
+            } else if (musicPreference.equals("rocknroll")) {
+                musicPreference = "Rock & Roll";
+            } else if (musicPreference.equals("jazz")) {
+                musicPreference = "Jazz";
+            } else if (musicPreference.equals("classical")) {
+                musicPreference = "Classical";
+            } else if (musicPreference.equals("rock")) {
+                musicPreference = "Rock";
+            } else if (musicPreference.equals("heavy")) {
+                musicPreference = "Heavy Metal";
+            }
+            
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
