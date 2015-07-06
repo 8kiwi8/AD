@@ -17,20 +17,20 @@
     <form name="surveyresults" method="post" action="./PreviewSurvey">
         <div class="field">
             <label for="name">Name</label>
-            <input name="name" type="text"/>
+            <input id="name" name="name" type="text"/>
         </div>
         
         <div class="field">
             <label for="email">Email</label>
-            <input name="email"  type="email"/>
+            <input id="email" name="email" type="email"/>
         </div>
         
         <div class="field">
             <label for="telno">Contact number</label>
-            <input name="telno"  type="tel"/>
+            <input id="telno" name="telno" type="tel"/>
         </div>
         
-        <label for="pref">Music preference</label>
+        Music preference
         <div class="field">
             <label for="easy">Easy listening</label>
             <input id="easy" name="pref" type="checkbox" value="easy"/>
@@ -51,20 +51,18 @@
             <input id="heavy" name="pref" type="checkbox" value="heavy"/>
         </div>
         
-        <div class="field">
-            <label for="decade">Favorite music decade</label>
-            <select name="decade">
-                <option value="0">Select decade</option>
-                <option value="1">Fifties</option>
-                <option value="2">Sixties</option>
-                <option value="3">Seventies</option>
-                <option value="4">Eighties</option>
-                <option value="5">Nineties</option>
-                <option value="6">Tens</option>
-            </select>
-        </div>
+        <label for="decade">Favorite music decade</label>
+        <select id="decade" name="decade">
+            <option value="0">Select decade</option>
+            <option value="1">Fifties</option>
+            <option value="2">Sixties</option>
+            <option value="3">Seventies</option>
+            <option value="4">Eighties</option>
+            <option value="5">Nineties</option>
+            <option value="6">Tens</option>
+        </select>
         
-        <label for="day">Favorite day to listen</label>
+        Favorite day to listen
         <div id="day" class="field">
             <label for="monday">Monday</label>
             <input id="monday" name="day" type="radio" value="Monday"/>
@@ -90,7 +88,7 @@
         
         <div class="field">
             <label for="freq">I listen to WARNA</label>
-            <select name="freq">
+            <select id="freq" name="freq">
                 <option value="0">Select frequency</option>
                 <option value="1">Every day</option>
                 <option value="2">One day a week</option>
@@ -99,7 +97,7 @@
             </select>
         </div>
         
-        <label for="placepref">Prefer to listen</label>
+        Prefer to listen
         <div class="field">
             <label for="home">At home</label>
             <input id="home" name="placepref" type="checkbox" value="home"/>
@@ -113,13 +111,15 @@
         
         <div class="field">
             <label for="comments">Additional comments</label>
-            <textarea name="comments"></textarea>
+            <textarea id="comments" name="comments"></textarea>
         </div>
         
         <div class="field">
             <label for="subscribe">Subscribe to newsletter</label>
-            <input name="subscribe" type="checkbox" value="Subscribe"/>
+            <input id="subscribe" name="subscribe" type="checkbox" value="Subscribe"/>
         </div>
+        
+        <input type="submit" value="Submit"/>
     </form>
 </body>
 </html>
