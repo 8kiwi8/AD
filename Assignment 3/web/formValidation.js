@@ -9,7 +9,7 @@
          if( document.getElementById("name").value === "" )
          {
             alert( "Please provide your name!" );
-            document.survey.name.focus() ;
+            document.survey.name.focus();
             return false;
          }
          
