@@ -33,14 +33,38 @@ public class PreviewSurvey extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
+            
+            String name = request.getParameter("name");
+            String email = request.getParameter("email");
+            String telNo = request.getParameter("telno");
+            String musicPreference = request.getParameter("pref");
+            String favouriteMusicDecade = request.getParameter("decade");
+            String favouriteDayToListen = request.getParameter("day");
+            String iListenToWARNA = request.getParameter("freq");
+            String preferredListeningLoc = request.getParameter("placepref");
+            String additionalComments = request.getParameter("comments");
+            String subscribedToNewsletter = request.getParameter("subscribe");
+            
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
             out.println("<title>Servlet PreviewSurvey</title>");            
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet PreviewSurvey at " + request.getContextPath() + "</h1>");
+            
+            out.println("Name: " + name + "<br>");
+            out.println("Email: " + email + "<br>");
+            out.println("Telephone Number: " + telNo + "<br>");
+            out.println("Music Preference: " + musicPreference + "<br>");
+            out.println("Favourite Music Decade: " + favouriteMusicDecade + "<br>");
+            out.println("Favourite Day to Listen: " + favouriteDayToListen + "<br>");
+            out.println("I Listen to WARNA: " + iListenToWARNA + "<br>");
+            out.println("Preferred Listening Location: " + preferredListeningLoc + "<br>");
+            out.println("<br>");
+            out.println("Additional Comments: <br>" + additionalComments + "<br>");
+            out.println("<br>");
+            out.println("Subscribed to Newsletter: " + subscribedToNewsletter + "<br>");
+            
             out.println("</body>");
             out.println("</html>");
         }
