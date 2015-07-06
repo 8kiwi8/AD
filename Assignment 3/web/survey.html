@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+<script type = "text/javascript" src = "formValidation.js"> </script>
 <head>
     <meta charset="UTF-8">
     <title>Survey</title>
@@ -7,7 +8,7 @@
 </head>
 <body>
     <div id="container">
-        <form name="surveyresults" method="post" action="./PreviewSurvey">
+        <form name="surveyresults" method="post" onsubmit = "return validate ();"  action="./PreviewSurvey">
             <div>
                 <label for="name">Name</label>
                 <input id="name" name="name" type="text"/>

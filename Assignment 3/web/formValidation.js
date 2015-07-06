@@ -4,9 +4,27 @@
  * and open the template in the editor.
  */
 
+    function validate()
+      {      
+         if( document.getElementById("name").value === "" )
+         {
+            alert( "Please provide your name!" );
+            document.survey.name.focus() ;
+            return false;
+         }
+         
+         if( document.getElementById("email").value === "" )
+         {
+            alert( "Please provide your Email!" );
+            document.survey.email.focus() ;
+            return false;
+         }    
+         return( true );
+      }
+    
     function validateName ()
     {
-        var name1 = document.form.name.value;
+        var name1 = document.getElementById ("name").value;
         var name_value = document.getElementById ("name1").value;
         
         if (name1 === "")
@@ -25,7 +43,7 @@
     
     function validateEmail ()
     {
-        var emailID = document.form.email.value;
+        var emailID = document.getElementById ("email").value;
         at = emailID.indexOf ("@");
         dot = emailID.lastIndexOf (".");
         
