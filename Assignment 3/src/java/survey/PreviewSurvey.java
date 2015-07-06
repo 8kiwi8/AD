@@ -37,27 +37,25 @@ public class PreviewSurvey extends HttpServlet {
             String name = request.getParameter("name");
             String email = request.getParameter("email");
             String telNo = request.getParameter("telno");
-            String musicPreference = request.getParameter("pref");
+            
+            String musicPreference[] = { "None" };
+            
+            if (request.getParameterValues("pref") != null) {
+                musicPreference = request.getParameterValues("pref");
+            }
+            
             String favouriteMusicDecade = request.getParameter("decade");
             String favouriteDayToListen = request.getParameter("day");
             String iListenToWARNA = request.getParameter("freq");
-            String preferredListeningLoc = request.getParameter("placepref");
             String additionalComments = request.getParameter("comments");
             String subscribedToNewsletter = request.getParameter("subscribe");
             
-            if (musicPreference.equals("easy")) {
-                musicPreference = "Easy Listening";
-            } else if (musicPreference.equals("rocknroll")) {
-                musicPreference = "Rock & Roll";
-            } else if (musicPreference.equals("jazz")) {
-                musicPreference = "Jazz";
-            } else if (musicPreference.equals("classical")) {
-                musicPreference = "Classical";
-            } else if (musicPreference.equals("rock")) {
-                musicPreference = "Rock";
-            } else if (musicPreference.equals("heavy")) {
-                musicPreference = "Heavy Metal";
+            String preferredListeningLoc[] = { "None" };
+            
+            if (request.getParameterValues("placepref") != null) {
+                preferredListeningLoc = request.getParameterValues("placepref");
             }
+            
             
             out.println("<!DOCTYPE html>");
             out.println("<html>");
@@ -68,15 +66,37 @@ public class PreviewSurvey extends HttpServlet {
             
             out.println("Name: " + name + "<br>");
             out.println("Email: " + email + "<br>");
+            
+            out.println("<br>");
             out.println("Telephone Number: " + telNo + "<br>");
-            out.println("Music Preference: " + musicPreference + "<br>");
+            out.println("Music Preference: " + "<br>");
+            
+            for (String s2: musicPreference) {
+                out.println(s2 + "<br>");
+            }
+            
+            out.println("<br>");
             out.println("Favourite Music Decade: " + favouriteMusicDecade + "<br>");
             out.println("Favourite Day to Listen: " + favouriteDayToListen + "<br>");
             out.println("I Listen to WARNA: " + iListenToWARNA + "<br>");
-            out.println("Preferred Listening Location: " + preferredListeningLoc + "<br>");
+            out.println("<br>");
+            
+            out.println("Preferred Listening Location: " + "<br>");
+            
+            for (String s: preferredListeningLoc) {
+                out.println(s + "<br>");
+            }
+            
             out.println("<br>");
             out.println("Additional Comments: <br>" + additionalComments + "<br>");
             out.println("<br>");
+            
+            if (subscribedToNewsletter != null) {
+                subscribedToNewsletter = "Yes";
+            } else {
+                subscribedToNewsletter = "No";
+            }
+            
             out.println("Subscribed to Newsletter: " + subscribedToNewsletter + "<br>");
             
             out.println("</body>");
