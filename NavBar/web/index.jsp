@@ -23,9 +23,11 @@
             }
         };
         function processAjaxData(urlPath){
-            $("#content").load(urlPath);
-            document.title = urlPath.pageTitle;
-            window.history.pushState({"html":urlPath,"pageTitle":urlPath.pageTitle},"", "?path=" + urlPath);
+            var title;
+            $("#content").load(urlPath,"" , function(obj) {
+                document.title = (obj.match(/<title[^>]*>([^<]+)<\/title>/)[1]);
+            });
+            window.history.pushState({"html":urlPath,"pageTitle":document.title}, document.title, "?path=" + urlPath);
         }
         $.urlParam = function(name){
             var results = new RegExp('[\?&]' + name + '=([^&#]*)').exec(window.location.href);

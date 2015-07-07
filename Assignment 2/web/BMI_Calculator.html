@@ -5,36 +5,55 @@ To change this template file, choose Tools | Templates
 and open the template in the editor.
 -->
 <html>
+    <script type = "text/javascript">
+        function calc ()
+        {
+            var result;
+            var weight = document.getElementById("weight").value;
+            var height = document.getElementById("height").value;
+            var bmi = weight / (height*height);
+            
+            answer.value = bmi;
+        }
+    </script>
+    <style type="text/css">
+        #container, h1 {
+            max-width: 300px;
+            margin: 0 auto;
+        }
+        
+        h1 {
+            padding-bottom: 20px;
+            text-decoration-color: blueviolet;
+           }
+        body
+        {
+            margin: 0 auto;
+        }     
+    </style>
     <head>
+        <link href="/Assignment_2/bootstrap.min.css" rel="stylesheet">
         <title>BMI Calculator</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
     </head>
-    <body>
-        <form action="/Assignment_2/BMIServlet">
-            <div align = "center">
-            <table border="1" width = "350">
-                <thead>
-                    <tr>                       
-                        <th colspan = "2" bgcolor = "Bisque"><font color = "BlueViolet"> BMI Calculator </font></th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td><font color = "CornflowerBlue"> Height:</font></td>
-                        <td><input type="text" name="height" value="" /> meters </td>
-                    </tr>
-                    <tr>
-                        <td><font color = "CornflowerBlue">Weight:</font></td>
-                        <td><input type="text" name="weight" value="" /> kg </td>
-                    </tr>
-                    <tr>
-                        <td> </td>
-                        <td><input type="submit" value="Submit" name="Submit" /></td>
-                    </tr>
-                </tbody>
-            </table>
-            </div>
+    <body>  
+        <div id = "container">
+            
+            <h1 style="color: blueviolet;"> BMI Calculator </h1>
+        <form action="/Assignment_2//BMIServlet" role = "form">                   
+           <div class = "form-group">
+               <label for="height" style = "color:Coral;">Height (m):</label>
+               <input class="form-control" name="height" id="height" onkeyup="calc()" > 
+           </div>
+           <div class = "form-group">
+               <label for="weight" style = "color:Coral;">Weight (kg):</label>
+               <input class="form-control" name="weight" id="weight" onkeyup="calc()" > 
+           </div>  
+            <input value="Calculate" name="calculate" type="submit" class="btn btn-default">
+            <input id = "answer" type="text" disabled class = "btn btn-default"/>
+        </div>
+            
         </form>
     </body>
 </html>

@@ -1,46 +1,51 @@
 <!DOCTYPE html>
-<!--
-To change this license header, choose License Headers in Project Properties.
-To change this template file, choose Tools | Templates
-and open the template in the editor.
--->
 <html>
     <head>
         <title>Tuition Calculator</title>
         <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+        <link href ="/Assignment_2/css/bootstrap.min.css" rel="stylesheet" type="text.css"></link>
+        <style type="text/css">
+            #container, h1 {
+                max-width: 400px;
+                margin: 0 auto;
+            }
+            
+            h1 {
+                padding-bottom: 20px;
+            }
+            
+            body {
+                
+            }
+        </style>
     </head>
     <body>
-        <div align = "center">
-        <table style="text-align: left; width: 499px; height: 127px;" border="1"
-        cellpadding="2" cellspacing="2">
-        <tbody>
-            <tr align="center">
-                <td style="vertical-align: top;" bgcolor = "LightCoral"><span style="font-weight: bold;"><font color = "Yellow">TUITION
-                CALCULATOR</font></span><br>
-                </td>
-            </tr>
-            <tr align="center">
-                    <td style="vertical-align: top;">
-                    <form action="/Assignment_2/TuitionCalculator">
-                        Number of AAS course(s): <input
-                        name="numAAS"> ($120)<br>
-                        Number of ESL course(s): <input name="numESL"> ($75)<br>
-                        Type of Student:
-                        <select name="studentType">
+        <h1>TUITION CALCULATOR</h1>
+        <div id="container">
+            <form action="/Assignment_2/TuitionCalculator" role="form">
+                <div class="form-group">
+                    <label for="numAAS">Number of AAS course(s):</label>
+                    <input class="form-control" name="numAAS" id="numAAS"> ($120)
+                </div>
+                
+                <div class="form-group">
+                    <label for="numAAS">Number of ESL course(s):</label>
+                    <input class="form-control "name="numESL" id="numESL"> ($75)                    
+                </div>
+                
+                <div class="form-group">
+                    <label for="studentType">Type of Student:</label>
+                    <select class="form-control" id="studentType "name="studentType">
                         <option selected="selected" value="normal">Normal</option>
                         <option value="tenDollarDiscount">$10 Discount</option>
                         <option value="twentyPercentDiscount">20% Discount</option>
                         <option value="fiftyPercentDiscount">50% Discount</option>
-                        </select>
-                        <br>
-                        <br>
-                        <input value="Calculate" name="calculate" type="submit">
-                    </form>
-                </td>
-            </tr>
-        </tbody>
-        </table>
-            </div>
+                    </select>
+                </div>
+                
+                <input value="Calculate" name="calculate" type="submit" class="btn btn-default">
+            </form>
+        </div>
     </body>
 </html>
