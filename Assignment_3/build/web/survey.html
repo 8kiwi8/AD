@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Survey</title>
+    <!--<link rel="stylesheet" href="survey.css"/>-->
+    <link href="bootstrap.min.css" rel="stylesheet">
+    
+    <style type="text/css">
+        body {
+            background: #f0f0f0;
+            padding: 50px;
+        }
+        h1 {
+            text-align: center;
+        }
+        #container {
+            max-width: 340px;
+            margin: 0 auto;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+        }
+        .form-control {
+            margin-bottom: 15px;
+        }
+    </style>
+</head>
+<body>
+    <h1>WARNA radio</h1>
+    <div id="container">
+        <form name="surveyresults" method="post" action="./PreviewSurvey">
+            <div class="category">
+                <label for="name">Name</label>
+                <input id="name" class="form-control" name="name" type="text" required autofocus/>
+            </div>
+
+            <div class="category">
+                <label for="email">Email</label>
+                <input id="email" class="form-control" name="email" type="email" required/>
+            </div>
+
+            <div class="category">
+                <label for="telno">Contact number</label>
+                <input id="telno" class="form-control" name="telno" type="tel"/>
+            </div>
+            
+            <div class="category">
+                <label>Music preference</label>
+                <div class="checkbox">
+                    <label for="easy">
+                        <input id="easy" name="pref" type="checkbox" value="Easy listening"/>
+                        Easy listening
+                    </label>
+                </div>
+
+                <div class="checkbox">
+                    <label for="rocknroll">
+                        <input id="rocknroll" name="pref" type="checkbox" value="Rock n' Roll"/>
+                        Rock n' Roll
+                    </label>
+                </div>
+
+                <div class="checkbox">
+                    <label for="jazz">
+                        <input id="jazz" name="pref" type="checkbox" value="Jazz"/>
+                        Jazz
+                    </label>
+                </div>
+
+                <div class="checkbox">
+                    <label for="classical">
+                        <input id="classical" name="pref" type="checkbox" value="Classical"/>
+                        Classical
+                    </label>
+                </div>
+
+                <div class="checkbox">
+                    <label for="rock">
+                        <input id="rock" name="pref" type="checkbox" value="Rock"/>
+                        Rock
+                    </label>
+                </div>
+
+                <div class="checkbox">
+                    <label for="heavy">
+                        <input id="heavy" name="pref" type="checkbox" value="Heavy metal"/>
+                        Heavy metal
+                    </label>
+                </div>
+            </div>
+            
+            <div class="category">
+                <label for="decade">Favorite music decade</label>
+                <select id="decade"  class="form-control" name="decade">
+                    <option value="Invalid selection">Select decade</option>
+                    <option value="Fifites">Fifties</option>
+                    <option value="Sixties">Sixties</option>
+                    <option value="Seventies">Seventies</option>
+                    <option value="Eighties">Eighties</option>
+                    <option value="Nineties">Nineties</option>
+                    <option value="Tens">Tens</option>
+                </select>
+            </div>
+            
+            <div class="category">
+                <label>Favorite day to listen</label>
+                <div class="radio">
+                    <label for="monday">
+                        <input id="monday" name="day" type="radio" value="Monday"/>
+                        Monday
+                    </label>
+                </div>
+
+                <div class="radio">
+                    <label for="tuesday">
+                        <input id="tuesday" name="day" type="radio" value="Tuesday"/>
+                        Tuesday
+                    </label>
+                </div>
+
+                <div class="radio">
+                    <label>
+                        <input id="wednesday" name="day" type="radio" value="Wednesday"/>
+                        Wednesday
+                    </label>
+                </div>
+
+                <div class="radio">
+                    <label>
+                        <input id="thursday" name="day" type="radio" value="Thursday"/>
+                        Thursday
+                    </label>
+                </div>
+
+                <div class="radio">
+                    <label>
+                        <input id="friday" name="day" type="radio" value="Friday"/>
+                        Friday
+                    </label>
+                </div>
+
+                <div class="radio">
+                    <label>
+                        <input id="saturday" name="day" type="radio" value="Saturday"/>
+                        Saturday
+                    </label>
+                </div>
+
+                <div class="radio">
+                    <label>
+                        <input id="sunday" name="day" type="radio" value="Sunday"/>
+                        Sunday
+                    </label>
+                </div>
+            </div>
+
+            <div class="category">
+                <label for="freq">I listen to WARNA</label>
+                <select id="freq"  class="form-control" name="freq">
+                    <option value="Invalid selection">Select frequency</option>
+                    <option value="Every day">Every day</option>
+                    <option value="One day a week">One day a week</option>
+                    <option value="2 or 3 days">2 or 3 days</option>
+                    <option value="4 or 5 days">4 or 5 days</option>
+                </select>
+            </div>
+            
+            <div class="category">
+                <label>Prefer to listen</label>
+                <div class="checkbox">
+                    <label for="home">
+                        <input id="home" name="placepref" type="checkbox" value="At home"/>
+                        At home
+                    </label>
+                </div>
+
+                <div class="checkbox">
+                    <label for="car">
+                        <input id="car" name="placepref" type="checkbox" value="In car"/>
+                        In car
+                    </label>
+                </div>
+
+                <div class="checkbox">
+                    <label for="work">
+                        <input id="work" name="placepref" type="checkbox" value="At work"/>
+                        At work
+                    </label>
+                </div>
+            </div>
+
+            <div class="category">
+                <label for="comments">Additional comments</label>
+                <textarea id="comments" class="form-control" name="comments"></textarea>
+            </div>
+            
+            <div id="lower">
+                <div class="checkbox">
+                    <label for="subscribe">
+                        <input id="subscribe" name="subscribe" type="checkbox"/>
+                        Subscribe to newsletter
+                    </label>
+                </div>
+
+                <input class="btn btn-lg btn-primary btn-block" onclick="validate ();" type="submit" value="Submit"/>
+            </div>
+        </form>
+    </div>
+    <script type = "text/javascript" src = "formValidation.js"></script>
+</body>
+</html>
