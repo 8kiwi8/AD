@@ -1,69 +1,68 @@
 <!DOCTYPE html>
-<!--
-To change this license header, choose License Headers in Project Properties.
-To change this template file, choose Tools | Templates
-and open the template in the editor.
--->
 <html>
     <head>
-        <title>TODO supply a title</title>
+        <title>Currency converter</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="bootstrap.min.css">
+        
+        <style type="text/css">
+            body {
+                max-width: 250px;
+                margin: auto;
+            }
+            form {
+                margin: 50px 0;
+            }
+        </style>
     </head>
     <body>
-        <div align = "center">
-        <table width="500" border="1"> 
-  <tr>
-    <th scope="col" bgcolor = "Wheat"><font color = "Tomato">CURRENCY EXCHANGE</font></th>
-  </tr>
-  <tr>
-    <td><table width="500" border="0">
-      <tr>
-        <td align="center"><form name="form1" action="./CurrencyExchange">
-          <p>
+        <form name="form1" action="./CurrencyExchange">
             <label for="vnd">VND:</label>
-            <input type="text" name="vnd" id="vnd">
-          </p>
-          <table width="200">
-            <tr>
-              <td><label>
-                <input type="radio" name="currency" value="usd" id="currency_0">
-                USD</label></td>
-              <td><label>
-                <input type="radio" name="currency" value="eur" id="currency_1">
-                EUR</label></td>
-              <td><label>
-                <input type="radio" name="currency" value="jpy" id="currency_2">
-                JPY</label></td>
-            </tr>
-          </table>
+            <input class="form-control"type="text" name="vnd" id="vnd" autofocus>
+            
+            <div class="radio">
+                <label>
+                    <input type="radio" name="currency" value="usd" id="currency_0">
+                    USD
+                </label>
+            </div>
+            
+            <div class="radio">
+                <label>
+                    <input type="radio" name="currency" value="eur" id="currency_1">
+                    EUR
+                </label>
+            </div>
+            
+            <div class="radio">
+                <label>
+                    <input type="radio" name="currency" value="jpy" id="currency_2">
+                    JPY
+                </label>
+            </div>
+            
             <input type="submit" name="exchange" id="exchange" value="Exchange">
-        </form></td>
-        <td align="center"><table width="0" border="0">
-          <tr>
-            <th colspan="2" scope="col"><font color = "SlateBlue">Exchange Rate</font></th>
+        </form>
+        
+        <b>Exchange Rate</b>
+        <table width="250" border="0">
+            <tr>
+                <td>Currency</td>
+                <td>Rate</td>
             </tr>
-          <tr>
-            <td width="79" align="center">Currency</td>
-            <td width="80" align="center">Rate</td>
-          </tr>
-          <tr>
-            <td>USD</td>
-            <td>16,452</td>
-          </tr>
-          <tr>
-            <td>EUR</td>
-            <td>25,170.38</td>
-          </tr>
-          <tr>
-            <td>JPY</td>
-            <td>151.23</td>
-          </tr>
-        </table></td>
-      </tr>
-    </table></td>
-  </tr>
-</table>
-</div>
+            <tr>
+                <td>USD</td>
+                <td>16,452</td>
+            </tr>
+            <tr>
+                <td>EUR</td>
+                <td>25,170.38</td>
+            </tr>
+            <tr>
+                <td>JPY</td>
+                <td>151.23</td>
+            </tr>
+        </table>
     </body>
 </html>
