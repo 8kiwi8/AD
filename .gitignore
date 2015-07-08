@@ -1,13 +1,20 @@
-/Assignment 2/nbproject/private/
-/Assignment 2/build/
-/Assignment 2/dist/
-/Assignment 3/nbproject/private/
-/Assignment 3/build/
-/NavBar/nbproject/private/
-/NavBar/build/
+/Assignment_2/nbproject/private/
+/Assignment_2/build/
+/Assignment_2/dist/
+/Assignment_3/nbproject/private/
+/Assignment_3/build/
+/Assignment_3/dist/
 /Home/nbproject/private/
 /Home/build/
-/test/nbproject/private/
-/Assignment_3/dist/
 /Home/dist/
-/Assignment_2/dist/
+/FYPSystem/nbproject/private/
+/FYPSystem/build/
+/FYPSystem/dist/
+
+# Class Files #
+*.class
+
+# Package Files #
+*.jar
+*.war
+*.ear
