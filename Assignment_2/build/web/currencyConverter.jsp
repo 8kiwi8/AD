@@ -101,7 +101,6 @@
             <%  if (request.getParameter("exchange") != null) {
                     vnd = Double.parseDouble(request.getParameter("vnd"));
                     type = request.getParameter("currency");
-                    rate = 16452;
                     
                     if (type == "usd") {
                         rate = 16452;
