@@ -100,18 +100,15 @@
             <input value="Calculate" name="calculate" type="submit" class="btn-primary">
             <input id = "answer" type="text" disabled class = "btn btn-default"/> 
             </form>
-            
-            <%! String result = "";%>
+            <a href >   
             <% if (request.getParameter("Calculate") != null)
             {
                 double height = Double.parseDouble(request.getParameter("height"));
                 double weight = Double.parseDouble(request.getParameter("weight"));
                 double bmi = weight/(height*height);                
                
-                result += String.format("%.2f", bmi);
-                %>
-                <%= result %>
-                <%
+                String result = "";
+                result += String.format("%.2f", bmi);            
                 double kg = bmi;
                 String mass = "<p> You are ";
                 if (kg < 18.5)   
@@ -122,15 +119,14 @@
                     mass += " Overweight";
                 else
                     mass += "Obese"; 
-                %> 
-                <br><br>
-                <%= mass %>
-                <% } %>
+            }%>            
+                
                 <br>
                 <div class = "form-group">
                     <label for="bmi" style = "color:Coral;">Your BMI are :</label>
-                    <input type = "text" value = "<%= result %>"> 
+                    <input class = "form-control" disabled value = "<% if (request.getParameter("Calculate") != null) out.println(result); %>"> 
                 </div>
+                <% } %>
            </div>  
         </div>          
     </body>
