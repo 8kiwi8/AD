@@ -1,10 +1,18 @@
+<%-- 
+    Document   : currencyConverter
+    Created on : Jul 8, 2015, 10:22:56 AM
+    Author     : Akmal Irfan
+--%>
+
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
+
 <!DOCTYPE html>
 <html>
     <head>
         <title>Currency converter</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="stylesheet" href="bootstrap.min.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.5/css/bootstrap.min.css">
         
         <style type="text/css">
             body {
@@ -36,7 +44,7 @@
     </head>
     <body>
         <div id="container">
-            <form name="form1" action="/Assignment_2/CurrencyExchange">
+            <form method="POST">
                 <label for="vnd">VND:</label>
                 <input class="form-control" type="text" name="vnd" id="vnd" autofocus>
 
@@ -63,7 +71,7 @@
 
                 <input type="submit" name="exchange" id="exchange" value="Exchange">
             </form>
-
+            
             <b>Exchange Rate</b>
             
             <table>
@@ -84,6 +92,31 @@
                     <td>151.23</td>
                 </tr>
             </table>
+            
+            <%! private double vnd;
+                private double converted;
+                private String type;
+                private double rate;
+            %>
+            <%  if (request.getParameter("exchange") != null) {
+                    vnd = Double.parseDouble(request.getParameter("vnd"));
+                    type = request.getParameter("currency");
+                    
+                    if (type == "usd") {
+                        rate = 16452;
+                    } else if (type == "eur") {
+                        rate = 25170.38;
+                    } else if (type == "jpy") {
+                        rate = 151.23;
+                    }
+                    
+                    // Convert it
+                    converted = vnd / rate;
+                    
+                    // Display the output
+                    out.println("<p>" + vnd + "VND is equivalent to " + converted + "" + type.toUpperCase() + "</p>");
+                }
+            %>
         </div>
     </body>
 </html>
