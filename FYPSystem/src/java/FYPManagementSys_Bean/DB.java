@@ -30,9 +30,9 @@ public class DB{
       */
       
       ///*
-      db = "//localhost:3306/finalyearproject";  
+      db = "//localhost:3306/systemfyp";  
       user = "root";
-      pwd = "root";
+      pwd = "";
       //*/
       
       /*
