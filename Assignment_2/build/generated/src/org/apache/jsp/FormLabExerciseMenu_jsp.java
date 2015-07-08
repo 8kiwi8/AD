@@ -57,7 +57,9 @@ public final class FormLabExerciseMenu_jsp extends org.apache.jasper.runtime.Htt
       out.write("                <th style=\"padding:10px 20px\">Assignment 2 Function!!</th>\r\n");
       out.write("            </tr>\r\n");
       out.write("            <tr>\r\n");
-      out.write("                <td style=\"padding:5px 15px\"><a href=\"/Assignment_2/BMI_Calculator.html\">BMI Calculator</a></td>\r\n");
+      out.write("                <td style=\"padding:5px 15px\"><a href=\"");
+      out.write((java.lang.String) org.apache.jasper.runtime.PageContextImpl.evaluateExpression("${pageContext.request.contextPath}", java.lang.String.class, (PageContext)_jspx_page_context, null));
+      out.write("/BMI_Calculator.html\">BMI Calculator</a></td>\r\n");
       out.write("            </tr>\r\n");
       out.write("            <tr>\r\n");
       out.write("                <td style=\"padding:5px 15px\"><a href=\"/Assignment_2/currencyConverter.html\">Currency Calculator</a></td>\r\n");
