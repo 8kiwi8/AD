@@ -50,8 +50,7 @@
         <div id="container">
             <form method="POST">
                 <label for="vnd">VND:</label>
-                <input class="form-control" type="text" name="vnd" id="vnd" autofocus required>
-
+                <input class="form-control" type="text" name="vnd" id="vnd" autofocus require
                 <div class="radio">
                     <label>
                         <input type="radio" name="currency" value="usd" id="currency_0" required>
