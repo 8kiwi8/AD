@@ -45,7 +45,7 @@ public class CurrencyExchange extends HttpServlet {
                     rate = 25170.38;
                     break;
                 case "jpy" :
-                    rate = 15123;
+                    rate = 151.23;
                     break;
             }
             
