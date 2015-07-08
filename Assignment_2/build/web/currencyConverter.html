@@ -1,70 +1,85 @@
 <!DOCTYPE html>
-<!--
-To change this license header, choose License Headers in Project Properties.
-To change this template file, choose Tools | Templates
-and open the template in the editor.
--->
 <html>
     <head>
-        <title>TODO supply a title</title>
+        <title>Currency converter</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" href="bootstrap.min.css">
+        
+        <style type="text/css">
+            body {
+                background: #f0f0f0;
+                margin: auto;
+            }
+            form {
+                margin-bottom: 30px;
+            }
+            #container {
+                max-width: 340px;
+                margin: 50px auto;
+                background: white;
+                padding: 20px;
+                border-radius: 8px;
+            }
+            table {
+                width: 200px;
+                margin: 0 auto;
+            }
+            tr:nth-child(odd) {
+                background: #dfdfdf;
+            }
+        </style>
     </head>
     <body>
-        <div align = "center">
-        <table width="500" border="1"> 
-  <tr>
-    <th scope="col" bgcolor = "Wheat"><font color = "Tomato">CURRENCY EXCHANGE</font></th>
-  </tr>
-  <tr>
-    <td><table width="500" border="0">
-      <tr>
-        <td align="center"><form name="form1" action="./CurrencyExchange">
-          <p>
-            <label for="vnd">VND:</label>
-            <input type="text" name="vnd" id="vnd">
-          </p>
-          <table width="200">
-            <tr>
-              <td><label>
-                <input type="radio" name="currency" value="usd" id="currency_0">
-                USD</label></td>
-              <td><label>
-                <input type="radio" name="currency" value="eur" id="currency_1">
-                EUR</label></td>
-              <td><label>
-                <input type="radio" name="currency" value="jpy" id="currency_2">
-                JPY</label></td>
-            </tr>
-          </table>
-            <input type="submit" name="exchange" id="exchange" value="Exchange">
-        </form></td>
-        <td align="center"><table width="0" border="0">
-          <tr>
-            <th colspan="2" scope="col"><font color = "SlateBlue">Exchange Rate</font></th>
-            </tr>
-          <tr>
-            <td width="79" align="center">Currency</td>
-            <td width="80" align="center">Rate</td>
-          </tr>
-          <tr>
-            <td>USD</td>
-            <td>16,452</td>
-          </tr>
-          <tr>
-            <td>EUR</td>
-            <td>25,170.38</td>
-          </tr>
-          <tr>
-            <td>JPY</td>
-            <td>151.23</td>
-          </tr>
-        </table></td>
-      </tr>
-    </table></td>
-  </tr>
-</table>
-</div>
+        <div id="container">
+            <form name="form1" action="/Assignment_2/CurrencyExchange">
+                <label for="vnd">VND:</label>
+                <input class="form-control" type="text" name="vnd" id="vnd" autofocus>
+
+                <div class="radio">
+                    <label>
+                        <input type="radio" name="currency" value="usd" id="currency_0">
+                        USD
+                    </label>
+                </div>
+
+                <div class="radio">
+                    <label>
+                        <input type="radio" name="currency" value="eur" id="currency_1">
+                        EUR
+                    </label>
+                </div>
+
+                <div class="radio">
+                    <label>
+                        <input type="radio" name="currency" value="jpy" id="currency_2">
+                        JPY
+                    </label>
+                </div>
+
+                <input type="submit" name="exchange" id="exchange" value="Exchange">
+            </form>
+
+            <b>Exchange Rate</b>
+            
+            <table>
+                <tr>
+                    <td>Currency</td>
+                    <td>Rate</td>
+                </tr>
+                <tr>
+                    <td>USD</td>
+                    <td>16,452</td>
+                </tr>
+                <tr>
+                    <td>EUR</td>
+                    <td>25,170.38</td>
+                </tr>
+                <tr>
+                    <td>JPY</td>
+                    <td>151.23</td>
+                </tr>
+            </table>
+        </div>
     </body>
 </html>

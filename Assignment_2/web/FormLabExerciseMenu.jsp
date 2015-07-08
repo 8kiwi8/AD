@@ -18,19 +18,19 @@
                 <th style="padding:10px 20px">Assignment 2 Function!!</th>
             </tr>
             <tr>
-                <td style="padding:5px 15px"><a href="/Assignment_2/BMI_Calculator.html">BMI Calculator</a></td>
+                <td style="padding:5px 15px"><a href="${pageContext.request.contextPath}/BMI_Calculator.html">BMI Calculator</a></td>
             </tr>
             <tr>
-                <td style="padding:5px 15px"><a href="/Assignment_2/currencyConverter.html">Currency Calculator</a></td>
+                <td style="padding:5px 15px"><a href="${pageContext.request.contextPath}/currencyConverter.html">Currency Calculator</a></td>
             </tr>
             <tr>
-                <td style="padding:5px 15px"><a href="/Assignment_2/tuitionCalculator.html">Tuition Calculator</a></td>
+                <td style="padding:5px 15px"><a href="${pageContext.request.contextPath}/tuitionCalculator.html">Tuition Calculator</a></td>
             </tr>
             <tr>
-                <td style="padding:5px 15px"><a href="/Assignment_2/mark_converter.html">Mark Converter</a></td>
+                <td style="padding:5px 15px"><a href="${pageContext.request.contextPath}/mark_converter.html">Mark Converter</a></td>
             </tr>
             <tr>
-                <td style="padding:5px 15px"><a href="/Assignment_2/gradeCalculator.html">Grade Calculator</a></td>
+                <td style="padding:5px 15px"><a href="${pageContext.request.contextPath}/gradeCalculator.html">Grade Calculator</a></td>
             </tr>
         </table>
         </div>
