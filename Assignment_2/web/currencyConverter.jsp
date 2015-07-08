@@ -36,6 +36,10 @@
             tr:nth-child(odd) {
                 background: #dfdfdf;
             }
+            tr:nth-child(1) {
+                background: darkgray;
+                font-weight: bold;
+            }
             p {
                 padding: 10px 0;
                 font-weight: bold;
@@ -46,25 +50,25 @@
         <div id="container">
             <form method="POST">
                 <label for="vnd">VND:</label>
-                <input class="form-control" type="text" name="vnd" id="vnd" autofocus>
+                <input class="form-control" type="text" name="vnd" id="vnd" autofocus required>
 
                 <div class="radio">
                     <label>
-                        <input type="radio" name="currency" value="usd" id="currency_0">
+                        <input type="radio" name="currency" value="usd" id="currency_0" required>
                         USD
                     </label>
                 </div>
 
                 <div class="radio">
                     <label>
-                        <input type="radio" name="currency" value="eur" id="currency_1">
+                        <input type="radio" name="currency" value="eur" id="currency_1" required>
                         EUR
                     </label>
                 </div>
 
                 <div class="radio">
                     <label>
-                        <input type="radio" name="currency" value="jpy" id="currency_2">
+                        <input type="radio" name="currency" value="jpy" id="currency_2" required>
                         JPY
                     </label>
                 </div>
@@ -102,11 +106,11 @@
                     vnd = Double.parseDouble(request.getParameter("vnd"));
                     type = request.getParameter("currency");
                     
-                    if (type == "usd") {
+                    if (type.equals("usd")) {
                         rate = 16452;
-                    } else if (type == "eur") {
+                    } else if (type.equals("eur")) {
                         rate = 25170.38;
-                    } else if (type == "jpy") {
+                    } else if (type.equals("jpy")) {
                         rate = 151.23;
                     }
                     
