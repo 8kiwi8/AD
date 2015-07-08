@@ -100,8 +100,8 @@
             <input value="Calculate" name="calculate" type="submit" class="btn-primary">
             <input id = "answer" type="text" disabled class = "btn btn-default"/> 
             </form>
-            <a href >   
-            <% if (request.getParameter("Calculate") != null)
+            <a href = "BMI Calculator.jsp"> RESET </a>   
+            <% if (request.getParameter("calculate") != null)
             {
                 double height = Double.parseDouble(request.getParameter("height"));
                 double weight = Double.parseDouble(request.getParameter("weight"));
@@ -119,14 +119,17 @@
                     mass += " Overweight";
                 else
                     mass += "Obese"; 
-            }%>            
-                
+            %>                            
                 <br>
                 <div class = "form-group">
-                    <label for="bmi" style = "color:Coral;">Your BMI are :</label>
-                    <input class = "form-control" disabled value = "<% if (request.getParameter("Calculate") != null) out.println(result); %>"> 
+                    <label for="result" style = "color:Coral;">Your BMI are :</label>
+                    <p><%= result %></p>                    
                 </div>
-                <% } %>
+                <div class = "form-group">
+                    <label for="result" style = "color:Coral;">Your are :</label>
+                    <p><%= mass %></p> 
+                </div>
+            <% } %>
            </div>  
         </div>          
     </body>
