@@ -4,6 +4,15 @@
     Author     : Ahmad Rafiuddin
 --%>
 
+<%@page import="java.io.IOException" %>
+<%@page import="java.io.PrintWriter" %>
+<%@page import="javax.servlet.ServletException" %>
+<%@page import="javax.servlet.annotation.WebServlet" %>
+<%@page import="javax.servlet.http.HttpServlet" %>
+<%@page import="javax.servlet.http.HttpServletRequest" %>
+<%@page import="javax.servlet.http.HttpServletResponse" %>
+
+
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -26,11 +35,12 @@
                 
             }
         </style>
+        
     </head>
     <body>
         <h1>TUITION CALCULATOR</h1>
         <div id="container">
-            <form action="/Assignment_2/TuitionCalculator" role="form">
+            <form action="" role="form">
                 <div class="form-group">
                     <label for="numAAS">Number of AAS course(s):</label>
                     <input class="form-control" name="numAAS" id="numAAS"> ($120)
@@ -52,6 +62,39 @@
                 </div>
                 
                 <input value="Calculate" name="calculate" type="submit" class="btn btn-default">
+                <a href = "tuitionCalculator.jsp" class="btn btn-default">Reset</a>
+                
+                <%
+                    double totalCost = 0;
+                    
+                    if (request.getParameter("calculate") != null) {
+                        String studentSel = request.getParameter("studentType");
+
+                        int numOfAASCourses = Integer.parseInt(request.getParameter("numAAS")); // $120 each
+                        int numOfESLCourses = Integer.parseInt(request.getParameter("numESL")); // $75 each
+
+                        totalCost = (120 * numOfAASCourses) + (75 * numOfESLCourses);
+
+                        if (studentSel.equals("normal")) {
+                            //asd
+                        } else if (studentSel.equals("tenDollarDiscount")) {
+                            totalCost = totalCost - 10;
+                        } else if (studentSel.equals("twentyPercentDiscount")) {
+                            totalCost = totalCost * 0.8;
+                        } else if (studentSel.equals("fiftyPercentDiscount")) {
+                            totalCost = totalCost * 0.5;
+                        } else {
+                            out.println("Error: Invalid selection!");
+                        }
+                    }
+                %>
+                        <br>
+                        <br>
+                        <div class="form-group">
+                            <label for="numAAS">Total cost:</label>
+                            <input class="form-control" name="numAAS" id="numAAS" disabled value="<% if (request.getParameter("calculate") != null) out.println(totalCost); %>">
+                        </div>
+
             </form>
         </div>
     </body>
