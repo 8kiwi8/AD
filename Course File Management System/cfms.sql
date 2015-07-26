@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 26, 2015 at 08:52 PM
+-- Generation Time: Jul 26, 2015 at 08:12 PM
 -- Server version: 5.6.24
 -- PHP Version: 5.6.8
 
@@ -126,7 +126,15 @@ CREATE TABLE IF NOT EXISTS `userlogin` (
   `username` varchar(255) NOT NULL,
   `password` varchar(255) NOT NULL,
   `usertype` int(1) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `userlogin`
+--
+
+INSERT INTO `userlogin` (`userID`, `username`, `password`, `usertype`) VALUES
+(1, 'yxng2', '12345678', 1),
+(2, 'admin', '12345', 0);
 
 --
 -- Indexes for dumped tables
@@ -208,7 +216,7 @@ ALTER TABLE `semester`
 -- AUTO_INCREMENT for table `userlogin`
 --
 ALTER TABLE `userlogin`
-  MODIFY `userID` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `userID` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
 --
 -- Constraints for dumped tables
 --
