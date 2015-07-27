@@ -15,9 +15,11 @@
 	
 	if (rs.next())
 	{
-		//session.setAttribute("username", username);
+		session.setAttribute("username", username);
 		out.println("Login success");
-		//response.sendRedirect("success.jsp");
+		out.println("welcome " + username);
+        out.println("<a href='logout.jsp'>Log out</a>");
+		response.sendRedirect("login_success.jsp");
 	}
 	else
 	{
