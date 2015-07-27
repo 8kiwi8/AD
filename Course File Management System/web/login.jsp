@@ -16,7 +16,7 @@
 	if (rs.next())
 	{
 		//session.setAttribute("username", username);
-		out.println("Login success");
+		out.println("Login success <a href='index.jsp'> Go back </a>");
 		//response.sendRedirect("success.jsp");
 	}
 	else

@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.3.11
+-- version 4.4.12
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 26, 2015 at 08:12 PM
--- Server version: 5.6.24
--- PHP Version: 5.6.8
+-- Generation Time: Jul 27, 2015 at 09:33 AM
+-- Server version: 5.6.25
+-- PHP Version: 5.6.11
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -14,7 +14,7 @@ SET time_zone = "+00:00";
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8 */;
+/*!40101 SET NAMES utf8mb4 */;
 
 --
 -- Database: `cfms`
@@ -125,16 +125,17 @@ CREATE TABLE IF NOT EXISTS `userlogin` (
   `userID` int(11) NOT NULL,
   `username` varchar(255) NOT NULL,
   `password` varchar(255) NOT NULL,
-  `usertype` int(1) NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+  `usertype` varchar(30) NOT NULL
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `userlogin`
 --
 
 INSERT INTO `userlogin` (`userID`, `username`, `password`, `usertype`) VALUES
-(1, 'yxng2', '12345678', 1),
-(2, 'admin', '12345', 0);
+(1, 'yxng2', '12345678', 'lecturer'),
+(2, 'admin', '12345', 'root'),
+(3, 'arafiuddin5', 'abc', 'admin');
 
 --
 -- Indexes for dumped tables
@@ -168,7 +169,10 @@ ALTER TABLE `lecturer`
 -- Indexes for table `section`
 --
 ALTER TABLE `section`
-  ADD PRIMARY KEY (`sectionID`), ADD UNIQUE KEY `userID` (`userID`), ADD KEY `filesID` (`filesID`), ADD KEY `courseID` (`courseID`);
+  ADD PRIMARY KEY (`sectionID`),
+  ADD UNIQUE KEY `userID` (`userID`),
+  ADD KEY `filesID` (`filesID`),
+  ADD KEY `courseID` (`courseID`);
 
 --
 -- Indexes for table `semester`
@@ -180,7 +184,9 @@ ALTER TABLE `semester`
 -- Indexes for table `semester_course`
 --
 ALTER TABLE `semester_course`
-  ADD PRIMARY KEY (`semesterID`,`courseID`), ADD KEY `semesterID` (`semesterID`), ADD KEY `courseID` (`courseID`);
+  ADD PRIMARY KEY (`semesterID`,`courseID`),
+  ADD KEY `semesterID` (`semesterID`),
+  ADD KEY `courseID` (`courseID`);
 
 --
 -- Indexes for table `userlogin`
@@ -216,7 +222,7 @@ ALTER TABLE `semester`
 -- AUTO_INCREMENT for table `userlogin`
 --
 ALTER TABLE `userlogin`
-  MODIFY `userID` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
+  MODIFY `userID` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=4;
 --
 -- Constraints for dumped tables
 --
@@ -225,22 +231,22 @@ ALTER TABLE `userlogin`
 -- Constraints for table `administrator`
 --
 ALTER TABLE `administrator`
-ADD CONSTRAINT `administrator_ibfk_1` FOREIGN KEY (`userID`) REFERENCES `userlogin` (`userID`);
+  ADD CONSTRAINT `administrator_ibfk_1` FOREIGN KEY (`userID`) REFERENCES `userlogin` (`userID`);
 
 --
 -- Constraints for table `section`
 --
 ALTER TABLE `section`
-ADD CONSTRAINT `section_ibfk_1` FOREIGN KEY (`filesID`) REFERENCES `files` (`filesID`),
-ADD CONSTRAINT `section_ibfk_2` FOREIGN KEY (`userID`) REFERENCES `lecturer` (`userID`),
-ADD CONSTRAINT `section_ibfk_3` FOREIGN KEY (`courseID`) REFERENCES `course` (`courseID`);
+  ADD CONSTRAINT `section_ibfk_1` FOREIGN KEY (`filesID`) REFERENCES `files` (`filesID`),
+  ADD CONSTRAINT `section_ibfk_2` FOREIGN KEY (`userID`) REFERENCES `lecturer` (`userID`),
+  ADD CONSTRAINT `section_ibfk_3` FOREIGN KEY (`courseID`) REFERENCES `course` (`courseID`);
 
 --
 -- Constraints for table `semester_course`
 --
 ALTER TABLE `semester_course`
-ADD CONSTRAINT `semester_course_ibfk_1` FOREIGN KEY (`courseID`) REFERENCES `course` (`courseID`),
-ADD CONSTRAINT `semester_course_ibfk_2` FOREIGN KEY (`semesterID`) REFERENCES `semester` (`semesterID`);
+  ADD CONSTRAINT `semester_course_ibfk_1` FOREIGN KEY (`courseID`) REFERENCES `course` (`courseID`),
+  ADD CONSTRAINT `semester_course_ibfk_2` FOREIGN KEY (`semesterID`) REFERENCES `semester` (`semesterID`);
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
