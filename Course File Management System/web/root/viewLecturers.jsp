@@ -16,10 +16,10 @@
         <nav class="navbar navbar-default">
             <div class="container-fluid">
                 <ul class="nav navbar-nav">
-                    <li class="active"><a href="#">Home</a></li>
-                    <li><a href="viewLecturers.html">Lecturers</a></li>
-                    <li><a href="viewCourses.html">Courses</a></li>
-                    <li><a href="viewSemesters.html">Semesters</a></li>
+                    <li><a href="rootHome.jsp">Home</a></li>
+                    <li class="active"><a href="#">Lecturers</a></li>
+                    <li><a href="viewCourses.jsp">Courses</a></li>
+                    <li><a href="viewSemesters.jsp">Semesters</a></li>
                     
                 </ul>
                 
@@ -30,15 +30,7 @@
             
         </nav>
         
-        <div class="col-xs-8 panel panel-default">
-            <h1>Test</h1>
-            <p>The quick brown fox jumps over the lazy dog</p>
-        </div>
-              
-        <div class="col-xs-4 panel panel-default">
-            <h1>Test 2</h1>
-            <p>The quick brown fox jumps over the lazy dog</p>
-        </div>
+      
         
     </div> <!-- /.container -->
 </body>

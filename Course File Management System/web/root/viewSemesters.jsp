@@ -16,10 +16,10 @@
         <nav class="navbar navbar-default">
             <div class="container-fluid">
                 <ul class="nav navbar-nav">
-                    <li><a href="adminHome.html">Home</a></li>
-                    <li class="active"><a href="#">Lecturers</a></li>
-                    <li><a href="viewCourses.html">Courses</a></li>
-                    <li><a href="viewSemesters.html">Semesters</a></li>
+                    <li><a href="rootHome.jsp">Home</a></li>
+                    <li><a href="viewLecturers.jsp">Lecturers</a></li>
+                    <li><a href="viewCourses.jsp">Courses</a></li>
+                    <li class="active"><a href="#">Semesters</a></li>
                     
                 </ul>
                 
