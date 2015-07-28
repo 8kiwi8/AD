@@ -24,7 +24,7 @@
                 </ul>
                 
                 <ul class="nav navbar-nav navbar-right">
-                    <li><a href="logOut.html">Log Out</a></li>
+                    <li><a href="/logout.jsp">Log Out</a></li>
                 </ul>
             </div> <!-- /.container-fluid -->
             
