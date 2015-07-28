@@ -18,7 +18,7 @@
                 <ul class="nav navbar-nav">
                     <li><a href="lecturerHome.jsp">Home</a></li>
                     <li class="active"><a href="#">Courses</a></li>
-                    <li><a href="viewUploads.html">Uploads</a></li>
+                    <li><a href="viewUploads.jsp">Uploads</a></li>
                     
                 </ul>
                 

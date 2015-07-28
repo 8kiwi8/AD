@@ -17,9 +17,9 @@
             <div class="container-fluid">
                 <ul class="nav navbar-nav">
                     <li class="active"><a href="#">Home</a></li>
-                    <li><a href="viewLecturers.html">Lecturers</a></li>
-                    <li><a href="viewCourses.html">Courses</a></li>
-                    <li><a href="viewSemesters.html">Semesters</a></li>
+                    <li><a href="viewLecturers.jsp">Lecturers</a></li>
+                    <li><a href="viewCourses.jsp">Courses</a></li>
+                    <li><a href="viewSemesters.jsp">Semesters</a></li>
                     
                 </ul>
                 

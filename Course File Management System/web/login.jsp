@@ -23,25 +23,11 @@
 		//response.sendRedirect("success.jsp");
                 
                 if (rs.getString("usertype").equals("root")) {
-%>
-
-                    <jsp:include page="root/rootHome.jsp"/> <!-- ADMIN -->
-
-<%                    
+                    response.sendRedirect("root/rootHome.jsp"); // ROOT
                 } else if (rs.getString("usertype").equals("admin")) {
-                    
-%>
-
-                    <jsp:include page="admin/adminHome.jsp"/> <!-- PENTADBIR -->
-                    
-<%
+                    response.sendRedirect("admin/adminHome.jsp"); // ADMIN/PENTADBIR
                 } else if (rs.getString("usertype").equals("lecturer")) {
-                    
-%>
-
-                    <jsp:include page="lecturer/lecturerHome.jsp"/> <!-- LECTURER -->
-
-<%
+                    response.sendRedirect("lecturer/lecturerHome.jsp"); // LECTURER
                 }
 	}
 	else
