@@ -30,7 +30,7 @@
         
         <div class="col-xs-8 panel panel-default">
             <h1>Test</h1>
-            <p>You are logged in as: Lecturer</p>
+            <p>You are logged in as: Admin/pentadbir</p>
         </div>
               
         <div class="col-xs-4 panel panel-default">

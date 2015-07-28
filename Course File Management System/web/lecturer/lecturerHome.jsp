@@ -23,7 +23,7 @@
                 </ul>
                 
                 <ul class="nav navbar-nav navbar-right">
-                    <li><a href="../logOut.jsp">Log Out</a></li>
+                    <li><a href="./logOut.jsp">Log Out</a></li>
                 </ul>
             </div> <!-- /.container-fluid -->
             
