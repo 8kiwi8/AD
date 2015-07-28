@@ -37,7 +37,7 @@
                 <tr>
                     <th>Year</th>
                     <th>Semester</th>
-                    <th><button type="submit" class="btn btn-primary btn-xs">Add Semester</button></th>
+                    <th><a href="addSemester.jsp"><button type="submit" class="btn btn-primary btn-xs">Add Semester</button></a></th>
                 </tr>
             </thread>
             <tbody>
