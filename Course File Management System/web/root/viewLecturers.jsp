@@ -1,3 +1,5 @@
+<%@ page import="java.sql.*" %>
+
 <!doctype html>
 <html lang="en">
 <head>
@@ -6,6 +8,17 @@
     <title>Login</title>
 </head>
 <body>
+
+<%Class.forName("com.mysql.jdbc.Driver");
+    Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/cfms", "root", "");
+
+    conn.setAutoCommit(false);
+    
+    Statement st= conn.createStatement();
+    ResultSet rs;
+
+    rs = st.executeQuery("SELECT * FROM lecturer");
+%>
     <div class="container">
     
         <div class="jumbotron">
@@ -30,7 +43,40 @@
             
         </nav>
         
-      
+      <table class="table">
+        <caption>List of Lecturers</caption>
+        <thread>
+            <tr>
+                <th>UserID</th>
+                <th>Name</th>
+                <th>Email Address</th>
+                <th>Phone Number</th>
+                <th>Department</th>
+                <th>Status</th>
+            </tr>
+        </thread>
+        <tbody>
+        <%while(rs.next()){ %>
+            <tr>
+                <td><%=rs.getString(1) %></td>
+                <td><%=rs.getString(2) %></td>
+                <td><%=rs.getString(3) %></td>
+                <td><%=rs.getString(4) %></td>
+                <td><%=rs.getString(5) %></td>
+                
+                <td><% if(rs.getString(6).equals("1"))
+                        {
+                            out.println("Active");
+                        }else
+                            out.println("Inactive");%>
+
+                </td>
+
+
+            </tr>
+        <% } %>
+        </tbody>
+      </table>
         
     </div> <!-- /.container -->
 </body>
