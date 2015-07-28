@@ -16,10 +16,9 @@
         <nav class="navbar navbar-default">
             <div class="container-fluid">
                 <ul class="nav navbar-nav">
-                    <li><a href="adminHome.jsp.html">Home</a></li>
-                    <li class="active"><a href="#">Lecturers</a></li>
-                    <li><a href="viewCourses.html">Courses</a></li>
-                    <li><a href="viewSemesters.html">Semesters</a></li>
+                    <li><a href="lecturerHome.jsp">Home</a></li>
+                    <li class="active"><a href="#">Courses</a></li>
+                    <li><a href="viewUploads.html">Uploads</a></li>
                     
                 </ul>
                 

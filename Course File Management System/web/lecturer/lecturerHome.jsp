@@ -17,7 +17,8 @@
             <div class="container-fluid">
                 <ul class="nav navbar-nav">
                     <li class="active"><a href="#">Home</a></li>
-                    <li><a href="viewReports.html">Reports</a></li>
+                    <li><a href="viewCourses.html">Courses</a></li>
+                    <li><a href="viewUploads.html">Uploads</a></li>
                     
                 </ul>
                 

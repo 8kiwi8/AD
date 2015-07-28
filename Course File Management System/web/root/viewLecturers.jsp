@@ -16,27 +16,21 @@
         <nav class="navbar navbar-default">
             <div class="container-fluid">
                 <ul class="nav navbar-nav">
-                    <li class="active"><a href="#">Home</a></li>
-                    <li><a href="viewReports.html">Reports</a></li>
+                    <li><a href="rootHome.jsp.html">Home</a></li>
+                    <li class="active"><a href="#">Lecturers</a></li>
+                    <li><a href="viewCourses.html">Courses</a></li>
+                    <li><a href="viewSemesters.html">Semesters</a></li>
                     
                 </ul>
                 
                 <ul class="nav navbar-nav navbar-right">
-                    <li><a href="../logOut.jsp">Log Out</a></li>
+                    <li><a href="logOut.html">Log Out</a></li>
                 </ul>
             </div> <!-- /.container-fluid -->
             
         </nav>
         
-        <div class="col-xs-8 panel panel-default">
-            <h1>Test</h1>
-            <p>You are logged in as: Lecturer</p>
-        </div>
-              
-        <div class="col-xs-4 panel panel-default">
-            <h1>Test 2</h1>
-            <p>The quick brown fox jumps over the lazy dog</p>
-        </div>
+      
         
     </div> <!-- /.container -->
 </body>
