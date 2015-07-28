@@ -17,6 +17,7 @@
             <div class="container-fluid">
                 <ul class="nav navbar-nav">
                     <li class="active"><a href="#">Home</a></li>
+                    <li><a href="addSemesters.jsp">New Semester</a></li>
                     <li><a href="viewLecturers.jsp">Lecturers</a></li>
                     <li><a href="viewCourses.jsp">Courses</a></li>
                     <li><a href="viewSemesters.jsp">Semesters</a></li>
@@ -24,7 +25,7 @@
                 </ul>
                 
                 <ul class="nav navbar-nav navbar-right">
-                    <li><a href="/logout.jsp">Log Out</a></li>
+                    <li><a href="/Course_File_Management_System/logout.jsp">Log Out</a></li>
                 </ul>
             </div> <!-- /.container-fluid -->
             
