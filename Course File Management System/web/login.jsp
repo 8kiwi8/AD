@@ -8,19 +8,16 @@
 
 	conn.setAutoCommit(false);
 	
-	Statement st = conn.createStatement();
+	Statement st= conn.createStatement();
 	ResultSet rs;
 
 	rs = st.executeQuery("SELECT * FROM userlogin WHERE username='" + username + "' AND password = '" + password + "'");
 	
 	if (rs.next())
 	{
-		//session.setAttribute("username", username);
-		out.println("Login success <a href='index.jsp'> Go back </a>");
-                out.println(username);
-                out.println(password);
-                out.println(rs.getString("usertype"));
-		//response.sendRedirect("success.jsp");
+		session.setAttribute("username", username);
+        out.println(rs.getString("usertype"));
+		//response.sendRedirect("login_success.jsp");
                 
                 if (rs.getString("usertype").equals("root")) {
                     response.sendRedirect("root/rootHome.jsp"); // ROOT
