@@ -8,9 +8,12 @@
 <!doctype html>
 <html lang="en">
 <head>
-    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="<%=request.getContextPath()%>/css/auto-complete.css">
+    <link rel="stylesheet" href="<%=request.getContextPath()%>/css/bootstrap.min.css">
     <meta charset="UTF-8">
     <title>Semesters</title>
+    <script type="text/javascript" src="<%=request.getContextPath()%>/javascript/jquery-2.1.4.min.js"></script>
+    <script type="text/javascript" src="<%=request.getContextPath()%>/javascript/jquery-ui-1.9.2.custom.min.js"></script>
     <script type="text/javascript">
         function addRowToTable()
         {
@@ -62,6 +65,13 @@
             var lastRow = tbl.rows.length;
             if (lastRow > 2) tbl.deleteRow(lastRow - 1);
         }
+    </script>
+    <script>
+        jQuery(function(){
+        $("#course").autocomplete( {
+            source:"listCourse.jsp"
+            });
+        });
     </script>
 </head>
 <body>
@@ -116,13 +126,9 @@
             <tbody>
                 <tr>
                     <td>
-                        <select class="form-control" id="course">
-                            <option>Object Oriented Programming</option>
-                            <option>Software Quality Assurance</option>
-                            <option>Probability</option>
-                            <option>Academic English</option>
-                            <option>Application Development</option>
-                        </select>
+                        <div >
+                            <input class="form-control" id="course">
+                        </div>
                     </td>
                     <td>
                         <select class="form-control" id="lecturer">

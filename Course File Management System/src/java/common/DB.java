@@ -14,6 +14,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Properties;
 
 
@@ -26,43 +27,59 @@ public class DB {
     private static Statement statement;
     private static ResultSet resultSet;
 
-    public static Connection getConnection() throws SQLException {
-        if (connection != null)
-            return connection;
-        else {
-            try {
-                Properties prop = new Properties();
-                InputStream inputStream = DB.class.getClassLoader().getResourceAsStream("/db.properties");
-                System.out.println(inputStream);
-                prop.load(inputStream);
-                String driver = prop.getProperty("driver");
-                String url = prop.getProperty("url");
-                String user = prop.getProperty("user");
-                String password = prop.getProperty("password");
-                Class.forName(driver);
-                connection = DriverManager.getConnection(url, user, password);
-            } catch (ClassNotFoundException e) {
-                e.printStackTrace();
-            } catch (SQLException e) {
-                e.printStackTrace();
-            } catch (FileNotFoundException e) {
-                e.printStackTrace();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+    public static Connection getConnection() {
+        try {
+            Properties prop = new Properties();
+            InputStream inputStream = DB.class.getClassLoader().getResourceAsStream("/db.properties");
+            System.out.println(inputStream);
+            prop.load(inputStream);
+            String driver = prop.getProperty("driver");
+            String url = prop.getProperty("url");
+            String user = prop.getProperty("user");
+            String password = prop.getProperty("password");
+            Class.forName(driver);
+            connection = DriverManager.getConnection(url, user, password);
             connection.setAutoCommit(false);
-            return connection;
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
+        return connection;
     }
     
-    public static ResultSet query(String query) throws SQLException{
-        Connection conn = DB.getConnection();
-        statement = conn.createStatement();
-        resultSet = statement.executeQuery(query);
+    public static ResultSet query(String query) {
+        try {
+            Connection conn = DB.getConnection();
+            statement = conn.createStatement();
+            resultSet = statement.executeQuery(query);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
         return resultSet;
     }
     
-    public String getDataAt(int row, String columnName){
+    public static List queryLike(String table, String col, String like) {
+        String query = "Select " + col + " from " + table + " where " + col + " like \"%" + like + "%\"";
+        System.out.println(query);
+        DB.query(query);
+        List li = new ArrayList();
+        try {
+            while(resultSet.next())
+            {
+                li.add(resultSet.getString(col));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return li;
+    }
+    
+    public static String getDataAt(int row, String columnName){
         try{
                 resultSet.absolute(row+1);
 
@@ -75,11 +92,12 @@ public class DB {
         }
     }
     
-    public void close(){
+    public static void close(){
         try{
                 statement.close();
                 connection.commit();
                 connection.close();
+                resultSet.close();
         }
         catch(SQLException sqlEx){
                 System.out.println(sqlEx.getMessage());
