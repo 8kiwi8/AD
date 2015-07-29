@@ -8,7 +8,7 @@
 	if (rs.next())
 	{
 		session.setAttribute("username", username);
-        out.println(rs.getString("usertype"));
+                out.println(rs.getString("usertype"));
 		//response.sendRedirect("login_success.jsp");
                 
                 if (rs.getString("usertype").equals("root")) {

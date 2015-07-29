@@ -1,9 +1,19 @@
+<%@ page import ="java.sql.*, common.DB" %>
+<%
+    ResultSet rs = DB.query("SELECT * FROM userlogin");
+    int courseCount = 0; // Count for courses
+    int lecturerCount = 0;
+    
+%>
 <!doctype html>
 <html lang="en">
 <head>
-    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="<%=request.getContextPath()%>/css/auto-complete.css">
+    <link rel="stylesheet" href="<%=request.getContextPath()%>/css/bootstrap.min.css">
     <meta charset="UTF-8">
-    <title>Login</title>
+    <title>Semesters</title>
+    <script type="text/javascript" src="<%=request.getContextPath()%>/javascript/jquery-2.1.4.min.js"></script>
+    <script type="text/javascript" src="<%=request.getContextPath()%>/javascript/jquery-ui-1.9.2.custom.min.js"></script>
     <script type="text/javascript">
         function addRowToTable()
         {
@@ -38,14 +48,14 @@
             
             // right cell
             var cellRight = row.insertCell(2);
-            var lecturerSel = document.createElement('select');
-            lecturerSel.name = 'sectionForRow' + iteration;
-            lecturerSel.className = "form-control"; // Bootstrapify
-            lecturerSel.options[0] = new Option('01', 'value0');
-            lecturerSel.options[1] = new Option('02', 'value1');
-            lecturerSel.options[2] = new Option('03', 'value1');
-            lecturerSel.options[3] = new Option('04', 'value1');
-            lecturerSel.options[4] = new Option('05', 'value1');
+            var sectionSel = document.createElement('select');
+            sectionSel.name = 'sectionForRow' + iteration;
+            sectionSel.className = "form-control"; // Bootstrapify
+            sectionSel.options[0] = new Option('01', 'value0');
+            sectionSel.options[1] = new Option('02', 'value1');
+            sectionSel.options[2] = new Option('03', 'value1');
+            sectionSel.options[3] = new Option('04', 'value1');
+            sectionSel.options[4] = new Option('05', 'value1');
             cellRight.appendChild(lecturerSel);
         }
         
@@ -55,6 +65,13 @@
             var lastRow = tbl.rows.length;
             if (lastRow > 2) tbl.deleteRow(lastRow - 1);
         }
+    </script>
+    <script>
+        jQuery(function(){
+        $("#course").autocomplete( {
+            source:"listCourse.jsp"
+            });
+        });
     </script>
 </head>
 <body>
@@ -109,13 +126,9 @@
             <tbody>
                 <tr>
                     <td>
-                        <select class="form-control" id="course">
-                            <option>Object Oriented Programming</option>
-                            <option>Software Quality Assurance</option>
-                            <option>Probability</option>
-                            <option>Academic English</option>
-                            <option>Application Development</option>
-                        </select>
+                        <div >
+                            <input class="form-control" id="course">
+                        </div>
                     </td>
                     <td>
                         <select class="form-control" id="lecturer">
