@@ -1,17 +1,9 @@
-<%@ page import ="java.sql.*" %>
+<%@ page import ="java.sql.*, common.DB" %>
 <%
 	String username = request.getParameter("username");
 	String password = request.getParameter("inputPassword");
 
-	Class.forName("com.mysql.jdbc.Driver");
-	Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/cfms", "root", "");
-
-	conn.setAutoCommit(false);
-	
-	Statement st= conn.createStatement();
-	ResultSet rs;
-
-	rs = st.executeQuery("SELECT * FROM userlogin WHERE username='" + username + "' AND password = '" + password + "'");
+	ResultSet rs = DB.query("SELECT * FROM userlogin WHERE username='" + username + "' AND password = '" + password + "'");
 	
 	if (rs.next())
 	{
