@@ -28,6 +28,10 @@
     .logout {
       float: right;
     }
+    .panel {
+        margin: 0 auto;
+        max-width: 800px;
+    }
   </style>
 </head>
 <body>
@@ -59,52 +63,58 @@
     
     <input class="btn btn-primary" type="submit" value="Submit">
     
-    <div class="panel panel-default">
-      <table class="table">
-        <thead>
-          <tr class="pertama">
-            <th>Course</th>
-            <th>Section</th>
-          </tr>
-        </thead>
-        
-        <tbody>
-          <tr>
-            <td>OOP</td>
-            <td>
-              <select id="OOPsec" class="form-control" name="OOPsec">
-                <option value="Invalid selection">Semester</option>
-                <option value="1">1</option>
-                <option value="2">2</option>
-                <option value="3">3</option>
-              </select>
-             </td>
-          </tr>
-          <tr>
-            <td>DB</td>
-            <td>
-              <select id="DBsec" class="form-control" name="DBsec">
-                <option value="Invalid selection">Semester</option>
-                <option value="1">1</option>
-                <option value="2">2</option>
-                <option value="3">3</option>
-              </select>
-            </td>
-          </tr>
-          <tr>
-            <td>COA</td>
-            <td>
-              <select id="COAsec" class="form-control" name="COAsec">
-                <option value="Invalid selection">Semester</option>
-                <option value="1">1</option>
-                <option value="2">2</option>
-                <option value="3">3</option>
-              </select>
-            </td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
+    
+  </div>
+  
+  <div class="panel panel-default">
+    <table class="table">
+      <thead>
+        <tr class="pertama">
+          <th>Course</th>
+          <th>Reports</th>
+          <th>Sectional reports</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <tr>
+          <td>OOP</td>
+          <td><a href="#">View report</a></td>
+          <td>
+            <select id="OOPsec" class="form-control" name="OOPsec">
+              <option value="Invalid selection">Choose section</option>
+              <option value="1">1</option>
+              <option value="2">2</option>
+              <option value="3">3</option>
+            </select>
+           </td>
+        </tr>
+        <tr>
+          <td>DB</td>
+          <td><a href="#">View report</a></td>
+          <td>
+            <select id="DBsec" class="form-control" name="DBsec">
+              <option value="Invalid selection">Choose section</option>
+              <option value="1">1</option>
+              <option value="2">2</option>
+              <option value="3">3</option>
+            </select>
+          </td>
+        </tr>
+        <tr>
+          <td>COA</td>
+          <td><a href="#">View report</a></td>
+          <td>
+            <select id="COAsec" class="form-control" name="COAsec">
+              <option value="Invalid selection">Choose section</option>
+              <option value="1">1</option>
+              <option value="2">2</option>
+              <option value="3">3</option>
+            </select>
+          </td>
+        </tr>
+      </tbody>
+    </table>
   </div>
 </body>
 </html>
