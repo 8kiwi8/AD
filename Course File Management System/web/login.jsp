@@ -3,7 +3,7 @@
 	String username = request.getParameter("username");
 	String password = request.getParameter("inputPassword");
 
-	ResultSet rs = DB.query("SELECT * FROM userlogin WHERE username='" + username + "' AND password = '" + password + "'");
+	ResultSet rs = DB.query("SELECT * FROM user WHERE username='" + username + "' AND password = '" + password + "'");
 	
 	if (rs.next())
 	{
