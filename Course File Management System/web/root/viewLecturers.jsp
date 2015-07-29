@@ -1,4 +1,4 @@
-<%@ page import="java.sql.*" %>
+<%@ page import ="java.sql.*, common.DB" %>
 
 <!doctype html>
 <html lang="en">
@@ -9,15 +9,8 @@
 </head>
 <body>
 
-<%Class.forName("com.mysql.jdbc.Driver");
-    Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/cfms", "root", "");
-
-    conn.setAutoCommit(false);
-    
-    Statement st= conn.createStatement();
-    ResultSet rs;
-
-    rs = st.executeQuery("SELECT * FROM lecturer");
+<%
+    ResultSet rs = DB.executeQuery("SELECT * FROM lecturer");
 %>
     <div class="container">
     
