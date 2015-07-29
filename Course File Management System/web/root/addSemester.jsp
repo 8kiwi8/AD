@@ -1,9 +1,16 @@
+<%@ page import ="java.sql.*, common.DB" %>
+<%
+    ResultSet rs = DB.query("SELECT * FROM userlogin");
+    int courseCount = 0; // Count for courses
+    int lecturerCount = 0;
+    
+%>
 <!doctype html>
 <html lang="en">
 <head>
     <link rel="stylesheet" href="css/bootstrap.min.css">
     <meta charset="UTF-8">
-    <title>Login</title>
+    <title>Semesters</title>
     <script type="text/javascript">
         function addRowToTable()
         {
@@ -38,14 +45,14 @@
             
             // right cell
             var cellRight = row.insertCell(2);
-            var lecturerSel = document.createElement('select');
-            lecturerSel.name = 'sectionForRow' + iteration;
-            lecturerSel.className = "form-control"; // Bootstrapify
-            lecturerSel.options[0] = new Option('01', 'value0');
-            lecturerSel.options[1] = new Option('02', 'value1');
-            lecturerSel.options[2] = new Option('03', 'value1');
-            lecturerSel.options[3] = new Option('04', 'value1');
-            lecturerSel.options[4] = new Option('05', 'value1');
+            var sectionSel = document.createElement('select');
+            sectionSel.name = 'sectionForRow' + iteration;
+            sectionSel.className = "form-control"; // Bootstrapify
+            sectionSel.options[0] = new Option('01', 'value0');
+            sectionSel.options[1] = new Option('02', 'value1');
+            sectionSel.options[2] = new Option('03', 'value1');
+            sectionSel.options[3] = new Option('04', 'value1');
+            sectionSel.options[4] = new Option('05', 'value1');
             cellRight.appendChild(lecturerSel);
         }
         
