@@ -16,7 +16,7 @@
             // left cell
             var cellLeft = row.insertCell(0);
             var courseSel = document.createElement('select');
-            courseSel.name = 'courseName' + iteration;
+            courseSel.name = 'courseNameForRow' + iteration;
             courseSel.className = "form-control"; // Bootstrapify
             courseSel.options[0] = new Option('Object Oriented Programming', 'SCSJ0001');
             courseSel.options[1] = new Option('Software Engineering', 'SCSJ0002');
@@ -24,16 +24,28 @@
             courseSel.options[3] = new Option('Application Development', 'SCSJ0004');
             cellLeft.appendChild(courseSel);
 
-            // right cell
-            var cellRight = row.insertCell(1);
+            // middle cell
+            var cellMiddle = row.insertCell(1);
             var lecturerSel = document.createElement('select');
-            lecturerSel.name = 'lecturerName' + iteration;
+            lecturerSel.name = 'lecturerNameForRow' + iteration;
             lecturerSel.className = "form-control"; // Bootstrapify
             lecturerSel.options[0] = new Option('Dr. Hishamuddin Asmuni', 'value0');
             lecturerSel.options[1] = new Option('Ng Yan Xin', 'value1');
             lecturerSel.options[2] = new Option('Toh Chin Eng', 'value1');
             lecturerSel.options[3] = new Option('Ahmad Rafiuddin', 'value1');
             lecturerSel.options[4] = new Option('Akmal Irfan', 'value1');
+            cellMiddle.appendChild(lecturerSel);
+            
+            // right cell
+            var cellRight = row.insertCell(2);
+            var lecturerSel = document.createElement('select');
+            lecturerSel.name = 'sectionForRow' + iteration;
+            lecturerSel.className = "form-control"; // Bootstrapify
+            lecturerSel.options[0] = new Option('01', 'value0');
+            lecturerSel.options[1] = new Option('02', 'value1');
+            lecturerSel.options[2] = new Option('03', 'value1');
+            lecturerSel.options[3] = new Option('04', 'value1');
+            lecturerSel.options[4] = new Option('05', 'value1');
             cellRight.appendChild(lecturerSel);
         }
         
@@ -91,6 +103,7 @@
                 <tr>
                     <th>Course</th>
                     <th>Lecturer</th>
+                    <th>Section</th>
                 </tr>
             </thread>
             <tbody>
@@ -111,6 +124,15 @@
                             <option>Ng Yan Xin</option>
                             <option>Toh Chin Eng</option>
                             <option>Akmal Irfan</option>
+                        </select>
+                    </td>
+                    <td>
+                        <select class="form-control" id="section">
+                            <option>01</option>
+                            <option>02</option>
+                            <option>03</option>
+                            <option>04</option>
+                            <option>05</option>
                         </select>
                     </td>
                 </tr>
