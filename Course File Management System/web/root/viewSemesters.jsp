@@ -27,8 +27,47 @@
                     <li><a href="logOut.html">Log Out</a></li>
                 </ul>
             </div> <!-- /.container-fluid -->
-            
         </nav>
+        
+        
+        
+        <table class="table">
+            <caption>List of Semesters</caption>
+            <thread>
+                <tr>
+                    <th>Year</th>
+                    <th>Semester</th>
+                    <th><button type="submit" class="btn btn-primary btn-xs">Add Semester</button></th>
+                </tr>
+            </thread>
+            <tbody>
+                <tr>
+                    <td>20142015</td>
+                    <td>3</td>
+                    <td>
+                        <button type="submit" class="btn btn-info btn-xs">Details</button>
+                        <button type="submit" class="btn btn-danger btn-xs">Remove</button>
+                    </td>
+                </tr>
+                <tr>
+                    <td>20152016</td>
+                    <td>1</td>
+                    <td>
+                        <button type="submit" class="btn btn-info btn-xs">Details</button>
+                        <button type="submit" class="btn btn-danger btn-xs">Remove</button>
+                    </td>
+                </tr>
+                <tr>
+                    <td>20152016</td>
+                    <td>2</td>
+                    <td>
+                        <button type="submit" class="btn btn-info btn-xs">Details</button>
+                        <button type="submit" class="btn btn-danger btn-xs">Remove</button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+           
         
       
         
