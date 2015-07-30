@@ -10,7 +10,7 @@
 <body>
 
 <%
-    ResultSet rs = DB.query("SELECT * FROM profile");
+    ResultSet rs = DB.query("SELECT * FROM profile, user WHERE user.username = profile.username AND user.usertype = 'lecturer'");
 %>
     <div class="container">
     
