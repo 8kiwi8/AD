@@ -10,7 +10,7 @@
 <body>
 
 <%
-    ResultSet rs = DB.executeQuery("SELECT * FROM lecturer");
+    ResultSet rs = DB.query("SELECT * FROM profile");
 %>
     <div class="container">
     
@@ -40,7 +40,7 @@
         <caption>List of Lecturers</caption>
         <thread>
             <tr>
-                <th>UserID</th>
+                <th>Username</th>
                 <th>Name</th>
                 <th>Email Address</th>
                 <th>Phone Number</th>
@@ -51,21 +51,12 @@
         <tbody>
         <%while(rs.next()){ %>
             <tr>
+                <td><%=rs.getString(6) %></td>
                 <td><%=rs.getString(1) %></td>
                 <td><%=rs.getString(2) %></td>
                 <td><%=rs.getString(3) %></td>
                 <td><%=rs.getString(4) %></td>
                 <td><%=rs.getString(5) %></td>
-                
-                <td><% if(rs.getString(6).equals("1"))
-                        {
-                            out.println("Active");
-                        }else
-                            out.println("Inactive");%>
-
-                </td>
-
-
             </tr>
         <% } %>
         </tbody>

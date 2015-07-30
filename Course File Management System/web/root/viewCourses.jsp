@@ -1,4 +1,4 @@
-<%@ page import="java.sql.*" %>
+<%@ page import ="java.sql.*, common.DB" %>
 <!doctype html>
 <html lang="en">
 <head>
@@ -8,15 +8,8 @@
 </head>
 <body>
 
-<%Class.forName("com.mysql.jdbc.Driver");
-    Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/cfms", "root", "");
-
-    conn.setAutoCommit(false);
-    
-    Statement st= conn.createStatement();
-    ResultSet rs;
-
-    rs = st.executeQuery("SELECT * FROM course");
+<%
+    ResultSet rs = DB.query("SELECT * FROM course");
 %>
 
     <div class="container">
@@ -47,18 +40,18 @@
         <caption>List of Courses</caption>
         <thread>
             <tr>
+                <th>Course code</th>
                 <th>Course ID</th>
                 <th>course Name</th>
-                <th>Course code</th>
                 <th>Credit Hours</th>
             </tr>
         </thread>
         <tbody>
         <%while(rs.next()){ %>
             <tr>
-                <td><%=rs.getString(3) %></td>
-                <td><%=rs.getString(2) %></td>
                 <td><%=rs.getString(1) %></td>
+                <td><%=rs.getString(2) %></td>
+                <td><%=rs.getString(3) %></td>
                 <td><%=rs.getString(4) %></td>
             </tr>
         <% } %>
