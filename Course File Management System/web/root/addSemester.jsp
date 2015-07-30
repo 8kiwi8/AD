@@ -1,8 +1,10 @@
 <%@ page import ="java.sql.*, common.DB" %>
 <%
-    ResultSet rs = DB.query("SELECT * FROM userlogin");
+    ResultSet rs = DB.query("SELECT * FROM course");
+    ResultSet rs2 = DB.query("SELECT * FROM profile, user WHERE user.username = profile.username AND user.usertype = 'lecturer' AND profile.status = 'Active'");
     int courseCount = 0; // Count for courses
     int lecturerCount = 0;
+    int sectionCount = 0;
     
 %>
 <!doctype html>
@@ -19,6 +21,7 @@
         {
             var tbl = document.getElementById('tblSemesters');
             var lastRow = tbl.rows.length;
+            
             // if there's no header row in the table, then iteration = lastRow + 1
             var iteration = lastRow;
             var row = tbl.insertRow(lastRow);
@@ -28,35 +31,36 @@
             var courseSel = document.createElement('select');
             courseSel.name = 'courseNameForRow' + iteration;
             courseSel.className = "form-control"; // Bootstrapify
-            courseSel.options[0] = new Option('Object Oriented Programming', 'SCSJ0001');
-            courseSel.options[1] = new Option('Software Engineering', 'SCSJ0002');
-            courseSel.options[2] = new Option('Requirement Engineering', 'SCSJ0003');
-            courseSel.options[3] = new Option('Application Development', 'SCSJ0004');
-            cellLeft.appendChild(courseSel);
-
+            
+            <% while (rs.next() && rs.getString(3) != null) { %>
+                courseSel.options[<%= courseCount %>] = new Option('<%= rs.getString(3) %>', 'SCSJ0001');;
+            <%  courseCount += 1;  %>
+                cellLeft.appendChild(courseSel);
+            <% } %>
+            
             // middle cell
             var cellMiddle = row.insertCell(1);
             var lecturerSel = document.createElement('select');
             lecturerSel.name = 'lecturerNameForRow' + iteration;
             lecturerSel.className = "form-control"; // Bootstrapify
-            lecturerSel.options[0] = new Option('Dr. Hishamuddin Asmuni', 'value0');
-            lecturerSel.options[1] = new Option('Ng Yan Xin', 'value1');
-            lecturerSel.options[2] = new Option('Toh Chin Eng', 'value1');
-            lecturerSel.options[3] = new Option('Ahmad Rafiuddin', 'value1');
-            lecturerSel.options[4] = new Option('Akmal Irfan', 'value1');
-            cellMiddle.appendChild(lecturerSel);
+            
+            <% while (rs2.next() && rs2.getString(1) != null) { %>
+                lecturerSel.options[<%= lecturerCount %>] = new Option('<%= rs2.getString(1) %>', 'SCSJ0001');;
+            <%  lecturerCount += 1;  %>
+                cellMiddle.appendChild(lecturerSel);
+            <% } %>
             
             // right cell
             var cellRight = row.insertCell(2);
             var sectionSel = document.createElement('select');
             sectionSel.name = 'sectionForRow' + iteration;
             sectionSel.className = "form-control"; // Bootstrapify
-            sectionSel.options[0] = new Option('01', 'value0');
-            sectionSel.options[1] = new Option('02', 'value1');
-            sectionSel.options[2] = new Option('03', 'value1');
-            sectionSel.options[3] = new Option('04', 'value1');
-            sectionSel.options[4] = new Option('05', 'value1');
-            cellRight.appendChild(lecturerSel);
+            for (var numOfSections = 1; numOfSections <= 10; numOfSections++) {
+                sectionSel.options[numOfSections-1] = new Option(("0" + numOfSections).slice(-2), "section" + numOfSections);
+            }
+            
+            // ("0" + myNumber).slice(-2); = display number in 2 digit format (i.e 1 -> 01)
+            cellRight.appendChild(sectionSel);
         }
         
         function removeRowFromTable()
@@ -126,17 +130,16 @@
             <tbody>
                 <tr>
                     <td>
-                        <div >
-                            <input class="form-control" id="course">
-                        </div>
+                        <input class="form-control" id="course">
                     </td>
                     <td>
                         <select class="form-control" id="lecturer">
-                            <option>Dr. Hishamuddin Asmuni</option>
-                            <option>Ahmad Rafiuddin</option>
-                            <option>Ng Yan Xin</option>
-                            <option>Toh Chin Eng</option>
-                            <option>Akmal Irfan</option>
+                            <% 
+                                rs2.beforeFirst(); // move cursor back to 0 = 1st row
+                                while (rs2.next() && rs2.getString(1) != null) { 
+                            %>
+                                    <option><%=rs2.getString(1) %></option>
+                            <%  }  %>
                         </select>
                     </td>
                     <td>
@@ -146,6 +149,11 @@
                             <option>03</option>
                             <option>04</option>
                             <option>05</option>
+                            <option>06</option>
+                            <option>07</option>
+                            <option>08</option>
+                            <option>09</option>
+                            <option>10</option>
                         </select>
                     </td>
                 </tr>
