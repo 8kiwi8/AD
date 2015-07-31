@@ -72,8 +72,15 @@
     </script>
     <script>
         jQuery(function(){
-        $("#course").autocomplete( {
-            source:"listCourse.jsp"
+            $("#course").autocomplete( {
+                source: function(request, response) {
+                    $.getJSON("listCourse.jsp", { 
+                            term: request.term,
+                            col: "courseName",
+                            table: "course"
+                        }, 
+                        response);
+                }
             });
         });
     </script>

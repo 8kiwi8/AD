@@ -11,8 +11,10 @@
  
    <%
     try {
-        String outside = request.getParameter("term");
-        List li = DB.queryLike("course", "courseName", outside);
+        String term = request.getParameter("term");
+        String col = request.getParameter("col");
+        String table = request.getParameter("table");
+        List li = DB.queryLike(table, col, term);
         String json = new Gson().toJson(li);
         out.println(json);
     } catch(Exception e) {

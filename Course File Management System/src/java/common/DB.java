@@ -26,6 +26,7 @@ public class DB {
     private static Connection connection = null;
     private static Statement statement;
     private static ResultSet resultSet;
+    private static int resultRow;
 
     public static Connection getConnection() {
         try {
@@ -61,6 +62,18 @@ public class DB {
             e.printStackTrace();
         }
         return resultSet;
+    }
+    
+    public static int update(String query) {
+        try {
+            Connection conn = DB.getConnection();
+            statement = conn.createStatement();
+            resultRow = statement.executeUpdate(query);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        DB.close();
+        return resultRow;
     }
     
     public static List queryLike(String table, String col, String like) {
