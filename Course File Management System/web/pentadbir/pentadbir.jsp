@@ -32,6 +32,12 @@
         margin: 0 auto;
         max-width: 800px;
     }
+    #sorok {
+        display: none;
+    }
+    #sorok:target {
+        display: block;
+    }
   </style>
 </head>
 <body>
@@ -61,12 +67,12 @@
       </select>
     </div>
     
-    <input class="btn btn-primary" type="submit" value="Submit">
-    
+    <!--<input class="btn btn-primary" type="submit" value="Submit">-->
+    <a href="#sorok"><input class="btn btn-primary" type="submit" value="Submit"></a>
     
   </div>
   
-  <div class="panel panel-default">
+  <div id="sorok" class="panel panel-default">
     <table class="table">
       <thead>
         <tr class="pertama">
