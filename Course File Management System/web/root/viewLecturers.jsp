@@ -61,7 +61,11 @@
         <% } %>
         </tbody>
       </table>
-        
+            <p>
+   <a role="button" class="btn btn-primary" href="addLecturer.jsp">
+      Add
+   </a>
+</p>
     </div> <!-- /.container -->
 </body>
 </html>

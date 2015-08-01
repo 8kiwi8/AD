@@ -21,7 +21,7 @@
 	}
 	else
 	{
-		out.println("Invalid password <a href='index.jsp'> Try again </a>");
+		out.println("Invalid username password <a href='index.jsp'> Try again </a>");
                 out.println(username);
                 out.println(password);
 	}
