@@ -14,7 +14,7 @@
         String term = request.getParameter("term");
         String col = request.getParameter("col");
         String table = request.getParameter("table");
-        List li = DB.queryLike(table, col, term);
+        List li = DB.query("SELECT * " + " FROM " + table + " WHERE ");
         String json = new Gson().toJson(li);
         out.println(json);
     } catch(Exception e) {

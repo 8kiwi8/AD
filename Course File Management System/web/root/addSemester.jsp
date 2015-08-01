@@ -71,16 +71,21 @@
         }
     </script>
     <script>
+        var items = [];
+        $.getJSON("<%=request.getContextPath()%>/AutoCompleteServlet", {
+            table: "course",
+            label: "[courseCode] [courseID] [courseName]",
+            value: "[courseName]"
+        },
+        function( json ) {
+            var keys = Object.keys(json);
+            keys.forEach(function(key){
+                items.push(json[key]);
+            });
+        });
         jQuery(function(){
             $("#course").autocomplete( {
-                source: function(request, response) {
-                    $.getJSON("listCourse.jsp", { 
-                            term: request.term,
-                            col: "courseName",
-                            table: "course"
-                        }, 
-                        response);
-                }
+                source: items
             });
         });
     </script>

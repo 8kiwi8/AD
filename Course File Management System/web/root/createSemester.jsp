@@ -54,7 +54,8 @@
                         </tr>
                     </tbody>
                 </table>
-                <button type="submit" class='btn btn-primary' id="semesterSubmit" style="display:none">Submit</button>
+            <input>
+            <button type="submit" class='btn btn-primary' id="semesterSubmit" style="display:none">Submit</button>
             </form>
             <button class="btn btn-primary" id="addSemester" onclick="addNewSemester();">Add</button>
         </div>

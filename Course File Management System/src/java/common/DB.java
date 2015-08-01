@@ -8,15 +8,9 @@ package common;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Properties;
-
+import java.sql.*;
+import java.util.*;
+import org.json.*;
 
 /**
  *
@@ -26,8 +20,10 @@ public class DB {
     private static Connection connection = null;
     private static Statement statement;
     private static ResultSet resultSet;
+    private static ResultSetMetaData rsmd;
     private static int resultRow;
-
+    private static final String REGEX = "\\[(.*?)\\]";
+    
     public static Connection getConnection() {
         try {
             Properties prop = new Properties();
@@ -76,20 +72,33 @@ public class DB {
         return resultRow;
     }
     
-    public static List queryLike(String table, String col, String like) {
-        String query = "Select " + col + " from " + table + " where " + col + " like \"%" + like + "%\"";
-        System.out.println(query);
-        DB.query(query);
-        List li = new ArrayList();
+    public static String createJson(String query, String label, String value) {
+        resultSet = DB.query(query);
+        //Get the formating of lable
+        JSONArray jsonArray = new JSONArray();
         try {
-            while(resultSet.next())
-            {
-                li.add(resultSet.getString(col));
+            rsmd = resultSet.getMetaData();
+            int total_cols = resultSet.getMetaData().getColumnCount();
+            while (resultSet.next()) {
+                String toLabel = label;
+                String toValue = value;
+                JSONObject obj = new JSONObject();
+                for (int i = 0; i < total_cols; i++) {
+                    String colName = rsmd.getColumnLabel(i + 1);
+                    toLabel = toLabel.replaceAll("\\["+colName+"\\]", resultSet.getString(colName));
+                    toValue = toValue.replaceAll("\\["+colName+"\\]", resultSet.getString(colName));
+                    obj.put(colName, resultSet.getObject(i + 1));
+                }
+                obj.put("label", toLabel);
+                obj.put("value", toValue);
+                jsonArray.put(obj);
             }
         } catch (SQLException e) {
             e.printStackTrace();
+        } catch (JSONException ex) {
+            ex.printStackTrace();
         }
-        return li;
+        return jsonArray.toString();
     }
     
     public static String getDataAt(int row, String columnName){
