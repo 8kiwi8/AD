@@ -42,7 +42,7 @@
 </head>
 <body>
   <ul class="nav nav-tabs">
-    <li role="presentation"><a href="#">Home</a></li>
+    <li role="presentation"><a href="..">Home</a></li>
     <li role="presentation" class="active"><a href="#">Reports</a></li>
     <button type="button" class="logout btn btn-link">Log out</button>
   </ul>
