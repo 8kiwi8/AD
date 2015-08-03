@@ -10,12 +10,50 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>File Upload</title>
+        <link rel="stylesheet" href="css/bootstrap.min.css">
+        <style type="text/css">
+            form {
+                margin-left: 10px;
+            }
+            .fileUpload {
+                position: relative;
+                overflow: hidden;
+                margin: 10px;
+            }
+            .fileUpload input.upload {
+                position: absolute;
+                top: 0;
+                right: 0;
+                margin: 0;
+                padding: 0;
+                font-size: 20px;
+                cursor: pointer;
+                opacity: 0;
+                filter: alpha(opacity=0);
+            }
+            input[type="submit"] {
+                display: block;
+            }
+            #uploadFile {
+                line-height: 28px;
+            }
+        </style>
     </head>
     <body>
         <form method="post" action="<%=request.getContextPath()%>/Upload" enctype="multipart/form-data">
-            Select file to upload:
-            <input type="file" name="dataFile" id="fileChooser"/><br/><br/>
-            <input type="submit" value="Upload" />
+            <input id="uploadFile" placeholder="Choose File" disabled="disabled" />
+            <div class="fileUpload btn btn-default">
+                <span>Browse</span>
+                <input id="fileChooser" name="dataFile" type="file" class="upload" />
+            </div>
+            <input type="submit" value="Upload" class="btn btn-primary"/>
         </form>
+        
+        <script type="text/javascript">
+            document.getElementById("fileChooser").onchange = function () {
+                document.getElementById("uploadFile").value = this.value.slice(12);
+                console.log(this.value);
+            };
+        </script>
     </body>
 </html>
