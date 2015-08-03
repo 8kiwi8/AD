@@ -16,3 +16,6 @@
 
 # Class Files #
 *.class
+
+# Project configuration File #
+/Course File Management System/src/java/db.properties
