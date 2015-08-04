@@ -8,9 +8,7 @@
 	String department = request.getParameter("department");
 	String status = request.getParameter("status");
 
-	int rs = DB.update("INSERT INTO user VALUES ('" + username + "', '" + password + "', 'lecturer')");
-
-	int rs2 = DB.update("INSERT INTO profile (`name`, `emailAdd`, `phoneNo`, `department`, `status`, `username`) VALUES ('"+ name+ "', '"+ emailAdd +"', '"+ phoneNo +"', '"+ department +"', '"+ status +"', '"+ username +"')");
+	int rs = DB.update("UPDATE profile SET name='"+ name+ "', emailAdd='"+ emailAdd +"', phoneNo='"+ phoneNo +"', department='"+ department +"', status='"+ status +"' WHERE username = '"+ username +"'");
 
 	response.sendRedirect("viewLecturers.jsp");
 	

@@ -62,7 +62,11 @@
         </tbody>
       </table>
     
-
+ <p>
+   <a role="button" class="btn btn-primary" href="addCourses.jsp">
+      Add
+   </a>
+</p>
 
     </div> <!-- /.container -->
 </body>

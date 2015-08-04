@@ -42,54 +42,42 @@
   
 
 
-		<form class="form-horizontal" method="post" action="addLecturerDB.jsp">
+		<form class="form-horizontal" method="post" action="addCoursesDB.jsp">
             <div class="form-group">
-                 <label for="username" class="control-label col-xs-4">Username</label>
-                     <div class="col-xs-8">
-                                <input type="text" class="form-control" name="username" placeholder="username">
+                            <label for="courseCode" class="control-label col-xs-4">Course Code</label>
+                            <div class="radio col-xs-8">
+                            <label class="radio-inline"><input type="radio" name="courseCode" value="SCSJ">SCSJ</label>
+                            <label class="radio-inline"><input type="radio" name="courseCode" value="SCSV">SCSV</label>
+                            <label class="radio-inline"><input type="radio" name="courseCode" value="SCSR">SCSR</label>
+                            <label class="radio-inline"><input type="radio" name="courseCode" value="SCSB">SCSB</label>
+
                             </div>
                         </div>
                         
                         <div class="form-group">
-                            <label for="password" class="control-label col-xs-4">Password</label>
+                            <label for="courseID" class="control-label col-xs-4">Course ID</label>
                             <div class="col-xs-8">
-                                <input type="password" class="form-control" name="password" placeholder="Password">
+                                <input type="text" class="form-control" name="courseID" placeholder="Course ID">
                             </div>
                         </div>
 
                         <div class="form-group">
-                            <label for="name" class="control-label col-xs-4">Name</label>
+                            <label for="courseName" class="control-label col-xs-4">Course Name</label>
                             <div class="col-xs-8">
-                                <input type="text" class="form-control" name="name" placeholder="Name">
+                                <input type="text" class="form-control" name="courseName" placeholder="Course Name">
                             </div>
                         </div>
 
-                        <div class="form-group">
-                            <label for="password" class="control-label col-xs-4">Email Address</label>
-                            <div class="col-xs-8">
-                                <input type="text" class="form-control" name="emailAdd" placeholder="Email Address">
-                            </div>
-                        </div>
 
                         <div class="form-group">
-                            <label for="phoneNo" class="control-label col-xs-4">Phone Number</label>
-                            <div class="col-xs-8">
-                                <input type="text" class="form-control" name="phoneNo" placeholder="Phone Number">
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <label for="department" class="control-label col-xs-4">Department</label>
-                            <div class="col-xs-8">
-                                <input type="text" class="form-control" name="department" placeholder="Department">
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <label for="status" class="control-label col-xs-4">Status</label>
+                            <label for="creditHours" class="control-label col-xs-4">Credit Hours</label>
                             <div class="radio col-xs-8">
-                            <label class="radio-inline"><input type="radio" name="status" value="Active">Active</label>
-                            <label class="radio-inline"><input type="radio" name="status" value="Inactive">Inactive</label>
+                            <label class="radio-inline"><input type="radio" name="creditHours" value="1">1</label>
+                            <label class="radio-inline"><input type="radio" name="creditHours" value="2">2</label>
+                            <label class="radio-inline"><input type="radio" name="creditHours" value="3">3</label>
+                            <label class="radio-inline"><input type="radio" name="creditHours" value="4">4</label>
+                            <label class="radio-inline"><input type="radio" name="creditHours" value="5">5</label>
+                            <label class="radio-inline"><input type="radio" name="creditHours" value="8">8</label>
                             </div>
                         </div>
                         
