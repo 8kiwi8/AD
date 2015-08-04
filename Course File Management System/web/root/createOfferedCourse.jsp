@@ -25,7 +25,7 @@
                 source: semester,
                 select: function( event, ui ) {
                 $("#semesterID").val(ui.item.semesterID);
-                window.location.href = "<%=request.getContextPath()%>\\root\\createCourse.jsp?semesterID=" + ui.item.semesterID+"&semester="+ui.item.label;
+                window.location.href = "<%=request.getContextPath()%>\\root\\createOfferedCourse.jsp?semesterID=" + ui.item.semesterID+"&semester="+ui.item.label;
             }
             });
         });
@@ -64,33 +64,13 @@
             }
             });
         });
-        $( document ).ready( function () {
-            $('.penyelaras').each(function(i, el) {
-                el = $(el);
-                $(el).autocomplete( {
-                    source: function(request, response) {
-                        var courseCode = el.attr("courseCode");
-                        var courseID = el.attr("courseID");
-                        $.getJSON("<%=request.getContextPath()%>/ListLecturerInCourseServlet", {
-                        label: "[name]",
-                        value: "[name]",
-                        courseCode: el.attr("courseCode"),
-                        courseID: el.attr("courseID"),
-                        semesterID: $("#semesterID").val()
-                        }, function(data){
-                            response(data);
-                        });
-                    },
-                    select: function( event, ui ) {
-                    var co_ID = $(this).attr("co_ID");
-                    if (typeof co_ID !== typeof undefined && co_ID !== false) {
-                        $("#username\\["+co_ID+"\\]").val(ui.item.username);
-                    }
-                    else {
-                        $("#username").val(ui.item.username);
-                    }
-                }
-                });
+        $( document ).ready( function() {
+            $("select.penyelaras").change(function(){
+                var course = $(this);
+                var selected = course.find(":selected");
+                var co_ID = selected.attr("co_ID");
+                var inputField = $("#username\\["+co_ID+"\\]");
+                inputField.val(selected.attr("username"));
             });
         });
         <% } %>
@@ -108,7 +88,7 @@
         <jsp:include page="../auth.jsp"/>
         
         <input class="form-control" id="semester" placeholder="Choose Semester">
-        <form class='form-horizontal' action="<%=request.getContextPath()%>/createCourseServlet">
+        <form class='form-horizontal' action="<%=request.getContextPath()%>/CreateOfferedCourseServlet">
             <table class="table" id="tblSemesters">
                 <thread>
                     <tr>
@@ -152,7 +132,22 @@
                         <td><%=rs.getString("courseName")%></td>
                         <td><%=rs.getString("creditHours")%></td>
                         <td>
+                            <!--
                             <input courseID="<%=rs.getString("courseID")%>" courseCode="<%=rs.getString("courseCode")%>" class="form-control penyelaras" co_ID="<%=rs.getString("co.course_offered_ID")%>" name="penyelaras[<%=rs.getString("co.course_offered_ID")%>]">
+                            <input class="" id="username[<%=rs.getString("co.course_offered_ID")%>]" name="username[<%=rs.getString("co.course_offered_ID")%>]">
+                            -->
+                            <%
+                                String query2 = "SELECT * FROM profile AS p, user AS u, section AS s WHERE " +
+                                    "u.username=p.username AND u.username=s.username AND "+
+                                    "s.course_offered_ID = \'"+rs.getString("co.course_offered_ID")+"\' AND s.semesterID="+semesterID;
+                                ResultSet rs2 = DB.query(query2);
+                            %>
+                            <select class="form-control penyelaras">
+                                <option value='' disabled selected style='display:none;'>No Penyelaras Yet</option>
+                                <% while(rs2.next()) { %>
+                                <option id="selected" co_ID="<%=rs.getString("co.course_offered_ID")%>" username="<%=rs2.getString("username")%>"><%=rs2.getString("name")%></option>
+                                <% } %>
+                            </select>
                             <input class="" id="username[<%=rs.getString("co.course_offered_ID")%>]" name="username[<%=rs.getString("co.course_offered_ID")%>]">
                         </td>
                     </tr>
@@ -170,15 +165,12 @@
                         <td>
                             <input class="form-control" name="creditHours" id="creditHours" disabled>
                         </td>
-                        <td>
-                            <input class="form-control penyelaras" name="penyelaras">
-                        </td>
+                        <td></td>
                     </tr>
                 </tbody>
             </table>
-        <div class="">
+        <div class="hidden">
             <input id="semesterID" name="semesterID">
-            <input id="username" name="username">
         </div>  
         <% if(request.getParameter("semesterID") != null) {%>
         <button class="btn btn-primary" id="addCourse" onclick="addNewCourse();return false;">Add New Course</button>

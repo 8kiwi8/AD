@@ -39,7 +39,8 @@ public class ListSemesterCourseServlet extends HttpServlet {
                 String value = request.getParameter("value");
                 String label = request.getParameter("label");
                 String semesterID = request.getParameter("semesterID");
-                String query = "Select co.course_offered_ID, c.courseName, c.courseCode, c.courseID FROM course_offered AS co, course AS c WHERE " +
+                String query = "Select co.course_offered_ID, c.courseName, c.courseCode, c.courseID FROM " +
+                        "course_offered AS co, course AS c WHERE " +
                         "co.courseCode = c.courseCode AND co.courseID = c.courseID AND " +
                         "co.semesterID = " + semesterID;
                 out.print(DB.createJson(query, label, value));

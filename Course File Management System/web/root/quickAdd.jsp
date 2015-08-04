@@ -3,7 +3,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Semesters - Add Semester</title>
+    <title>Quick Add</title>
     <link rel="stylesheet" href="<%=request.getContextPath()%>/css/auto-complete.css">
     <link rel="stylesheet" href="<%=request.getContextPath()%>/css/bootstrap.min.css">
     <script type="text/javascript" src="<%=request.getContextPath()%>/javascript/jquery-2.1.4.min.js"></script>
@@ -44,48 +44,47 @@
         $( document ).ready( function () {
             $("#semesterID").val("<%=request.getParameter("semesterID")%>");
             $("#semester").val("<%=request.getParameter("semester")%>");
+            $('#courseName').prop('disabled', false);
         });
         var course = [];
-        var count = 0;
-        var NoResultsLabel = "No Course available for this semester yet";
-        $.getJSON("<%=request.getContextPath()%>/ListSemesterCourseServlet", {
+        $.getJSON("<%=request.getContextPath()%>/ListCourseServlet", {
             label: "[courseCode] [courseID] [courseName]",
-            value: "[courseCode] [courseID] [courseName]",
+            value: "[courseName]",
             semesterID: "<%=request.getParameter("semesterID")%>"
         },
         function( json ) {
             var keys = Object.keys(json);
             keys.forEach(function(key){
                 course.push(json[key]);
-                count++;
             });
-            if (count === 0) {
-                $("#course").val(NoResultsLabel);
-                $("#course").prop('disabled', true);
-                $("#sectionSubmit").prop('disabled', true);
-            };
         });
         jQuery(function(){
-            $("#course").autocomplete( {
+            $("#courseName").autocomplete( {
                 source: course,
                 select: function( event, ui ) {
-                    if (ui.item.label === NoResultsLabel) {
-                        event.preventDefault();
-                    }
-                    $("#courseCode").val(ui.item.courseCode);
-                    $("#courseID").val(ui.item.courseID);
-                    $("#course_offered_ID").val(ui.item.course_offered_ID);
-                },
-                focus: function (event, ui) {
-                    if (ui.item.label === NoResultsLabel) {
-                        event.preventDefault();
-                    }
+                    dataSet = { 
+                        "courseCode":ui.item.courseCode, 
+                        "courseID":ui.item.courseID,
+                        "courseName":ui.item.courseName
+                    };
+                    var uri = new URI(window.location.href);
+                    var query = new URI(uri.search());
+                    var query = query.setSearch(dataSet);
+                    var uri = uri.pathname();
+                    var newQueryUrl = uri + query;
+                    window.location.href = uri + query;
                 }
             });
         });
         <% } %>
     </script>
     <script>
+        <%if(request.getParameter("courseName") != null && request.getParameter("courseID") != null && request.getParameter("courseCode") != null) { %>
+        $( document ).ready( function () {
+            $("#courseCode").val("<%=request.getParameter("courseCode")%>");
+            $("#courseID").val("<%=request.getParameter("courseID")%>");
+            $("#courseName").val("<%=request.getParameter("courseName")%>");
+        });    
         var lecturer = [];
         $.getJSON("<%=request.getContextPath()%>/ListLecturerServlet", {
             label: "[name]",
@@ -105,6 +104,7 @@
             }
             });
         });
+        <% } %>
     </script>
     <script type="text/javascript">
         function addNewSection() {
@@ -116,12 +116,18 @@
 </head>
 <body>
     <div class="container">
-        <jsp:include page="../auth.jsp"/>
-        
-        <input class="form-control" id="semester" placeholder="Choose Semester">
         <form class='form-horizontal' action="<%=request.getContextPath()%>/createSectionServlet">
-        <input class="form-control" id="semester" placeholder="Choose Semester">
-            <table class="table" id="tblSemesters">
+            <input class="form-control" id="semester" placeholder="Choose Semester">
+        <div class="">
+            <input id="semesterID" name="semesterID">
+        </div>
+        <input class="form-control" name="courseName" id="courseName" disabled>
+        <div class="">
+            <input class="form-control" name="courseID" id="courseID">
+            <input class="form-control" name="courseCode" id="courseCode">
+        </div>
+        <div id="reuslt">
+            <table class="table" id="table">
                 <thread>
                     <tr>
                         <th>Course</th>
@@ -169,6 +175,7 @@
                     </tr>
                 </tbody>
             </table>
+        </div>
         <div class="hidden">
             <input id="semesterID" name="semesterID">
             <input id="username" name="username">

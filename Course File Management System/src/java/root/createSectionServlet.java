@@ -17,8 +17,8 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author Kiwi
  */
-@WebServlet(name = "createSectionServlet", urlPatterns = {"/createSectionServlet"})
-public class createSectionServlet extends HttpServlet {
+@WebServlet(name = "CreateSectionServlet", urlPatterns = {"/CreateSectionServlet"})
+public class CreateSectionServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
