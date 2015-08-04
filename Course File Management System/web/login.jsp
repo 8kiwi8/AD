@@ -7,7 +7,6 @@
             invalidPassword = true;
         }
     }
-    out.println(request.getContextPath());
 %>
 <!DOCTYPE html>
 <html>
