@@ -1,5 +1,5 @@
 <%@ page import ="java.sql.*, common.DB" %>
-
+<jsp:include page="../auth.jsp"/>
 <!doctype html>
 <html lang="en">
 <head>

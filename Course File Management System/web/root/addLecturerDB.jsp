@@ -1,4 +1,5 @@
 <%@ page import ="java.sql.*, common.DB" %>
+<jsp:include page="../auth.jsp"/>
 <%
 	String username = request.getParameter("username");
 	String password = request.getParameter("password");

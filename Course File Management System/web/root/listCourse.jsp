@@ -8,6 +8,8 @@
 <%@page import="common.DB"%>
 <%@page import="java.util.*"%>
 <%@page import="com.google.gson.Gson" %>
+
+<jsp:include page="../auth.jsp"/>
  
    <%
     try {
