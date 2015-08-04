@@ -54,35 +54,35 @@
                 </li>
                 <% if (isLoggedIn) { %>
                     <li class="<% if (currentPageName.equals("viewCourses.jsp")) out.println("active"); %>">
-                        <a href="<% if (!currentPageName.equals("viewCourses.jsp")) out.println(session.getAttribute("userType") + "/viewCourses.jsp"); %>">Courses</a>
+                        <a href="<% if (!currentPageName.equals("viewCourses.jsp")) out.println("viewCourses.jsp"); %>">Courses</a>
                     </li>
                 <% } %>
                 <%
                     if (isRoot) { 
                 %>
                         <li class="<% if (currentPageName.equals("addSemester.jsp")) out.println("active"); %>">
-                            <a href="<% if (!currentPageName.equals("addSemester.jsp")) out.println(session.getAttribute("userType") + "/addSemester.jsp"); %>">New Semester</a>
+                            <a href="<% if (!currentPageName.equals("addSemester.jsp")) out.println("addSemester.jsp"); %>">New Semester</a>
                         </li>
                         <li class="<% if (currentPageName.equals("viewLecturers.jsp")) out.println("active"); %>">
-                            <a href="<% if (!currentPageName.equals("viewLecturers.jsp")) out.println(session.getAttribute("userType") + "/viewLecturers.jsp"); %>">Lecturers</a>
+                            <a href="<% if (!currentPageName.equals("viewLecturers.jsp")) out.println("viewLecturers.jsp"); %>">Lecturers</a>
                         </li>
                         <li class="<% if (currentPageName.equals("viewSemesters.jsp")) out.println("active"); %>">
-                            <a href="<% if (!currentPageName.equals("viewSemesters.jsp")) out.println(session.getAttribute("userType") + "/viewSemesters.jsp"); %>">Semesters</a>
+                            <a href="<% if (!currentPageName.equals("viewSemesters.jsp")) out.println("viewSemesters.jsp"); %>">Semesters</a>
                         </li>
                 <%
                     } else if (isAdmin) {
                 %>
                         <li class="<% if (currentPageName.equals("viewLecturers.jsp")) out.println("active"); %>">
-                            <a href="<% if (!currentPageName.equals("viewLecturers.jsp")) out.println(session.getAttribute("userType") + "/viewLecturers.jsp"); %>">Lecturers</a>
+                            <a href="<% if (!currentPageName.equals("viewLecturers.jsp")) out.println("viewLecturers.jsp"); %>">Lecturers</a>
                         </li>
                         <li class="<% if (currentPageName.equals("viewUploads.jsp")) out.println("active"); %>">
-                            <a href="<% if (!currentPageName.equals("viewUploads.jsp")) out.println(session.getAttribute("userType") + "/viewUploads.jsp"); %>">Uploads</a>
+                            <a href="<% if (!currentPageName.equals("viewUploads.jsp")) out.println("viewUploads.jsp"); %>">Uploads</a>
                         </li>
                 <%
                     } else if (isLecturer) {
                 %>
                         <li class="<% if (currentPageName.equals("viewUploads.jsp")) out.println("active"); %>">
-                            <a href="<% if (!currentPageName.equals("viewUploads.jsp")) out.println(session.getAttribute("userType") + "/viewUploads.jsp"); %>">Upload</a>
+                            <a href="<% if (!currentPageName.equals("viewUploads.jsp")) out.println("viewUploads.jsp"); %>">Upload</a>
                         </li>
                 <%
                     }
