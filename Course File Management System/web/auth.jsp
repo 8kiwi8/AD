@@ -17,11 +17,8 @@
     String username = (String) session.getAttribute("User");
     if (username == null) {
         request.setAttribute("Error", "Session has ended.  Please login.");
-        //RequestDispatcher rd = request.getRequestDispatcher("login.jsp");
-        //rd.forward(request, response);
-%>
-        <script>location.href = "../login.jsp";</script>
-<%
+        RequestDispatcher rd = request.getRequestDispatcher("login.jsp");
+        rd.forward(request, response);
         //response.sendRedirect("../login.jsp");
     }
 %>
