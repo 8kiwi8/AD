@@ -39,7 +39,7 @@
                 <td><%=rs.getString(4) %></td>
                 <td><%=rs.getString(5) %></td>
                 <td><a href="updateLecturer.jsp?username=<%=rs.getString(6)%>"><button class="btn btn-primary btn-xs">Update</button></a>
-                <a href="deleteLecturer.jsp?username=<%=rs.getString(6)%>"><button class="btn btn-danger btn-xs">Delete</button></a></td>
+                <a href="<%=request.getContextPath()%>/deleteLecturer?username=<%=rs.getString(6)%>"><button class="btn btn-danger btn-xs">Delete</button></a></td>
             </tr>
         <% } %>
         </tbody>

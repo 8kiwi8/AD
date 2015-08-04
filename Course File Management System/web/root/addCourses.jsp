@@ -42,7 +42,7 @@
   
 
 
-		<form class="form-horizontal" method="post" action="addCoursesDB.jsp">
+		<form class="form-horizontal" method="post" action="<%=request.getContextPath()%>/addCourseDB">
             <div class="form-group">
                             <label for="courseCode" class="control-label col-xs-4">Course Code</label>
                             <div class="radio col-xs-8">

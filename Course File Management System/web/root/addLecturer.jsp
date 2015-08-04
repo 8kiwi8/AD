@@ -42,7 +42,7 @@
   
 
 
-		<form class="form-horizontal" method="post" action="addLecturerDB.jsp">
+		<form class="form-horizontal" method="post" action="<%=request.getContextPath()%>/addLecturerDB">
             <div class="form-group">
                  <label for="username" class="control-label col-xs-4">Username</label>
                      <div class="col-xs-8">
