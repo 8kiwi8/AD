@@ -1,4 +1,5 @@
 <%@ page import ="java.sql.*, common.DB" %>
+<jsp:include page="../auth.jsp"/>
 <%
     ResultSet rs = DB.query("SELECT * FROM course");
     ResultSet rs2 = DB.query("SELECT * FROM profile, user WHERE user.username = profile.username AND user.usertype = 'lecturer' AND profile.status = 'Active'");

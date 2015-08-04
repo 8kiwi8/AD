@@ -6,6 +6,7 @@
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@page import ="java.sql.*, common.DB" %>
+<jsp:include page="../auth.jsp"/>
 <!DOCTYPE html>
 <html>
     <head>

@@ -1,4 +1,13 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%
+    boolean invalidPassword = false;
+    
+    if (request.getAttribute("Error") != null) {
+        if (request.getAttribute("Error").equals("Invalid password.")) {
+            invalidPassword = true;
+        }
+    }
+%>
 <!DOCTYPE html>
 <html>
     <head>
@@ -18,15 +27,14 @@
                     </div>
                     <div class="panel-body">
 
-                        <form class="form-horizontal" method="post" action="loginAction.jsp">
+                        <form class="form-horizontal" method="post" action="<%=request.getContextPath()%>/loginAction.jsp">
                             <div class="form-group">
                                 <label for="username" class="control-label col-xs-4">Username</label>
                                 <div class="col-xs-8">
                                     <input type="text" class="form-control" name="inputUsername" placeholder="Username">
                                 </div>
                             </div>
-
-                            <div class="form-group">
+                            <div class="form-group <% if (invalidPassword) out.println("has-error"); %>">
                                 <label for="inputPassword" class="control-label col-xs-4">Password</label>
                                 <div class="col-xs-8">
                                     <input type="password" class="form-control" name="inputPassword" placeholder="Password">

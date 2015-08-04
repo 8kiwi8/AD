@@ -1,4 +1,7 @@
 <%@ page import ="java.sql.*, common.DB" %>
+
+<jsp:include page="../auth.jsp"/>
+
 <%
 	String username = request.getParameter("username");
 
@@ -17,7 +20,7 @@
 <body>
     <div class="container">
 
-	<form class="form-horizontal" method="post" action="updateLecturerDB.jsp?username=<%=rs.getString(6) %>">
+	<form class="form-horizontal" method="post" action="<%=request.getContextPath()%>/updateLecturerDB?username=<%=rs.getString(6) %>">
             <div class="form-group">
                  <label for="username" class="control-label col-xs-4">Username</label>
                      <div class="col-xs-8">

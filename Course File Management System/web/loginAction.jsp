@@ -19,19 +19,11 @@
             session.setAttribute("User", username); // Saves username string in the session object
             session.setAttribute("userType", userTypeFromDB);
             //out.println("password inputted = password in DB = username & pwd found in system");
-            
-            if (userTypeFromDB.equals("root")) {
-                rd = request.getRequestDispatcher("root/home.jsp");
-            } else if (userTypeFromDB.equals("admin")) {
-                rd = request.getRequestDispatcher("admin/home.jsp");
-            } else if (userTypeFromDB.equals("lecturer")) {
-                rd = request.getRequestDispatcher("lecturer/home.jsp");
-            }
+            rd = request.getRequestDispatcher("loginRedir.jsp");
         }
         else { // Password does not match, i.e., invalid user password
             request.setAttribute("Error", "Invalid password.");
             //out.println("password inputted != password in DB BUT username found in system");
-            
             
             rd = request.getRequestDispatcher("login.jsp");
         }
