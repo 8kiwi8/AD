@@ -85,6 +85,8 @@
 </head>
 <body>
     <div class="container">
+        <jsp:include page="../auth.jsp"/>
+        
         <input class="form-control" id="semester" placeholder="Choose Semester">
         <form class='form-horizontal' action="<%=request.getContextPath()%>/CreateOfferedCourseServlet">
             <table class="table" id="tblSemesters">

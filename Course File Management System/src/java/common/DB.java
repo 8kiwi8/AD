@@ -119,7 +119,6 @@ public class DB {
                 statement.close();
                 connection.commit();
                 connection.close();
-                resultSet.close();
         }
         catch(SQLException sqlEx){
                 System.out.println(sqlEx.getMessage());

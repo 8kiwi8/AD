@@ -23,6 +23,7 @@
     </head>
     <body>
         <div class="container">
+            <jsp:include page="../auth.jsp"/>
             <h1>Current Running Semester</h1>
             <form class='form-horizontal' action="<%=request.getContextPath()%>/createSemesterServlet">
                 <table class="table" id="semesterList">

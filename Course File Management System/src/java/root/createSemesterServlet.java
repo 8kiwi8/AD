@@ -18,8 +18,8 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author Kiwi
  */
-@WebServlet(name = "createSemesterServlet", urlPatterns = {"/createSemesterServlet"})
-public class createSemesterServlet extends HttpServlet {
+@WebServlet(name = "CreateSemesterServlet", urlPatterns = {"/CreateSemesterServlet"})
+public class CreateSemesterServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
