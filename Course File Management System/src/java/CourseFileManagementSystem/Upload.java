@@ -111,19 +111,20 @@ public class Upload extends HttpServlet
                     if (!item.isFormField()) 
                     {
                         fileName = new File(item.getName()).getName();
+                        String path = request.getContextPath() + "/" + DATA_DIRECTORY + "/" +fileName;
                         String filePath = uploadFolder + File.separator + fileName;
                         File uploadedFile = new File(filePath);
                         System.out.println(filePath);
                           
                         // saves the file to upload directory
                         item.write(uploadedFile); 
-                        PreparedStatement statement = conn.prepareStatement("INSERT INTO files (filesDir) values(?)");
-                        statement.setString(1, filePath);
+                        PreparedStatement statement = conn.prepareStatement("INSERT INTO files (fileDirectory) values(?)");
+                        statement.setString(1, path);
                         statement.executeUpdate();
                                                                      
                         out.write("File "+ item.getName() +" uploaded successfully.");
                         out.write("<br><br>");
-                        out.write("<a href=\"Upload?filePath="+ filePath + "\">Download "+ item.getName()+"</a>");                       
+                        out.write("<a href=\"Upload?fileName=" + filePath + "\">Download "+ item.getName()+"</a>"); 
                     }
                 }    
             }               
@@ -141,7 +142,7 @@ public class Upload extends HttpServlet
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException 
     {
-        String filePath = request.getParameter("filePath");
+        String filePath = request.getParameter("fileName");
 
         if(filePath == null || filePath.equals(""))
         {

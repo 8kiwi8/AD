@@ -26,6 +26,7 @@
                 <th>Phone Number</th>
                 <th>Department</th>
                 <th>Status</th>
+                <th></th>
             </tr>
         </thread>
         <tbody>
@@ -37,11 +38,17 @@
                 <td><%=rs.getString(3) %></td>
                 <td><%=rs.getString(4) %></td>
                 <td><%=rs.getString(5) %></td>
+                <td><a href="updateLecturer.jsp?username=<%=rs.getString(6)%>"><button class="btn btn-primary btn-xs">Update</button></a>
+                <a href="deleteLecturer.jsp?username=<%=rs.getString(6)%>"><button class="btn btn-danger btn-xs">Delete</button></a></td>
             </tr>
         <% } %>
         </tbody>
       </table>
-        
+            <p>
+   <a role="button" class="btn btn-primary" href="addLecturer.jsp">
+      Add
+   </a>
+</p>
     </div> <!-- /.container -->
 </body>
 </html>

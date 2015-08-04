@@ -22,7 +22,7 @@
                 <th>Course Code</th>
                 <th>Course Name</th>
                 <th>Credit Hours</th>
-                <th>Penyelaras</th>
+                <th></th>
             </tr>
         </thread>
         <tbody>
@@ -31,16 +31,19 @@
                 <td><%=rs.getString(1) %> <%=rs.getString(2) %></td>
                 <td><%=rs.getString(3) %></td>
                 <td><%=rs.getString(4) %></td>
-                <td>
-                    <select class="form-control" id="section">
-                        <option>01</option>
-                    </select>
-                </td>
+                <td><a href="updateCourses.jsp?courseCode=<%=rs.getString(1)%>&courseID=<%=rs.getString(2)%>"><button class="btn btn-primary btn-xs">Update</button></a>
+                <a href="deleteCourses.jsp?courseCode=<%=rs.getString(1)%>&courseID=<%=rs.getString(2)%>"><button class="btn btn-danger btn-xs">Delete</button></a></td>
             </tr>
         <% } %>
         </tbody>
       </table>
-        
+    
+ <p>
+   <a role="button" class="btn btn-primary" href="addCourses.jsp">
+      Add
+   </a>
+</p>
+
     </div> <!-- /.container -->
 </body>
 </html>
