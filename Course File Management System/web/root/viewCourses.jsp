@@ -13,28 +13,7 @@
 %>
 
     <div class="container">
-    
-        <div class="jumbotron">
-            <h1>Course File Management System</h1>
-            <p>Upload all your course-related documents here for the usage of students and administrators.</p>
-        </div>
-        
-        <nav class="navbar navbar-default">
-            <div class="container-fluid">
-                <ul class="nav navbar-nav">
-                    <li><a href="rootHome.jsp">Home</a></li>
-                    <li><a href="viewLecturers.jsp">Lecturers</a></li>
-                    <li class="active"><a href="#">Courses</a></li>
-                    <li><a href="viewSemesters.jsp">Semesters</a></li>
-                    
-                </ul>
-                
-                <ul class="nav navbar-nav navbar-right">
-                    <li><a href="/Course_File_Management_System/web/logout.jsp">Log Out</a></li>
-                </ul>
-            </div> <!-- /.container-fluid -->
-            
-        </nav>
+        <jsp:include page="../auth.jsp"/>
         
       <table class="table">
         <caption>List of Courses</caption>
