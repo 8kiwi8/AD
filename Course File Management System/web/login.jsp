@@ -1,4 +1,14 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%
+    boolean invalidPassword = false;
+    
+    if (request.getAttribute("Error") != null) {
+        if (request.getAttribute("Error").equals("Invalid password.")) {
+            invalidPassword = true;
+        }
+    }
+    out.println(request.getContextPath());
+%>
 <!DOCTYPE html>
 <html>
     <head>
@@ -25,8 +35,7 @@
                                     <input type="text" class="form-control" name="inputUsername" placeholder="Username">
                                 </div>
                             </div>
-
-                            <div class="form-group">
+                            <div class="form-group <% if (invalidPassword) out.println("has-error"); %>">
                                 <label for="inputPassword" class="control-label col-xs-4">Password</label>
                                 <div class="col-xs-8">
                                     <input type="password" class="form-control" name="inputPassword" placeholder="Password">

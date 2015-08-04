@@ -1,3 +1,4 @@
+<jsp:include page="../auth.jsp"/>
 <!doctype html>
 <html lang="en">
 <head>
@@ -6,14 +7,10 @@
     <title>Login</title>
 </head>
 <body>
+    <jsp:include page="../header.jsp"/>
     <div class="container">
-    
-        <div class="jumbotron">
-            <h1>Course File Management System</h1>
-            <p>Upload all your course-related documents here for the usage of students and administrators.</p>
-        </div>
         
-        <jsp:include page="../header.jsp"/>
+        
         
         <div class="col-xs-8 panel panel-default">
             <h1>Test</h1>
