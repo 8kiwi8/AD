@@ -7,21 +7,19 @@ package root;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.net.URLDecoder;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import common.DB;
 
 /**
  *
- * @author Kiwi
+ * @author Yansheng
  */
-@WebServlet(name = "CreateOfferedCourseServlet", urlPatterns = {"/CreateOfferedCourseServlet"})
-public class CreateOfferedCourseServlet extends HttpServlet {
+@WebServlet(name = "updateCoursesDB", urlPatterns = {"/updateCoursesDB"})
+public class updateCoursesDB extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -37,17 +35,22 @@ public class CreateOfferedCourseServlet extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
-            String courseID = request.getParameter("courseID");
             String courseCode = request.getParameter("courseCode");
-            int semesterID = Integer.parseInt(request.getParameter("semesterID"));
-            String query = "INSERT INTO course_offered(semesterID, courseCode, courseID) VALUES("+semesterID+", '"+courseCode+"', '"+courseID+"')";
+	String courseID = request.getParameter("courseID");
+	String courseName = request.getParameter("courseName");
+	String creditHours = request.getParameter("creditHours");
+
+	int rs = DB.update("UPDATE course SET courseName='"+ courseName +"', creditHours='"+ creditHours +"' WHERE courseCode='"+ courseCode+ "' AND courseID='"+ courseID +"'");
+
+	response.sendRedirect("root/viewCourses.jsp");
+        
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet createCourseServlet</title>");            
+            out.println("<title>Servlet updateCoursesDB</title>");            
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>"+query+"</h1>");
+            out.println("<h1>Servlet updateCoursesDB at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }

@@ -7,21 +7,19 @@ package root;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.net.URLDecoder;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import common.DB;
 
 /**
  *
- * @author Kiwi
+ * @author Yansheng
  */
-@WebServlet(name = "CreateOfferedCourseServlet", urlPatterns = {"/CreateOfferedCourseServlet"})
-public class CreateOfferedCourseServlet extends HttpServlet {
+@WebServlet(name = "addLecturerDB", urlPatterns = {"/addLecturerDB"})
+public class addLecturerDB extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -37,17 +35,27 @@ public class CreateOfferedCourseServlet extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
-            String courseID = request.getParameter("courseID");
-            String courseCode = request.getParameter("courseCode");
-            int semesterID = Integer.parseInt(request.getParameter("semesterID"));
-            String query = "INSERT INTO course_offered(semesterID, courseCode, courseID) VALUES("+semesterID+", '"+courseCode+"', '"+courseID+"')";
+            String username = request.getParameter("username");
+            String password = request.getParameter("password");
+            String name = request.getParameter("name");
+            String emailAdd = request.getParameter("emailAdd");
+            String phoneNo = request.getParameter("phoneNo");
+            String department = request.getParameter("department");
+            String status = request.getParameter("status");
+
+	int rs = DB.update("INSERT INTO user VALUES ('" + username + "', '" + password + "', 'lecturer')");
+
+	int rs2 = DB.update("INSERT INTO profile (`name`, `emailAdd`, `phoneNo`, `department`, `status`, `username`) VALUES ('"+ name+ "', '"+ emailAdd +"', '"+ phoneNo +"', '"+ department +"', '"+ status +"', '"+ username +"')");
+
+	response.sendRedirect("root/viewLecturers.jsp");
+        
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet createCourseServlet</title>");            
+            out.println("<title>Servlet addLecturerDB</title>");            
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>"+query+"</h1>");
+            out.println("<h1>Servlet addLecturerDB at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
