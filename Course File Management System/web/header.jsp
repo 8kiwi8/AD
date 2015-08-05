@@ -10,6 +10,7 @@
     boolean isLecturer = false;
     boolean isAdmin = false;
     boolean isRoot = false;
+    boolean isSuper = false;
     boolean isLoggedIn = true;
     
     // Example output: index.jsp
@@ -29,6 +30,10 @@
     } else {
         isLoggedIn = false; // User is not logged in
     }
+    if (session.getAttribute("isSuper") != null) { 
+        if (session.getAttribute("isSuper").equals("true"))
+            isSuper = true;
+    }
     
     /* BELOW IS FOR TESTING PURPOSES
     out.println(request.getServletPath());
@@ -38,7 +43,9 @@
     out.println(session.getAttribute("usertype")); */
 %>
 
-<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+<link rel="stylesheet" href="<%=request.getContextPath()%>/css/bootstrap.min.css">
+<script type="text/javascript" src="<%=request.getContextPath()%>/javascript/jquery-2.1.4.min.js"></script>
+<script type="text/javascript" src="<%=request.getContextPath()%>/javascript/bootstrap.min.js"></script>
 
 <div class="container">
     <div class="jumbotron">
@@ -81,14 +88,16 @@
                         <li class="<% if (currentPageName.equals("viewLecturers.jsp")) out.println("active"); %>">
                             <a href="<% if (!currentPageName.equals("viewLecturers.jsp")) out.println("viewLecturers.jsp"); %>">Lecturers</a>
                         </li>
+                        <!--
                         <li class="<% if (currentPageName.equals("viewUploads.jsp")) out.println("active"); %>">
                             <a href="<% if (!currentPageName.equals("viewUploads.jsp")) out.println("viewUploads.jsp"); %>">Uploads</a>
                         </li>
+                        -->
                 <%
                     } else if (isLecturer) {
                 %>
-                        <li class="<% if (currentPageName.equals("viewUploads.jsp")) out.println("active"); %>">
-                            <a href="<% if (!currentPageName.equals("viewUploads.jsp")) out.println("viewUploads.jsp"); %>">Upload</a>
+                        <li class="<% if (currentPageName.equals("section.jsp")) out.println("active"); %>">
+                            <a href="<% if (!currentPageName.equals("section.jsp")) out.println("section.jsp"); %>">Upload</a>
                         </li>
                 <%
                     }
@@ -101,8 +110,19 @@
                             <span class="glyphicon glyphicon-off" aria-hidden="true" style="padding-right: 10px"></span>Log Out
                         </a>
                     </li>
+                    <% if (isSuper) { %>
+                    <li class="dropdown">
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false"> Change User <span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="<%=request.getContextPath()%>/ChangeUserRole?userType=root">Admin</a></li>
+                            <li><a href="<%=request.getContextPath()%>/ChangeUserRole?userType=admin">Pentadbir</a></li>
+                            <li><a href="<%=request.getContextPath()%>/ChangeUserRole?userType=lecturer">Lecturer</a></li>
+                        </ul>
+                    </li>
+                    <% } %>
                 </ul>
             <% } %>
+            
         </div> <!-- /.container-fluid -->
 
     </nav>
