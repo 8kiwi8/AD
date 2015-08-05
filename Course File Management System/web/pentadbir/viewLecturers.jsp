@@ -11,25 +11,30 @@
 <body>
 
 <%
-    ResultSet rs = DB.query("SELECT * FROM course");
+    ResultSet rs = DB.query("SELECT * FROM profile, user WHERE user.username = profile.username AND user.usertype = 'lecturer'");
 %>
-
     <div class="container">
       <table class="table">
-        <caption>List of Courses</caption>
+        <caption>List of Lecturers</caption>
         <thread>
             <tr>
-                <th>Course Code</th>
-                <th>Course Name</th>
-                <th>Credit Hours</th>
+                <th>Username</th>
+                <th>Name</th>
+                <th>Email Address</th>
+                <th>Phone Number</th>
+                <th>Department</th>
+                <th>Status</th>
             </tr>
         </thread>
         <tbody>
         <%while(rs.next()){ %>
             <tr>
-                <td><%=rs.getString(1) %> <%=rs.getString(2) %></td>
+                <td><%=rs.getString(6) %></td>
+                <td><%=rs.getString(1) %></td>
+                <td><%=rs.getString(2) %></td>
                 <td><%=rs.getString(3) %></td>
                 <td><%=rs.getString(4) %></td>
+                <td><%=rs.getString(5) %></td>
             </tr>
         <% } %>
         </tbody>

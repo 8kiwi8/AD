@@ -17,7 +17,14 @@
         String userTypeFromDB = rs.getString("usertype");
         if (rs.getString("password").equals(password)) { // If valid password
             session.setAttribute("User", username); // Saves username string in the session object
-            session.setAttribute("userType", userTypeFromDB);
+            if(userTypeFromDB.equals("super")) {
+                System.out.println("Logged User:" + userTypeFromDB);
+                session.setAttribute("userType", "root");
+                session.setAttribute("isSuper", "true");
+            }
+            else {
+                session.setAttribute("userType", userTypeFromDB);
+            }
             //out.println("password inputted = password in DB = username & pwd found in system");
             rd = request.getRequestDispatcher("loginRedir.jsp");
         }
