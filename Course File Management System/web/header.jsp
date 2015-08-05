@@ -91,10 +91,15 @@
             
             <% if (isLoggedIn) { %>
                 <ul class="nav navbar-nav navbar-right">
-                    <li><a href="<%=request.getContextPath()%>/logoutAction.jsp">Log Out</a></li>
+                    <li><a href="<%=request.getContextPath()%>/logoutAction.jsp">
+                            <span class="glyphicon glyphicon-off" aria-hidden="true" style="padding-right: 10px"></span>Log Out
+                        </a>
+                    </li>
                 </ul>
             <% } %>
         </div> <!-- /.container-fluid -->
 
     </nav>
 </div>
+
+<!-- SEPARATOR -->
