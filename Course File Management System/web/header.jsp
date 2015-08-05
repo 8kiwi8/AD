@@ -60,14 +60,20 @@
                 <%
                     if (isRoot) { 
                 %>
-                        <li class="<% if (currentPageName.equals("addSemester.jsp")) out.println("active"); %>">
-                            <a href="<% if (!currentPageName.equals("addSemester.jsp")) out.println("addSemester.jsp"); %>">New Semester</a>
-                        </li>
                         <li class="<% if (currentPageName.equals("viewLecturers.jsp")) out.println("active"); %>">
                             <a href="<% if (!currentPageName.equals("viewLecturers.jsp")) out.println("viewLecturers.jsp"); %>">Lecturers</a>
                         </li>
-                        <li class="<% if (currentPageName.equals("viewSemesters.jsp")) out.println("active"); %>">
-                            <a href="<% if (!currentPageName.equals("viewSemesters.jsp")) out.println("viewSemesters.jsp"); %>">Semesters</a>
+                        <li class="<% if (currentPageName.equals("createSemester.jsp")) out.println("active"); %>">
+                            <a href="<% if (!currentPageName.equals("createSemester.jsp")) out.println("createSemester.jsp"); %>">Semesters</a>
+                        </li>
+                        <li class="<% if (currentPageName.equals("viewCourses.jsp")) out.println("active"); %>">
+                            <a href="<% if (!currentPageName.equals("viewCourses.jsp")) out.println("viewCourses.jsp"); %>">View All Courses</a>
+                        </li>
+                        <li class="<% if (currentPageName.equals("createOfferedCourse.jsp")) out.println("active"); %>">
+                            <a href="<% if (!currentPageName.equals("createOfferedCourse.jsp")) out.println("createOfferedCourse.jsp"); %>">Offered Courses</a>
+                        </li>
+                        <li class="<% if (currentPageName.equals("createSection.jsp")) out.println("active"); %>">
+                            <a href="<% if (!currentPageName.equals("createSection.jsp")) out.println("createSection.jsp"); %>">Sections</a>
                         </li>
                 <%
                     } else if (isAdmin) {

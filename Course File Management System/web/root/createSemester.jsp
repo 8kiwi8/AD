@@ -3,10 +3,10 @@
     Created on : Jul 30, 2015, 4:30:28 PM
     Author     : Kiwi
 --%>
-
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
-<%@page import ="java.sql.*, common.DB" %>
 <jsp:include page="../auth.jsp"/>
+<jsp:include page="../header.jsp"/>
+<%@ page import ="java.sql.*, common.DB" %>
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
     <head>
@@ -18,7 +18,6 @@
     </head>
     <body>
         <div class="container">
-            <jsp:include page="../auth.jsp"/>
             <h1>Current Running Semester</h1>
             <table class="table" id="semesterList">
                 <thead>

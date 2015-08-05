@@ -1,3 +1,5 @@
+<jsp:include page="../auth.jsp"/>
+<jsp:include page="../header.jsp"/>
 <!doctype html>
 <html lang="en">
 <head>
@@ -7,9 +9,6 @@
 </head>
 <body>
     <div class="container">
-    
-        <jsp:include page="../auth.jsp"/>
-        
         <table class="table">
             <caption>List of Semesters</caption>
             <thread>

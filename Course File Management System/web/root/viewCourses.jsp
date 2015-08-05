@@ -1,3 +1,5 @@
+<jsp:include page="../auth.jsp"/>
+<jsp:include page="../header.jsp"/>
 <%@ page import ="java.sql.*, common.DB" %>
 <!doctype html>
 <html lang="en">
@@ -13,8 +15,6 @@
 %>
 
     <div class="container">
-        <jsp:include page="../auth.jsp"/>
-        
       <table class="table">
         <caption>List of Courses</caption>
         <thread>

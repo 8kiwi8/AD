@@ -5,6 +5,7 @@
  */
 package root;
 
+import common.DB;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -36,6 +37,8 @@ public class DeleteSemesterServlet extends HttpServlet {
             /* TODO output your page here. You may use following sample code. */
             String semesterID = request.getParameter("semesterID");
             String query = "DELETE FROM year_semester WHERE semesterID="+semesterID;
+            int rs = DB.update(query);
+            response.sendRedirect(request.getHeader("Referer"));
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");

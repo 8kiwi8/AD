@@ -1,6 +1,6 @@
-<%@ page import ="java.sql.*, common.DB" %>
 <jsp:include page="../auth.jsp"/>
-
+<jsp:include page="../header.jsp"/>
+<%@ page import ="java.sql.*, common.DB" %>
 <%
 	String courseCode = request.getParameter("courseCode");
     String courseID = request.getParameter("courseID");
@@ -19,7 +19,6 @@
 
 <body>
     <div class="container">
-
 	<form class="form-horizontal" method="post" action="<%=request.getContextPath()%>/updateCoursesDB?courseCode=<%=rs.getString(1)%>&courseID=<%=rs.getString(2)%>">
             <div class="form-group">
                             <label for="courseCode" class="control-label col-xs-4">Course Code</label>

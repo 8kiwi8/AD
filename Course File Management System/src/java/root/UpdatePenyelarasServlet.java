@@ -5,6 +5,7 @@
  */
 package root;
 
+import common.DB;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -37,6 +38,8 @@ public class UpdatePenyelarasServlet extends HttpServlet {
             String username = request.getParameter("username");
             String co_ID = request.getParameter("course_offered_ID");
             String query = "UPDATE course_offered SET username = '"+username+"' WHERE course_offered_ID="+ co_ID;
+            int rs = DB.update(query);
+            response.sendRedirect(request.getHeader("Referer"));
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");

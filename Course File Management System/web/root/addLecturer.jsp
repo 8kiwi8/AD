@@ -1,5 +1,6 @@
-<%@ page import ="java.sql.*, common.DB" %>
 <jsp:include page="../auth.jsp"/>
+<jsp:include page="../header.jsp"/>
+<%@ page import ="java.sql.*, common.DB" %>
 <!doctype html>
 <html lang="en">
 <head>
@@ -13,35 +14,6 @@
 </head>
 <body>
     <div class="container">
-    
-        <div class="jumbotron">
-            <h1>Course File Management System</h1>
-            <p>Upload all your course-related documents here for the usage of students and administrators.</p>
-        </div>
-        
-        <nav class="navbar navbar-default">
-            <div class="container-fluid">
-                <ul class="nav navbar-nav">
-                    <li><a href="rootHome.jsp">Home</a></li>
-                     <li class="active"><a href="#">Lecturers</a></li>
-                    <li><a href="viewCourses.jsp">Courses</a></li>
-                    <li><a href="viewSemesters.jsp">Semesters</a></li>
-                    
-                </ul>
-                
-                <ul class="nav navbar-nav navbar-right">
-                    <li><a href="logOut.html">Log Out</a></li>
-                </ul>
-            </div> <!-- /.container-fluid -->
-        </nav>
-        
-        <div class="panel">
-            
-        </div>
-        
-  
-
-
 		<form class="form-horizontal" method="post" action="<%=request.getContextPath()%>/addLecturerDB">
             <div class="form-group">
                  <label for="username" class="control-label col-xs-4">Username</label>

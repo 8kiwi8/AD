@@ -38,6 +38,8 @@ public class CreateSemesterServlet extends HttpServlet {
             String year = request.getParameter("year");
             int semester = Integer.parseInt(request.getParameter("semester"));
             String query = "INSERT INTO year_semester (year, semester) VALUES (\'"+year+"\', "+semester+")";
+            int rs = DB.update(query);
+            response.sendRedirect(request.getHeader("Referer"));
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");

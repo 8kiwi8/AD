@@ -1,5 +1,6 @@
-<%@ page import ="java.sql.*, common.DB" %>
 <jsp:include page="../auth.jsp"/>
+<jsp:include page="../header.jsp"/>
+<%@ page import ="java.sql.*, common.DB" %>
 <%
     ResultSet rs = DB.query("SELECT * FROM course");
     ResultSet rs2 = DB.query("SELECT * FROM profile, user WHERE user.username = profile.username AND user.usertype = 'lecturer' AND profile.status = 'Active'");
@@ -93,9 +94,6 @@
 </head>
 <body>
     <div class="container">
-    
-        <jsp:include page="../auth.jsp"/>
-        
         <div class="panel">
             <form>
                 <div class="form-group">

@@ -1,5 +1,6 @@
+<jsp:include page="../auth.jsp"/>
+<jsp:include page="../header.jsp"/>
 <%@ page import ="java.sql.*, common.DB" %>
-
 <!doctype html>
 <html lang="en">
 <head>
@@ -13,9 +14,6 @@
     ResultSet rs = DB.query("SELECT * FROM profile, user WHERE user.username = profile.username AND user.usertype = 'lecturer'");
 %>
     <div class="container">
-    
-        <jsp:include page="../auth.jsp"/>
-        
       <table class="table">
         <caption>List of Lecturers</caption>
         <thread>

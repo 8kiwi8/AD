@@ -1,3 +1,5 @@
+<jsp:include page="../auth.jsp"/>
+<jsp:include page="../header.jsp"/>
 <!doctype html>
 <html lang="en">
 <head>
@@ -6,10 +8,7 @@
     <title>Login</title>
 </head>
 <body>
-    <div class="container">
-        <jsp:include page="../auth.jsp"/>
-        <jsp:include page="../header.jsp"/>
-        
+    <div class="container">     
         <div class="col-xs-8 panel panel-default">
             <h1>Test</h1>
             <p>You are logged in as: admin/root</p>

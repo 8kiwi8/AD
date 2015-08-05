@@ -5,6 +5,7 @@
  */
 package root;
 
+import common.DB;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -43,6 +44,8 @@ public class CreateSectionServlet extends HttpServlet {
             String query = "INSERT INTO section(username, semesterID, sectionNo, course_offered_ID, courseCode, courseID) " +
                     "VALUES('"+username+"', "+semesterID+
                     ", "+sectionNo+", "+course_offered_ID+", '"+courseCode+"', '"+courseID+"')";
+            int rs = DB.update(query);
+            response.sendRedirect(request.getHeader("Referer"));
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");

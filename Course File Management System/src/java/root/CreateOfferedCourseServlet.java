@@ -5,6 +5,7 @@
  */
 package root;
 
+import common.DB;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.net.URLDecoder;
@@ -41,6 +42,8 @@ public class CreateOfferedCourseServlet extends HttpServlet {
             String courseCode = request.getParameter("courseCode");
             int semesterID = Integer.parseInt(request.getParameter("semesterID"));
             String query = "INSERT INTO course_offered(semesterID, courseCode, courseID) VALUES("+semesterID+", '"+courseCode+"', '"+courseID+"')";
+            int rs = DB.update(query);
+            response.sendRedirect(request.getHeader("Referer"));
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");

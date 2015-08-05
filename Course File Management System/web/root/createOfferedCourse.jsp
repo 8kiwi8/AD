@@ -1,5 +1,6 @@
-<%@ page import ="java.sql.*, common.DB, java.util.*" %>
 <jsp:include page="../auth.jsp"/>
+<jsp:include page="../header.jsp"/>
+<%@ page import ="java.sql.*, common.DB, java.util.*" %>
 <!doctype html>
 <html lang="en">
 <head>
@@ -97,7 +98,6 @@
 </head>
 <body>
     <div class="container">
-        <jsp:include page="../auth.jsp"/>
         <input class="form-control" id="semester" placeholder="Choose Semester">
         <table class="table" id="tblSemesters">
             <thread>
