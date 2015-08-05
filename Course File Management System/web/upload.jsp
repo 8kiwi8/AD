@@ -5,7 +5,6 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<%@ page import ="java.sql.*, common.DB, java.util.*, CourseFileManagementSystem.Upload" %>
 <!DOCTYPE html>
 <html>
     <head>
@@ -13,7 +12,7 @@
         <title>File Upload</title>
         <link rel="stylesheet" href="css/bootstrap.min.css">
         <style type="text/css">
-            form{
+            form {
                 margin-left: 10px;
             }
             .fileUpload {
@@ -39,19 +38,9 @@
                 line-height: 28px;
             }
         </style>
-        <script type="text/javascript">
-        function hide() {
-            $("#hide").hide();           
-        }
-        </script>
     </head>
-    <body>        
+    <body>
         <form method="post" action="<%=request.getContextPath()%>/Upload" enctype="multipart/form-data">
-            <div class="">
-                <% String semesterID = request.getParameter("semesterID"); %>
-                <% String sectionID = request.getParameter("sectionID"); %>
-                <% Upload.setID (semesterID, sectionID); %>
-            </div>
             <input id="uploadFile" placeholder="Choose File" disabled="disabled" />
             <div class="fileUpload btn btn-default">
                 <span>Browse</span>
@@ -59,6 +48,7 @@
             </div>
             <input type="submit" value="Upload" class="btn btn-primary"/>
         </form>
+        
         <script type="text/javascript">
             document.getElementById("fileChooser").onchange = function () {
                 document.getElementById("uploadFile").value = this.value.slice(12);

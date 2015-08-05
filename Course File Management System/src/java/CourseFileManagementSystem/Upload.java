@@ -44,17 +44,7 @@ public class Upload extends HttpServlet
     private static final int MAX_FILE_SIZE = 1024 * 1024 * 40; // 40MB
     private static final int MAX_MEMORY_SIZE = 1024 * 1024 * 5; //5MB
     private static final int MAX_REQUEST_SIZE = 1024 * 1024 * 50; //50MB
-    
-    String fileName = " ";
-    static String sectionID = " ";
-    static String semesterID = " ";
-    
-    public static void setID(String semID, String secID)
-    {
-        semesterID = semID;
-        sectionID = secID;
-    }
-    
+    String fileName = "";
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException 
     {
@@ -84,7 +74,7 @@ public class Upload extends HttpServlet
         factory.setRepository(new File(System.getProperty("java.io.tmpdir")));
 
         // constructs the folder where uploaded file will be stored
-        String uploadFolder = getServletContext().getRealPath("") + File.separator + DATA_DIRECTORY + File.separator + semesterID + " - " + sectionID;
+        String uploadFolder = getServletContext().getRealPath("") + File.separator + DATA_DIRECTORY;
 
         // Create a new file upload handler
         ServletFileUpload upload = new ServletFileUpload(factory);
@@ -121,7 +111,7 @@ public class Upload extends HttpServlet
                     if (!item.isFormField()) 
                     {
                         fileName = new File(item.getName()).getName();
-                        String path = request.getContextPath() + "/" + DATA_DIRECTORY + "/" + semesterID + " - " + sectionID + "/" +fileName;
+                        String path = request.getContextPath() + "/" + DATA_DIRECTORY + "/" +fileName;
                         String filePath = uploadFolder + File.separator + fileName;
                         File uploadedFile = new File(filePath);
                         System.out.println(filePath);
