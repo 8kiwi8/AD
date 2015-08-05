@@ -1,7 +1,8 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 
 <%
-    //String 
+    // TEMPORARY
+    response.sendRedirect("login.jsp");
 %>
 
 
@@ -10,7 +11,7 @@
 <head>
     <link rel="stylesheet" href="css/bootstrap.min.css">
     <meta charset="UTF-8">
-    <title>Login</title>
+    <title>Course File Management System</title>
 </head>
 <body>
     <div class="container">

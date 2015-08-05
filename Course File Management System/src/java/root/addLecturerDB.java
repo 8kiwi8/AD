@@ -5,7 +5,6 @@
  */
 package root;
 
-import common.DB;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -13,13 +12,14 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import common.DB;
 
 /**
  *
- * @author Kiwi
+ * @author Yansheng
  */
-@WebServlet(name = "createSemesterServlet", urlPatterns = {"/createSemesterServlet"})
-public class createSemesterServlet extends HttpServlet {
+@WebServlet(name = "addLecturerDB", urlPatterns = {"/addLecturerDB"})
+public class addLecturerDB extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -35,18 +35,27 @@ public class createSemesterServlet extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
-            String year = request.getParameter("year");
-            int semester = Integer.parseInt(request.getParameter("semester"));
-            String query = "INSERT INTO year_semester (year, semester) VALUES (\'"+year+"\', "+semester+")";
+            String username = request.getParameter("username");
+            String password = request.getParameter("password");
+            String name = request.getParameter("name");
+            String emailAdd = request.getParameter("emailAdd");
+            String phoneNo = request.getParameter("phoneNo");
+            String department = request.getParameter("department");
+            String status = request.getParameter("status");
+
+	int rs = DB.update("INSERT INTO user VALUES ('" + username + "', '" + password + "', 'lecturer')");
+
+	int rs2 = DB.update("INSERT INTO profile (`name`, `emailAdd`, `phoneNo`, `department`, `status`, `username`) VALUES ('"+ name+ "', '"+ emailAdd +"', '"+ phoneNo +"', '"+ department +"', '"+ status +"', '"+ username +"')");
+
+	response.sendRedirect("root/viewLecturers.jsp");
+        
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet BMIServlet</title>");            
+            out.println("<title>Servlet addLecturerDB</title>");            
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Result</h1>");
-            out.println(query+"<br>");
-            out.println(DB.update(query));
+            out.println("<h1>Servlet addLecturerDB at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }

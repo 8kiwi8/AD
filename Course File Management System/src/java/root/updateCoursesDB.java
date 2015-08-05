@@ -3,9 +3,8 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package AutoComplete;
+package root;
 
-import common.DB;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -13,13 +12,14 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import common.DB;
 
 /**
  *
- * @author Kiwi
+ * @author Yansheng
  */
-@WebServlet(name = "ListSemesterCourseServlet", urlPatterns = {"/ListSemesterCourseServlet"})
-public class ListSemesterCourseServlet extends HttpServlet {
+@WebServlet(name = "updateCoursesDB", urlPatterns = {"/updateCoursesDB"})
+public class updateCoursesDB extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -35,18 +35,24 @@ public class ListSemesterCourseServlet extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
-            try {
-                String value = request.getParameter("value");
-                String label = request.getParameter("label");
-                String semesterID = request.getParameter("semesterID");
-                String query = "Select co.course_offered_ID, c.courseName, c.courseCode, c.courseID FROM " +
-                        "course_offered AS co, course AS c WHERE " +
-                        "co.courseCode = c.courseCode AND co.courseID = c.courseID AND " +
-                        "co.semesterID = " + semesterID;
-                out.print(DB.createJson(query, label, value));
-            } catch(Exception e) {
-                e.printStackTrace();
-            }
+            String courseCode = request.getParameter("courseCode");
+	String courseID = request.getParameter("courseID");
+	String courseName = request.getParameter("courseName");
+	String creditHours = request.getParameter("creditHours");
+
+	int rs = DB.update("UPDATE course SET courseName='"+ courseName +"', creditHours='"+ creditHours +"' WHERE courseCode='"+ courseCode+ "' AND courseID='"+ courseID +"'");
+
+	response.sendRedirect("root/viewCourses.jsp");
+        
+            out.println("<!DOCTYPE html>");
+            out.println("<html>");
+            out.println("<head>");
+            out.println("<title>Servlet updateCoursesDB</title>");            
+            out.println("</head>");
+            out.println("<body>");
+            out.println("<h1>Servlet updateCoursesDB at " + request.getContextPath() + "</h1>");
+            out.println("</body>");
+            out.println("</html>");
         }
     }
 

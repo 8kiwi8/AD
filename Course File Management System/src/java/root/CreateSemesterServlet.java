@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package AutoComplete;
+package root;
 
 import common.DB;
 import java.io.IOException;
@@ -18,8 +18,8 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author Kiwi
  */
-@WebServlet(name = "ListSemesterCourseServlet", urlPatterns = {"/ListSemesterCourseServlet"})
-public class ListSemesterCourseServlet extends HttpServlet {
+@WebServlet(name = "CreateSemesterServlet", urlPatterns = {"/CreateSemesterServlet"})
+public class CreateSemesterServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -35,18 +35,20 @@ public class ListSemesterCourseServlet extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
-            try {
-                String value = request.getParameter("value");
-                String label = request.getParameter("label");
-                String semesterID = request.getParameter("semesterID");
-                String query = "Select co.course_offered_ID, c.courseName, c.courseCode, c.courseID FROM " +
-                        "course_offered AS co, course AS c WHERE " +
-                        "co.courseCode = c.courseCode AND co.courseID = c.courseID AND " +
-                        "co.semesterID = " + semesterID;
-                out.print(DB.createJson(query, label, value));
-            } catch(Exception e) {
-                e.printStackTrace();
-            }
+            String year = request.getParameter("year");
+            int semester = Integer.parseInt(request.getParameter("semester"));
+            String query = "INSERT INTO year_semester (year, semester) VALUES (\'"+year+"\', "+semester+")";
+            out.println("<!DOCTYPE html>");
+            out.println("<html>");
+            out.println("<head>");
+            out.println("<title>Servlet BMIServlet</title>");            
+            out.println("</head>");
+            out.println("<body>");
+            out.println("<h1>Result</h1>");
+            out.println(query+"<br>");
+            out.println(DB.update(query));
+            out.println("</body>");
+            out.println("</html>");
         }
     }
 

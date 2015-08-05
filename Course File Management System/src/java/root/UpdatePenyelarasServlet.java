@@ -17,8 +17,8 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author Kiwi
  */
-@WebServlet(name = "createSectionServlet", urlPatterns = {"/createSectionServlet"})
-public class createSectionServlet extends HttpServlet {
+@WebServlet(name = "UpdatePenyelarasServlet", urlPatterns = {"/UpdatePenyelarasServlet"})
+public class UpdatePenyelarasServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -35,17 +35,12 @@ public class createSectionServlet extends HttpServlet {
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
             String username = request.getParameter("username");
-            String courseID = request.getParameter("courseID");
-            String courseCode = request.getParameter("courseCode");
-            int semesterID = Integer.parseInt(request.getParameter("semesterID"));
-            int sectionID = Integer.parseInt(request.getParameter("sectionID"));
-            int course_offered_ID = Integer.parseInt(request.getParameter("course_offered_ID"));
-            String query = "INSERT INTO section VALUES('"+username+"', "+semesterID+
-                    ", "+sectionID+", "+course_offered_ID+", '"+courseCode+"', '"+courseID+"')";
+            String co_ID = request.getParameter("course_offered_ID");
+            String query = "UPDATE course_offered SET username = '"+username+"' WHERE course_offered_ID="+ co_ID;
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet createCourseServlet</title>");            
+            out.println("<title>Servlet AddPenyelarasServlet</title>");            
             out.println("</head>");
             out.println("<body>");
             out.println("<h1>"+query+"</h1>");
