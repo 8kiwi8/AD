@@ -4,36 +4,36 @@
 <!doctype html>
 <html lang="en">
 <head>
-    <link rel="stylesheet" href="css/bootstrap.min.css">
     <meta charset="UTF-8">
+    <link rel="stylesheet" href="<%=request.getContextPath()%>/css/bootstrap.min.css">
+    <link rel="stylesheet" href="<%=request.getContextPath()%>/css/bootstrap-table.css">
+    <script type="text/javascript" src="<%=request.getContextPath()%>/javascript/jquery-2.1.4.min.js"></script>
+    <script type="text/javascript" src="<%=request.getContextPath()%>/javascript/bootstrap.min.js"></script>
+    <script type="text/javascript" src="<%=request.getContextPath()%>/javascript/bootstrap-table.js"></script>
     <title>Login</title>
 </head>
 <body>
 
 <%
-    ResultSet rs = DB.query("SELECT * FROM course WHERE courseCode='SCSJ'");
-    ResultSet rs2 = DB.query("SELECT * FROM course WHERE courseCode='SCSR'");
-    ResultSet rs3 = DB.query("SELECT * FROM course WHERE courseCode='SCSB'");
-    ResultSet rs4 = DB.query("SELECT * FROM course WHERE courseCode='SCSV'");
-
+    ResultSet rs = DB.query("SELECT * FROM course");
 %>
 
     <div class="container">
-      <table class="table">
-        <caption>List of Courses</caption>
-        <thread>
+      <table 
+          data-toggle="table" 
+          data-search="true"
+          data-pagination="true"
+          data-show-toggle="true">
+        <thead>
             <tr>
-                <th>Course Code</th>
-                <th>Course Name</th>
-                <th>Credit Hours</th>
-                <th></th>
+                <th data-sortable="true" data-field="courseCode">Course Code</th>
+                <th data-sortable="true" data-field="courseName">Course Name</th>
+                <th data-field="courseHours">Credit Hours</th>
+                <th data-field="action"></th>
             </tr>
-        </thread>
-
+        </thead>
         <tbody>
-            <tr><td><b>SCSJ (Software Engineering)</b></td><td></td><td></td><td></td></tr>
         <%while(rs.next()){ %>
-            
             <tr>
                 <td><%=rs.getString(1) %> <%=rs.getString(2) %></td>
                 <td><%=rs.getString(3) %></td>
@@ -42,39 +42,8 @@
                 <a href="<%=request.getContextPath()%>/deleteCourses?courseCode=<%=rs.getString(1)%>&courseID=<%=rs.getString(2)%>"><button class="btn btn-danger btn-xs">Delete</button></a></td>
             </tr>
         <% } %>
-            <tr><td><b>SCSR (Network Communication & Security)</b></td><td></td><td></td><td></td></tr>
-        <%while(rs2.next()){ %>
-            <tr>
-                <td><%=rs2.getString(1) %> <%=rs2.getString(2) %></td>
-                <td><%=rs2.getString(3) %></td>
-                <td><%=rs2.getString(4) %></td>
-                <td><a href="updateCourses.jsp?courseCode=<%=rs2.getString(1)%>&courseID=<%=rs2.getString(2)%>"><button class="btn btn-primary btn-xs">Update</button></a>
-                <a href="<%=request.getContextPath()%>/deleteCourses?courseCode=<%=rs2.getString(1)%>&courseID=<%=rs2.getString(2)%>"><button class="btn btn-danger btn-xs">Delete</button></a></td>
-            </tr>
-        <% } %>
-            <tr><td><b>SCSB (Bioinformatic)</b></td><td></td><td></td><td></td></tr>
-        <%while(rs3.next()){ %>
-            <tr>
-                <td><%=rs3.getString(1) %> <%=rs3.getString(2) %></td>
-                <td><%=rs3.getString(3) %></td>
-                <td><%=rs3.getString(4) %></td>
-                <td><a href="updateCourses.jsp?courseCode=<%=rs3.getString(1)%>&courseID=<%=rs3.getString(2)%>"><button class="btn btn-primary btn-xs">Update</button></a>
-                <a href="<%=request.getContextPath()%>/deleteCourses?courseCode=<%=rs3.getString(1)%>&courseID=<%=rs3.getString(2)%>"><button class="btn btn-danger btn-xs">Delete</button></a></td>
-            </tr>
-        <% } %>
-        <tr><td><b>SCSV (Graphic Design)</b></td><td></td><td></td><td></td></tr>
-        <%while(rs4.next()){ %>
-            <tr>
-                <td><%=rs4.getString(1) %> <%=rs4.getString(2) %></td>
-                <td><%=rs4.getString(3) %></td>
-                <td><%=rs4.getString(4) %></td>
-                <td><a href="updateCourses.jsp?courseCode=<%=rs4.getString(1)%>&courseID=<%=rs4.getString(2)%>"><button class="btn btn-primary btn-xs">Update</button></a>
-                <a href="<%=request.getContextPath()%>/deleteCourses?courseCode=<%=rs4.getString(1)%>&courseID=<%=rs4.getString(2)%>"><button class="btn btn-danger btn-xs">Delete</button></a></td>
-            </tr>
-        <% } %>
         </tbody>
       </table>
-    
  <p>
    <a role="button" class="btn btn-primary" href="addCourses.jsp">
       Add
