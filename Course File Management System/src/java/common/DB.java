@@ -101,6 +101,39 @@ public class DB {
         return jsonArray.toString();
     }
     
+    public static String createJson(String query, String label, String value, String term) {
+        resultSet = DB.query(query);
+        //Get the formating of lable
+        JSONArray jsonArray = new JSONArray();
+        try {
+            rsmd = resultSet.getMetaData();
+            int total_cols = resultSet.getMetaData().getColumnCount();
+            while (resultSet.next()) {
+                String toLabel = label;
+                String toValue = value;
+                JSONObject obj = new JSONObject();
+                for (int i = 0; i < total_cols; i++) {
+                    String colName = rsmd.getColumnLabel(i + 1);
+                    toLabel = toLabel.replaceAll("\\["+colName+"\\]", resultSet.getString(colName));
+                    toValue = toValue.replaceAll("\\["+colName+"\\]", resultSet.getString(colName));
+                    obj.put(colName, resultSet.getObject(i + 1));
+                }
+                if(!(toLabel.toLowerCase()).contains(term.toLowerCase())) continue;
+                obj.put("label", toLabel);
+                obj.put("value", toValue);
+                jsonArray.put(obj);
+            }
+        } catch (SQLException e) 
+        {
+            e.printStackTrace();
+        } 
+        catch (JSONException ex) 
+        {
+            ex.printStackTrace();
+        }
+        return jsonArray.toString();
+    }
+    
     public static String getDataAt(int row, String columnName){
         try{
                 resultSet.absolute(row+1);

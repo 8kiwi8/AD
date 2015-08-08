@@ -4,17 +4,19 @@
  * and open the template in the editor.
  */
 package CourseFileManagementSystem;
+import java.sql.*; 
+import common.DB;
 
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.PrintWriter;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.List;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
+import java.util.Scanner;
 import javax.servlet.ServletContext;
 
 import javax.servlet.ServletException;
@@ -34,11 +36,7 @@ import org.apache.commons.fileupload.servlet.ServletFileUpload;
  */
 @WebServlet(name = "Upload", urlPatterns = {"/Upload"})
 public class Upload extends HttpServlet 
-{
-    private final String dbURL = "jdbc:mysql://localhost:3306/cfms";
-    private final String dbUser = "root";
-    private final String dbPass = "";
-    
+{       
     private static final long serialVersionUID = 1L;
     private static final String DATA_DIRECTORY = "data";
     private static final int MAX_FILE_SIZE = 1024 * 1024 * 40; // 40MB
@@ -48,11 +46,13 @@ public class Upload extends HttpServlet
     String fileName = " ";
     static String sectionID = " ";
     static String semesterID = " ";
+    static String username = " ";
     
-    public static void setID(String semID, String secID)
+    public static void setID(String semID, String secID, String user_name)
     {
         semesterID = semID;
         sectionID = secID;
+        username = user_name;
     }
     
     @Override
@@ -84,6 +84,12 @@ public class Upload extends HttpServlet
         factory.setRepository(new File(System.getProperty("java.io.tmpdir")));
 
         // constructs the folder where uploaded file will be stored
+        String dataFolder  = getServletContext().getRealPath("") + File.separator + DATA_DIRECTORY;
+        File uploadD = new File(dataFolder);
+        if (!uploadD.exists()) 
+        {
+            uploadD.mkdir();
+        }     
         String uploadFolder = getServletContext().getRealPath("") + File.separator + DATA_DIRECTORY + File.separator + semesterID + " - " + sectionID;
 
         // Create a new file upload handler
@@ -100,16 +106,10 @@ public class Upload extends HttpServlet
         if (!uploadDir.exists()) 
         {
             uploadDir.mkdir();
-        }
-        
-        Connection conn = null; // connection to the database
+        }      
         
         try 
         {
-            // connects to the database
-            DriverManager.registerDriver(new com.mysql.jdbc.Driver());
-            conn = DriverManager.getConnection(dbURL, dbUser, dbPass);
-            
             // Parse the request
             List<FileItem> items = upload.parseRequest(request);
             if (items != null && items.size() > 0) 
@@ -118,26 +118,44 @@ public class Upload extends HttpServlet
                 for (FileItem item : items) 
                 {
                     // processes only fields that are not form fields
-                    if (!item.isFormField()) 
+                    if (!item.isFormField() && !item.getName().equals("")) 
                     {
+                        System.out.println(item.getName()+" file is for checklist " + item.getFieldName());
+                        Scanner field_name = new Scanner(item.getFieldName()).useDelimiter("[^0-9]+");
+                        int id = field_name.nextInt();
                         fileName = new File(item.getName()).getName();
-                        String path = request.getContextPath() + "/" + DATA_DIRECTORY + "/" + semesterID + " - " + sectionID + "/" +fileName;
+                        /*ResultSet rs1 = DB.query ("SELECT * FROM files WHERE sectionID = " + sectionID + " AND checklistID="+ id);
+                        if (rs1.next())
+                        {
+                            String path1 = rs1.getString("fileDirectory");                            
+                            Path path2 = Paths.get(path1);
+                            Path file_name = Paths.get(fileName);
+                            if (file_name.getFileName().equals(path2.getFileName()))
+                            {
+                                
+                            } else {
+                                fileName = file_name.getFileName().toString();
+                            }
+                        }  */                     
+                        String path = request.getContextPath() + "/" + DATA_DIRECTORY + "/" + semesterID + " - " + sectionID + "/" + fileName;
                         String filePath = uploadFolder + File.separator + fileName;
                         File uploadedFile = new File(filePath);
-                        System.out.println(filePath);
+                        System.out.println(filePath); 
                           
                         // saves the file to upload directory
                         item.write(uploadedFile); 
-                        PreparedStatement statement = conn.prepareStatement("INSERT INTO files (fileDirectory) values(?)");
-                        statement.setString(1, path);
-                        statement.executeUpdate();
-                                                                     
-                        out.write("File "+ item.getName() +" uploaded successfully.");
-                        out.write("<br><br>");
-                        out.write("<a href=\"Upload?fileName=" + filePath + "\">Download "+ item.getName()+"</a>"); 
+                        String query = "INSERT INTO files (fileDirectory, sectionID, checklistID) values('"+path+"', "+sectionID+", "+id+")";
+                        DB.update(query);
+                        ResultSet rs = DB.query("SELECT label FROM upload_checklist WHERE id=" + id);
+                        while(rs.next()) 
+                        { 
+                            String label = rs.getString("label");
+                            out.write("<a href=\"Upload?fileName=" + filePath + "\">Download "+ label+"</a>");
+                            out.write("<br><br>");                            
+                        }                                                                   
                     }
                 }    
-            }               
+            }           
         } 
         catch (FileUploadException ex) 
         {
@@ -147,6 +165,7 @@ public class Upload extends HttpServlet
         {
             throw new ServletException(ex);
         }
+        response.sendRedirect("lecturer/upload.jsp?semesterID=" + semesterID + "&sectionID=" + sectionID + "&username=" + username);
     }
     
     @Override
