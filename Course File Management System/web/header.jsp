@@ -46,7 +46,6 @@
 <link rel="stylesheet" href="<%=request.getContextPath()%>/css/bootstrap.min.css">
 <script type="text/javascript" src="<%=request.getContextPath()%>/javascript/jquery-2.1.4.min.js"></script>
 <script type="text/javascript" src="<%=request.getContextPath()%>/javascript/bootstrap.min.js"></script>
-
 <div class="container">
     <div class="jumbotron">
         <h1>Course File Management System</h1>
@@ -72,9 +71,6 @@
                         </li>
                         <li class="<% if (currentPageName.equals("createSemester.jsp")) out.println("active"); %>">
                             <a href="<% if (!currentPageName.equals("createSemester.jsp")) out.println("createSemester.jsp"); %>">Semesters</a>
-                        </li>
-                        <li class="<% if (currentPageName.equals("viewCourses.jsp")) out.println("active"); %>">
-                            <a href="<% if (!currentPageName.equals("viewCourses.jsp")) out.println("viewCourses.jsp"); %>">View All Courses</a>
                         </li>
                         <li class="<% if (currentPageName.equals("createOfferedCourse.jsp")) out.println("active"); %>">
                             <a href="<% if (!currentPageName.equals("createOfferedCourse.jsp")) out.println("createOfferedCourse.jsp"); %>">Offered Courses</a>
