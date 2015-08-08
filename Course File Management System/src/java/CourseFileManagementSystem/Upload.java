@@ -123,20 +123,7 @@ public class Upload extends HttpServlet
                         System.out.println(item.getName()+" file is for checklist " + item.getFieldName());
                         Scanner field_name = new Scanner(item.getFieldName()).useDelimiter("[^0-9]+");
                         int id = field_name.nextInt();
-                        fileName = new File(item.getName()).getName();
-                        /*ResultSet rs1 = DB.query ("SELECT * FROM files WHERE sectionID = " + sectionID + " AND checklistID="+ id);
-                        if (rs1.next())
-                        {
-                            String path1 = rs1.getString("fileDirectory");                            
-                            Path path2 = Paths.get(path1);
-                            Path file_name = Paths.get(fileName);
-                            if (file_name.getFileName().equals(path2.getFileName()))
-                            {
-                                
-                            } else {
-                                fileName = file_name.getFileName().toString();
-                            }
-                        }  */                     
+                        fileName = new File(item.getName()).getName();                                         
                         String path = request.getContextPath() + "/" + DATA_DIRECTORY + "/" + semesterID + " - " + sectionID + "/" + fileName;
                         String filePath = uploadFolder + File.separator + fileName;
                         File uploadedFile = new File(filePath);

@@ -5,6 +5,8 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<jsp:include page="../auth.jsp"/>
+<jsp:include page="../header.jsp"/>
 <!DOCTYPE html>
 <html>
     <head>
@@ -51,7 +53,7 @@
                     label: "[courseCode] [courseID] [courseName] - [sectionNo]",
                     value: "[sectionID]",
                     semesterID: $("#semesterID").val(),
-                    username: "lecturer"
+                    username: "<%=session.getAttribute("User")%>"
                 }, function( data ) {  
                     console.log(data);
                     response( data );

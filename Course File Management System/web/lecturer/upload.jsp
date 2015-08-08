@@ -4,12 +4,15 @@
     Author     : zavie_000
 --%>
 
+<%@page import="CourseFileManagementSystem.Delete"%>
 <%@page import="java.nio.file.Paths"%>
 <%@page import="java.nio.file.Path"%>
 <%@page import="java.io.ByteArrayInputStream"%>
 <%@page import="java.io.FileInputStream"%>
 <%@page import="java.io.InputStream"%>
 <%@page import="java.io.File"%>
+<jsp:include page="../auth.jsp"/>
+<jsp:include page="../header.jsp"/>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ page import ="java.sql.*, common.DB, java.util.*, CourseFileManagementSystem.Upload" %>
 <!DOCTYPE html>
@@ -55,45 +58,27 @@
             color: #F7F3F2; 
             background-color: #7AA7DE; 
             border-color: #EBE017; 
-          }         
-        .btn-aidan:hover, .btn-aidan:active, .btn-aidan.active, .open > .dropdown-toggle.btn-aidan 
-        {
-            background: blue;
-        }
-        
-        .btn-aidan:focus
-        {
-            background: cyan;
-        }
- 
-        .btn-aidan:active, .btn-aidan.active {
-            background: cornflowerblue;
-            box-shadow: none;
-        }
-        
-        .btn-aidan.outline
+          }            
+        .btn btn-primary.outline
         {
             border: 8px solid darkturquoise;
             color: darkturquoise;
-        }
-        .btn-aidan .badge { 
-            color: #7AA7DE; 
-            background-color: #F7F3F2; 
-          }
-        btn-aidan.round 
+        }      
+        .btn btn-primary.round 
         {
             border-radius: 8px;
         }
         </style>
     </head>
-    <body>        
+    <body> 
+        <div class = "container">
         <form method="post" action="<%=request.getContextPath()%>/Upload" enctype="multipart/form-data">
             <div class="">
                 <% String semesterID = request.getParameter("semesterID"); %>
                 <% String sectionID = request.getParameter("sectionID"); %>
                 <% String username = request.getParameter("username"); %>
                 <% Upload.setID (semesterID, sectionID, username); %>
-                
+                <% Delete.setID (semesterID, sectionID, username); %>
             </div>        
             <table>
                 <thead>
@@ -118,8 +103,11 @@
                         <%String path = rs2.getString("fileDirectory");
                           Path path1 = Paths.get(path);%>                                                                        
                         <a href = "<%=rs2.getString("fileDirectory")%>" download ="<%=path1.getFileName()%>"> 
-                            <button class="btn-aidan" type="button"> Download </button>                     
+                            <button class="btn btn-primary" type="button"><i class = "glyphicon glyphicon-download-alt"></i> Download </button>                     
                         </a>                 
+                        <a href = "<%=request.getContextPath()%>/Delete" method = "post" name = "Delete"> 
+                            <button class="btn btn-danger" type="button"><i class = "glyphicon glyphicon-trash"></i> Delete </button>                     
+                        </a>                       
                     <%} else { %>
                      </td>
                     <td>            
@@ -129,9 +117,7 @@
                             <input name="checklist-<%=rs.getString("id")%>" type="file" cl_ID="<%=rs.getString("id")%>" class="upload" multiple />
                         </div>
                     </td>
-            <%
-                        }
-                        %>
+            <%}%>
                 </tr>
             <% } %>
                 <tbody>
@@ -144,7 +130,8 @@
                 cl_id = $(this).attr("cl_id");
                 $("#uploadFile-"+cl_id).val($(this).val().slice(12));
                 console.log(this.value);
-            });           
-        </script>
+            });  
+            </script>
+            <div>
     </body>
 </html>
