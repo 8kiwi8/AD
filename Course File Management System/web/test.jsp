@@ -95,7 +95,12 @@
                         
                     </ul>
                 </div>
-                
+                <ul class="nav navbar-nav navbar-right">
+                    <li><a href="<%=request.getContextPath()%>/logoutAction.jsp">
+                            <span class="glyphicon glyphicon-off" aria-hidden="true" style="padding-right: 10px"></span>Log Out
+                        </a>
+                    </li>
+                </ul>
             </div>
         </nav>
         

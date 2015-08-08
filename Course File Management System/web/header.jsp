@@ -95,6 +95,9 @@
                         <li class="<% if (currentPageName.equals("section.jsp")) out.println("active"); %>">
                             <a href="<% if (!currentPageName.equals("section.jsp")) out.println("section.jsp"); %>">Upload</a>
                         </li>
+                        <li class="<% if (currentPageName.equals("lecturerProfile.jsp")) out.println("active"); %>">
+                            <a href="<% if (!currentPageName.equals("lecturerProfile.jsp")) out.println("lecturerProfile.jsp"); %>">Profile</a>
+                        </li>
                 <%
                     }
                 %>
