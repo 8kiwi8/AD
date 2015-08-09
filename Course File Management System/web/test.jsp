@@ -18,6 +18,9 @@
     
     boolean isLoggedIn = false;
     
+    if (session.getAttribute("User") != null || session.getAttribute("userType") != null)
+        isLoggedIn = true;
+    
     // PAGES FOR ALL:
     // - index.jsp
     // 
@@ -43,22 +46,28 @@
     // add pages to arraylist
     // Pages constructor: <userType> <fileName> <pageTitle>
     pages.add(new Page("all", "home.jsp", "Home"));
-    pages.add(new Page("all", "viewCourses.jsp", "Courses"));
     
-    pages.add(new Page("root", "viewLecturer.jsp", "View Lecturers"));
+    
+    pages.add(new Page("root", "viewLecturers.jsp", "View Lecturers"));
     pages.add(new Page("root", "createSemester.jsp", "Semester"));
-    pages.add(new Page("root", "viewCourse.jsp", "View Courses"));
-    pages.add(new Page("root", "createOfferedCourse.jsp", "Current Offered Courses"));
+
+    // Below commented out because already present in the form of dropdown
+    //pages.add(new Page("root", "viewCourse.jsp", "View Courses"));
+    //pages.add(new Page("root", "createOfferedCourse.jsp", "Current Offered Courses"));
     pages.add(new Page("root", "createSection.jsp", "Create Section"));
     
+    pages.add(new Page("admin", "viewCourses.jsp", "Courses"));
     pages.add(new Page("admin", "viewLecturers.jsp", "View Lecturers"));
     
+    pages.add(new Page("lecturer", "viewCourses.jsp", "Courses"));
     pages.add(new Page("lecturer", "createSection.jsp", "Upload"));
+    
 %>
 
 <!DOCTYPE html>
 
 <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+<link rel="stylesheet" href="<%=request.getContextPath()%>/css/bootstrap-theme.min.css">
 
 <style>
     .website-title {
@@ -74,52 +83,94 @@
         border-bottom: 0px;
         color: rgb(51, 51, 51);
     }
+    
+    ul.dropdown-menu > li span.glyphicon {
+        width: 16px;
+    }
 </style>
 
-<script type="text/javascript" src="<%=request.getContextPath()%>/javascript/bootstrap.min.js"></script>
 <script type="text/javascript" src="<%=request.getContextPath()%>/javascript/jquery-2.1.4.min.js"></script>
+<script type="text/javascript" src="<%=request.getContextPath()%>/javascript/bootstrap.min.js"></script>
+
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
 <div class="page-header">
-    <div class="container-fluid" style="margin-bottom: 20px;">
-        <div class="col-xs-1 media-left">
+    <div class="container-fluid" style="margin-bottom:20px;">
+        <div class="col-xs-1">
             <img class="img-responsive media-object" src="<%=request.getContextPath()%>/img/LambangMalaysia.png" alt="Malaysian Coat of Arms">						
         </div>
 
-        <div class="col-xs-2 media-left" >
+        <div class="col-xs-2" >
             <a href="http://www.utm.my">
                 <img class="img-responsive media-object" src="<%=request.getContextPath()%>/img/LogoUTM.png" alt="UTM Logo"/>
             </a>
         </div>
 
         <div class="col-xs-offset-1 col-xs-4">
-            <div style="margin-top: -25px;">
-                <h1>Course File Management System<br>
-                    <small class="website-title">Universiti Teknologi Malaysia</small>
-                </h1>
-                <div style="margin-top:-5px;opacity:0.8;margin-left:-2px;">
-                    <img alt="UTM Tagline" height="20" src="http://cdn.utm.my/wp-content/themes/enterprise/images-2014/tagline-bi.png" />
-                </div>
+            <div class="row" style="margin-top: -20px;">
+                <h1>Course File Management System</h1>
+            </div>
+            <div class="row">
+                <small class="website-title">Universiti Teknologi Malaysia</small>
+            </div>
+            <div class="row">
+                <img alt="UTM Tagline" height="20" src="http://cdn.utm.my/wp-content/themes/enterprise/images-2014/tagline-bi.png" />
             </div>
         </div>
 
         <div class="col-xs-4">
-            <span style="margin:0px;float:right;margin-top:auto;">
-                <img width=20 src="http://www.utm.my/dev/2014/social-media-icon/mobile-icon(small).jpg" alt="Mobile" onClick="alert('This website can be viewed in mobile device')">
-                <a target="_blank" href="http://www.facebook.com/univteknologimalaysia"><img width=24 src="http://www.utm.my/dev/2014/social-media-icon/iconmonstr-facebook-2-icon.svg" alt="Facebook"></a>
-                <a target="_blank" href="https://twitter.com/utm_my"><img width=24 src="http://www.utm.my/dev/2014/social-media-icon/iconmonstr-twitter-2-icon.svg" alt="Twitter"></a>
-                <a target="_blank" href="http://www.youtube.com/utmskudaimalaysia"><img width=24 src="http://www.utm.my/dev/2014/social-media-icon/iconmonstr-youtube-2-icon.svg" alt="YouTube"></a>
-                <a target="_blank" href="http://instagram.com/utmofficial"><img width=24 src="http://www.utm.my/dev/2014/social-media-icon/iconmonstr-instagram-2-icon.svg" alt="Instagram"></a>
-                <a target="_blank" href="http://www.pinterest.com/utmmy/"><img width=24 src="http://www.utm.my/dev/2014/social-media-icon/iconmonstr-pinterest-2-icon.svg" alt="Pinterest"></a>
-            </span>
-        </div>
-    </div>
+            <div class="pull-right">
+                <div class="row">
+                    <img width=20 src="http://www.utm.my/dev/2014/social-media-icon/mobile-icon(small).jpg" alt="Mobile" onClick="alert('This website can be viewed in mobile device')">
+                    <a target="_blank" href="http://www.facebook.com/univteknologimalaysia"><img width=24 src="http://www.utm.my/dev/2014/social-media-icon/iconmonstr-facebook-2-icon.svg" alt="Facebook"></a>
+                    <a target="_blank" href="https://twitter.com/utm_my"><img width=24 src="http://www.utm.my/dev/2014/social-media-icon/iconmonstr-twitter-2-icon.svg" alt="Twitter"></a>
+                    <a target="_blank" href="http://www.youtube.com/utmskudaimalaysia"><img width=24 src="http://www.utm.my/dev/2014/social-media-icon/iconmonstr-youtube-2-icon.svg" alt="YouTube"></a>
+                    <a target="_blank" href="http://instagram.com/utmofficial"><img width=24 src="http://www.utm.my/dev/2014/social-media-icon/iconmonstr-instagram-2-icon.svg" alt="Instagram"></a>
+                    <a target="_blank" href="http://www.pinterest.com/utmmy/"><img width=24 src="http://www.utm.my/dev/2014/social-media-icon/iconmonstr-pinterest-2-icon.svg" alt="Pinterest"></a>
+                </div>
+                
+                <div class="row pull-right" style="margin-top: 30px;">
+                    <div class="btn-group">
+                        <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" 
+                                <% if (!isLoggedIn) { out.println("disabled=\"disabled\""); } %>aria-haspopup="true" aria-expanded="false">
+                            <span class="glyphicon glyphicon-user" aria-hidden="true" style="padding-right:5px;"></span>
+                            <%
+                                if (session.getAttribute("User") != null) {
+                                    out.println(session.getAttribute("User"));
+                                } else {
+                                    out.println("Guest");
+                                }
+                                
+                                if (isLoggedIn) {
+                            %>
+                                <span class="caret"></span>
+                            <%
+                                }
+                            %>
+                        </button>
+                        <ul class="dropdown-menu pull-right">
+                            <li><a href="#"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span> Profile</a></li>
+                            <li><a href="#"><span class="glyphicon glyphicon-envelope" aria-hidden="true"></span> Messages</a></li>
+                            <li><a href="#"><span class="glyphicon glyphicon-wrench" aria-hidden="true"></span> Settings</a></li>
+                            <li role="separator" class="divider"></li>
+                            <li><a href="#"><span class="glyphicon glyphicon-off" aria-hidden="true"></span> Log Out</a></li>
+                        </ul>
+                    </div>
+                </div>
+                
+            </div>
+            
+            
+            
+        </div> <!-- right side of header -->
+            
+    </div> <!-- /.container-fluid -->
 </div>
 
-<div class="container">
+<div class="container-fluid">
 
-    <nav class="navbar navbar-default">
+    <nav class="navbar navbar-inverse">
         <div class="container-fluid">
-
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#utm-cfms-navbar-collapse-1" aria-expanded="false">
                     <span class="sr-only">Toggle navigation</span>
@@ -163,7 +214,7 @@
                                     Course<span class="caret"></span>
                                 </a>
                                 <ul class="dropdown-menu">
-                                    <li><a href="viewCourse.jsp">View Course</a></li>
+                                    <li><a href="viewCourses.jsp">View Courses</a></li>
                                     <li><a href="createOfferedCourse.jsp">Current Offered Courses</a></li>
                                 </ul>
                             </li>
@@ -174,28 +225,32 @@
                 
                 <% if (isLoggedIn) { %>
                     <ul class="nav navbar-nav navbar-right">
+                        
+                        <% if (session.getAttribute("isSuper") != null && session.getAttribute("isSuper").equals("true")) { %>
+                            <li class="dropdown">
+                                <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
+                                    Change User<span class="caret"></span>
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <li><a href="<%=request.getContextPath()%>/ChangeUserRole?userType=root">Admin</a></li>
+                                    <li><a href="<%=request.getContextPath()%>/ChangeUserRole?userType=admin">Pentadbir</a></li>
+                                    <li><a href="<%=request.getContextPath()%>/ChangeUserRole?userType=lecturer">Lecturer</a></li>
+                                </ul>
+                            </li>
+                        <% } %>
+                        
                         <li><a href="<%=request.getContextPath()%>/logoutAction.jsp">
                                 <span class="glyphicon glyphicon-off" aria-hidden="true" style="padding-right: 10px"></span>Log Out
                             </a>
                         </li>
                     </ul>
                 <% } %>
-                            
-                <% if (false) { %>
-                    <li class="dropdown">
-                        <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Change User<span class="caret"></span></a>
-                        <ul class="dropdown-menu">
-                            <li><a href="<%=request.getContextPath()%>/ChangeUserRole?userType=root">Admin</a></li>
-                            <li><a href="<%=request.getContextPath()%>/ChangeUserRole?userType=admin">Pentadbir</a></li>
-                            <li><a href="<%=request.getContextPath()%>/ChangeUserRole?userType=lecturer">Lecturer</a></li>
-                        </ul>
-                    </li>
-                <% } %>
-
             </div>
         </div>
     </nav>
 
+    <div class="container-fluid">
+    </div>
     <!-- Breadcrumbs, potential implementation
     <ol class="breadcrumb">
         <li><a href="#">Home</a></li>

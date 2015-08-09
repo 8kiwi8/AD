@@ -181,22 +181,25 @@
                 
                 <% if (isLoggedIn) { %>
                     <ul class="nav navbar-nav navbar-right">
+                        
+                        <% if (session.getAttribute("isSuper") != null && session.getAttribute("isSuper").equals("true")) { %>
+                            <li class="dropdown">
+                                <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
+                                    Change User<span class="caret"></span>
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <li><a href="<%=request.getContextPath()%>/ChangeUserRole?userType=root">Admin</a></li>
+                                    <li><a href="<%=request.getContextPath()%>/ChangeUserRole?userType=admin">Pentadbir</a></li>
+                                    <li><a href="<%=request.getContextPath()%>/ChangeUserRole?userType=lecturer">Lecturer</a></li>
+                                </ul>
+                            </li>
+                        <% } %>
+                        
                         <li><a href="<%=request.getContextPath()%>/logoutAction.jsp">
                                 <span class="glyphicon glyphicon-off" aria-hidden="true" style="padding-right: 10px"></span>Log Out
                             </a>
                         </li>
                     </ul>
-                <% } %>
-                            
-                <% if (session.getAttribute("userType") != null && session.getAttribute("userType").equals("super")) { %>
-                    <li class="dropdown">
-                        <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Change User<span class="caret"></span></a>
-                        <ul class="dropdown-menu">
-                            <li><a href="<%=request.getContextPath()%>/ChangeUserRole?userType=root">Admin</a></li>
-                            <li><a href="<%=request.getContextPath()%>/ChangeUserRole?userType=admin">Pentadbir</a></li>
-                            <li><a href="<%=request.getContextPath()%>/ChangeUserRole?userType=lecturer">Lecturer</a></li>
-                        </ul>
-                    </li>
                 <% } %>
 
             </div>
