@@ -4,7 +4,6 @@
     Author     : zavie_000
 --%>
 
-<%@page import="CourseFileManagementSystem.Delete"%>
 <%@page import="java.nio.file.Paths"%>
 <%@page import="java.nio.file.Path"%>
 <%@page import="java.io.ByteArrayInputStream"%>
@@ -20,8 +19,6 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>File Upload</title>
-        <!-- bootstrap.js below is only needed if you wish to the feature of viewing details
-             of text file preview via modal dialog -->       
         <style type="text/css">
             form{
                 margin-left: 10px;
@@ -66,26 +63,22 @@
     </head>
     <body> 
         <div class = "container">
-        <form method="post" action="<%=request.getContextPath()%>/Upload" enctype="multipart/form-data">
             <div class="">
-                <% String semesterID = request.getParameter("semesterID"); %>
                 <% String sectionID = request.getParameter("sectionID"); %>
-                <% String username = request.getParameter("username"); %>
-                <% Upload.setID (semesterID, sectionID, username); %>
-                <% Delete.setID (semesterID, sectionID, username); %>
             </div>        
-            <table>
+            <table class="table">
                 <thead>
                 <th>No.</th>
                 <th>Label</th>
                 <th>Status</th>
+                <th>Action</th>
                 </thead>
-                <tbody>
+            <tbody>
                 <%
                     ResultSet rs = DB.query("SELECT * FROM upload_checklist");
                     while(rs.next()) {
                     ResultSet rs2 = DB.query("SELECT * FROM files AS f, section AS s WHERE f.sectionID = s.sectionID AND f.sectionID="+sectionID+
-                        " AND s.username='"+username+"' AND f.checklistID="+rs.getString("id"));
+                        " AND f.checklistID="+rs.getString("id"));
                 %>
                 <tr>
                     <td><%=rs.getString("id") %></td>
@@ -98,34 +91,18 @@
                           Path path1 = Paths.get(path);%>                                                                        
                         <a href = "<%=rs2.getString("fileDirectory")%>" download ="<%=path1.getFileName()%>"> 
                             <button class="btn btn-primary" type="button"><i class = "glyphicon glyphicon-download-alt"></i> Download </button>                     
-                        </a>                 
-                        <a href = "<%=request.getContextPath()%>/Delete?checklistID=<%=rs.getString("id") %> &filePath=<%=rs2.getString("fileDirectory")%>" name = "Delete"> 
-                            <button class="btn btn-danger" type="button"><i class = "glyphicon glyphicon-trash"></i> Delete </button>                     
-                        </a>                       
+                        </a>
+                        </td>
+                        <td>Accept</td>
                     <%} else { %>
-                     </td>
-                    <td>            
-                        <div class="fileUpload btn btn-default">
-                            <input id="uploadFile-<%=rs.getString("id")%>" placeholder="Choose File" disabled="disabled"/>
-                            <button class="browse btn btn-primary" type="button"><i class="glyphicon glyphicon-folder-open"></i> Browse</button>
-                            <input name="checklist-<%=rs.getString("id")%>" type="file" cl_ID="<%=rs.getString("id")%>" class="upload" multiple />
-                        </div>
-                    </td>
+                     
+                    <td>No Upload yet</td>
+                    <td>Remind</td>
             <%}%>
                 </tr>
             <% } %>
-                <tbody>
+            </tbody>
             </table>                   
-            <input type="submit" value="Upload" class="btn btn-primary"/>
-        </form>
-        <script type="text/javascript">            
-            $(".upload").change(function () 
-            {
-                cl_id = $(this).attr("cl_id");
-                $("#uploadFile-"+cl_id).val($(this).val().slice(12));
-                console.log(this.value);
-            });  
-            </script>
-            <div>
+        <div>
     </body>
 </html>

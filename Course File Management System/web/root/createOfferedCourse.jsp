@@ -4,12 +4,8 @@
 <!doctype html>
 <html lang="en">
 <head>
-    <link rel="stylesheet" href="<%=request.getContextPath()%>/css/auto-complete.css">
     <meta charset="UTF-8">
     <title>Semesters - Add Semester</title>
-    
-    <script type="text/javascript" src="<%=request.getContextPath()%>/javascript/jquery-ui-1.9.2.custom.min.js"></script>
-    <script type="text/javascript" src="<%=request.getContextPath()%>/javascript/jquery.URI.min.js"></script>
     <script>
         var semester = [];
         $.getJSON("<%=request.getContextPath()%>/ListSemesterServlet", {
@@ -85,13 +81,6 @@
             });
         });
         <% } %>
-    </script>
-    <script type="text/javascript">
-        function addNewCourse() {
-            $("#newCourse").show();
-            $("#courseSubmit").show();
-            $("#addCourse").hide();
-        }
     </script>
 </head>
 <body>
