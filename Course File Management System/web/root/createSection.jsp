@@ -44,6 +44,7 @@
         $( document ).ready( function () {
             $(".semesterID").val("<%=request.getParameter("semesterID")%>");
             $(".semester-label").val("<%=request.getParameter("semester")%>");
+            $("#filterCourse").prop("disabled", false);
             <% if (request.getParameter("courseLabel") != null) { %>
             $(".courseCode").val("<%=request.getParameter("courseCode")%>");
             $(".courseID").val("<%=request.getParameter("courseID")%>");
@@ -148,7 +149,7 @@
 <body>
     <div class="container">
         <input class="form-control semester-label" placeholder="Choose Semester">
-        <input class="form-control" id="filterCourse" placeholder="Filter by Course">
+        <input class="form-control" id="filterCourse" placeholder="Filter by Course" disabled>
         <table class="table" id="tblSemesters">
             <thread>
                 <tr>
@@ -189,9 +190,9 @@
                             <div class="modal-dialog">
                                 <div class="modal-content">
                                     <div class="modal-header">
-                                        New Section
+                                        Update Section
                                     </div>
-                                    <form class='form-horizontal' action="<%=request.getContextPath()%>/CreateSectionServlet">
+                                    <form class='form-horizontal' action="<%=request.getContextPath()%>/UpdateSectionServlet">
                                         <div class="modal-body">
                                             <label>Semester: </label>
                                             <input class="form-control semester-label" disabled>
@@ -218,10 +219,11 @@
                                                 <input class="course_offered_ID" id="course_offered_ID-<%=rs.getString("s.course_offered_ID")%>" name="course_offered_ID" value="<%=rs.getString("s.course_offered_ID")%>">
                                                 <input class="courseCode" id="courseCode-<%=rs.getString("s.course_offered_ID")%>" name="courseCode" value="<%=rs.getString("courseCode")%>">
                                                 <input class="courseID" id="courseID-<%=rs.getString("s.course_offered_ID")%>" name="courseID" value="<%=rs.getString("courseID")%>">
+                                                <input class="sectionID" name="sectionID" value="<%=rs.getString("sectionID")%>">
                                             </div> 
                                         </div>
                                         <div class="modal-footer">
-                                            <button type="submit" class='btn btn-primary'>New Section</button>
+                                            <button type="submit" class='btn btn-primary'>Update Section</button>
                                             <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>                        
                                         </div>
                                     </form>
