@@ -4,7 +4,6 @@
 <!doctype html>
 <html lang="en">
 <head>
-    <link rel="stylesheet" href="css/bootstrap.min.css">
     <meta charset="UTF-8">
     <title>Lecturers</title>
 </head>
@@ -14,18 +13,21 @@
     ResultSet rs = DB.query("SELECT * FROM profile, user WHERE user.username = profile.username AND user.usertype = 'lecturer'");
 %>
     <div class="container">
-      <table class="table">
-        <caption>List of Lecturers</caption>
-        <thread>
+      <table 
+          data-toggle="table" 
+          data-search="true"
+          data-pagination="true"
+          data-show-toggle="true">
+        <thead>
             <tr>
-                <th>Username</th>
-                <th>Name</th>
-                <th>Email Address</th>
-                <th>Phone Number</th>
-                <th>Department</th>
-                <th>Status</th>
+                <th data-sortable="true">Username</th>
+                <th data-sortable="true">Name</th>
+                <th data-sortable="true">Email Address</th>
+                <th data-sortable="true">Phone Number</th>
+                <th data-sortable="true">Department</th>
+                <th data-sortable="true">Status</th>
             </tr>
-        </thread>
+        </thead>
         <tbody>
         <%while(rs.next()){ %>
             <tr>
