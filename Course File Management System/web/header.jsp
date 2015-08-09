@@ -1,3 +1,5 @@
+<%@page import="java.sql.ResultSet"%>
+<%@page import="common.DB"%>
 <%@page import="java.util.ArrayList, common.Page" %>
 <%
     // HEADER PAGE TO BE INCLUDED IN ALL PAGES
@@ -81,10 +83,20 @@
     }
 </style>
 
+<<<<<<< HEAD
+=======
+<link rel="stylesheet" href="<%=request.getContextPath()%>/css/auto-complete.css">
+<link rel="stylesheet" href="<%=request.getContextPath()%>/css/bootstrap.min.css">
+<link rel="stylesheet" href="<%=request.getContextPath()%>/css/bootstrap-table.css">
+>>>>>>> header-fix
 <script type="text/javascript" src="<%=request.getContextPath()%>/javascript/jquery-2.1.4.min.js"></script>
 <script type="text/javascript" src="<%=request.getContextPath()%>/javascript/jquery-ui-1.9.2.custom.min.js"></script>
 <script type="text/javascript" src="<%=request.getContextPath()%>/javascript/jquery.URI.min.js"></script>
 <script type="text/javascript" src="<%=request.getContextPath()%>/javascript/bootstrap.min.js"></script>
+<<<<<<< HEAD
+=======
+<script type="text/javascript" src="<%=request.getContextPath()%>/javascript/bootstrap-table.js"></script>
+>>>>>>> header-fix
 
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
@@ -195,6 +207,22 @@
                                     <li><a href="<%=request.getContextPath()%>/ChangeUserRole?userType=lecturer">Lecturer</a></li>
                                 </ul>
                             </li>
+<<<<<<< HEAD
+
+=======
+                            <% if(session.getAttribute("userType").equals("lecturer")) { 
+                                ResultSet rs = DB.query("SELECT * FROM user, profile WHERE user.username = profile.username AND user.usertype = 'lecturer'");
+                            %>
+                            <li class="dropdown">
+                                <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false"> To Lecturer <span class="caret"></span></a>
+                                <ul class="dropdown-menu">
+                                    <% while(rs.next()) { %>
+                                    <li><a href="<%=request.getContextPath()%>/ChangeUsername?username=<%=rs.getString("username")%>"><%=rs.getString("name")%></a></li>
+                                    <% } %>
+                                </ul>
+                            </li>
+                            <% } %>
+>>>>>>> header-fix
                         <% } %>
                         
                         <li><a href="<%=request.getContextPath()%>/logoutAction.jsp">
