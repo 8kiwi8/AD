@@ -18,8 +18,8 @@ import javax.servlet.http.HttpSession;
  *
  * @author Kiwi
  */
-@WebServlet(name = "ChangeUserRole", urlPatterns = {"/ChangeUserRole"})
-public class ChangeUserRole extends HttpServlet {
+@WebServlet(name = "ChangeUsername", urlPatterns = {"/ChangeUsername"})
+public class ChangeUsername extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -35,11 +35,10 @@ public class ChangeUserRole extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
-            String userType = request.getParameter("userType");
+            String username = request.getParameter("username");
             HttpSession session = request.getSession();
-            session.setAttribute("userType", userType);
-            session.setAttribute("User", "super");
-            response.sendRedirect("loginRedir.jsp");
+            session.setAttribute("User", username);
+            response.sendRedirect(request.getHeader("Referer"));
         }
     }
 
