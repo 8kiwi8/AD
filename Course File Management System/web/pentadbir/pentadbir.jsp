@@ -21,7 +21,7 @@
       padding: 20px;
       border-radius: 8px;
     }
-    div {
+    .category {
       margin-top: 15px;
     }
     input[type="submit"] {
@@ -80,7 +80,7 @@
 
       <tbody>
         <tr>
-          <td>OOP</td>
+          <td>Database</td>
           <td><a href="#">View report</a></td>
           <td>
             <select id="OOPsec" class="form-control" name="OOPsec">
@@ -92,7 +92,7 @@
            </td>
         </tr>
         <tr>
-          <td>DB</td>
+          <td>Computational Math</td>
           <td><a href="#">View report</a></td>
           <td>
             <select id="DBsec" class="form-control" name="DBsec">
@@ -104,7 +104,19 @@
           </td>
         </tr>
         <tr>
-          <td>COA</td>
+          <td>Network</td>
+          <td><a href="#">View report</a></td>
+          <td>
+            <select id="COAsec" class="form-control" name="COAsec">
+              <option value="Invalid selection">Choose section</option>
+              <option value="1">1</option>
+              <option value="2">2</option>
+              <option value="3">3</option>
+            </select>
+          </td>
+        </tr>
+        <tr>
+          <td>Graphic Design</td>
           <td><a href="#">View report</a></td>
           <td>
             <select id="COAsec" class="form-control" name="COAsec">

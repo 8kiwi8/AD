@@ -15,6 +15,7 @@
     <body>
         <div class="container">
             <h1>Welcome</h1>
+            <p>No notification</p>
         </div>
     </body>
 </html>
