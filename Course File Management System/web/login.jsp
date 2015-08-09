@@ -1,5 +1,8 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%
+    if (session.getAttribute("userType") != null) {
+        response.sendRedirect(session.getAttribute("userType") + "/home.jsp");
+    }
     boolean invalidPassword = false;
     
     if (request.getAttribute("Error") != null) {

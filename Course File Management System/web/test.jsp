@@ -43,9 +43,13 @@
     
     ArrayList<Page> pages = new ArrayList();
     
-    // add pages to arraylist
-    // Pages constructor: <userType> <fileName> <pageTitle>
-    pages.add(new Page("all", "home.jsp", "Home"));
+    // Pages constructor:   public Page(String userType, String fileName, String pageTitle)
+    //                      public Page(String userType, String fileName, String pageTitle, boolean isLoggedIn, String loggedOutPage)
+    //                      ^ if logged in, will direct to pageTitle, else, will direct to loggedOutPage
+    //                      public Page(String glyphIcon, String userType, String fileName, String pageTitle)
+        
+    // adding pages to arraylist
+    pages.add(new Page("all", "home.jsp", "Home", false, "index.jsp"));
     
     
     pages.add(new Page("root", "viewLecturers.jsp", "View Lecturers"));
@@ -148,13 +152,26 @@
                                 }
                             %>
                         </button>
+                        
+                        <%
+                            if (isLoggedIn) {
+                        %>
                         <ul class="dropdown-menu pull-right">
                             <li><a href="#"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span> Profile</a></li>
                             <li><a href="#"><span class="glyphicon glyphicon-envelope" aria-hidden="true"></span> Messages</a></li>
+                            <li><a href="#"><span class="glyphicon glyphicon-folder-open" aria-hidden="true"></span> My Files</a></li>
                             <li><a href="#"><span class="glyphicon glyphicon-wrench" aria-hidden="true"></span> Settings</a></li>
                             <li role="separator" class="divider"></li>
-                            <li><a href="#"><span class="glyphicon glyphicon-off" aria-hidden="true"></span> Log Out</a></li>
+                            <li>
+                                <a href="<%=request.getContextPath()%>/logoutAction.jsp">
+                                    <span class="glyphicon glyphicon-off" aria-hidden="true"></span> Log Out
+                                </a>
+                            </li>
                         </ul>
+                        <%
+                            }
+                        %>
+                        
                     </div>
                 </div>
                 
@@ -239,10 +256,6 @@
                             </li>
                         <% } %>
                         
-                        <li><a href="<%=request.getContextPath()%>/logoutAction.jsp">
-                                <span class="glyphicon glyphicon-off" aria-hidden="true" style="padding-right: 10px"></span>Log Out
-                            </a>
-                        </li>
                     </ul>
                 <% } %>
             </div>
