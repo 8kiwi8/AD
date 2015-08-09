@@ -7,6 +7,7 @@
     // <jsp:include page="../header.jsp"/> if inside one folder in and
     // <jsp:include page="header.jsp"/> if in the same directory as this file
     
+    boolean isPentadbir = false;
     boolean isLecturer = false;
     boolean isAdmin = false;
     boolean isRoot = false;
@@ -26,6 +27,8 @@
             isAdmin = true;
         } else if (session.getAttribute("userType").equals("root")) {
             isRoot = true;
+        } else if (session.getAttribute("userType").equals("pentadbir")) {
+            isPentadbir = true;
         }
     } else {
         isLoggedIn = false; // User is not logged in
@@ -97,6 +100,15 @@
                         </li>
                         <li class="<% if (currentPageName.equals("lecturerProfile.jsp")) out.println("active"); %>">
                             <a href="<% if (!currentPageName.equals("lecturerProfile.jsp")) out.println("lecturerProfile.jsp"); %>">Profile</a>
+                        </li>
+                <%
+                    } else if (isPentadbir) {
+                %>
+                        <li class="<% if (currentPageName.equals("pentadbir.jsp")) out.println("active"); %>">
+                            <a href="<% if (!currentPageName.equals("pentadbir.jsp")) out.println("pentadbir.jsp"); %>">Reports</a>
+                        </li>
+                        <li class="<% if (currentPageName.equals("viewLecturers.jsp")) out.println("active"); %>">
+                            <a href="<% if (!currentPageName.equals("viewLecturers.jsp")) out.println("viewLecturers.jsp"); %>">Lecturers</a>
                         </li>
                 <%
                     }

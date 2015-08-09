@@ -6,7 +6,7 @@
 <head>
     <link rel="stylesheet" href="css/bootstrap.min.css">
     <meta charset="UTF-8">
-    <title>Login</title>
+    <title>Lecturers</title>
 </head>
 <body>
 

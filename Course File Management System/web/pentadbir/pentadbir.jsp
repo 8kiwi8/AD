@@ -5,12 +5,14 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-
+<jsp:include page="../auth.jsp"/>
+<jsp:include page="../header.jsp"/>
+<%@ page import ="java.sql.*, common.DB" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Pentadbir</title>
+  <title>Reports</title>
   <link rel="stylesheet" href="../css/bootstrap.min.css">
   <style type="text/css">
     #container {
@@ -41,12 +43,6 @@
   </style>
 </head>
 <body>
-  <ul class="nav nav-tabs">
-    <li role="presentation"><a href="..">Home</a></li>
-    <li role="presentation" class="active"><a href="#">Reports</a></li>
-    <button type="button" class="logout btn btn-link">Log out</button>
-  </ul>
-  
   <div id="container">
     <div class="category">
       <select id="sesi" class="form-control" name="sesi">
