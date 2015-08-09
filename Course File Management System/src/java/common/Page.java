@@ -9,12 +9,23 @@ package common;
  *
  * @author Ahmad Rafiuddin
  */
+
 public class Page {
     private String glyphIcon;
     private String allowedUser;
     private String fileName;
     private String pageTitle;
+    private boolean isLoggedIn;
+    private String loggedOutPage;
 
+    public Page(String userType, String fileName, String pageTitle, boolean isLoggedIn, String loggedOutPage) {
+        this.allowedUser = userType;
+        this.fileName = fileName;
+        this.pageTitle = pageTitle;
+        this.isLoggedIn = isLoggedIn;
+        this.loggedOutPage = loggedOutPage;
+    } 
+    
     public Page(String userType, String fileName, String pageTitle) {
         this.allowedUser = userType;
         this.fileName = fileName;
@@ -59,5 +70,26 @@ public class Page {
     public void setGlyphIcon(String glyphIcon) {
         this.glyphIcon = glyphIcon;
     }
+
+    public boolean isIsLoggedIn() {
+        return isLoggedIn;
+    }
+
+    public void setIsLoggedIn(boolean isLoggedIn) {
+        this.isLoggedIn = isLoggedIn;
+    }
+
+    public String getLoggedOutPage() {
+        return loggedOutPage;
+    }
+
+    public void setLoggedOutPage(String loggedOutPage) {
+        this.loggedOutPage = loggedOutPage;
+    }
     
+    public void determineDirection() {
+        if (!isLoggedIn) {
+            this.pageTitle = this.loggedOutPage;
+        }
+    }
 }
