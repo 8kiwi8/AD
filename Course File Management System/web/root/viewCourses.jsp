@@ -4,7 +4,6 @@
 <!doctype html>
 <html lang="en">
 <head>
-    <link rel="stylesheet" href="css/bootstrap.min.css">
     <meta charset="UTF-8">
     <title>Login</title>
 </head>
@@ -15,16 +14,19 @@
 %>
 
     <div class="container">
-      <table class="table">
-        <caption>List of Courses</caption>
-        <thread>
+      <table 
+          data-toggle="table" 
+          data-search="true"
+          data-pagination="true"
+          data-show-toggle="true">
+        <thead>
             <tr>
-                <th>Course Code</th>
-                <th>Course Name</th>
-                <th>Credit Hours</th>
-                <th></th>
+                <th data-sortable="true" data-field="courseCode">Course Code</th>
+                <th data-sortable="true" data-field="courseName">Course Name</th>
+                <th data-field="courseHours">Credit Hours</th>
+                <th data-field="action"></th>
             </tr>
-        </thread>
+        </thead>
         <tbody>
         <%while(rs.next()){ %>
             <tr>
@@ -37,7 +39,6 @@
         <% } %>
         </tbody>
       </table>
-    
  <p>
    <a role="button" class="btn btn-primary" href="addCourses.jsp">
       Add

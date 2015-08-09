@@ -4,13 +4,8 @@
 <!doctype html>
 <html lang="en">
 <head>
-    <link rel="stylesheet" href="<%=request.getContextPath()%>/css/auto-complete.css">
-    <link rel="stylesheet" href="<%=request.getContextPath()%>/css/bootstrap.min.css">
     <meta charset="UTF-8">
     <title>Lecuter - Add lecturer</title>
-    <script type="text/javascript" src="<%=request.getContextPath()%>/javascript/jquery-2.1.4.min.js"></script>
-    <script type="text/javascript" src="<%=request.getContextPath()%>/javascript/jquery-ui-1.9.2.custom.min.js"></script>
- 
 </head>
 <body>
     <div class="container">
@@ -52,8 +47,10 @@
 
                         <div class="form-group">
                             <label for="department" class="control-label col-xs-4">Department</label>
-                            <div class="col-xs-8">
-                                <input type="text" class="form-control" name="department" placeholder="Department">
+                            <div class="radio col-xs-8">
+                            <label class="radio-inline"><input type="radio" name="department" value="Software Engineering">Software Engineering</label>
+                            <label class="radio-inline"><input type="radio" name="department" value="Computer Science">Computer Science</label>
+                            <label class="radio-inline"><input type="radio" name="department" value="Information System">Information System</label>
                             </div>
                         </div>
 

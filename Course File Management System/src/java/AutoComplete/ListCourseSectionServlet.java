@@ -27,15 +27,17 @@ public class ListCourseSectionServlet extends HttpServlet
     {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter())
-        {
+        {             
             String value = request.getParameter("value");
             String label = request.getParameter("label");
-            String semesterID = request.getParameter("semesterID");         
+            String semesterID = request.getParameter("semesterID");
+            String username = request.getParameter("username");
+            String term = request.getParameter("term");
             
-            String query = "SELECT * FROM section AS s, profile AS p, course AS c WHERE " +                              
-                           "s.username = p.username AND s.courseCode = c.courseCode AND s.courseID=c.courseID AND sectionID AND semesterID="+ semesterID;
-            out.print(query);
-            out.print(DB.createJson(query, label, value));
+            String query = "SELECT * FROM section AS s, course AS c WHERE " +                              
+                           "s.courseCode = c.courseCode AND s.courseID = c.courseID AND s.sectionID AND s.sectionNo AND s.semesterID="+semesterID+" AND s.username = '"+username+"'";
+                      
+            out.print(DB.createJson(query, label, value, term));
         }
         catch(Exception e) 
         {

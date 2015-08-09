@@ -10,11 +10,12 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
+        <title>Pentadbir</title>
     </head>
     <body>
         <div class="container">
-            <h1>Sorry, Under Development</h1>
+            <h1>Welcome</h1>
+            <p>No notification</p>
         </div>
     </body>
 </html>

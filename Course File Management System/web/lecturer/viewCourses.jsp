@@ -4,9 +4,8 @@
 <!doctype html>
 <html lang="en">
 <head>
-    <link rel="stylesheet" href="css/bootstrap.min.css">
     <meta charset="UTF-8">
-    <title>Login</title>
+    <title>View Courses</title>
 </head>
 <body>
 
@@ -15,15 +14,18 @@
 %>
 
     <div class="container">
-      <table class="table">
-        <caption>List of Courses</caption>
-        <thread>
+      <table 
+          data-toggle="table" 
+          data-search="true"
+          data-pagination="true"
+          data-show-toggle="true">
+        <thead>
             <tr>
-                <th>Course Code</th>
-                <th>Course Name</th>
-                <th>Credit Hours</th>
+                <th data-sortable="true" data-field="courseCode">Course Code</th>
+                <th data-sortable="true" data-field="courseName">Course Name</th>
+                <th data-field="courseHours">Credit Hours</th>
             </tr>
-        </thread>
+        </thead>
         <tbody>
         <%while(rs.next()){ %>
             <tr>

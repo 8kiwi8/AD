@@ -2,7 +2,6 @@
 <!doctype html>
 <html lang="en">
 <head>
-    <link rel="stylesheet" href="<%=request.getContextPath()%>/css/bootstrap.min.css">
     <meta charset="UTF-8">
     <title>Login</title>
 </head>
