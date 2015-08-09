@@ -105,7 +105,7 @@
                         <a href = "<%=rs2.getString("fileDirectory")%>" download ="<%=path1.getFileName()%>"> 
                             <button class="btn btn-primary" type="button"><i class = "glyphicon glyphicon-download-alt"></i> Download </button>                     
                         </a>                 
-                        <a href = "<%=request.getContextPath()%>/Delete" method = "post" name = "Delete"> 
+                        <a href = "<%=request.getContextPath()%>/Delete?checklistID=<%=rs.getString("id") %> &filePath=<%=rs2.getString("fileDirectory")%>" name = "Delete"> 
                             <button class="btn btn-danger" type="button"><i class = "glyphicon glyphicon-trash"></i> Delete </button>                     
                         </a>                       
                     <%} else { %>

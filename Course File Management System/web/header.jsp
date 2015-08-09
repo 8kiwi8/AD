@@ -1,3 +1,5 @@
+<%@page import="java.sql.ResultSet"%>
+<%@page import="common.DB"%>
 <%
     // HEADER PAGE TO BE INCLUDED IN ALL PAGES
     // FOR AUTHENTICATION CHECK, USE auth.jsp
@@ -92,6 +94,9 @@
                         <li class="<% if (currentPageName.equals("viewLecturers.jsp")) out.println("active"); %>">
                             <a href="<% if (!currentPageName.equals("viewLecturers.jsp")) out.println("viewLecturers.jsp"); %>">Lecturers</a>
                         </li>
+                        <li class="<% if (currentPageName.equals("viewOfferedCourse.jsp")) out.println("active"); %>">
+                            <a href="<% if (!currentPageName.equals("viewOfferedCourse.jsp")) out.println("viewOfferedCourse.jsp"); %>">Offered Courses</a>
+                        </li>
                         <!--
                         <li class="<% if (currentPageName.equals("viewUploads.jsp")) out.println("active"); %>">
                             <a href="<% if (!currentPageName.equals("viewUploads.jsp")) out.println("viewUploads.jsp"); %>">Uploads</a>
@@ -135,6 +140,18 @@
                             <li><a href="<%=request.getContextPath()%>/ChangeUserRole?userType=lecturer">Lecturer</a></li>
                         </ul>
                     </li>
+                        <% if(session.getAttribute("userType").equals("lecturer")) { 
+                            ResultSet rs = DB.query("SELECT * FROM user, profile WHERE user.username = profile.username AND user.usertype = 'lecturer'");
+                        %>
+                        <li class="dropdown">
+                            <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false"> To Lecturer <span class="caret"></span></a>
+                            <ul class="dropdown-menu">
+                                <% while(rs.next()) { %>
+                                <li><a href="<%=request.getContextPath()%>/ChangeUsername?username=<%=rs.getString("username")%>"><%=rs.getString("name")%></a></li>
+                                <% } %>
+                            </ul>
+                        </li>
+                        <% } %>
                     <% } %>
                 </ul>
             <% } %>
