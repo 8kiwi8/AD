@@ -11,9 +11,6 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <link rel="stylesheet" href="<%=request.getContextPath()%>/css/bootstrap.min.css">
-        <script type="text/javascript" src="<%=request.getContextPath()%>/javascript/jquery-2.1.4.min.js"></script>
-        <script type="text/javascript" src="<%=request.getContextPath()%>/javascript/bootstrap.min.js"></script>
         <title>Create Semester</title>
     </head>
     <body>

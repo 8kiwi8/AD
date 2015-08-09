@@ -5,11 +5,6 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <link rel="stylesheet" href="<%=request.getContextPath()%>/css/bootstrap.min.css">
-    <link rel="stylesheet" href="<%=request.getContextPath()%>/css/bootstrap-table.css">
-    <script type="text/javascript" src="<%=request.getContextPath()%>/javascript/jquery-2.1.4.min.js"></script>
-    <script type="text/javascript" src="<%=request.getContextPath()%>/javascript/bootstrap.min.js"></script>
-    <script type="text/javascript" src="<%=request.getContextPath()%>/javascript/bootstrap-table.js"></script>
     <title>Login</title>
 </head>
 <body>

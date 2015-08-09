@@ -11,7 +11,6 @@
 <head>
   <meta charset="UTF-8">
   <title>Pentadbir</title>
-  <link rel="stylesheet" href="../css/bootstrap.min.css">
   <style type="text/css">
     #container {
       max-width: 340px;

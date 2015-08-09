@@ -11,12 +11,6 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">               
-        <link rel="stylesheet" href="<%=request.getContextPath()%>/css/auto-complete.css">
-        <link rel="stylesheet" href="<%=request.getContextPath()%>/css/bootstrap.min.css">
-        <script type="text/javascript" src="<%=request.getContextPath()%>/javascript/jquery-2.1.4.min.js"></script>
-        <script type="text/javascript" src="<%=request.getContextPath()%>/javascript/jquery-ui-1.9.2.custom.min.js"></script>
-        <script type="text/javascript" src="<%=request.getContextPath()%>/javascript/jquery.URI.min.js"></script>
-        <script type="text/javascript" src="<%=request.getContextPath()%>/javascript/bootstrap.min.js"></script>
         <title>Section</title> 
         <script>
         var semester = [];

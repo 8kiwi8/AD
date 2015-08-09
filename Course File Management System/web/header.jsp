@@ -43,9 +43,14 @@
     out.println(session.getAttribute("usertype")); */
 %>
 
+<link rel="stylesheet" href="<%=request.getContextPath()%>/css/auto-complete.css">
 <link rel="stylesheet" href="<%=request.getContextPath()%>/css/bootstrap.min.css">
+<link rel="stylesheet" href="<%=request.getContextPath()%>/css/bootstrap-table.css">
 <script type="text/javascript" src="<%=request.getContextPath()%>/javascript/jquery-2.1.4.min.js"></script>
+<script type="text/javascript" src="<%=request.getContextPath()%>/javascript/jquery-ui-1.9.2.custom.min.js"></script>
+<script type="text/javascript" src="<%=request.getContextPath()%>/javascript/jquery.URI.min.js"></script>
 <script type="text/javascript" src="<%=request.getContextPath()%>/javascript/bootstrap.min.js"></script>
+<script type="text/javascript" src="<%=request.getContextPath()%>/javascript/bootstrap-table.js"></script>
 <div class="container">
     <div class="jumbotron">
         <h1>Course File Management System</h1>
