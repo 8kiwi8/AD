@@ -1,4 +1,4 @@
-<%-- 
+    <%-- 
     Document   : createSemester
     Created on : Jul 30, 2015, 4:30:28 PM
     Author     : Kiwi
@@ -20,7 +20,7 @@
                     <tr>
                         <th>Year</th>
                         <th>Semester</th>
-                        <th>Action</th>
+                        <th>Courses Offered</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -32,7 +32,7 @@
                         <td><%=rs.getString("year")%></td>
                         <td><%=rs.getString("semester")%></td>
                         <td>
-                            <a href="<%=request.getContextPath()%>/DeleteSemesterServlet?semesterID=<%=rs.getString("semesterID")%>" class="btn btn-danger">Delete</a>
+                            <a href="<%=request.getContextPath()%>/root/createOfferedCourse.jsp?semesterID=<%=rs.getString("semesterID")%>" class="btn btn-primary">Courses</a>
                         </td>
                     </tr>
                     <% } %>

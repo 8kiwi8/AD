@@ -174,16 +174,8 @@
                     
                     <%
                         if (session.getAttribute("userType") != null && session.getAttribute("userType").equals("root")) {
-                    %>
-                            <li class="dropdown">
-                                <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
-                                    Course<span class="caret"></span>
-                                </a>
-                                <ul class="dropdown-menu">
+                    %> 
                                     <li><a href="<%=request.getContextPath()%>/root/viewCourses.jsp">View Courses</a></li>
-                                    <li><a href="<%=request.getContextPath()%>/root/createOfferedCourse.jsp">Current Offered Courses</a></li>
-                                </ul>
-                            </li>
                     <%
                         }
                     %>
