@@ -5,12 +5,15 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-
+<jsp:include page="../auth.jsp"/>
+<jsp:include page="../header.jsp"/>
+<%@ page import ="java.sql.*, common.DB" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Pentadbir</title>
+  <title>Reports</title>
+  <link rel="stylesheet" href="../css/bootstrap.min.css">
   <style type="text/css">
     #container {
       max-width: 340px;
@@ -18,7 +21,7 @@
       padding: 20px;
       border-radius: 8px;
     }
-    div {
+    .category {
       margin-top: 15px;
     }
     input[type="submit"] {
@@ -40,12 +43,6 @@
   </style>
 </head>
 <body>
-  <ul class="nav nav-tabs">
-    <li role="presentation"><a href="..">Home</a></li>
-    <li role="presentation" class="active"><a href="#">Reports</a></li>
-    <button type="button" class="logout btn btn-link">Log out</button>
-  </ul>
-  
   <div id="container">
     <div class="category">
       <select id="sesi" class="form-control" name="sesi">
@@ -83,7 +80,7 @@
 
       <tbody>
         <tr>
-          <td>OOP</td>
+          <td>Database</td>
           <td><a href="#">View report</a></td>
           <td>
             <select id="OOPsec" class="form-control" name="OOPsec">
@@ -95,7 +92,7 @@
            </td>
         </tr>
         <tr>
-          <td>DB</td>
+          <td>Computational Math</td>
           <td><a href="#">View report</a></td>
           <td>
             <select id="DBsec" class="form-control" name="DBsec">
@@ -107,7 +104,19 @@
           </td>
         </tr>
         <tr>
-          <td>COA</td>
+          <td>Network</td>
+          <td><a href="#">View report</a></td>
+          <td>
+            <select id="COAsec" class="form-control" name="COAsec">
+              <option value="Invalid selection">Choose section</option>
+              <option value="1">1</option>
+              <option value="2">2</option>
+              <option value="3">3</option>
+            </select>
+          </td>
+        </tr>
+        <tr>
+          <td>Graphic Design</td>
           <td><a href="#">View report</a></td>
           <td>
             <select id="COAsec" class="form-control" name="COAsec">
