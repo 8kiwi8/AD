@@ -84,14 +84,16 @@
                 <%
                     ResultSet rs = DB.query("SELECT * FROM upload_checklist");
                     while(rs.next()) {
-                    ResultSet rs2 = DB.query("SELECT * FROM files AS f, section AS s WHERE f.sectionID = s.sectionID AND f.sectionID="+sectionID+
-                        " AND s.username='"+username+"' AND f.checklistID="+rs.getString("id"));
+                    ResultSet rs2 = DB.query("SELECT * FROM files AS f, lecturer_upload AS lu, section AS s WHERE lu.sectionID = s.sectionID AND f.fileID = lu.fileID AND lu.sectionID="+sectionID+
+                        " AND lu.checklistID="+rs.getString("checklistID"));
                 %>
                 <tr>
-                    <td><%=rs.getString("id") %></td>
+                    <td><%=rs.getString("checklistID") %></td>
                     <td><%=rs.getString("label") %></td>
                     <%
-                    if(rs2.next()){
+                    boolean found = false;
+                    while(rs2.next()){
+                        found = true;
                         %>
                         <td><img src = "<%=request.getContextPath()%>/img/tick.png" width="35" height="35" alt = "submit"></img>                         
                         <%String path = rs2.getString("fileDirectory");
@@ -99,16 +101,18 @@
                         <a href = "<%=rs2.getString("fileDirectory")%>" download ="<%=path1.getFileName()%>"> 
                             <button class="btn btn-primary" type="button"><i class = "glyphicon glyphicon-download-alt"></i> Download </button>                     
                         </a>                 
-                        <a href = "<%=request.getContextPath()%>/Delete?checklistID=<%=rs.getString("id") %> &filePath=<%=rs2.getString("fileDirectory")%>" name = "Delete"> 
-                            <button class="btn btn-danger" type="button"><i class = "glyphicon glyphicon-trash"></i> Delete </button>                     
+                        <a href = "<%=request.getContextPath()%>/Delete?fileID=<%=rs2.getString("fileID")%>&filePath=<%=rs2.getString("fileDirectory")%>" name = "Delete" onclick = "return DeleteConfirmation();"> 
+                            <button class="btn btn-danger" type="button"><i class = "glyphicon glyphicon-trash" ></i> Delete </button>                     
                         </a>                       
-                    <%} else { %>
+                    <%} 
+                    if(!found) { %>
                      </td>
                     <td>            
                         <div class="fileUpload btn btn-default">
-                            <input id="uploadFile-<%=rs.getString("id")%>" placeholder="Choose File" disabled="disabled"/>
+                            <input id="uploadFile-<%=rs.getString("checklistID")%>" placeholder="Choose File" disabled="disabled"/>
                             <button class="browse btn btn-primary" type="button"><i class="glyphicon glyphicon-folder-open"></i> Browse</button>
-                            <input name="checklist-<%=rs.getString("id")%>" type="file" cl_ID="<%=rs.getString("id")%>" class="upload" multiple />
+                            <div id = "selectedFiles"> </div>
+                            <input name="checklist-<%=rs.getString("checklistID")%>" type="file" cl_ID="<%=rs.getString("checklistID")%>" class="upload" multiple />
                         </div>
                     </td>
             <%}%>
@@ -124,8 +128,19 @@
                 cl_id = $(this).attr("cl_id");
                 $("#uploadFile-"+cl_id).val($(this).val().slice(12));
                 console.log(this.value);
-            });  
-            </script>
-            <div>
+            });
+            
+            function DeleteConfirmation ()
+            {
+                var x = confirm("Are you sure you want to delete?");
+                if (x)
+                   return true;
+                else
+                  return false;
+            };
+                        
+           
+        </script>
+        <div>
     </body>
 </html>

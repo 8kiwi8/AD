@@ -12,8 +12,6 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.PrintWriter;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.List;
 
 import java.util.Scanner;
@@ -131,7 +129,7 @@ public class Upload extends HttpServlet
                           
                         // saves the file to upload directory
                         item.write(uploadedFile); 
-                        String query = "INSERT INTO files (fileDirectory, sectionID, checklistID) values('"+path+"', "+sectionID+", "+id+")";
+                        String query = "INSERT INTO files (fileDirectory) values('"+path+"')";
                         DB.update(query);
                         ResultSet rs = DB.query("SELECT label FROM upload_checklist WHERE id=" + id);
                         while(rs.next()) 
@@ -139,7 +137,11 @@ public class Upload extends HttpServlet
                             String label = rs.getString("label");
                             out.write("<a href=\"Upload?fileName=" + filePath + "\">Download "+ label+"</a>");
                             out.write("<br><br>");                            
-                        }                                                                   
+                        }
+                        ResultSet rs1 = DB.query("SELECT * FROM files ORDER BY fileID DESC LIMIT 1");
+                        rs1.next();
+                        String query2 = "INSERT INTO lecturer_upload (fileID, sectionID, checklistID) values("+rs1.getString("fileID")+", "+sectionID+", "+id+")";
+                        DB.update(query2);
                     }
                 }    
             }           

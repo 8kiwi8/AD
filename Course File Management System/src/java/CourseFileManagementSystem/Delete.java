@@ -9,8 +9,6 @@ import common.DB;
 import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -50,7 +48,7 @@ public class Delete extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
         out.write("<html><head></head><body>");
-        String checklistID = request.getParameter("checklistID");
+        String fileID = request.getParameter("fileID");
         String filePath = request.getParameter("filePath");
         String changeFilePath = filePath.replace('/','\\');
         String changeFilePath1 = changeFilePath.replace("Course_File_Management_System\\", "");
@@ -59,8 +57,12 @@ public class Delete extends HttpServlet {
         System.out.println (uploadFolder);
         boolean blnDeleted = file.delete(); 
         System.out.println("Was file deleted ? : " + blnDeleted);
-        String query = "DELETE FROM files WHERE sectionID=" + sectionID + " AND checklistID=" + checklistID;
-        DB.update(query);
+        String query1 = "DELETE FROM lecturer_upload WHERE fileID=" + fileID;
+        String query2 = "DELETE FROM files WHERE fileID=" + fileID;
+        System.out.print(query1);
+        System.out.print(query2);
+        DB.update(query1);
+        DB.update(query2);
         response.sendRedirect("lecturer/upload.jsp?semesterID=" + semesterID + "&sectionID=" + sectionID + "&username=" + username);
     }
 
