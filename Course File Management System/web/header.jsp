@@ -65,7 +65,7 @@
 
 <!DOCTYPE html>
 
-<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+<link rel="stylesheet" href="<%=request.getContextPath()%>/css/bootstrap.min.css">
 
 <style>
     .website-title {
@@ -83,7 +83,6 @@
     }
 </style>
 
-<link rel="stylesheet" href="<%=request.getContextPath()%>/css/bootstrap.min.css">
 <link rel="stylesheet" href="<%=request.getContextPath()%>/css/auto-complete.css">
 <link rel="stylesheet" href="<%=request.getContextPath()%>/css/bootstrap-table.css">
 <script type="text/javascript" src="<%=request.getContextPath()%>/javascript/jquery-2.1.4.min.js"></script>
