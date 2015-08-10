@@ -94,7 +94,7 @@
                     boolean found = false;
                     while(rs2.next()){
                         found = true;
-                        %>
+                        %>                         
                         <td><img src = "<%=request.getContextPath()%>/img/tick.png" width="35" height="35" alt = "submit"></img>                         
                         <%String path = rs2.getString("fileDirectory");
                           Path path1 = Paths.get(path);%>                                                                        
@@ -103,16 +103,18 @@
                         </a>                 
                         <a href = "<%=request.getContextPath()%>/Delete?fileID=<%=rs2.getString("fileID")%>&filePath=<%=rs2.getString("fileDirectory")%>" name = "Delete" onclick = "return DeleteConfirmation();"> 
                             <button class="btn btn-danger" type="button"><i class = "glyphicon glyphicon-trash" ></i> Delete </button>                     
-                        </a>                       
+                        </a> 
+                        <%=path1.getFileName()%>
+                        <br>
+                        </td> 
                     <%} 
-                    if(!found) { %>
-                     </td>
+                    if(!found) { %>                   
                     <td>            
                         <div class="fileUpload btn btn-default">
-                            <input id="uploadFile-<%=rs.getString("checklistID")%>" placeholder="Choose File" disabled="disabled"/>
+                            <input id="uploadFile-<%=rs.getString("checklistID")%>" placeholder="Choose File" disabled = "disabled"/>
                             <button class="browse btn btn-primary" type="button"><i class="glyphicon glyphicon-folder-open"></i> Browse</button>
-                            <div id = "selectedFiles"> </div>
                             <input name="checklist-<%=rs.getString("checklistID")%>" type="file" cl_ID="<%=rs.getString("checklistID")%>" class="upload" multiple />
+                            
                         </div>
                     </td>
             <%}%>
@@ -137,9 +139,7 @@
                    return true;
                 else
                   return false;
-            };
-                        
-           
+            };                      
         </script>
         <div>
     </body>
