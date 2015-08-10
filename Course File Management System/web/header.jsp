@@ -66,6 +66,7 @@
 <!DOCTYPE html>
 
 <link rel="stylesheet" href="<%=request.getContextPath()%>/css/bootstrap.min.css">
+<link rel="stylesheet" href="<%=request.getContextPath()%>/css/bootstrap-theme.min.css">
 
 <style>
     .website-title {
