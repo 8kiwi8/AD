@@ -70,7 +70,7 @@
 
 <!DOCTYPE html>
 
-<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+<link rel="stylesheet" href="<%=request.getContextPath()%>/css/bootstrap.min.css">
 <link rel="stylesheet" href="<%=request.getContextPath()%>/css/bootstrap-theme.min.css">
 
 <style>
@@ -93,7 +93,12 @@
     }
 </style>
 
+<link rel="stylesheet" href="<%=request.getContextPath()%>/css/auto-complete.css">
+<link rel="stylesheet" href="<%=request.getContextPath()%>/css/bootstrap-table.css">
 <script type="text/javascript" src="<%=request.getContextPath()%>/javascript/jquery-2.1.4.min.js"></script>
+<script type="text/javascript" src="<%=request.getContextPath()%>/javascript/jquery-ui-1.9.2.custom.min.js"></script>
+<script type="text/javascript" src="<%=request.getContextPath()%>/javascript/jquery.URI.min.js"></script>
+<script type="text/javascript" src="<%=request.getContextPath()%>/javascript/bootstrap-table.js"></script>
 <script type="text/javascript" src="<%=request.getContextPath()%>/javascript/bootstrap.min.js"></script>
 
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -186,7 +191,7 @@
 
 <div class="container-fluid">
 
-    <nav class="navbar navbar-inverse">
+    <nav class="nav nav-tabs">
         <div class="container-fluid">
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#utm-cfms-navbar-collapse-1" aria-expanded="false">
@@ -198,7 +203,7 @@
             </div> <!-- /.navbar-header -->
 
             <div class="collapse navbar-collapse" id="utm-cfms-navbar-collapse-1">
-                <ul class="nav navbar-nav">
+                <ul class="nav nav-tabs nav-justified">
                     
                     <%  // Full credit to Lo King Wei for below piece of code
                         for (int i = 0; i < pages.size(); ++i) {
