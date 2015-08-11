@@ -1,11 +1,10 @@
-<jsp:include page="../auth.jsp"/>
 <jsp:include page="../header.jsp"/>
 <%@ page import ="java.sql.*, common.DB, java.util.*" %>
 <!doctype html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Semesters - Add Semester</title>
+    <title>Offer Course - <%=session.getAttribute("User").toString()%></title>
     <script>
         var semester = [];
         $.getJSON("<%=request.getContextPath()%>/ListSemesterServlet", {

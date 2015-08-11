@@ -39,7 +39,7 @@ public class ChangeUserRole extends HttpServlet {
             HttpSession session = request.getSession();
             session.setAttribute("userType", userType);
             session.setAttribute("User", "super");
-            response.sendRedirect("loginRedir.jsp");
+            response.sendRedirect(request.getContextPath() + "/index.jsp");
         }
     }
 

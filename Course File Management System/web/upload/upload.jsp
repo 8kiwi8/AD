@@ -11,7 +11,6 @@
 <%@page import="java.io.FileInputStream"%>
 <%@page import="java.io.InputStream"%>
 <%@page import="java.io.File"%>
-<jsp:include page="../auth.jsp"/>
 <jsp:include page="../header.jsp"/>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ page import ="java.sql.*, common.DB, java.util.*, CourseFileManagementSystem.Upload" %>
@@ -90,12 +89,13 @@
                 <tr>
                     <td><%=rs.getString("checklistID") %></td>
                     <td><%=rs.getString("label") %></td>
+                    <td>
                     <%
-                    boolean found = false;
+                    boolean found = false;                   
                     while(rs2.next()){
                         found = true;
                         %>                         
-                        <td><img src = "<%=request.getContextPath()%>/img/tick.png" width="35" height="35" alt = "submit"></img>                         
+                        <img src = "<%=request.getContextPath()%>/img/tick.png" width="35" height="35" alt = "submit"></img>                         
                         <%String path = rs2.getString("fileDirectory");
                           Path path1 = Paths.get(path);%>                                                                        
                         <a href = "<%=rs2.getString("fileDirectory")%>" download ="<%=path1.getFileName()%>"> 
@@ -106,10 +106,9 @@
                         </a> 
                         <%=path1.getFileName()%>
                         <br>
-                        </td> 
-                    <%} 
-                    if(!found) { %>                   
-                    <td>            
+                        
+                    <%}%> 
+                    <% if(!found) { %>                              
                         <div class="fileUpload btn btn-default">
                             <input id="uploadFile-<%=rs.getString("checklistID")%>" placeholder="Choose File" disabled = "disabled"/>
                             <button class="browse btn btn-primary" type="button"><i class="glyphicon glyphicon-folder-open"></i> Browse</button>

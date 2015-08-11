@@ -1,4 +1,3 @@
-<jsp:include page="../auth.jsp"/>
 <jsp:include page="../header.jsp"/>
 <%@ page import ="java.sql.*, common.DB" %>
 <%
@@ -13,7 +12,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Update Lecturer Profile</title>
+    <title>Update Course - <%=session.getAttribute("User").toString()%></title>
 </head>
 
 <body>

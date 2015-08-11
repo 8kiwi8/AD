@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package root;
+package user;
 
 import common.DB;
 import java.io.IOException;
@@ -17,13 +17,14 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
  * @author Kiwi
  */
-@WebServlet(name = "CreateSemesterServlet", urlPatterns = {"/CreateSemesterServlet"})
-public class CreateSemesterServlet extends HttpServlet {
+@WebServlet(name = "LoginServlet", urlPatterns = {"/LoginServlet"})
+public class LoginServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -33,42 +34,49 @@ public class CreateSemesterServlet extends HttpServlet {
      * @param response servlet response
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
-     * @throws java.sql.SQLException
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException, SQLException {
+            throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
-            String year = request.getParameter("year");
-            int semester = Integer.parseInt(request.getParameter("semester"));
-            String query = "INSERT INTO year_semester (year, semester) VALUES (\'"+year+"\', "+semester+")";
-            
-            int rs = DB.update(query);
-            
-            ResultSet rs1 = DB.query("SELECT courseCode, courseID FROM batch_courses WHERE label=1");
-            ResultSet rs2 = DB.query("SELECT semesterID FROM year_semester ORDER BY semesterID DESC LIMIT 1");
-            rs2.next();
-            while(rs1.next())
-            {
-              int rs3 = DB.update("INSERT INTO course_offered (semesterID, courseCode, courseID) VALUES ("+rs2.getString(1)+", '"+rs1.getString(1)+"', "+rs1.getString(2)+")");
-
-           }
-            
-        //    int rs4 = DB.update("UPDATE batch_courses SET label= label - 1 WHERE label > 0");
-            
-            response.sendRedirect(request.getHeader("Referer"));
+            String username = request.getParameter("inputUsername");
+            String password = request.getParameter("inputPassword");
+            HttpSession session = ((HttpServletRequest) request).getSession();
+            String query = "SELECT password, usertype FROM user WHERE username='" + username + "'";
+            ResultSet rs = DB.query(query);
+            if (rs.next()) {  
+                String userTypeFromDB = rs.getString("usertype");
+                if (rs.getString("password").equals(password)) { // If valid password
+                    session.setAttribute("User", username); // Saves username string in the session object
+                    if(userTypeFromDB.equals("super")) {
+                        session.setAttribute("userType", "root");
+                        session.setAttribute("isSuper", "true");
+                    }
+                    else {
+                        session.setAttribute("userType", userTypeFromDB);
+                    }
+                    //out.println("password inputted = password in DB = username & pwd found in system");
+                }
+                else { // Password does not match, i.e., invalid user password
+                    session.setAttribute("Login Error", "Invalid password.");
+                    //out.println("password inputted != password in DB BUT username found in system");
+                }
+            } else { // No record in the result set, i.e., invalid username
+                session.setAttribute("Login Error", "User not found.");
+            }
+            response.sendRedirect(request.getContextPath() + "/index.jsp");
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet BMIServlet</title>");            
+            out.println("<title>Servlet LoginServlet</title>");            
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Result</h1>");
-            out.println(query+"<br>");
-            out.println(DB.update(query));
+            out.println("<h1>Servlet LoginServlet at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
+        } catch (SQLException ex) {
+            Logger.getLogger(LoginServlet.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -84,11 +92,7 @@ public class CreateSemesterServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        try {
-            processRequest(request, response);
-        } catch (SQLException ex) {
-            Logger.getLogger(CreateSemesterServlet.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        processRequest(request, response);
     }
 
     /**
@@ -102,11 +106,7 @@ public class CreateSemesterServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        try {
-            processRequest(request, response);
-        } catch (SQLException ex) {
-            Logger.getLogger(CreateSemesterServlet.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        processRequest(request, response);
     }
 
     /**

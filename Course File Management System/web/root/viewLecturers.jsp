@@ -1,11 +1,10 @@
-<jsp:include page="../auth.jsp"/>
 <jsp:include page="../header.jsp"/>
 <%@ page import ="java.sql.*, common.DB" %>
 <!doctype html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Login</title>
+    <title>View Lecturers - <%=session.getAttribute("User").toString()%></title>
 </head>
 <body>
 
