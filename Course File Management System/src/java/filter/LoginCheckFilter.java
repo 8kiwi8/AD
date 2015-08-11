@@ -132,7 +132,7 @@ public class LoginCheckFilter implements Filter {
                     return;
                 }
             }
-            session.setAttribute("Login Error", "Please Log in First.");
+            session.setAttribute("Login Error", "You are not logged in.");
             httpResponse.sendRedirect(httpRequest.getContextPath() + "/index.jsp");
             return;
         } catch (Throwable t) {
