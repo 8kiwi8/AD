@@ -4,7 +4,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Lecuter - Add lecturer</title>
+    <title>Add Course - <%=session.getAttribute("User").toString()%></title>
 </head>
 <body>
     <div class="container">

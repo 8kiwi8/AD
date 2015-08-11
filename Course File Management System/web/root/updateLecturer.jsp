@@ -11,7 +11,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Update Lecturer Profile</title>
+    <title>Update Lecturer Profile - <%=session.getAttribute("User").toString()%></title>
 </head>
 
 <body>

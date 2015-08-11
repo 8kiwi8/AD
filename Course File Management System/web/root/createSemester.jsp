@@ -10,7 +10,7 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Create Semester</title>
+        <title>Create Semester - <%=session.getAttribute("User").toString()%></title>
     </head>
     <body>
         <div class="container">
