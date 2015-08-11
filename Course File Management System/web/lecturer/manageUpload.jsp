@@ -77,11 +77,11 @@
                 <%
                     ResultSet rs = DB.query("SELECT * FROM upload_checklist");
                     while(rs.next()) {
-                    ResultSet rs2 = DB.query("SELECT * FROM files AS f, section AS s WHERE f.sectionID = s.sectionID AND f.sectionID="+sectionID+
-                        " AND f.checklistID="+rs.getString("id"));
+                    ResultSet rs2 = DB.query("SELECT * FROM files AS f, lecturer_upload AS lu, section AS s WHERE lu.sectionID = s.sectionID AND f.fileID = lu.fileID AND lu.sectionID="+sectionID+
+                        " AND lu.checklistID="+rs.getString("checklistID"));
                 %>
                 <tr>
-                    <td><%=rs.getString("id") %></td>
+                    <td><%=rs.getString("checklistID") %></td>
                     <td><%=rs.getString("label") %></td>
                     <%
                     if(rs2.next()){

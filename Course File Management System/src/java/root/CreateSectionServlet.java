@@ -40,10 +40,11 @@ public class CreateSectionServlet extends HttpServlet {
             String courseCode = request.getParameter("courseCode");
             int semesterID = Integer.parseInt(request.getParameter("semesterID"));
             int sectionNo = Integer.parseInt(request.getParameter("sectionNo"));
+            String sectionMajor = request.getParameter("sectionMajor");
             int course_offered_ID = Integer.parseInt(request.getParameter("course_offered_ID"));
-            String query = "INSERT INTO section(username, semesterID, sectionNo, course_offered_ID, courseCode, courseID) " +
+            String query = "INSERT INTO section(username, semesterID, sectionNo, course_offered_ID, courseCode, courseID, sectionMajor) " +
                     "VALUES('"+username+"', "+semesterID+
-                    ", "+sectionNo+", "+course_offered_ID+", '"+courseCode+"', '"+courseID+"')";
+                    ", "+sectionNo+", "+course_offered_ID+", '"+courseCode+"', '"+courseID+"', '" + sectionMajor+"')";
             int rs = DB.update(query);
             response.sendRedirect(request.getHeader("Referer"));
             out.println("<!DOCTYPE html>");

@@ -50,6 +50,20 @@
         });
         <% } %>
     </script>
+    <script>
+        function viewSuperviseCourse (co_id, courseLabel) {
+            dataSet = { 
+                "semesterID": <%=request.getParameter("semesterID")%>,
+                "semester": <%=request.getParameter("semester")%>,
+                "course_offered_ID": co_id,
+                "courseLabel": courseLabel
+            };
+            var uri = new URI("viewSuperviseCourse.jsp");
+            var query = new URI(uri.search());
+            var query = query.setSearch(dataSet);
+            window.location.href = uri + query;
+        };
+    </script>
 </head>
 <body>
     <div class="container">
@@ -84,11 +98,14 @@
                     <td><%=rs.getString("mine.courseName")%></td>
                     <td>
                         <% 
-                        if(rs.getString("co.penyelaras_id").equals(session.getAttribute("User")))
-                            out.print("View my selaras course");
-                        else
-                            out.print(rs.getString("co.penyelaras"));
+                        if(rs.getString("co.penyelaras_id").equals(session.getAttribute("User"))) {
                         %>
+                        <button type="button" class="btn btn-default" onclick="viewSuperviseCourse('<%=rs.getString("co.co_id")%>', '<%=rs.getString("mine.courseCode")%><%=rs.getString("mine.courseID")%> <%=rs.getString("mine.courseName")%>');">Manage Course</button>
+                        <%
+                        } else {
+                        %>
+                        <%=rs.getString("penyelaras")%>
+                        <% } %>
                     </td>
                 </tr>
                 <% } } %>

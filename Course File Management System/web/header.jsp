@@ -60,6 +60,7 @@
     
     pages.add(new Page("lecturer", "viewCourses.jsp", "Courses"));
     pages.add(new Page("lecturer", "section.jsp", "Upload"));
+    pages.add(new Page("lecturer", "myCourse.jsp", "My Courses"));
     
 %>
 

@@ -153,6 +153,7 @@
                     <th>Course</th>
                     <th>Lecturer</th>
                     <th>Section</th>
+                    <th>Major</th>
                     <th>Action</th>
                 </tr>
             </thread>
@@ -181,6 +182,7 @@
                     <td><%=rs.getString("courseCode") + " " + rs.getString("courseID") + " " + rs.getString("courseName")%></td>
                     <td><%=rs.getString("name")%></td>
                     <td><%=rs.getString("sectionNo")%></td>
+                    <td><%=rs.getString("sectionMajor")%></td>
                     <td>
                         <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#updateSection-<%=rs.getString("sectionID")%>">Update</button>
                         <div id="updateSection-<%=rs.getString("sectionID")%>" class="modal fade" role="dialog">
@@ -261,6 +263,13 @@
                                 <option>8</option>
                                 <option>9</option>
                                 <option>10</option>
+                            </select>
+                            <label>Section Number:</label>
+                            <select class="form-control" name="sectionMajor" id="sectionMajor">
+                                <option>SCSJ</option>
+                                <option>SCSR</option>
+                                <option>SCSV</option>
+                                <option>SCSB</option>
                             </select>
                             <div class= "">
                                 <input class="semesterID" name="semesterID">
