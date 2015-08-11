@@ -117,7 +117,7 @@ public class PermissionCheckFilter implements Filter {
             String type = "root";
             String userType = (String) session.getAttribute("userType");
             if(httpRequest.getRequestURI().contains(type) && !userType.equals(type)) {
-                session.setAttribute("Access Error", "You're not allow to access this page");
+                session.setAttribute("Access Error", "You're not allowed to access this page");
                 httpResponse.sendRedirect(filterConfig.getServletContext().getContextPath() + "/index.jsp");
             }
             chain.doFilter(request, response);

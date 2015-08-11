@@ -113,11 +113,8 @@ public class LoginCheckFilter implements Filter {
         HttpSession session = ((HttpServletRequest) request).getSession();
         
         String username = (String) session.getAttribute("User");
-        String[] urls = { 
-            httpRequest.getContextPath() + "/index.jsp",
-            httpRequest.getContextPath() + "/loginAction.jsp",
-            httpRequest.getContextPath() + "/loginRedir.jsp",
-            httpRequest.getContextPath() + "/logoutAction.jsp"
+        String[] urls = {
+            httpRequest.getContextPath() + "/index.jsp"
         };
 
         Throwable problem = null;
