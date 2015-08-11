@@ -4,7 +4,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Semesters - View Semesters</title>
+    <title>View Semesters - <%=session.getAttribute("User").toString()%></title>
 </head>
 <body>
     <div class="container">
