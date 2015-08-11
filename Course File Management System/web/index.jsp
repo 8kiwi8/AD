@@ -1,8 +1,10 @@
 <jsp:include page="header.jsp"/>
 <%
     String userType = "Guest";
+    boolean isLoggedIn = false;
     if (session.getAttribute("userType") != null) {
         userType = (String) session.getAttribute("userType");
+        isLoggedIn = true;
     } 
     
     boolean invalidPassword = false;
@@ -22,7 +24,7 @@
 <body>
     <div class="container">
         
-        <div class= "col-xs-8">
+        <div class= "<% if (!isLoggedIn) out.println("col-xs-8"); %>">
             <div class="panel panel-default">
                 <div class="panel-heading">
                     <h3 class="panel-title"><strong>News</strong></h3>
@@ -52,48 +54,54 @@
             </div>
         </div>
         
-        <div class="col-xs-4">
-            <div class="panel panel-default">
-                <div class="panel-heading">
-                    <h3 class="panel-title"><strong>Login</strong></h3>
-                </div>
-                <div class="panel-body">
-
-                    <form class="form-horizontal" method="post" action="<%=request.getContextPath()%>/loginAction.jsp">
-                        <div class="form-group">
-                            <label for="username" class="control-label col-xs-4">Username</label>
-                            <div class="col-xs-8">
-                                <input type="text" class="form-control" name="inputUsername" placeholder="Username">
-                            </div>
-                        </div>
-                        <div class="form-group <% if (invalidPassword) out.println("has-error"); %>">
-                            <label for="inputPassword" class="control-label col-xs-4">Password</label>
-                            <div class="col-xs-8">
-                                <input type="password" class="form-control" name="inputPassword" placeholder="Password">
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <div class="col-xs-offset-8 col-xs-4">
-                                <button type="submit" class="btn btn-primary">Login</button>
-                            </div>
-                        </div>
-                    </form>
-                </div> <!-- /.panel-body -->
-                
-
-            </div> <!-- /.panel .panel-default -->
-            <%
-                if (request.getAttribute("Error") != null) { // If there is an error during login
-            %>
-                    <div class="alert alert-danger" role="alert">
-                        <span class="glyphicon glyphicon-remove" aria-hidden="true" style="padding-right: 10px"></span>
-                        <strong><%=request.getAttribute("Error") %></strong>
+        <%
+            if (!isLoggedIn) {
+        %>
+            <div class="col-xs-4">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h3 class="panel-title"><strong>Login</strong></h3>
                     </div>
-            <%
-                }
-            %>
-        </div>
+                    <div class="panel-body">
+
+                        <form class="form-horizontal" method="post" action="<%=request.getContextPath()%>/loginAction.jsp">
+                            <div class="form-group">
+                                <label for="username" class="control-label col-xs-4">Username</label>
+                                <div class="col-xs-8">
+                                    <input type="text" class="form-control" name="inputUsername" placeholder="Username">
+                                </div>
+                            </div>
+                            <div class="form-group <% if (invalidPassword) out.println("has-error"); %>">
+                                <label for="inputPassword" class="control-label col-xs-4">Password</label>
+                                <div class="col-xs-8">
+                                    <input type="password" class="form-control" name="inputPassword" placeholder="Password">
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <div class="col-xs-offset-8 col-xs-4">
+                                    <button type="submit" class="btn btn-primary">Login</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div> <!-- /.panel-body -->
+                </div> <!-- /.panel .panel-default -->
+
+
+                <%
+                    if (request.getAttribute("Error") != null) { // If there is an error during login
+                %>
+                        <div class="alert alert-danger" role="alert">
+                            <span class="glyphicon glyphicon-remove" aria-hidden="true" style="padding-right: 10px"></span>
+                            <strong><%=request.getAttribute("Error") %></strong>
+                        </div>
+                <%
+                    }
+                %>
+            </div>
+        <%
+            }
+        %>
                 
     </div> <!-- /.container -->
 </body>
