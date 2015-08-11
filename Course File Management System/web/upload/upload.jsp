@@ -11,7 +11,6 @@
 <%@page import="java.io.FileInputStream"%>
 <%@page import="java.io.InputStream"%>
 <%@page import="java.io.File"%>
-<jsp:include page="../auth.jsp"/>
 <jsp:include page="../header.jsp"/>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ page import ="java.sql.*, common.DB, java.util.*, CourseFileManagementSystem.Upload" %>

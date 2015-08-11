@@ -1,4 +1,3 @@
-<jsp:include page="../auth.jsp"/>
 <jsp:include page="../header.jsp"/>
 <!doctype html>
 <html lang="en">

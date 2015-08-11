@@ -44,7 +44,7 @@
     
     // add pages to arraylist
     // Pages constructor: <userType> <fileName> <pageTitle>
-    pages.add(new Page("all", "home.jsp", "Home"));
+    pages.add(new Page("all", request.getContextPath() + "/index.jsp", "Home"));
     
     
     pages.add(new Page("root", "viewLecturers.jsp", "View Lecturers"));
@@ -55,12 +55,12 @@
     //pages.add(new Page("root", "createOfferedCourse.jsp", "Current Offered Courses"));
     pages.add(new Page("root", "createSection.jsp", "Create Section"));
     
-    pages.add(new Page("admin", "viewCourses.jsp", "Courses"));
-    pages.add(new Page("admin", "viewLecturers.jsp", "View Lecturers"));
+    pages.add(new Page("admin", request.getContextPath() + "/course/viewCourses.jsp", "Courses"));
+    pages.add(new Page("admin", request.getContextPath() + "/report/viewLecturers.jsp", "View Lecturers"));
     
-    pages.add(new Page("lecturer", "viewCourses.jsp", "Courses"));
-    pages.add(new Page("lecturer", "section.jsp", "Upload"));
-    pages.add(new Page("lecturer", "myCourse.jsp", "My Courses"));
+    pages.add(new Page("lecturer", request.getContextPath() + "/course/myCourse.jsp", "My Courses"));
+    pages.add(new Page("lecturer", request.getContextPath() + "/course/viewCourses.jsp", "Courses"));
+    pages.add(new Page("lecturer", request.getContextPath() + "/upload/chooseSection.jsp", "Upload"));
     
 %>
 
@@ -159,7 +159,7 @@
                             }
                             
                             if (p.getAllowedUser().equals(session.getAttribute("userType")) || p.getAllowedUser().equals("all")) {
-                                if (currentPageLoaded.equals(p.getFileName())) {
+                                if (p.getFileName().contains(currentPageLoaded)) {
                     %>
                                     <li class="active"><a href="<%=p.getFileName()%>"><%=p.getPageTitle()%> <span class="sr-only">(current)</span></a></li>
                     <%  
@@ -180,8 +180,8 @@
                                     Course<span class="caret"></span>
                                 </a>
                                 <ul class="dropdown-menu">
-                                    <li><a href="viewCourses.jsp">View Courses</a></li>
-                                    <li><a href="createOfferedCourse.jsp">Current Offered Courses</a></li>
+                                    <li><a href="<%=request.getContextPath()%>/root/viewCourses.jsp">View Courses</a></li>
+                                    <li><a href="<%=request.getContextPath()%>/root/createOfferedCourse.jsp">Current Offered Courses</a></li>
                                 </ul>
                             </li>
                     <%
@@ -217,7 +217,7 @@
                             <% } %>
                         <% } %>
                         
-                        <li><a href="<%=request.getContextPath()%>/logoutAction.jsp">
+                        <li><a href="<%=request.getContextPath()%>/LogoutServlet">
                                 <span class="glyphicon glyphicon-off" aria-hidden="true" style="padding-right: 10px"></span>Log Out
                             </a>
                         </li>
@@ -228,12 +228,11 @@
         </div>
     </nav>
 
-    <!-- Breadcrumbs, potential implementation
-    <ol class="breadcrumb">
+    <!--
+    <ol class="breadcrumb" style="margin-top: -20px;">
         <li><a href="#">Home</a></li>
         <li><a href="#">Library</a></li>
         <li class="active">Data</li>
     </ol>
     -->
-
 </div>
