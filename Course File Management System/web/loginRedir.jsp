@@ -8,8 +8,6 @@
             response.sendRedirect(request.getContextPath() + "/pentadbir/home.jsp");
         } else if (loggedInUserType.equals("lecturer")) {
             response.sendRedirect(request.getContextPath() + "/lecturer/home.jsp");
-        } else if (loggedInUserType.equals("pentadbir")) {
-            response.sendRedirect(request.getContextPath() + "/pentadbir/home.jsp");
         }
     } else {
         response.sendRedirect(request.getContextPath() + "/login.jsp");
