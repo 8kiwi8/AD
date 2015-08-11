@@ -225,7 +225,7 @@
                             </a>
                             <ul class="dropdown-menu">
                                 <li>
-                                    <a href="<%=request.getContextPath()%>/logoutAction.jsp">
+                                    <a href="<%=request.getContextPath()%>/LogoutServlet">
                                         <span class="glyphicon glyphicon-off" style="padding-right: 10px;"></span>Log Out
                                     </a>
                                 </li>

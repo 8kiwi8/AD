@@ -1,3 +1,4 @@
+<jsp:include page="../header.jsp"/>
 <!doctype html>
 <html lang="en">
 <head>
@@ -5,14 +6,10 @@
     <title>Login</title>
 </head>
 <body>
-    <jsp:include page="../header.jsp"/>
-    <div class="container">
-        
-        
-        
+    <div class="container">     
         <div class="col-xs-8 panel panel-default">
             <h1>Test</h1>
-            <p>You are logged in as: Lecturer</p>
+            <p>You are logged in as: admin/root</p>
         </div>
               
         <div class="col-xs-4 panel panel-default">

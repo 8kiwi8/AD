@@ -9,8 +9,8 @@
     
     boolean invalidPassword = false;
     
-    if (request.getAttribute("Error") != null) {
-        if (request.getAttribute("Error").equals("Invalid password.")) {
+    if (session.getAttribute("Error") != null) {
+        if (session.getAttribute("Error").equals("Invalid password.")) {
             invalidPassword = true;
         }
     }
@@ -19,10 +19,22 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Course File Management System</title>
+    <title>Login</title>
 </head>
 <body>
     <div class="container">
+        <%
+            String access_error = "Access Error";
+            if (session.getAttribute(access_error) != null) { // If there is an error during login
+        %>
+                <div class="alert alert-danger" role="alert">
+                    <span class="glyphicon glyphicon-remove" aria-hidden="true" style="padding-right: 10px"></span>
+                    <strong><%=session.getAttribute(access_error) %></strong>
+                </div>
+        <%
+            session.removeAttribute(access_error);
+            }
+        %>
         
         <div class= "<% if (!isLoggedIn) out.println("col-xs-8"); %>">
             <div class="panel panel-default">
@@ -64,7 +76,7 @@
                     </div>
                     <div class="panel-body">
 
-                        <form class="form-horizontal" method="post" action="<%=request.getContextPath()%>/loginAction.jsp">
+                        <form class="form-horizontal" method="post" action="<%=request.getContextPath()%>/LoginServlet">
                             <div class="form-group">
                                 <label for="username" class="control-label col-xs-4">Username</label>
                                 <div class="col-xs-8">
@@ -89,13 +101,15 @@
 
 
                 <%
-                    if (request.getAttribute("Error") != null) { // If there is an error during login
+                    String login_error = "Login Error";
+                    if (session.getAttribute(login_error) != null) { // If there is an error during login
                 %>
                         <div class="alert alert-danger" role="alert">
                             <span class="glyphicon glyphicon-remove" aria-hidden="true" style="padding-right: 10px"></span>
-                            <strong><%=request.getAttribute("Error") %></strong>
+                            <strong><%=session.getAttribute(login_error) %></strong>
                         </div>
                 <%
+                    session.removeAttribute(login_error);
                     }
                 %>
             </div>

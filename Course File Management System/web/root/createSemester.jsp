@@ -3,7 +3,6 @@
     Created on : Jul 30, 2015, 4:30:28 PM
     Author     : Kiwi
 --%>
-<jsp:include page="../auth.jsp"/>
 <jsp:include page="../header.jsp"/>
 <%@ page import ="java.sql.*, common.DB" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
