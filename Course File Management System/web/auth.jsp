@@ -13,11 +13,11 @@
     response.setDateHeader("Expires", 0); //Causes the proxy cache to see the page as "stale"
     response.setHeader("Pragma","no-cache"); //HTTP 1.0 backward compatibility
     
-    
     String username = (String) session.getAttribute("User");
+    
     if (username == null) {
         request.setAttribute("Error", "Session has ended.  Please login.");
-        RequestDispatcher rd = request.getRequestDispatcher("login.jsp");
+        RequestDispatcher rd = request.getRequestDispatcher("index.jsp");
         rd.forward(request, response);
         //response.sendRedirect("../login.jsp");
     }

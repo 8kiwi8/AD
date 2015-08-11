@@ -32,12 +32,12 @@
             request.setAttribute("Error", "Invalid password.");
             //out.println("password inputted != password in DB BUT username found in system");
             
-            rd = request.getRequestDispatcher("login.jsp");
+            rd = request.getRequestDispatcher("index.jsp");
         }
     } else { // No record in the result set, i.e., invalid username
         request.setAttribute("Error", "User not found.");
         out.println("no username found in system");
-        rd = request.getRequestDispatcher("login.jsp");
+        rd = request.getRequestDispatcher("index.jsp");
     }
     
     

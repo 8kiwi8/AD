@@ -1,11 +1,18 @@
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
-
+<jsp:include page="header.jsp"/>
 <%
-    // TEMPORARY
-    response.sendRedirect("login.jsp");
+    String userType = "Guest";
+    if (session.getAttribute("userType") != null) {
+        userType = (String) session.getAttribute("userType");
+    } 
+    
+    boolean invalidPassword = false;
+    
+    if (request.getAttribute("Error") != null) {
+        if (request.getAttribute("Error").equals("Invalid password.")) {
+            invalidPassword = true;
+        }
+    }
 %>
-
-
 <!doctype html>
 <html lang="en">
 <head>
@@ -14,62 +21,80 @@
 </head>
 <body>
     <div class="container">
-    
-        <div class="jumbotron">
-            <h1>Course File Management System</h1>
-            <p>Upload all your course-related documents here for the usage of students and administrators.</p>
-        </div>
         
-        <nav class="navbar navbar-default">
-            <div class="container-fluid">
-                <ul class="nav navbar-nav">
-                    <li class="active"><a href="#">Home</a></li>
-                    <li></li>
-                </ul>
-            </div> <!-- /.container-fluid -->
-        </nav>
-        
-        <div class="col-xs-4">
+        <div class= "col-xs-8">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title"><strong>News</strong></h3>
+                </div>
+                <div class="panel-body">
+                    <p>The European languages are members of the same family. Their separate existence is a myth. For science, music, sport, etc, Europe uses the same vocabulary. 
+                        The languages only differ in their grammar, their pronunciation and their most common words.</p>
+
+                    <p>Everyone realizes why a new common language would be desirable: one could refuse to pay expensive translators. To achieve this, it would be necessary to 
+                        have uniform grammar, pronunciation and more common words. If several languages coalesce, the grammar of the resulting language is more simple and regular 
+                        than that of the individual languages.</p>
+
+                    <p>The new common language will be more simple and regular than the existing European languages. It will be as simple as Occidental; in fact, it will be 
+                        Occidental. To an English person, it will seem like simplified English, as a skeptical Cambridge friend of mine told me what Occidental is. The European 
+                        languages are members of the same family.</p>
+
+                    <p>Their separate existence is a myth. For science, music, sport, etc, Europe uses the same vocabulary. The languages only differ in their grammar, 
+                        their pronunciation and their most common words. Everyone realizes why a new common language would be desirable: one could refuse to pay expensive 
+                        translators.</p>
+
+                    <p>To achieve this, it would be necessary to have uniform grammar, pronunciation and more common words. If several languages coalesce, the grammar of 
+                        the resulting language is more simple and regular than that of the individual languages. The new common language will be more simple and regular than 
+                        the existing European languages. It will be as simple as Occidental; in fact, it will be Occidental. To an English person, it will seem like simplified 
+                        English, as a skeptical Cambridge friend of mine told me what Occidental is. The European languages are members of the same family. Their separate existence 
+                        is a</p>
+                </div>
+            </div>
         </div>
         
         <div class="col-xs-4">
             <div class="panel panel-default">
                 <div class="panel-heading">
-                    <h3 class="panel-title">Login</h3>
+                    <h3 class="panel-title"><strong>Login</strong></h3>
                 </div>
                 <div class="panel-body">
-                
-                    <form class="form-horizontal" method="post" action="login.jsp">
+
+                    <form class="form-horizontal" method="post" action="<%=request.getContextPath()%>/loginAction.jsp">
                         <div class="form-group">
                             <label for="username" class="control-label col-xs-4">Username</label>
                             <div class="col-xs-8">
-                                <input type="text" class="form-control" name="username" placeholder="Username">
+                                <input type="text" class="form-control" name="inputUsername" placeholder="Username">
                             </div>
                         </div>
-                        
-                        <div class="form-group">
+                        <div class="form-group <% if (invalidPassword) out.println("has-error"); %>">
                             <label for="inputPassword" class="control-label col-xs-4">Password</label>
                             <div class="col-xs-8">
                                 <input type="password" class="form-control" name="inputPassword" placeholder="Password">
                             </div>
                         </div>
-                        
+
                         <div class="form-group">
-                            <div class="col-xs-offset-4 col-xs-8">
+                            <div class="col-xs-offset-8 col-xs-4">
                                 <button type="submit" class="btn btn-primary">Login</button>
                             </div>
                         </div>
                     </form>
-                    
                 </div> <!-- /.panel-body -->
                 
-            </div> <!-- /.container -->
+
+            </div> <!-- /.panel .panel-default -->
+            <%
+                if (request.getAttribute("Error") != null) { // If there is an error during login
+            %>
+                    <div class="alert alert-danger" role="alert">
+                        <span class="glyphicon glyphicon-remove" aria-hidden="true" style="padding-right: 10px"></span>
+                        <strong><%=request.getAttribute("Error") %></strong>
+                    </div>
+            <%
+                }
+            %>
         </div>
-        
-        <div class="col-xs-4">
-        </div>
-      
-        
+                
     </div> <!-- /.container -->
 </body>
 </html>
