@@ -5,7 +5,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Login</title>
+    <title>View Courses - <%=session.getAttribute("User").toString()%></title>
 </head>
 <body>
 

@@ -5,7 +5,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Semesters - Add Semester</title>
+    <title>Create Section - <%=session.getAttribute("User").toString()%></title>
     <script>
         var semester = [];
         $.getJSON("<%=request.getContextPath()%>/ListSemesterServlet", {

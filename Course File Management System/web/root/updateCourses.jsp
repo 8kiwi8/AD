@@ -13,7 +13,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Update Lecturer Profile</title>
+    <title>Update Course - <%=session.getAttribute("User").toString()%></title>
 </head>
 
 <body>

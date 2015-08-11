@@ -5,14 +5,13 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>View Courses</title>
+    <title>Lecturers</title>
 </head>
 <body>
 
 <%
-    ResultSet rs = DB.query("SELECT * FROM course");
+    ResultSet rs = DB.query("SELECT * FROM profile, user WHERE user.username = profile.username AND user.usertype = 'lecturer'");
 %>
-
     <div class="container">
       <table 
           data-toggle="table" 
@@ -21,17 +20,23 @@
           data-show-toggle="true">
         <thead>
             <tr>
-                <th data-sortable="true" data-field="courseCode">Course Code</th>
-                <th data-sortable="true" data-field="courseName">Course Name</th>
-                <th data-field="courseHours">Credit Hours</th>
+                <th data-sortable="true">Username</th>
+                <th data-sortable="true">Name</th>
+                <th data-sortable="true">Email Address</th>
+                <th data-sortable="true">Phone Number</th>
+                <th data-sortable="true">Department</th>
+                <th data-sortable="true">Status</th>
             </tr>
         </thead>
         <tbody>
         <%while(rs.next()){ %>
             <tr>
-                <td><%=rs.getString(1) %> <%=rs.getString(2) %></td>
+                <td><%=rs.getString(6) %></td>
+                <td><%=rs.getString(1) %></td>
+                <td><%=rs.getString(2) %></td>
                 <td><%=rs.getString(3) %></td>
                 <td><%=rs.getString(4) %></td>
+                <td><%=rs.getString(5) %></td>
             </tr>
         <% } %>
         </tbody>

@@ -47,13 +47,13 @@
     pages.add(new Page("all", request.getContextPath() + "/index.jsp", "Home"));
     
     
-    pages.add(new Page("root", "viewLecturers.jsp", "View Lecturers"));
-    pages.add(new Page("root", "createSemester.jsp", "Semester"));
+    pages.add(new Page("root", request.getContextPath() + "/root/viewLecturers.jsp", "View Lecturers"));
+    pages.add(new Page("root", request.getContextPath() + "/root/createSemester.jsp", "Semester"));
 
     // Below commented out because already present in the form of dropdown
     //pages.add(new Page("root", "viewCourse.jsp", "View Courses"));
     //pages.add(new Page("root", "createOfferedCourse.jsp", "Current Offered Courses"));
-    pages.add(new Page("root", "createSection.jsp", "Create Section"));
+    pages.add(new Page("root", request.getContextPath() + "/root/createSection.jsp", "Create Section"));
     
     pages.add(new Page("admin", request.getContextPath() + "/course/viewCourses.jsp", "Courses"));
     pages.add(new Page("admin", request.getContextPath() + "/report/viewLecturers.jsp", "View Lecturers"));
@@ -217,9 +217,19 @@
                             <% } %>
                         <% } %>
                         
-                        <li><a href="<%=request.getContextPath()%>/logoutAction.jsp">
-                                <span class="glyphicon glyphicon-off" aria-hidden="true" style="padding-right: 10px"></span>Log Out
+                        <li class="dropdown">
+                            <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
+                                <span class="glyphicon glyphicon-user" aria-hidden="true" style="padding-right: 5px"></span>
+                                <%=session.getAttribute("User").toString()%>
+                                <span class="caret"></span>
                             </a>
+                            <ul class="dropdown-menu">
+                                <li>
+                                    <a href="<%=request.getContextPath()%>/logoutAction.jsp">
+                                        <span class="glyphicon glyphicon-off" style="padding-right: 10px;"></span>Log Out
+                                    </a>
+                                </li>
+                            </ul>
                         </li>
                     </ul>
                 <% } %>
