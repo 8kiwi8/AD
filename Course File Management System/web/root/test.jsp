@@ -1,7 +1,7 @@
 <%-- 
-    Document   : unsecured
-    Created on : Aug 4, 2015, 11:55:57 AM
-    Author     : Ahmad Rafiuddin
+    Document   : test
+    Created on : Aug 11, 2015, 10:24:51 AM
+    Author     : Kiwi
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -12,6 +12,8 @@
         <title>JSP Page</title>
     </head>
     <body>
-        <jsp:include page="header.jsp"/>
+        <h1><%=request.getRequestURI().replace(request.getContextPath()+"/", "")%></h1>
+        <h1><%=request.getContextPath()%></h1>
+        
     </body>
 </html>

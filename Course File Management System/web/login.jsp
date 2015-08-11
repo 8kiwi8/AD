@@ -1,12 +1,12 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%
     if (session.getAttribute("userType") != null) {
-        response.sendRedirect(session.getAttribute("userType") + "/home.jsp");
+        response.sendRedirect(request.getContextPath() + "/index.jsp");
     }
     boolean invalidPassword = false;
     
-    if (request.getAttribute("Error") != null) {
-        if (request.getAttribute("Error").equals("Invalid password.")) {
+    if (session.getAttribute("Error") != null) {
+        if (session.getAttribute("Error").equals("Invalid password.")) {
             invalidPassword = true;
         }
     }
@@ -54,19 +54,18 @@
 
                 </div> <!-- /.panel .panel-default -->
                 <%
-                    if (request.getAttribute("Error") != null) { // If there is an error during login
+                    if (session.getAttribute("Error") != null) { // If there is an error during login
                 %>
                         <div class="alert alert-danger" role="alert">
                             <span class="glyphicon glyphicon-remove" aria-hidden="true" style="padding-right: 10px"></span>
-                            <strong><%=request.getAttribute("Error") %></strong>
+                            <strong><%=session.getAttribute("Error") %></strong>
                         </div>
                 <%
+                    session.removeAttribute("Error");
                     }
                 %>
             </div>
-
             <div class="col-xs-4"></div>
-            
         </div> <!-- /.container -->
     </body>
 </html>
