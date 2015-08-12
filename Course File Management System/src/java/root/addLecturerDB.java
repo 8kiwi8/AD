@@ -43,9 +43,9 @@ public class addLecturerDB extends HttpServlet {
             String department = request.getParameter("department");
             String status = request.getParameter("status");
 
-	int rs = DB.update("INSERT INTO user VALUES ('" + username + "', '" + password + "', 'lecturer')");
+	int rs = DB.update("INSERT INTO user VALUES ('" + username + "', '" + password + "', 'lecturer', 'LECTURER')");
 
-	int rs2 = DB.update("INSERT INTO profile (`name`, `emailAdd`, `phoneNo`, `department`, `status`, `username`) VALUES ('"+ name+ "', '"+ emailAdd +"', '"+ phoneNo +"', '"+ department +"', '"+ status +"', '"+ username +"')");
+	int rs2 = DB.update("INSERT INTO profile (`name`, `emailAdd`, `phoneNo`, `departmentID`, `status`, `username`) VALUES ('"+ name+ "', '"+ emailAdd +"', '"+ phoneNo +"', '"+ department +"', '"+ status +"', '"+ username +"')");
 
 	response.sendRedirect("root/viewLecturers.jsp");
         

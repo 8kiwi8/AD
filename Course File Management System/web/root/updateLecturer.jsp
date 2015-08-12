@@ -3,7 +3,7 @@
 <%
 	String username = request.getParameter("username");
 
-	ResultSet rs = DB.query("SELECT * FROM profile WHERE username= '"+username+"'");
+	ResultSet rs = DB.query("SELECT * FROM profile, department WHERE profile.username= '"+username+"' AND profile.departmentID=department.departmentID");
         rs.next();
 %>
 
@@ -45,11 +45,14 @@
                                 <input type="text" class="form-control" name="phoneNo" value="<%=rs.getString(3) %>">
                             </div>
                         </div>
-
-                        <div class="form-group">
+                            
+                            <div class="form-group">
                             <label for="department" class="control-label col-xs-4">Department</label>
-                            <div class="col-xs-8">
-                                <input type="text" class="form-control" name="department" value="<%=rs.getString(4) %>">
+                            <div class="radio col-xs-8">
+                             <input type="text" class="form-control" value="<%=rs.getString(8) %>" disabled>
+                            <label class="radio-inline"><input type="radio" name="department" value="2">Software Engineering</label>
+                            <label class="radio-inline"><input type="radio" name="department" value="3">Computer Science</label>
+                            <label class="radio-inline"><input type="radio" name="department" value="4">Information System</label>
                             </div>
                         </div>
 

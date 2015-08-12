@@ -9,11 +9,11 @@
 <body>
 
 <%
-    ResultSet rs = DB.query("SELECT * FROM profile, user WHERE user.username = profile.username AND user.usertype = 'lecturer' AND profile.department='Software Engineering'");
+    ResultSet rs = DB.query("SELECT * FROM profile, user WHERE user.username = profile.username AND user.usertype = 'lecturer' AND profile.departmentID='2'");
 
-    ResultSet rs2 = DB.query("SELECT * FROM profile, user WHERE user.username = profile.username AND user.usertype = 'lecturer' AND profile.department='Computer Science'");
+    ResultSet rs2 = DB.query("SELECT * FROM profile, user WHERE user.username = profile.username AND user.usertype = 'lecturer' AND profile.departmentID='3'");
 
-    ResultSet rs3 = DB.query("SELECT * FROM profile, user WHERE user.username = profile.username AND user.usertype = 'lecturer' AND profile.department='Information System'");
+    ResultSet rs3 = DB.query("SELECT * FROM profile, user WHERE user.username = profile.username AND user.usertype = 'lecturer' AND profile.departmentID='4'");
 %>
     <div class="container">
       <table class="table">
