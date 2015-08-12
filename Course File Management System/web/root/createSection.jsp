@@ -211,7 +211,21 @@
                                                 }
                                                 %>
                                             </select>
-                                            <div class= "">
+                                            <label>Section Major:</label>
+                                            <select class="form-control" name="sectionMajor" id="sectionMajor">
+                                                <%
+                                                String[] majors = {"SCSJ", "SCSR", "SCSV", "SCSB"};
+                                                for(String major: majors) {
+                                                    if(major.equals(rs.getString("s.sectionMajor"))) 
+                                                        out.print("<option selected>");
+                                                    else
+                                                        out.print("<option>");
+                                                    out.print(major);
+                                                    out.print("</option>");
+                                                }
+                                                %>
+                                            </select>
+                                            <div class= "hidden">
                                                 <input class="semesterID" name="semesterID">
                                                 <input id="username-<%=rs.getString("s.course_offered_ID")%>" name="username" value="<%=rs.getString("username")%>">
                                                 <input class="course_offered_ID" id="course_offered_ID-<%=rs.getString("s.course_offered_ID")%>" name="course_offered_ID" value="<%=rs.getString("s.course_offered_ID")%>">
@@ -270,7 +284,7 @@
                                 <option>SCSV</option>
                                 <option>SCSB</option>
                             </select>
-                            <div class= "">
+                            <div class= "hidden">
                                 <input class="semesterID" name="semesterID">
                                 <input id="username--1" name="username">
                                 <input class="course_offered_ID" id="course_offered_ID--1" name="course_offered_ID">

@@ -26,16 +26,22 @@
                 <tbody>
                     <%
                         ResultSet rs = DB.query("SELECT * FROM year_semester");
+                        int year=0, sem=0;
                         while(rs.next()) {
+                            String semester=rs.getString("year") + " / " + rs.getString("semester");
                     %>
                     <tr>
                         <td><%=rs.getString("year")%></td>
                         <td><%=rs.getString("semester")%></td>
                         <td>
-                            <a href="<%=request.getContextPath()%>/root/createOfferedCourse.jsp?semesterID=<%=rs.getString("semesterID")%>" class="btn btn-primary">Courses</a>
+                            <a href="<%=request.getContextPath()%>/root/createOfferedCourse.jsp?semesterID=<%=rs.getString("semesterID")%>&semester=<%=semester%>" class="btn btn-primary">View Courses</a>
                         </td>
                     </tr>
-                    <% } %>
+                    <% 
+                        year = Integer.parseInt(rs.getString("year"));
+                        sem = Integer.parseInt(rs.getString("semester"));
+                        } 
+                    %>
                 </tbody>
             </table>
             <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#newSemester">Add New Semester</button>
@@ -47,17 +53,22 @@
                         </div>
                         <form class='form-horizontal' action="<%=request.getContextPath()%>/CreateSemesterServlet">
                             <div class="modal-body">
+                                <%
+                                    if(sem != 3) {
+                                        ++sem;
+                                    }
+                                    else {
+                                        sem = 1;
+                                        year += 10001;
+                                    }
+                                 %>
                                 <label>Year: </label>
-                                <input class="form-control" name="year" placeholder="Year">
+                                <input class="form-control" name="year" placeholder="Year" value=<%=year%> disabled>
                                 <label>Semester: </label>
-                                <select class="form-control" name="semester">
-                                    <option>1</option>
-                                    <option>2</option>
-                                    <option>3</option>
-                                </select>    
+                                <input class="form-control" name="semester" placeholder="Semester" value=<%=sem%> disabled>
                             </div>
                             <div class="modal-footer">
-                                <button type="submit" class='btn btn-primary'>Submit</button>
+                                <button type="submit" class='btn btn-primary'>Confirm</button>
                                 <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>                        
                             </div>
                         </form>

@@ -124,6 +124,40 @@ public class DB {
         return jsonArray.toString();
     }
     
+    public static String createJson(String query, HashMap<String, String> extra) {
+        resultSet = DB.query(query);
+        //Get the formating of lable
+        JSONArray jsonArray = new JSONArray();
+        try {
+            rsmd = resultSet.getMetaData();
+            int total_cols = resultSet.getMetaData().getColumnCount();
+            while (resultSet.next()) {
+                JSONObject obj = new JSONObject();
+                HashMap<String, String> temp = new HashMap(extra);
+                for (int i = 0; i < total_cols; i++) {
+                    String colName = rsmd.getColumnLabel(i + 1);
+                    for (Map.Entry<String, String> entry : temp.entrySet()) {
+                        String value = entry.getValue();
+                        value = value.replaceAll("\\["+colName+"\\]", resultSet.getString(colName));
+                        entry.setValue(value);
+                    }
+                    obj.put(colName, resultSet.getObject(i + 1));
+                }
+                for (Map.Entry<String, String> entry : temp.entrySet()) {
+                    String key = entry.getKey();
+                    String val = entry.getValue();
+                    obj.put(key, val);
+                }
+                jsonArray.put(obj);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } catch (JSONException ex) {
+            ex.printStackTrace();
+        }
+        return jsonArray.toString();
+    }
+    
     public static String createJson(String query, String label, String value, String term) {
         resultSet = DB.query(query);
         //Get the formating of lable

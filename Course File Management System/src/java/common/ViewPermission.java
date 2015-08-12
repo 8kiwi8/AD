@@ -13,7 +13,7 @@ public enum ViewPermission {
     LECTURER("Lecturer"), 
     PENYELARAS("Penyelaras"),
     KETUA_JABATAN("Ketua Jabatan"), 
-    DEAN("Pentadbir");
+    PENTADBIR("Pentadbir");
     
     private String label;
     ViewPermission(String label) {

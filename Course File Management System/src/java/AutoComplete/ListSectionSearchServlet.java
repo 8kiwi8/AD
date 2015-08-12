@@ -15,6 +15,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import common.ViewPermission;
+import java.util.Enumeration;
 
 /**
  *
@@ -39,23 +40,38 @@ public class ListSectionSearchServlet extends HttpServlet {
             /* TODO output your page here. You may use following sample code. */
             try {
                 String viewPermission = request.getParameter("viewPermission");
-            
                 HttpSession session = ((HttpServletRequest) request).getSession();
                 ViewPermission userPermission = ViewPermission.valueOf((String)session.getAttribute("viewPermission"));
                 ViewPermission requestPermission = ViewPermission.valueOf(viewPermission);
-                String query = "";
+                String query = "SELECT";
                 
                 if(userPermission.ordinal() >= requestPermission.ordinal()) {
                     String value = request.getParameter("value");
                     String label = request.getParameter("label");
                     String term = request.getParameter("term");
+                    String[] cols = request.getParameterValues("col[]");
                     String semesterID = request.getParameter("semesterID");
                     String username = request.getParameter("username");
                     String courseID = request.getParameter("courseID");
                     String courseCode = request.getParameter("courseCode");
                     String departmentID = request.getParameter("departmentID");
                     
-                    query = "SELECT * FROM year_semester AS y, department AS d, section AS s, profile AS p, course AS c WHERE " +
+                    if(cols == null) {
+                        String[] temp = {"*"};
+                        cols = temp;
+                    }
+                    else if(cols[0] == null || cols[0].equals(""))
+                        cols[0] = "*";
+                    else
+                        for(int i = 0; i < cols.length-1; ++i) {
+                            cols[i] += ", ";
+                        }
+                    
+                    query = "SELECT DISTINCT ";
+                    for(String col: cols) {
+                        query += col;
+                    }
+                    query +=" FROM year_semester AS y, department AS d, section AS s, profile AS p, course AS c WHERE " +
                             "y.semesterID = s.semesterID AND s.username = p.username AND s.courseCode = c.courseCode AND " +
                             "s.courseID = c.courseID AND d.departmentID = p.departmentID ";
                     if(departmentID!=null && !departmentID.equals("")) {

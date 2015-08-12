@@ -38,7 +38,8 @@ public class UpdateSectionServlet extends HttpServlet {
             String username = request.getParameter("username");
             String sectionNo = request.getParameter("sectionNo");
             String sectionID = request.getParameter("sectionID");
-            String query = "UPDATE section SET username = '"+username+"', sectionNo = " + sectionNo + " " +
+            String sectionMajor = request.getParameter("sectionMajor");
+            String query = "UPDATE section SET username = '"+username+"', sectionNo = " + sectionNo +", sectionMajor='" + sectionMajor +"' " +
                     "WHERE sectionID="+ sectionID;
             int rs = DB.update(query);
             response.sendRedirect(request.getHeader("Referer"));
@@ -48,7 +49,7 @@ public class UpdateSectionServlet extends HttpServlet {
             out.println("<title>Servlet UpdateSectionServlet</title>");            
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet UpdateSectionServlet at " + request.getContextPath() + "</h1>");
+            //out.println("<h1>" +query+ "</h1>");
             out.println("</body>");
             out.println("</html>");
         }

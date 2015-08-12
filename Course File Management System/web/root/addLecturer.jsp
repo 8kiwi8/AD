@@ -5,6 +5,9 @@
 <head>
     <meta charset="UTF-8">
     <title>Add Lecturer - <%=session.getAttribute("User").toString()%></title>
+    <script>
+        $('input[name=radioName]:checked', '#myForm').val()
+    </script>
 </head>
 <body>
     <div class="container">

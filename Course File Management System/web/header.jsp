@@ -56,12 +56,12 @@
     //pages.add(new Page("root", "createOfferedCourse.jsp", "Current Offered Courses"));
     pages.add(new Page("root", request.getContextPath() + "/root/createSection.jsp", "Create Section"));
     
-    pages.add(new Page("admin", request.getContextPath() + "/course/viewCourses.jsp", "Courses"));
-    pages.add(new Page("admin", request.getContextPath() + "/report/viewLecturers.jsp", "View Lecturers"));
     
     pages.add(new Page("lecturer", request.getContextPath() + "/course/myCourse.jsp", "My Courses"));
     pages.add(new Page("lecturer", request.getContextPath() + "/course/viewCourses.jsp", "Courses"));
-    pages.add(new Page("lecturer", request.getContextPath() + "/upload/chooseSection.jsp", "Upload"));
+    pages.add(new Page("lecturer", request.getContextPath() + "/upload/chooseSection.jsp", "New Upload"));
+    pages.add(new Page("lecturer", request.getContextPath() + "/report/uploadSearch.jsp", "Manage Upload"));
+
     
 %>
 
@@ -88,11 +88,17 @@
 
 <link rel="stylesheet" href="<%=request.getContextPath()%>/css/auto-complete.css">
 <link rel="stylesheet" href="<%=request.getContextPath()%>/css/bootstrap-table.css">
+<link rel="stylesheet" href="<%=request.getContextPath()%>/css/select2.min.css">
+<link rel="stylesheet" href="<%=request.getContextPath()%>/css/select2-bootsrap.css">
 <script type="text/javascript" src="<%=request.getContextPath()%>/javascript/jquery-2.1.4.min.js"></script>
 <script type="text/javascript" src="<%=request.getContextPath()%>/javascript/jquery-ui-1.9.2.custom.min.js"></script>
 <script type="text/javascript" src="<%=request.getContextPath()%>/javascript/jquery.URI.min.js"></script>
 <script type="text/javascript" src="<%=request.getContextPath()%>/javascript/bootstrap-table.js"></script>
 <script type="text/javascript" src="<%=request.getContextPath()%>/javascript/bootstrap.min.js"></script>
+<script type="text/javascript" src="<%=request.getContextPath()%>/javascript/select2.min.js"></script>
+
+
+<!---// load the mcDropdown CSS stylesheet //--->
 
 
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -176,7 +182,15 @@
                     <%
                         if (session.getAttribute("userType") != null && session.getAttribute("userType").equals("root")) {
                     %> 
-                                    <li><a href="<%=request.getContextPath()%>/root/viewCourses.jsp">View Courses</a></li>
+                                    <li class="dropdown">
+                                        <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
+                                            Courses<span class="caret"></span>
+                                        </a>
+                                        <ul class ="dropdown-menu">
+                                            <li><a href="<%=request.getContextPath()%>/root/viewCourses.jsp">All Courses</a></li>
+                                            <li><a href="<%=request.getContextPath()%>/root/createOfferedCourse.jsp">Offered Course</a></li>
+                                        </ul>
+                                    </li>
                     <%
                         }
                     %>
@@ -188,7 +202,7 @@
                         <% if (session.getAttribute("isSuper") != null && session.getAttribute("isSuper").equals("true")) { %>
                             <li class="dropdown">
                                 <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
-                                    Change User<span class="caret"></span>
+                                    Role: <%=session.getAttribute("userType")%><span class="caret"></span>
                                 </a>
                                 <ul class="dropdown-menu">
                                     <li><a href="<%=request.getContextPath()%>/ChangeUserRole?userType=root">Admin</a></li>

@@ -96,7 +96,7 @@
             <input class="btn btn-primary" type="submit" value="Submit" onclick = "show()">
             <br>
         </div>
-        <form method = "get" action = "<%=request.getContextPath()%>/lecturer/upload.jsp" name = "section">
+        <form method = "get" action = "<%=request.getContextPath()%>/upload/upload.jsp" name = "section">
         <div id="hide" class="form-group">
              <label for="sectionID" style = "color:Coral;"> Section: </label>           
              <input class = "form-control" id="semesterID" name = "semesterID" type = "hidden"/> 
