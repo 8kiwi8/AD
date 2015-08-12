@@ -15,9 +15,11 @@ import java.util.*;
  * @author Kiwi
  */
 public class LecturerUploadValidator {
-    private HashMap<Integer, Boolean> checklist;
-    private Pair<Integer, Integer> complete;
-    public LecturerUploadValidator(String sectionID) throws SQLException {
+    
+    
+    public static Pair<Integer, Integer> status(String sectionID) throws SQLException {
+        HashMap<Integer, Boolean> checklist;
+        Pair<Integer, Integer> complete;
         checklist = new HashMap();
         complete = new Pair(0, 0);
         String query1 = "SELECT * FROM upload_checklist";
@@ -36,9 +38,6 @@ public class LecturerUploadValidator {
                 complete.setLeft(complete.getLeft() + 1);
             }
         }
-    }
-    
-    public Pair<Integer, Integer> complete() {
         return complete;
     }
 }

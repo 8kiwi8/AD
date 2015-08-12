@@ -3,15 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package user;
+package report;
 
+import common.ViewPermission;
 import common.DB;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -23,8 +20,8 @@ import javax.servlet.http.HttpSession;
  *
  * @author Kiwi
  */
-@WebServlet(name = "LoginServlet", urlPatterns = {"/LoginServlet"})
-public class LoginServlet extends HttpServlet {
+@WebServlet(name = "SectionSearch", urlPatterns = {"/SectionSearch"})
+public class SectionSearch extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -40,45 +37,40 @@ public class LoginServlet extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
-            String username = request.getParameter("inputUsername");
-            String password = request.getParameter("inputPassword");
+            String viewPermission = request.getParameter("viewPermission");
+            
             HttpSession session = ((HttpServletRequest) request).getSession();
-            String query = "SELECT * FROM user AS u, profile AS p WHERE u.username = p.username AND u.username='" + username + "'";
-            ResultSet rs = DB.query(query);
-            if (rs.next()) {  
-                String userTypeFromDB = rs.getString("usertype");
-                if (rs.getString("password").equals(password)) { // If valid password
-                    session.setAttribute("User", username); // Saves username string in the session object
-                    session.setAttribute("name",  rs.getString("name"));
-                    session.setAttribute("viewPermission",  rs.getString("viewPermission"));
-                    if(userTypeFromDB.equals("super")) {
-                        session.setAttribute("userType", "root");
-                        session.setAttribute("isSuper", "true");
-                    }
-                    else {
-                        session.setAttribute("userType", userTypeFromDB);
-                    }
-                    //out.println("password inputted = password in DB = username & pwd found in system");
+            ViewPermission userPermission = ViewPermission.valueOf((String)session.getAttribute("viewPermission"));
+            ViewPermission requestPermission = ViewPermission.valueOf(viewPermission);
+            String query = "";
+
+            if(userPermission.ordinal() >= requestPermission.ordinal()) {
+
+                String semesterID = request.getParameter("semesterID");
+                String username = request.getParameter("username");
+                String courseID = request.getParameter("courseID");
+                String courseCode = request.getParameter("courseCode");
+                String departmentID = request.getParameter("departmentID");
+
+                query = "SELECT * FROM year_semester AS y, department AS d, section AS s, profile AS p, course AS c WHERE " +
+                        "y.semesterID = s.semesterID AND s.username = p.username AND s.courseCode = c.courseCode AND " +
+                        "s.courseID = c.courseID AND d.departmentID = p.departmentID ";
+                if(departmentID!=null && !departmentID.equals("")) {
+                    query += "AND d.departmentID = '" + departmentID + "' ";
                 }
-                else { // Password does not match, i.e., invalid user password
-                    session.setAttribute("Login Error", "Invalid password.");
-                    //out.println("password inputted != password in DB BUT username found in system");
+                if(courseID != null && courseCode != null && !courseID.equals("") && !courseCode.equals("")) {
+                    query += "AND c.courseID = " + courseID + " AND c.courseCode = '" + courseCode + "' ";
                 }
-            } else { // No record in the result set, i.e., invalid username
-                session.setAttribute("Login Error", "User not found.");
+                if(username != null && !username.equals("")) {
+                    query += "AND s.username ='" + username + "' ";
+                }
+                if(semesterID != null && !semesterID.equals("")) {
+                    query += "AND s.semesterID = " + semesterID + " ";
+                }
+                out.print(DB.createJson(query));
+            } else {
+                out.print("{\"label\":\"You Don't have Permission To Do So\"}");
             }
-            response.sendRedirect(request.getContextPath() + "/index.jsp");
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet LoginServlet</title>");            
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet LoginServlet at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
-        } catch (SQLException ex) {
-            Logger.getLogger(LoginServlet.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 

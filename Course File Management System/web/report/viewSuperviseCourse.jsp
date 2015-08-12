@@ -122,7 +122,6 @@
                         "WHERE s.username = p.username AND s.courseCode = c.courseCode AND s.courseID = c.courseID AND s.course_offered_id = " + co_id;
                 ResultSet rs = DB.query(query);
                 while(rs.next()) {
-                    LecturerUploadValidator upload = new LecturerUploadValidator(rs.getString("sectionID"));
                 %>
                 <tr>
                     <td><%=rs.getString("courseCode")%> <%=rs.getString("courseID")%></td>
@@ -132,8 +131,7 @@
                     <td><a href="manageUpload.jsp?sectionID=<%=rs.getString("sectionID")%>">View Upload</a></td>
                     <td>
                         <%
-                        LecturerUploadValidator validate = new LecturerUploadValidator(rs.getString("sectionID"));
-                        Pair<Integer, Integer> status = validate.complete(); 
+                        Pair<Integer, Integer> status = LecturerUploadValidator.status(rs.getString("sectionID")); 
                         out.print(status.getLeft() + " / " + status.getRight());
                         %>
                     </td>

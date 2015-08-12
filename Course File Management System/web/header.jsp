@@ -1,3 +1,4 @@
+<%@page import="common.ViewPermission"%>
 <%@page import="java.sql.ResultSet"%>
 <%@page import="common.DB"%>
 <%@page import="java.util.ArrayList, common.Page" %>
@@ -199,7 +200,6 @@
                                 </a>
                                 <ul class="dropdown-menu">
                                     <li><a href="<%=request.getContextPath()%>/ChangeUserRole?userType=root">Admin</a></li>
-                                    <li><a href="<%=request.getContextPath()%>/ChangeUserRole?userType=admin">Pentadbir</a></li>
                                     <li><a href="<%=request.getContextPath()%>/ChangeUserRole?userType=lecturer">Lecturer</a></li>
                                 </ul>
                             </li>
@@ -207,10 +207,18 @@
                                 ResultSet rs = DB.query("SELECT * FROM user, profile WHERE user.username = profile.username AND user.usertype = 'lecturer'");
                             %>
                             <li class="dropdown">
-                                <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false"> To Lecturer <span class="caret"></span></a>
+                                <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false"> Lecturer: <%=session.getAttribute("name")%> <span class="caret"></span></a>
                                 <ul class="dropdown-menu">
                                     <% while(rs.next()) { %>
                                     <li><a href="<%=request.getContextPath()%>/ChangeUsername?username=<%=rs.getString("username")%>"><%=rs.getString("name")%></a></li>
+                                    <% } %>
+                                </ul>
+                            </li>
+                            <li class="dropdown">
+                                <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false"> Permission: <%=session.getAttribute("viewPermission")%> <span class="caret"></span></a>
+                                <ul class="dropdown-menu">
+                                    <% for (ViewPermission permission : ViewPermission.values()) { %>
+                                    <li><a href="<%=request.getContextPath()%>/ChangeViewPermission?permission=<%=permission.name()%>"><%=permission%></a></li>
                                     <% } %>
                                 </ul>
                             </li>

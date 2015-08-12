@@ -34,12 +34,6 @@
                 }
             });
         });
-        <%if(request.getParameter("semesterID") != null) { %>
-        $( document ).ready( function () {
-            $("#semesterID").val("<%=request.getParameter("semesterID")%>");
-            $("#semester").val("<%=request.getParameter("semester")%>");
-            $(".semester-label").val("<%=request.getParameter("semester")%>");
-        });
     </script>
     <script>
         <%if(request.getParameter("semesterID") != null) { %>
