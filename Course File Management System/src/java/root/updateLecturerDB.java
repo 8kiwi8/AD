@@ -42,7 +42,7 @@ public class updateLecturerDB extends HttpServlet {
 	String department = request.getParameter("department");
 	String status = request.getParameter("status");
 
-	int rs = DB.update("UPDATE profile SET name='"+ name+ "', emailAdd='"+ emailAdd +"', phoneNo='"+ phoneNo +"', department='"+ department +"', status='"+ status +"' WHERE username = '"+ username +"'");
+	int rs = DB.update("UPDATE profile SET name='"+ name+ "', emailAdd='"+ emailAdd +"', phoneNo='"+ phoneNo +"', departmentID='"+ department +"', status='"+ status +"' WHERE username = '"+ username +"'");
 
 	response.sendRedirect("root/viewLecturers.jsp");
         

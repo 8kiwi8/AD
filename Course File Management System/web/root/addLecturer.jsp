@@ -50,9 +50,9 @@
                         <div class="form-group">
                             <label for="department" class="control-label col-xs-4">Department</label>
                             <div class="radio col-xs-8">
-                            <label class="radio-inline"><input type="radio" name="department" value="Software Engineering">Software Engineering</label>
-                            <label class="radio-inline"><input type="radio" name="department" value="Computer Science">Computer Science</label>
-                            <label class="radio-inline"><input type="radio" name="department" value="Information System">Information System</label>
+                            <label class="radio-inline"><input type="radio" name="department" value="2">Software Engineering</label>
+                            <label class="radio-inline"><input type="radio" name="department" value="3">Computer Science</label>
+                            <label class="radio-inline"><input type="radio" name="department" value="4">Information System</label>
                             </div>
                         </div>
 

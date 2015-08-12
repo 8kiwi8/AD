@@ -1,4 +1,3 @@
-<jsp:include page="../auth.jsp"/>
 <jsp:include page="../header.jsp"/>
 <%@ page import ="java.sql.*, common.DB" %>
 <%
@@ -34,21 +33,21 @@
                         <div class="form-group">
                             <label for="name" class="control-label col-xs-4">Name</label>
                             <div class="col-xs-8">
-                                <input type="text" class="form-control" name="name" value="<%=rs.getString(4) %>">
+                                <input type="text" class="form-control" name="name" value="<%=rs.getString(5) %>">
                             </div>
                         </div>
 
                         <div class="form-group">
                             <label for="password" class="control-label col-xs-4">Email Address</label>
                             <div class="col-xs-8">
-                                <input type="text" class="form-control" name="emailAdd" value="<%=rs.getString(5) %>">
+                                <input type="text" class="form-control" name="emailAdd" value="<%=rs.getString(6) %>">
                             </div>
                         </div>
 
                         <div class="form-group">
                             <label for="phoneNo" class="control-label col-xs-4">Phone Number</label>
                             <div class="col-xs-8">
-                                <input type="text" class="form-control" name="phoneNo" value="<%=rs.getString(6) %>">
+                                <input type="text" class="form-control" name="phoneNo" value="<%=rs.getString(7) %>">
                             </div>
                         </div>
                         
