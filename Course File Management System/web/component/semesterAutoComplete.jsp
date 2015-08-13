@@ -8,7 +8,6 @@
 <%@page import="AutoComplete.Select2OptionGenerator"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
-
 <select class="form-control" id="semester">
 <%
     String query = "Select * FROM year_semester ORDER BY year DESC, semester DESC";
@@ -20,10 +19,11 @@
 </select>
 <script>
     $("#semester").select2({
-        placeholder: "Select A Semester"
+        placeholder: "Select A Semester",
+        allowClear : true
     });
-    <% if(request.getParameter("semesterID") != null) { %>
-    $("#semester").select2("val", <%=request.getParameter("semesterID")%>);
+    <% if(request.getParameter("semesterID") != null && !request.getParameter("semesterID").equals("")) { %>
+    $("#semester").select2("val", "<%=request.getParameter("semesterID")%>");
     <% } else { %>
     $("#semester").select2("val", "");    
     <% } %>

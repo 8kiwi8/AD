@@ -9,6 +9,7 @@ import common.ViewPermission;
 import common.DB;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.HashMap;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -48,17 +49,22 @@ public class SectionSearch extends HttpServlet {
 
                 String semesterID = request.getParameter("semesterID");
                 String username = request.getParameter("username");
-                String courseID = request.getParameter("courseID");
-                String courseCode = request.getParameter("courseCode");
+                String course = request.getParameter("course");
                 String departmentID = request.getParameter("departmentID");
+                HashMap<String,String> extra = new HashMap();
+                extra.put("course", "[courseCode] [courseID] [courseName]");
 
-                query = "SELECT * FROM year_semester AS y, department AS d, section AS s, profile AS p, course AS c WHERE " +
+                query = "SELECT c.courseCode, c.courseID, c.courseName, p.name, s.sectionID, s.sectionNo " +
+                        "FROM year_semester AS y, department AS d, section AS s, profile AS p, course AS c WHERE " +
                         "y.semesterID = s.semesterID AND s.username = p.username AND s.courseCode = c.courseCode AND " +
                         "s.courseID = c.courseID AND d.departmentID = p.departmentID ";
                 if(departmentID!=null && !departmentID.equals("")) {
                     query += "AND d.departmentID = '" + departmentID + "' ";
                 }
-                if(courseID != null && courseCode != null && !courseID.equals("") && !courseCode.equals("")) {
+                if(course != null && !course.equals("")) {
+                    String[] tokens = course.split("//");
+                    String courseCode = tokens[0];
+                    String courseID = tokens[1];
                     query += "AND c.courseID = " + courseID + " AND c.courseCode = '" + courseCode + "' ";
                 }
                 if(username != null && !username.equals("")) {
@@ -67,7 +73,7 @@ public class SectionSearch extends HttpServlet {
                 if(semesterID != null && !semesterID.equals("")) {
                     query += "AND s.semesterID = " + semesterID + " ";
                 }
-                out.print(DB.createJson(query));
+                out.print(DB.createJson(query, extra));
             } else {
                 out.print("{\"label\":\"You Don't have Permission To Do So\"}");
             }

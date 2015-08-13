@@ -7,190 +7,83 @@
 <head>
     <meta charset="UTF-8">
     <title>Management View</title>
-    <!-- SEMESTER AUTO-COMPLETE -->
-    <script>
-        $(document).ready(function(){
-            $("#semester").focus(function(){
-                $("#semester").val("");
-                $("#semesterID").val("");
-            });
-        });
-        jQuery(function(){
-            $("#semester").autocomplete( {
-                source: function(request, response) {
-                    $.getJSON("<%=request.getContextPath()%>/ListSectionSearchServlet", {
-                        label: "[year] / [semester]",
-                        value: "[year] / [semester]",
-                        term: request.term,
-                        col: ["y.year", "y.semester"],
-                        semesterID: $("#semesterID").val(),
-                        username: $("#username").val(),
-                        courseCode: $("#courseCode").val(),
-                        courseID: $("#courseID").val(),
-                        departmentID: $("#departmentID").val(),
-                        viewPermission: "<%=session.getAttribute("viewPermission")%>"
-                    }, function( data ) {  
-                        console.log(data);
-                        response( data );
-                    });
-                },
-                select: function( event, ui ) {
-                    $("#semesterID").val(ui.item.semesterID);
-                    /*
-                    dataSet = { 
-                        "semesterID":ui.item.semesterID, 
-                        "semester":ui.item.label 
-                    };
-                    var uri = new URI(window.location.href);
-                    var query = new URI(uri.search());
-                    var query = query.setSearch(dataSet);
-                    var uri = uri.pathname();
-                    var newQueryUrl = uri + query;
-                    window.location.href = uri + query;
-                    */
-                }
-            });
-        });
-    </script>
-    <!-- DEPARTMENT AUTO-COMPLETE -->
-    <script>
-        $(document).ready(function(){
-            $("#department").focus(function(){
-                $("#department").val("");
-                $("#departmentID").val("");
-            });
-        });
-        jQuery(function(){
-            $("#department").autocomplete( {
-                source: function(request, response) {
-                    $.getJSON("<%=request.getContextPath()%>/ListSectionSearchServlet", {
-                        label: "[department]",
-                        value: "[department]",
-                        term: request.term,
-                        col: ["d.department", "d.departmentID"],
-                        semesterID: $("#semesterID").val(),
-                        username: $("#username").val(),
-                        courseCode: $("#courseCode").val(),
-                        courseID: $("#courseID").val(),
-                        departmentID: $("#departmentID").val(),
-                        viewPermission: "<%=session.getAttribute("viewPermission")%>"
-                    }, function( data ) {  
-                        console.log(data);
-                        response( data );
-                    });
-                },
-                select: function( event, ui ) {
-                    $("#departmentID").val(ui.item.departmentID); 
-                }
-            });
-        });
-    </script>
-    <!-- COURSE AUTO-COMPLETE -->
-    <script>
-        $(document).ready(function(){
-            $("#course").focus(function(){
-                $("#course").val("");
-                $("#courseCode").val("");
-                $("#courseID").val("");
-            });
-        });
-        jQuery(function(){
-            $("#course").autocomplete( {
-                source: function(request, response) {
-                    $.getJSON("<%=request.getContextPath()%>/ListSectionSearchServlet", {
-                        label: "[courseCode] [courseID] - [courseName]",
-                        value: "[courseCode] [courseID] - [courseName]",
-                        term: request.term,
-                        col: ["c.courseCode", "c.courseID", "c.courseName"],
-                        semesterID: $("#semesterID").val(),
-                        username: $("#username").val(),
-                        courseCode: $("#courseCode").val(),
-                        courseID: $("#courseID").val(),
-                        departmentID: $("#departmentID").val(),
-                        viewPermission: "<%=session.getAttribute("viewPermission")%>"
-                    }, function( data ) {  
-                        console.log(data);
-                        response( data );
-                    });
-                },
-                select: function( event, ui ) {
-                    $("#courseCode").val(ui.item.courseCode); 
-                    $("#courseID").val(ui.item.courseID); 
-                }
-            });
-        });
-    </script>
-    <!-- LECTURER AUTO-COMPLETE -->
-    <script>
-        $(document).ready(function(){
-            $("#lecturer").focus(function(){
-                $("#lecturer").val("");
-                $("#username").val("");
-            });
-        });
-        jQuery(function(){
-            $("#lecturer").autocomplete( {
-                source: function(request, response) {
-                    $.getJSON("<%=request.getContextPath()%>/ListSectionSearchServlet", {
-                        label: "[name]",
-                        value: "[name]",
-                        term: request.term,
-                        col: ["p.username", "p.name"],
-                        semesterID: $("#semesterID").val(),
-                        username: $("#username").val(),
-                        courseCode: $("#courseCode").val(),
-                        courseID: $("#courseID").val(),
-                        departmentID: $("#departmentID").val(),
-                        viewPermission: "<%=session.getAttribute("viewPermission")%>"
-                    }, function( data ) {  
-                        console.log(data);
-                        response( data );
-                    });
-                },
-                select: function( event, ui ) {
-                    $("#username").val(ui.item.username); 
-                }
-            });
-        });
-    </script>
     <script>
         $(document).ready(function() {
            $("#viewPermission").val("<%=session.getAttribute("viewPermission")%>"); 
+           $('#sectionResult').bootstrapTable({
+                url: "<%=request.getContextPath()%>/SectionSearch",
+                search: "true",
+                pagination: "true",
+                queryParams: function (p) {
+                    return {
+                        semesterID:$("#semester").val(),
+                        departmentID:$("#departmentName").val(),
+                        course:$("#courseName").val(),
+                        username:$("#lecturerName").val(),
+                        viewPermission:$("#viewPermission").val()
+                    };
+                },
+                columns: [{
+                    field: 'course',
+                    title: 'Course',
+                    sortable: 'true'
+                }, {
+                    field: 'name',
+                    title: 'Lecture',
+                    sortable: 'true'
+                }, {
+                    field: 'sectionNo',
+                    title: 'Section No',
+                    sortable: 'true'
+                }, {
+                    field: 'sectionID',
+                    title: 'Section ID',
+                    sortable: 'true'
+                }, {
+                    field: 'operate',
+                    title: 'Item Operate',
+                    align: 'center',
+                    valign: 'middle',
+                    clickToSelect: false,
+                    events: "operateEvents",
+                    formatter: operateFormatter
+                }]
+            });
+            window.operateEvents = {
+                'click .like': function (e, value, row, index) {
+                    alert('You click like action, row: ' + JSON.stringify(row));
+                },
+                'click .remove': function (e, value, row, index) {
+                    $('#sectionResult').bootstrapTable('remove', {
+                        field: 'sectionID',
+                        values: [row.sectionID]
+                    });
+                }
+            };
+            function operateFormatter(value, row, index) {
+                return [
+                    '<a class="like" href="javascript:void(0)" title="Like">',
+                    '<i class="glyphicon glyphicon-heart"></i>',
+                    '</a>  ',
+                    '<a class="remove" href="javascript:void(0)" title="Remove">',
+                    '<i class="glyphicon glyphicon-remove"></i>',
+                    '</a>'
+                ].join('');
+            }
         });
     </script>
 </head>
 <body>
     <div class="container">
         <form class='form-horizontal' action="<%=request.getContextPath()%>/SectionSearch">
-            <input class="form-control" id="semester" placeholder="Choose Semester">
-            <input class="form-control" id="semesterID" name="semesterID" placeholder="SemesterID here">
-            <input class="form-control" id="department" placeholder="Filter by Department">
-            <input class="form-control" id="departmentID" name="departmentID" placeholder="DepartmentID here">
-            <input class="form-control" id="course" placeholder="Filter by Course">
-            <input class="form-control" id="courseCode" name="courseCode" placeholder="CourseCode here">
-            <input class="form-control" id="courseID" name="courseID" placeholder="CourseID here">
-            <input class="form-control" id="lecturer" placeholder="Filter by Lecturer">
-            <input class="form-control" id="username" name="username" placeholder="username here">
-            <input class="form-control" id="viewPermission" name="viewPermission" placeholder="View Permission">
+            <jsp:include page="../component/semesterAutoComplete.jsp"/>
+            <jsp:include page="../component/departmentAutoComplete.jsp"/>
+            <jsp:include page="../component/courseAutoComplete.jsp"/>
+            <jsp:include page="../component/lecturerAutoComplete.jsp"/>
+            <input id="viewPermission">
             <button class="btn btn-primary" id="addCourse" >Search</button>
         </form>
-        <table class="table" id="tblSemesters"
-            data-toggle="table" 
-            data-search="true"
-            data-pagination="true"
-            data-show-toggle="true">
-            <thead>
-                <tr>
-                    <th data-sortable="true">Course Code ID</th>
-                    <th data-sortable="true">Course Name</th>
-                    <th data-sortable="true">Lecturer</th>
-                    <th data-sortable="true">Section No</th>
-                    <th data-sortable="true">Action</th>
-                    <th data-sortable="true">Status</th>
-                </tr>
-            </thead>
-            <tbody>
-            </tbody>
+        <table class="table" id="sectionResult">
         </table>
     </div> <!-- /.container -->
 </body>

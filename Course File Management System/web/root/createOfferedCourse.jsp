@@ -181,7 +181,9 @@
                                 <label>Semester: </label>
                                 <input class="form-control semester-label" disabled>
                                 <label>Course Name:</label>
-                                <jsp:include page="../component/courseAutoComplete.jsp"/>
+                                <jsp:include page="../component/courseAutoComplete.jsp">
+                                    <jsp:param name="selectAction" value="update"/>
+                                </jsp:include>
                                 <div class="hidden">
                                     <input id="semesterID" name="semesterID">
                                 </div> 
