@@ -218,7 +218,7 @@
                                 <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false"> Lecturer: <%=session.getAttribute("name")%> <span class="caret"></span></a>
                                 <ul class="dropdown-menu">
                                     <% while(rs.next()) { %>
-                                    <li><a href="<%=request.getContextPath()%>/ChangeUsername?username=<%=rs.getString("username")%>"><%=rs.getString("name")%></a></li>
+                                    <li><a href="<%=request.getContextPath()%>/ChangeUsername?username=<%=rs.getString("username")%>&name=<%=rs.getString("name")%>"><%=rs.getString("name")%></a></li>
                                     <% } %>
                                 </ul>
                             </li>

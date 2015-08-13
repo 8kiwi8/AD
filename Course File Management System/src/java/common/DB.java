@@ -191,15 +191,14 @@ public class DB {
         return jsonArray;
     }
     
-    public static String getDataAt(int row, String columnName){
+    public static String getDataAt(String query, int row, String columnName){
         try{
+                query(query);
                 resultSet.absolute(row+1);
-
                 return resultSet.getString(columnName);
         }
         catch(SQLException sqlEx){
                 System.out.println(sqlEx.getMessage());
-
                 return null;
         }
     }

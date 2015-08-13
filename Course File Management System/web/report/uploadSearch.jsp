@@ -1,3 +1,4 @@
+<%@page import="common.ViewPermission"%>
 <%@page import="common.Pair"%>
 <%@page import="CourseFileManagementSystem.LecturerUploadValidator"%>
 <jsp:include page="../header.jsp"/>
@@ -74,12 +75,19 @@
     </script>
 </head>
 <body>
+    
     <div class="container">
         <form class='form-horizontal' action="<%=request.getContextPath()%>/SectionSearch">
             <jsp:include page="../component/semesterAutoComplete.jsp"/>
-            <jsp:include page="../component/departmentAutoComplete.jsp"/>
-            <jsp:include page="../component/courseAutoComplete.jsp"/>
-            <jsp:include page="../component/lecturerAutoComplete.jsp"/>
+            <jsp:include page="../component/departmentAutoComplete.jsp">
+                <jsp:param name="permission" value="<%=session.getAttribute("viewPermission")%>"/>
+            </jsp:include>
+            <jsp:include page="../component/courseAutoComplete.jsp">
+                <jsp:param name="permission" value="<%=session.getAttribute("viewPermission")%>"/>
+            </jsp:include>
+            <jsp:include page="../component/lecturerAutoComplete.jsp">
+                <jsp:param name="permission" value="<%=session.getAttribute("viewPermission")%>"/>
+            </jsp:include>
             <input id="viewPermission">
             <button class="btn btn-primary" id="addCourse" >Search</button>
         </form>

@@ -42,11 +42,11 @@ public class SectionSearch extends HttpServlet {
             
             HttpSession session = ((HttpServletRequest) request).getSession();
             ViewPermission userPermission = ViewPermission.valueOf((String)session.getAttribute("viewPermission"));
+            String loggedUser = (String)session.getAttribute("User");
             ViewPermission requestPermission = ViewPermission.valueOf(viewPermission);
             String query = "";
 
-            if(userPermission.ordinal() >= requestPermission.ordinal()) {
-
+            if(userPermission.ordinal() == requestPermission.ordinal()) {
                 String semesterID = request.getParameter("semesterID");
                 String username = request.getParameter("username");
                 String course = request.getParameter("course");
@@ -55,9 +55,9 @@ public class SectionSearch extends HttpServlet {
                 extra.put("course", "[courseCode] [courseID] [courseName]");
 
                 query = "SELECT c.courseCode, c.courseID, c.courseName, p.name, s.sectionID, s.sectionNo " +
-                        "FROM year_semester AS y, department AS d, section AS s, profile AS p, course AS c WHERE " +
+                        "FROM year_semester AS y, department AS d, section AS s, profile AS p, course AS c , course_offered AS co WHERE " +
                         "y.semesterID = s.semesterID AND s.username = p.username AND s.courseCode = c.courseCode AND " +
-                        "s.courseID = c.courseID AND d.departmentID = p.departmentID ";
+                        "co.course_offered_ID = s.course_offered_ID AND .s.courseID = c.courseID AND d.departmentID = p.departmentID ";
                 if(departmentID!=null && !departmentID.equals("")) {
                     query += "AND d.departmentID = '" + departmentID + "' ";
                 }
@@ -73,9 +73,20 @@ public class SectionSearch extends HttpServlet {
                 if(semesterID != null && !semesterID.equals("")) {
                     query += "AND s.semesterID = " + semesterID + " ";
                 }
+                
+                if(userPermission == ViewPermission.LECTURER) {
+                    query += " AND s.username = '" + loggedUser + "'";
+                } else if(userPermission == ViewPermission.PENYELARAS) {
+                    query += " AND co.username = '" + loggedUser + "'"; 
+                } else if(userPermission == ViewPermission.KETUA_JABATAN) {
+                    String query2 = "SELECT * FROM profile where username = '" + loggedUser + "'";
+                    String department = DB.getDataAt(query2, 0, "departmentID");
+                    query += " AND d.departmentID = " + department;
+                }
+                
                 out.print(DB.createJson(query, extra));
             } else {
-                out.print("{\"label\":\"You Don't have Permission To Do So\"}");
+                out.print("Don't hijack Permission!");
             }
         }
     }

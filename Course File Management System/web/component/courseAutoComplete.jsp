@@ -3,12 +3,19 @@
     Created on : Aug 13, 2015, 12:23:47 AM
     Author     : Kiwi
 --%>
+<%@page import="common.ViewPermission"%>
 <%@page import="AutoComplete.Select2OptionGenerator"%>
 <%@page import="java.util.HashMap"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <select class="form-control" id="courseName" style="width:100%">
 <%
+    if(request.getParameter("permission") != null) {
+        String viewPermission = request.getParameter("permission");
+        ViewPermission requestPermission = ViewPermission.valueOf(viewPermission);
+    } else if(request.getParameter("with filter") != null) {
+        
+    }
     String query = "Select * FROM course ORDER BY courseCode, courseID";
     HashMap<String,String> extra = new HashMap();
     extra.put("value", "[courseCode]/[courseID]");
