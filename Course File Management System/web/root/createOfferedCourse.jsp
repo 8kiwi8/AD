@@ -6,16 +6,6 @@
     <meta charset="UTF-8">
     <title>Offer Course - <%=session.getAttribute("User").toString()%></title>
     <script>
-        $(window).on("popstate", function(e) {
-            url = window.location.pathname;
-            filename = url.substring(url.lastIndexOf('/')+1);
-            if(filename !== "createOfferedCourse.jsp")
-                window.location.href = window.location.href;
-            else {
-                $('#result').load(window.location.href + ' #result'); 
-            }
-                
-        });
         jQuery(function($) {
             $('form').bind('submit', function() {
                 $(this).find(':input').removeAttr('disabled');
@@ -23,81 +13,24 @@
         });
     </script>
     <script>
-        var semester = [];
-        $.getJSON("<%=request.getContextPath()%>/ListSemesterServlet", {
-            value: "id",
-            label: "text",
-            id: "[semesterID]",
-            text: "[year] / [semester]"
-        },
-        function( json ) {
-            var keys = Object.keys(json);
-            keys.forEach(function(key){
-                semester.push(json[key]);
-            });
-            $("#semester").select2({
-                data: semester,
-                placeholder: "Select A Semester"
-            });
-            $("#semester").select2("val", "");
-            $("#semester").change(function() {
-                dataSet = { 
-                    "semesterID":$("#semester").val()
-                };
-                var uri = new URI(window.location.href);
-                var query = new URI(uri.search());
-                var query = query.setSearch(dataSet);
-                var uri = uri.pathname();
-                var newQueryUrl = uri + query;
-                history.pushState(null, null, newQueryUrl);
-                $('#result').load(newQueryUrl + ' #result'); 
+        $( document ).ready( function () {
+            $(".semester-label").val($("#semester :selected").text());
+            $("#semesterID").val($("#semester").val());
+
+            $("select.penyelaras").change(function(){
+                var course = $(this);
+                var selected = course.find(":selected");
+                var co_ID = selected.attr("co_ID");
+                var inputField = $("#username\\["+co_ID+"\\]");
+                inputField.val(selected.attr("username"));
             });
         });
-    </script>
-    <script>
-        function buildCourseList() {
-            $( document ).ready( function () {
-                $(".semester-label").val($("#semester").text());
-                $("select.penyelaras").change(function(){
-                    var course = $(this);
-                    var selected = course.find(":selected");
-                    var co_ID = selected.attr("co_ID");
-                    var inputField = $("#username\\["+co_ID+"\\]");
-                    inputField.val(selected.attr("username"));
-                });
-            });
-            var course = [];
-            $.getJSON("<%=request.getContextPath()%>/ListCourseServlet", {
-                value: "id",
-                label: "text",
-                id: "[courseCode] [courseID] [courseName]",
-                text: "[courseName]",
-                semesterID: $("#semester").val()
-            },
-            function( json ) {
-                var keys = Object.keys(json);
-                keys.forEach(function(key){
-                    course.push(json[key]);
-                });
-                $("#courseName").select2({
-                    data: course,
-                    placeholder: "Select A Course"
-                });
-                $("#courseName").select2("val", "");
-                $("#courseName").change(function() {
-                    alert($("#courseName").attr("courseName"));
-                });
-            });
-        }
     </script>
 </head>
 <body>
     <div class="container">
-        <select class="form-control" id="semester"></select>
-        <div id="result">
-            <script>
-                buildCourseList();
-            </script>
+        <jsp:include page="../component/semesterAutoComplete.jsp"/>
+        <div id="semesterFilterResult">
             <table class="table" id="tblSemesters">
                 <thead>
                     <tr>
@@ -195,7 +128,7 @@
                                             <button type="button" class="close" data-dismiss="modal">&times;</button>
                                             <h4 class="modal-title">Change Penyelaras</h4>
                                         </div>
-                                        <form class='form-horizontal' action="<%=request.getContextPath()%>/UpdatePenyelarasServlet">
+                                        <form class='form' action="<%=request.getContextPath()%>/UpdatePenyelarasServlet">
                                             <div class="modal-body">
                                                 <%
                                                     String query2 = "SELECT * FROM profile AS p, user AS u, section AS s WHERE " +
@@ -248,13 +181,7 @@
                                 <label>Semester: </label>
                                 <input class="form-control semester-label" disabled>
                                 <label>Course Name:</label>
-                                <select class="form-control" name="courseName" id="courseName"></select>
-                                <label>Course Code:</label>
-                                <input class="form-control" name="courseCode" id="courseCode" disabled>
-                                <label>Course ID:</label>
-                                <input class="form-control" name="courseID" id="courseID" disabled>
-                                <label>Credit Hour:</label>
-                                <input class="form-control" name="creditHours" id="creditHours" disabled>
+                                <jsp:include page="../component/courseAutoComplete.jsp"/>
                                 <div class="hidden">
                                     <input id="semesterID" name="semesterID">
                                 </div> 

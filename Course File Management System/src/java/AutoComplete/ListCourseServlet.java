@@ -8,7 +8,6 @@ package AutoComplete;
 import common.DB;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.HashMap;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -39,13 +38,8 @@ public class ListCourseServlet extends HttpServlet {
             try {
                 String value = request.getParameter("value");
                 String label = request.getParameter("label");
-                String val = request.getParameter(value);
-                String lab = request.getParameter(label);
-                String query = "Select * FROM course ORDER BY courseCode, courseID";
-                HashMap<String,String> extra = new HashMap();
-                extra.put(value, val);
-                extra.put(label, lab);
-                out.print(DB.createJson(query, extra));
+                String query = "Select * FROM course";
+                out.print(DB.createJson(query, label, value));
             } catch(Exception e) {
                 e.printStackTrace();
             }

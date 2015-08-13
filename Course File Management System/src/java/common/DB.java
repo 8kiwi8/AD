@@ -72,7 +72,7 @@ public class DB {
         return resultRow;
     }
     
-    public static String createJson(String query) {
+    public static JSONArray createJson(String query) {
         resultSet = DB.query(query);
         //Get the formating of lable
         JSONArray jsonArray = new JSONArray();
@@ -92,10 +92,10 @@ public class DB {
         } catch (JSONException ex) {
             ex.printStackTrace();
         }
-        return jsonArray.toString();
+        return jsonArray;
     }
     
-    public static String createJson(String query, String label, String value) {
+    public static JSONArray createJson(String query, String label, String value) {
         resultSet = DB.query(query);
         //Get the formating of lable
         JSONArray jsonArray = new JSONArray();
@@ -121,10 +121,10 @@ public class DB {
         } catch (JSONException ex) {
             ex.printStackTrace();
         }
-        return jsonArray.toString();
+        return jsonArray;
     }
     
-    public static String createJson(String query, HashMap<String, String> extra) {
+    public static JSONArray createJson(String query, HashMap<String, String> extra) {
         resultSet = DB.query(query);
         //Get the formating of lable
         JSONArray jsonArray = new JSONArray();
@@ -155,10 +155,10 @@ public class DB {
         } catch (JSONException ex) {
             ex.printStackTrace();
         }
-        return jsonArray.toString();
+        return jsonArray;
     }
     
-    public static String createJson(String query, String label, String value, String term) {
+    public static JSONArray createJson(String query, String label, String value, String term) {
         resultSet = DB.query(query);
         //Get the formating of lable
         JSONArray jsonArray = new JSONArray();
@@ -188,7 +188,7 @@ public class DB {
         {
             ex.printStackTrace();
         }
-        return jsonArray.toString();
+        return jsonArray;
     }
     
     public static String getDataAt(int row, String columnName){

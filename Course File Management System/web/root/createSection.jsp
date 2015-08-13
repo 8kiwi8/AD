@@ -6,40 +6,10 @@
     <meta charset="UTF-8">
     <title>Create Section - <%=session.getAttribute("User").toString()%></title>
     <script>
-        var semester = [];
-        $.getJSON("<%=request.getContextPath()%>/ListSemesterServlet", {
-            label: "[year] / [semester]",
-            value: "[year] / [semester]"
-        },
-        function( json ) {
-            var keys = Object.keys(json);
-            keys.forEach(function(key){
-                semester.push(json[key]);
-            });
-        });
-        jQuery(function(){
-            $(".semester-label").autocomplete( {
-                source: semester,
-                select: function( event, ui ) {
-                    dataSet = { 
-                        "semesterID":ui.item.semesterID, 
-                        "semester":ui.item.label 
-                    };
-                    var uri = new URI(window.location.href);
-                    var query = new URI(uri.search());
-                    var query = query.setSearch(dataSet);
-                    var uri = uri.pathname();
-                    var newQueryUrl = uri + query;
-                    window.location.href = uri + query;
-                }
-            });
-        });
-    </script>
-    <script>
         <%if(request.getParameter("semesterID") != null) { %>
         $( document ).ready( function () {
-            $(".semesterID").val("<%=request.getParameter("semesterID")%>");
-            $(".semester-label").val("<%=request.getParameter("semester")%>");
+            $(".semester-label").val($("#semester :selected").text());
+            $(".semesterID").val($("#semester").val());
             $("#filterCourse").prop("disabled", false);
             <% if (request.getParameter("courseLabel") != null) { %>
             $(".courseCode").val("<%=request.getParameter("courseCode")%>");
@@ -144,7 +114,7 @@
 </head>
 <body>
     <div class="container">
-        <input class="form-control semester-label" placeholder="Choose Semester">
+        <jsp:include page="../component/semesterAutoComplete.jsp"/>
         <input class="form-control" id="filterCourse" placeholder="Filter by Course" disabled>
         <table class="table" id="tblSemesters">
             <thread>
@@ -225,7 +195,7 @@
                                                 }
                                                 %>
                                             </select>
-                                            <div class= "hidden">
+                                            <div class= "">
                                                 <input class="semesterID" name="semesterID">
                                                 <input id="username-<%=rs.getString("s.course_offered_ID")%>" name="username" value="<%=rs.getString("username")%>">
                                                 <input class="course_offered_ID" id="course_offered_ID-<%=rs.getString("s.course_offered_ID")%>" name="course_offered_ID" value="<%=rs.getString("s.course_offered_ID")%>">
@@ -284,7 +254,7 @@
                                 <option>SCSV</option>
                                 <option>SCSB</option>
                             </select>
-                            <div class= "hidden">
+                            <div class= "">
                                 <input class="semesterID" name="semesterID">
                                 <input id="username--1" name="username">
                                 <input class="course_offered_ID" id="course_offered_ID--1" name="course_offered_ID">
