@@ -42,8 +42,9 @@ public class addLecturerDB extends HttpServlet {
             String phoneNo = request.getParameter("phoneNo");
             String department = request.getParameter("department");
             String status = request.getParameter("status");
+            String view = request.getParameter("view");
 
-	int rs = DB.update("INSERT INTO user VALUES ('" + username + "', '" + password + "', 'lecturer', 'LECTURER')");
+	int rs = DB.update("INSERT INTO user VALUES ('" + username + "', '" + password + "', 'lecturer', '" + view + "')");
 
 	int rs2 = DB.update("INSERT INTO profile (`name`, `emailAdd`, `phoneNo`, `departmentID`, `status`, `username`) VALUES ('"+ name+ "', '"+ emailAdd +"', '"+ phoneNo +"', '"+ department +"', '"+ status +"', '"+ username +"')");
 

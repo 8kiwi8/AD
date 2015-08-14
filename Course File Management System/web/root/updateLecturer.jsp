@@ -57,11 +57,20 @@
                         </div>
 
                         <div class="form-group">
-      						<label for="status" class="control-label col-xs-4">Status</label>
-      						<%=rs.getString(5) %>      					 
+      						<label for="status" class="control-label col-xs-4">Status</label> 
+                                                <%=rs.getString(5) %>                                                  
       						<div class="radio col-xs-8">
   							<label class="radio-inline"><input type="radio" name="status" value="Active">Active</label>
   							<label class="radio-inline"><input type="radio" name="status" value="Inactive">Inactive</label>
+							</div>
+        				</div>
+                                                
+                            <div class="form-group">
+      						<label for="view" class="control-label col-xs-4">View Permission</label>					 
+      						<div class="radio col-xs-8">
+  							<label class="radio-inline"><input type="radio" name="view" value="LECTURER">Lecturer</label>
+                                                        <label class="radio-inline"><input type="radio" name="view" value="KETUA JABATAN">Ketua Jabatan</label>
+  							<label class="radio-inline"><input type="radio" name="view" value="PENTADBIR">Pentadbir</label>
 							</div>
         				</div>
                         

@@ -63,6 +63,15 @@
                             <label class="radio-inline"><input type="radio" name="status" value="Inactive">Inactive</label>
                             </div>
                         </div>
+            
+                        <div class="form-group">
+                            <label for="view" class="control-label col-xs-4">View Permission</label>					 
+                            <div class="radio col-xs-8">
+                            <label class="radio-inline"><input type="radio" name="view" value="LECTURER">Lecturer</label>
+                            <label class="radio-inline"><input type="radio" name="view" value="KETUA JABATAN">Ketua Jabatan</label>
+                            <label class="radio-inline"><input type="radio" name="view" value="PENTADBIR">Pentadbir</label>
+                            </div>
+                        </div>
                         
                         <div class="form-group">
                             <div class="col-xs-offset-4 col-xs-8">
