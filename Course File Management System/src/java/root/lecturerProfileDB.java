@@ -44,7 +44,7 @@ public class lecturerProfileDB extends HttpServlet {
 	int rs = DB.update("UPDATE profile SET name='"+ name+ "', emailAdd='"+ emailAdd +"', phoneNo='"+ phoneNo +"' WHERE username = '"+ username +"'");
         int rs2 = DB.update("UPDATE user SET password='"+password+"' WHERE username='"+username+"'");
 
-	response.sendRedirect("lecturer/lecturerProfile.jsp");
+	response.sendRedirect(request.getHeader("Referer"));
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
