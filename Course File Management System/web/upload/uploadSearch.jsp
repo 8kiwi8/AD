@@ -36,12 +36,15 @@
                     title: 'Section No',
                     sortable: true
                 }, {
+                    field: 'stat',
+                    title: 'Upload Status',
+                }, {
                     field: 'sectionID',
                     title: 'Section ID',
                     visible: false
                 }, {
                     field: 'operate',
-                    title: 'Item Operate',
+                    title: 'Manage',
                     align: 'center',
                     valign: 'middle',
                     clickToSelect: false,
@@ -51,7 +54,6 @@
             });
             window.operateEvents = {
                 'click .stats': function (e, value, row, index) {
-                    alert('You click like action, row: ' + JSON.stringify(row));
                     dataSet = { 
                         "sectionID": [row.sectionID]
                     };

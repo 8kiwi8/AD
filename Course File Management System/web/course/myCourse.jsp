@@ -11,7 +11,7 @@
                 "semesterID": <%=request.getParameter("semesterID")%>,
                 "course": course
             };
-            var uri = new URI("<%=request.getContextPath()%>/report/uploadSearch.jsp");
+            var uri = new URI("<%=request.getContextPath()%>/upload/uploadSearch.jsp");
             var query = new URI(uri.search());
             var query = query.setSearch(dataSet);
             window.location.href = uri + query;
@@ -35,14 +35,23 @@
             </thead>
             <tbody>
                 <%
-                if(request.getParameter("semesterID") != null) {
+                String query = "";
+                if(request.getParameter("semesterID") != null && !request.getParameter("semesterID").equals("")) {
                 String semesterID = request.getParameter("semesterID");
-                String query = "SELECT * FROM (SELECT co.course_offered_ID AS co_id, co.username AS penyelaras_id, " +
-                        "p.name AS penyelaras from course_offered AS co, profile AS p WHERE co.username = p.username) AS co, " +
+                query = "SELECT * FROM (SELECT course_offered_ID AS co_id, username AS penyelaras_id " +
+                        "from course_offered) AS co, " +
                         "(SELECT c.courseCode, c.courseID, c.courseName, s.sectionID, s.sectionNO, s.course_offered_id AS co_id " +
                         "FROM section AS s, course AS c, profile AS p WHERE s.courseCode = c.courseCode AND s.courseID = c.courseID " + 
                         "AND s.username = p.username AND s.semesterID = " + semesterID + " AND s.username = '" + session.getAttribute("User") + "') AS mine " +
                         "WHERE co.co_id = mine.co_id";
+                } else {
+                query = "SELECT * FROM (SELECT course_offered_ID AS co_id, username AS penyelaras_id " +
+                        "from course_offered) AS co, " +
+                        "(SELECT c.courseCode, c.courseID, c.courseName, s.sectionID, s.sectionNO, s.course_offered_id AS co_id " +
+                        "FROM section AS s, course AS c, profile AS p WHERE s.courseCode = c.courseCode AND s.courseID = c.courseID " + 
+                        "AND s.username = p.username AND s.username = '" + session.getAttribute("User") + "') AS mine " +
+                        "WHERE co.co_id = mine.co_id";        
+                }
                 ResultSet rs = DB.query(query);
                 while(rs.next()) {
                 %>
@@ -51,17 +60,24 @@
                     <td><%=rs.getString("mine.courseName")%></td>
                     <td>
                         <% 
-                        if(rs.getString("co.penyelaras_id").equals(session.getAttribute("User"))) {
+                        if(rs.getString("co.penyelaras_id") == null || rs.getString("co.penyelaras_id").equals("")) {
+                        %>
+                        <span class="label label-default">No Penyelaras</span>
+                        <%
+                        } else if(rs.getString("co.penyelaras_id").equals(session.getAttribute("User"))) {
                         %>
                         <button type="button" class="btn btn-default" onclick="viewSuperviseCourse('<%=rs.getString("mine.courseCode")%>/<%=rs.getString("mine.courseID")%>');">Manage Course</button>
                         <%
                         } else {
+                            String query2 = "SELECT * FROM profile WHERE username = '" + rs.getString("co.penyelaras_id") + "'";
+                            ResultSet rs2 = DB.query(query2);
+                            rs2.next();
                         %>
-                        <%=rs.getString("penyelaras")%>
+                        <%=rs2.getString("name")%>
                         <% } %>
                     </td>
                 </tr>
-                <% } } %>
+                <% } %>
             </tbody>
         </table>
     </div> <!-- /.container -->

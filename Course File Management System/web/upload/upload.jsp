@@ -187,7 +187,13 @@
                     <td><%=rs.getString("label") %></td>
                     <td>
                     <%
-                    boolean found = false;                   
+                    boolean owner = false;
+                    ResultSet rs3 = DB.query("SELECT * FROM section WHERE sectionID="+sectionID+" AND username='"+session.getAttribute("User")+"'");
+                    if(rs3.next()){
+                        owner = true;
+                    }
+                    
+                    boolean found = false;
                     while(rs2.next()){
                         found = true;
                         %>                         
@@ -196,15 +202,17 @@
                           Path path1 = Paths.get(path);%>                                                                        
                         <a href = "<%=rs2.getString("fileDirectory")%>" download ="<%=path1.getFileName()%>"> 
                             <button class="btn btn-primary" type="button"><i class = "glyphicon glyphicon-download-alt"></i> Download </button>                     
-                        </a>                 
+                        </a>
+                        <% if(owner) { %>
                         <a href = "<%=request.getContextPath()%>/Delete?fileID=<%=rs2.getString("fileID")%>&filePath=<%=rs2.getString("fileDirectory")%>" name = "Delete" onclick = "return DeleteConfirmation();"> 
                             <button class="btn btn-danger" type="button"><i class = "glyphicon glyphicon-trash" ></i> Delete </button>                     
                         </a> 
+                        <% } %>
                         <%=path1.getFileName()%>
                         <br>
                         
                     <%}%> 
-                    <% if(!found) { %>                              
+                    <% if(!found && owner) { %>                              
                         <div class="fileUpload btn btn-default">
                             <input id="uploadFile-<%=rs.getString("checklistID")%>" placeholder="Choose File" disabled = "disabled"/>
                             <button class="browse btn btn-primary" type="button"><i class="glyphicon glyphicon-folder-open"></i> Browse</button>
@@ -212,7 +220,9 @@
                             <div id = "fileList"> </div>
                         </div>
                     </td>
-            <%}%>
+                    <%} else if (!found && !owner) {%>
+                    No Upload Yet
+                    <% } %>
                 </tr>
             <% } %>
                 <tbody>

@@ -58,7 +58,6 @@
     
     
     pages.add(new Page("lecturer", request.getContextPath() + "/course/myCourse.jsp", "My Courses"));
-    pages.add(new Page("lecturer", request.getContextPath() + "/course/viewCourses.jsp", "Courses"));
     pages.add(new Page("lecturer", request.getContextPath() + "/upload/chooseSection.jsp", "Upload"));
     pages.add(new Page("lecturer", request.getContextPath() + "/upload/uploadSearch.jsp", "Manage Upload"));
     pages.add(new Page("lecturer", request.getContextPath() + "/user/lecturerProfile.jsp", "Profile"));

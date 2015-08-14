@@ -5,17 +5,25 @@
  */
 package report;
 
+import CourseFileManagementSystem.LecturerUploadValidator;
 import common.ViewPermission;
 import common.DB;
+import common.Pair;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.HashMap;
+import java.util.Iterator;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 /**
  *
@@ -80,8 +88,26 @@ public class SectionSearch extends HttpServlet {
                 String department = DB.getDataAt(query2, 0, "departmentID");
                 query += " AND d.departmentID = " + department;
             }
-
-            out.print(DB.createJson(query, extra));
+            query += " limit 500";
+            //out.print(query);
+            JSONArray array = DB.createJson(query, extra);
+            for (int i = 0 ; i < array.length(); i++) {
+                JSONObject obj = array.getJSONObject(i);
+                Pair<Integer, Integer> stat = new Pair();
+                Iterator<String> keys = obj.keys();
+                while(keys.hasNext() ) {
+                    String key = (String)keys.next();
+                    String sectionID;
+                    if(key.equals("sectionID")) {
+                        sectionID = Integer.toString(obj.getInt(key));
+                        stat = LecturerUploadValidator.status(sectionID);
+                    }
+                }
+                obj.put("stat", stat.toFraction());
+            }
+            out.print(array);
+        } catch (JSONException ex) {
+            Logger.getLogger(SectionSearch.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 

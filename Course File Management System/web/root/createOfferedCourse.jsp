@@ -70,7 +70,7 @@
                                         <form class='form-horizontal' action="<%=request.getContextPath()%>/UpdatePenyelarasServlet">
                                             <div class="modal-body">
                                                 <%
-                                                    String query2 = "SELECT * FROM profile AS p, user AS u, section AS s WHERE " +
+                                                    String query2 = "SELECT DISTINCT u.username, p.name FROM profile AS p, user AS u, section AS s WHERE " +
                                                         "u.username=p.username AND u.username=s.username AND "+
                                                         "s.course_offered_ID = \'"+rs.getString("co.course_offered_ID")+"\' AND s.semesterID="+semesterID;
                                                     ResultSet rs2 = DB.query(query2);
@@ -131,7 +131,7 @@
                                         <form class='form' action="<%=request.getContextPath()%>/UpdatePenyelarasServlet">
                                             <div class="modal-body">
                                                 <%
-                                                    String query2 = "SELECT * FROM profile AS p, user AS u, section AS s WHERE " +
+                                                    String query2 = "SELECT DISTINCT u.username, p.name FROM profile AS p, user AS u, section AS s WHERE " +
                                                         "u.username=p.username AND u.username=s.username AND "+
                                                         "s.course_offered_ID = \'"+rs.getString("co.course_offered_ID")+"\' AND s.semesterID="+semesterID;
                                                     ResultSet rs2 = DB.query(query2);

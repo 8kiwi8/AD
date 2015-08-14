@@ -9,6 +9,8 @@ import common.DB;
 import common.Pair;
 import java.sql.*;
 import java.util.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -17,26 +19,30 @@ import java.util.*;
 public class LecturerUploadValidator {
     
     
-    public static Pair<Integer, Integer> status(String sectionID) throws SQLException {
+    public static Pair<Integer, Integer> status(String sectionID) {
         HashMap<Integer, Boolean> checklist;
         Pair<Integer, Integer> complete;
         checklist = new HashMap();
         complete = new Pair(0, 0);
         String query1 = "SELECT * FROM upload_checklist";
-        ResultSet rs1 = DB.query(query1);
-        while(rs1.next()) {
-            checklist.put(Integer.parseInt(rs1.getString("checklistID")), false);
-            complete.setRight(complete.getRight() + 1);
-        }
-        
-        String query2 = "SELECT * FROM lecturer_upload WHERE sectionID=" + sectionID;
-        ResultSet rs2 = DB.query(query2);
-        while(rs2.next()) {
-            int toCheck = Integer.parseInt(rs2.getString("checklistID"));
-            if(checklist.get(toCheck) == false) {
-                checklist.put(toCheck, true);
-                complete.setLeft(complete.getLeft() + 1);
+        try {
+            ResultSet rs1 = DB.query(query1);
+            while(rs1.next()) {
+                checklist.put(Integer.parseInt(rs1.getString("checklistID")), false);
+                complete.setRight(complete.getRight() + 1);
             }
+            
+            String query2 = "SELECT * FROM lecturer_upload WHERE sectionID=" + sectionID;
+            ResultSet rs2 = DB.query(query2);
+            while(rs2.next()) {
+                int toCheck = Integer.parseInt(rs2.getString("checklistID"));
+                if(checklist.get(toCheck) == false) {
+                    checklist.put(toCheck, true);
+                    complete.setLeft(complete.getLeft() + 1);
+                }
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(LecturerUploadValidator.class.getName()).log(Level.SEVERE, null, ex);
         }
         return complete;
     }
