@@ -72,29 +72,6 @@ public class DB {
         return resultRow;
     }
     
-    public static JSONArray createJson(String query) {
-        resultSet = DB.query(query);
-        //Get the formating of lable
-        JSONArray jsonArray = new JSONArray();
-        try {
-            rsmd = resultSet.getMetaData();
-            int total_cols = resultSet.getMetaData().getColumnCount();
-            while (resultSet.next()) {
-                JSONObject obj = new JSONObject();
-                for (int i = 0; i < total_cols; i++) {
-                    String colName = rsmd.getColumnLabel(i + 1);
-                    obj.put(colName, resultSet.getObject(i + 1));
-                }
-                jsonArray.put(obj);
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        } catch (JSONException ex) {
-            ex.printStackTrace();
-        }
-        return jsonArray;
-    }
-    
     public static JSONArray createJson(String query, String label, String value) {
         resultSet = DB.query(query);
         //Get the formating of lable
@@ -157,7 +134,7 @@ public class DB {
         }
         return jsonArray;
     }
-    
+        
     public static JSONArray createJson(String query, String label, String value, String term) {
         resultSet = DB.query(query);
         //Get the formating of lable

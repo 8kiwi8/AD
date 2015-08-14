@@ -6,6 +6,7 @@
 package filter;
 
 import common.DB;
+import common.ViewPermission;
 import java.io.IOException;
 import java.io.PrintStream;
 import java.io.PrintWriter;
@@ -114,10 +115,30 @@ public class UploadPageFilter implements Filter {
             HttpServletResponse httpResponse = (HttpServletResponse) response;
             HttpSession session = ((HttpServletRequest) request).getSession();
             String username = (String) session.getAttribute("User");
+            ViewPermission userPermission = ViewPermission.valueOf((String)session.getAttribute("viewPermission"));
             String sectionID = request.getParameter("sectionID");
-            ResultSet rs= DB.query("SELECT * FROM section WHERE sectionID=" + sectionID +" AND username = '"+username + "'");
+            String query = "";
+            
+            if(userPermission == ViewPermission.LECTURER) {
+                query = "SELECT * FROM section WHERE sectionID=" + sectionID +" AND username = '"+username + "'";
+            } else if(userPermission == ViewPermission.PENYELARAS) {
+                query = "SELECT * FROM section AS s, course_offered AS co WHERE " +
+                        "s.course_offered_ID = co.course_offered_ID AND s.sectionID=" + sectionID +" AND co.username = '"+username + "'"; 
+            } else if(userPermission == ViewPermission.KETUA_JABATAN) {
+                String query2 = "SELECT * FROM profile where username = '" + username + "'";
+                String department = DB.getDataAt(query2, 0, "departmentID");
+                query = "SELECT * FROM section AS s, profile AS p WHERE s.username = p.username AND " +
+                        "p.departmentID = " + department + " AND s.sectionID=" + sectionID; 
+            } else if(userPermission == ViewPermission.PENTADBIR) {
+                query = "SELECT * FROM section";
+            } else {
+                session.setAttribute("Access Error", "You're not allowed to access this page");
+                httpResponse.sendRedirect(filterConfig.getServletContext().getContextPath() + "/upload/chooseSection.jsp");
+            }
+            System.out.println(query);
+            ResultSet rs= DB.query(query);
             if(!rs.next())
-            {                            
+            {
                 session.setAttribute("Access Error", "You're not allowed to access this page");
                 httpResponse.sendRedirect(filterConfig.getServletContext().getContextPath() + "/upload/chooseSection.jsp");
             }                      

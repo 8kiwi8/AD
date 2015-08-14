@@ -10,7 +10,6 @@
     <title>Management View</title>
     <script>
         $(document).ready(function() {
-           $("#viewPermission").val("<%=session.getAttribute("viewPermission")%>"); 
            $('#sectionResult').bootstrapTable({
                 url: "<%=request.getContextPath()%>/SectionSearch",
                 search: "true",
@@ -27,19 +26,19 @@
                 columns: [{
                     field: 'course',
                     title: 'Course',
-                    sortable: 'true'
+                    sortable: true
                 }, {
                     field: 'name',
                     title: 'Lecture',
-                    sortable: 'true'
+                    sortable: true
                 }, {
                     field: 'sectionNo',
                     title: 'Section No',
-                    sortable: 'true'
+                    sortable: true
                 }, {
                     field: 'sectionID',
                     title: 'Section ID',
-                    sortable: 'true'
+                    visible: false
                 }, {
                     field: 'operate',
                     title: 'Item Operate',
@@ -51,24 +50,22 @@
                 }]
             });
             window.operateEvents = {
-                'click .like': function (e, value, row, index) {
+                'click .stats': function (e, value, row, index) {
                     alert('You click like action, row: ' + JSON.stringify(row));
-                },
-                'click .remove': function (e, value, row, index) {
-                    $('#sectionResult').bootstrapTable('remove', {
-                        field: 'sectionID',
-                        values: [row.sectionID]
-                    });
+                    dataSet = { 
+                        "sectionID": [row.sectionID]
+                    };
+                    var uri = new URI("<%=request.getContextPath()%>/upload/upload.jsp");
+                    var query = new URI(uri.search());
+                    var query = query.setSearch(dataSet);
+                    window.location.href = uri + query;
                 }
             };
             function operateFormatter(value, row, index) {
                 return [
-                    '<a class="like" href="javascript:void(0)" title="Like">',
-                    '<i class="glyphicon glyphicon-heart"></i>',
-                    '</a>  ',
-                    '<a class="remove" href="javascript:void(0)" title="Remove">',
-                    '<i class="glyphicon glyphicon-remove"></i>',
-                    '</a>'
+                    '<a class="stats" href="javascript:void(0)" title="Stats">',
+                    '<i class="glyphicon glyphicon-stats"></i>',
+                    '</a>  '
                 ].join('');
             }
         });
@@ -88,7 +85,6 @@
             <jsp:include page="../component/lecturerAutoComplete.jsp">
                 <jsp:param name="permission" value="<%=session.getAttribute("viewPermission")%>"/>
             </jsp:include>
-            <input id="viewPermission">
             <button class="btn btn-primary" id="addCourse" >Search</button>
         </form>
         <table class="table" id="sectionResult">

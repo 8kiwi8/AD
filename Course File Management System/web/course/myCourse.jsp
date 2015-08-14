@@ -6,58 +6,12 @@
     <meta charset="UTF-8">
     <title>My Course</title>
     <script>
-        var semester = [];
-        $.getJSON("<%=request.getContextPath()%>/ListSemesterServlet", {
-            label: "[year] / [semester]",
-            value: "[year] / [semester]"
-        },
-        function( json ) {
-            var keys = Object.keys(json);
-            keys.forEach(function(key){
-                semester.push(json[key]);
-            });
-        });
-        jQuery(function(){
-            $("#semester").autocomplete( {
-                source: semester,
-                select: function( event, ui ) {
-                    dataSet = { 
-                        "semesterID":ui.item.semesterID, 
-                        "semester":ui.item.label 
-                    };
-                    var uri = new URI(window.location.href);
-                    var query = new URI(uri.search());
-                    var query = query.setSearch(dataSet);
-                    var uri = uri.pathname();
-                    var newQueryUrl = uri + query;
-                    window.location.href = uri + query;
-                }
-            });
-        });
-        jQuery(function($) {
-            $('form').bind('submit', function() {
-                $(this).find(':input').removeAttr('disabled');
-            });
-        });
-    </script>
-    <script>
-        <%if(request.getParameter("semesterID") != null) { %>
-        $( document ).ready( function () {
-            $("#semesterID").val("<%=request.getParameter("semesterID")%>");
-            $("#semester").val("<%=request.getParameter("semester")%>");
-            $(".semester-label").val("<%=request.getParameter("semester")%>");
-        });
-        <% } %>
-    </script>
-    <script>
-        function viewSuperviseCourse (co_id, courseLabel) {
+        function viewSuperviseCourse (course) {
             dataSet = { 
                 "semesterID": <%=request.getParameter("semesterID")%>,
-                "semester": <%=request.getParameter("semester")%>,
-                "course_offered_ID": co_id,
-                "courseLabel": courseLabel
+                "course": course
             };
-            var uri = new URI("viewSuperviseCourse.jsp");
+            var uri = new URI("<%=request.getContextPath()%>/report/uploadSearch.jsp");
             var query = new URI(uri.search());
             var query = query.setSearch(dataSet);
             window.location.href = uri + query;
@@ -66,8 +20,8 @@
 </head>
 <body>
     <div class="container">
-        <input class="form-control" id="semester" placeholder="Choose Semester">
-        <table class="table" id="tblSemesters"
+        <jsp:include page="../component/semesterAutoComplete.jsp"/>
+        <table class="table" id="resultTable"
             data-toggle="table" 
             data-search="true"
             data-pagination="true"
@@ -99,7 +53,7 @@
                         <% 
                         if(rs.getString("co.penyelaras_id").equals(session.getAttribute("User"))) {
                         %>
-                        <button type="button" class="btn btn-default" onclick="viewSuperviseCourse('<%=rs.getString("co.co_id")%>', '<%=rs.getString("mine.courseCode")%><%=rs.getString("mine.courseID")%> <%=rs.getString("mine.courseName")%>');">Manage Course</button>
+                        <button type="button" class="btn btn-default" onclick="viewSuperviseCourse('<%=rs.getString("mine.courseCode")%>/<%=rs.getString("mine.courseID")%>');">Manage Course</button>
                         <%
                         } else {
                         %>
