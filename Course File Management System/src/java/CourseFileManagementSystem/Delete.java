@@ -63,7 +63,7 @@ public class Delete extends HttpServlet {
         System.out.print(query2);
         DB.update(query1);
         DB.update(query2);
-        response.sendRedirect("lecturer/upload.jsp?semesterID=" + semesterID + "&sectionID=" + sectionID + "&username=" + username);
+        response.sendRedirect(request.getHeader("Referer"));
     }
 
     /**

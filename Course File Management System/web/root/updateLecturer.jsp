@@ -3,7 +3,7 @@
 <%
 	String username = request.getParameter("username");
 
-	ResultSet rs = DB.query("SELECT * FROM profile WHERE username= '"+username+"'");
+	ResultSet rs = DB.query("SELECT * FROM profile, department WHERE profile.username= '"+username+"' AND profile.departmentID=department.departmentID");
         rs.next();
         
         boolean isActive = false;
@@ -74,19 +74,41 @@
                                 Active
                             </label>
                         </div>
-
-                        <div class="radio col-xs-offset-4">
-                            <label>
-                                <input type="radio" name="status" value="Inactive" <% if(!isActive) out.println("checked");%>>
-                                Inactive
-                            </label>
+                            
+                            <div class="form-group">
+                            <label for="department" class="control-label col-xs-4">Department</label>
+                            <div class="radio col-xs-8">
+                             <input type="text" class="form-control" value="<%=rs.getString(8) %>" disabled>
+                            <label class="radio-inline"><input type="radio" name="department" value="2">Software Engineering</label>
+                            <label class="radio-inline"><input type="radio" name="department" value="3">Computer Science</label>
+                            <label class="radio-inline"><input type="radio" name="department" value="4">Information System</label>
+                            </div>
                         </div>
                         <div class="col-xs-3"></div>
                     </div>
 
-                    <div class="form-group">
-                        <div class="col-xs-offset-3 col-xs-9">
-                            <button type="submit" class="btn btn-primary">Update</button>
+                        <div class="form-group">
+      						<label for="status" class="control-label col-xs-4">Status</label> 
+                                                <%=rs.getString(5) %>                                                  
+      						<div class="radio col-xs-8">
+  							<label class="radio-inline"><input type="radio" name="status" value="Active">Active</label>
+  							<label class="radio-inline"><input type="radio" name="status" value="Inactive">Inactive</label>
+							</div>
+        				</div>
+                                                
+                            <div class="form-group">
+      						<label for="view" class="control-label col-xs-4">View Permission</label>					 
+      						<div class="radio col-xs-8">
+  							<label class="radio-inline"><input type="radio" name="view" value="LECTURER">Lecturer</label>
+                                                        <label class="radio-inline"><input type="radio" name="view" value="KETUA JABATAN">Ketua Jabatan</label>
+  							<label class="radio-inline"><input type="radio" name="view" value="PENTADBIR">Pentadbir</label>
+							</div>
+        				</div>
+                        
+                        <div class="form-group">
+                            <div class="col-xs-offset-4 col-xs-8">
+                                <button type="submit" class="btn btn-primary">Update</button>
+                            </div>
                         </div>
                     </div>
                 </form>

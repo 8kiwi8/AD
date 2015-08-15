@@ -41,8 +41,11 @@ public class updateLecturerDB extends HttpServlet {
 	String phoneNo = request.getParameter("phoneNo");
 	String department = request.getParameter("department");
 	String status = request.getParameter("status");
+        String view = request.getParameter("view");
 
-	int rs = DB.update("UPDATE profile SET name='"+ name+ "', emailAdd='"+ emailAdd +"', phoneNo='"+ phoneNo +"', department='"+ department +"', status='"+ status +"' WHERE username = '"+ username +"'");
+	int rs = DB.update("UPDATE profile SET name='"+ name+ "', emailAdd='"+ emailAdd +"', phoneNo='"+ phoneNo +"', departmentID='"+ department +"', status='"+ status +"' WHERE username = '"+ username +"'");
+        int rs2 = DB.update("UPDATE user SET viewPermission='"+ view+ "' WHERE username = '"+ username +"'");
+        
 
 	response.sendRedirect("root/viewLecturers.jsp");
         

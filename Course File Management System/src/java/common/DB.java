@@ -72,7 +72,7 @@ public class DB {
         return resultRow;
     }
     
-    public static String createJson(String query, String label, String value) {
+    public static JSONArray createJson(String query, String label, String value) {
         resultSet = DB.query(query);
         //Get the formating of lable
         JSONArray jsonArray = new JSONArray();
@@ -98,10 +98,44 @@ public class DB {
         } catch (JSONException ex) {
             ex.printStackTrace();
         }
-        return jsonArray.toString();
+        return jsonArray;
     }
     
-    public static String createJson(String query, String label, String value, String term) {
+    public static JSONArray createJson(String query, HashMap<String, String> extra) {
+        resultSet = DB.query(query);
+        //Get the formating of lable
+        JSONArray jsonArray = new JSONArray();
+        try {
+            rsmd = resultSet.getMetaData();
+            int total_cols = resultSet.getMetaData().getColumnCount();
+            while (resultSet.next()) {
+                JSONObject obj = new JSONObject();
+                HashMap<String, String> temp = new HashMap(extra);
+                for (int i = 0; i < total_cols; i++) {
+                    String colName = rsmd.getColumnLabel(i + 1);
+                    for (Map.Entry<String, String> entry : temp.entrySet()) {
+                        String value = entry.getValue();
+                        value = value.replaceAll("\\["+colName+"\\]", resultSet.getString(colName));
+                        entry.setValue(value);
+                    }
+                    obj.put(colName, resultSet.getObject(i + 1));
+                }
+                for (Map.Entry<String, String> entry : temp.entrySet()) {
+                    String key = entry.getKey();
+                    String val = entry.getValue();
+                    obj.put(key, val);
+                }
+                jsonArray.put(obj);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } catch (JSONException ex) {
+            ex.printStackTrace();
+        }
+        return jsonArray;
+    }
+        
+    public static JSONArray createJson(String query, String label, String value, String term) {
         resultSet = DB.query(query);
         //Get the formating of lable
         JSONArray jsonArray = new JSONArray();
@@ -131,18 +165,17 @@ public class DB {
         {
             ex.printStackTrace();
         }
-        return jsonArray.toString();
+        return jsonArray;
     }
     
-    public static String getDataAt(int row, String columnName){
+    public static String getDataAt(String query, int row, String columnName){
         try{
+                query(query);
                 resultSet.absolute(row+1);
-
                 return resultSet.getString(columnName);
         }
         catch(SQLException sqlEx){
                 System.out.println(sqlEx.getMessage());
-
                 return null;
         }
     }

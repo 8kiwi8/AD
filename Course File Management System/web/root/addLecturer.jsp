@@ -5,6 +5,9 @@
 <head>
     <meta charset="UTF-8">
     <title>Add Lecturer - <%=session.getAttribute("User").toString()%></title>
+    <script>
+        $('input[name=radioName]:checked', '#myForm').val()
+    </script>
 </head>
 <body>
     <div class="container">
@@ -47,9 +50,9 @@
                         <div class="form-group">
                             <label for="department" class="control-label col-xs-4">Department</label>
                             <div class="radio col-xs-8">
-                            <label class="radio-inline"><input type="radio" name="department" value="Software Engineering">Software Engineering</label>
-                            <label class="radio-inline"><input type="radio" name="department" value="Computer Science">Computer Science</label>
-                            <label class="radio-inline"><input type="radio" name="department" value="Information System">Information System</label>
+                            <label class="radio-inline"><input type="radio" name="department" value="2">Software Engineering</label>
+                            <label class="radio-inline"><input type="radio" name="department" value="3">Computer Science</label>
+                            <label class="radio-inline"><input type="radio" name="department" value="4">Information System</label>
                             </div>
                         </div>
 
@@ -58,6 +61,15 @@
                             <div class="radio col-xs-8">
                             <label class="radio-inline"><input type="radio" name="status" value="Active">Active</label>
                             <label class="radio-inline"><input type="radio" name="status" value="Inactive">Inactive</label>
+                            </div>
+                        </div>
+            
+                        <div class="form-group">
+                            <label for="view" class="control-label col-xs-4">View Permission</label>					 
+                            <div class="radio col-xs-8">
+                            <label class="radio-inline"><input type="radio" name="view" value="LECTURER">Lecturer</label>
+                            <label class="radio-inline"><input type="radio" name="view" value="KETUA JABATAN">Ketua Jabatan</label>
+                            <label class="radio-inline"><input type="radio" name="view" value="PENTADBIR">Pentadbir</label>
                             </div>
                         </div>
                         

@@ -1,11 +1,10 @@
-<jsp:include page="../auth.jsp"/>
 <jsp:include page="../header.jsp"/>
 <%@ page import ="java.sql.*, common.DB, java.util.*" %>
 <!doctype html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>My Course</title>
+    <title>Semesters - Add Semester</title>
     <script>
         var semester = [];
         $.getJSON("<%=request.getContextPath()%>/ListSemesterServlet", {
@@ -35,11 +34,6 @@
                 }
             });
         });
-        jQuery(function($) {
-            $('form').bind('submit', function() {
-                $(this).find(':input').removeAttr('disabled');
-            });
-        });
     </script>
     <script>
         <%if(request.getParameter("semesterID") != null) { %>
@@ -49,20 +43,6 @@
             $(".semester-label").val("<%=request.getParameter("semester")%>");
         });
         <% } %>
-    </script>
-    <script>
-        function viewSuperviseCourse (co_id, courseLabel) {
-            dataSet = { 
-                "semesterID": <%=request.getParameter("semesterID")%>,
-                "semester": <%=request.getParameter("semester")%>,
-                "course_offered_ID": co_id,
-                "courseLabel": courseLabel
-            };
-            var uri = new URI("viewSuperviseCourse.jsp");
-            var query = new URI(uri.search());
-            var query = query.setSearch(dataSet);
-            window.location.href = uri + query;
-        };
     </script>
 </head>
 <body>
@@ -75,8 +55,10 @@
             data-show-toggle="true">
             <thead>
                 <tr>
-                    <th data-sortable="true">Course Code ID</th>
+                    <th data-sortable="true">Course Code</th>
+                    <th data-sortable="true">Course ID</th>
                     <th data-sortable="true">Course Name</th>
+                    <th data-sortable="true">Course Credit Hours</th>
                     <th data-sortable="true">Penyelaras</th>
                 </tr>
             </thead>
@@ -84,29 +66,36 @@
                 <%
                 if(request.getParameter("semesterID") != null) {
                 String semesterID = request.getParameter("semesterID");
-                String query = "SELECT * FROM (SELECT co.course_offered_ID AS co_id, co.username AS penyelaras_id, " +
-                        "p.name AS penyelaras from course_offered AS co, profile AS p WHERE co.username = p.username) AS co, " +
-                        "(SELECT c.courseCode, c.courseID, c.courseName, s.sectionID, s.sectionNO, s.course_offered_id AS co_id " +
-                        "FROM section AS s, course AS c, profile AS p WHERE s.courseCode = c.courseCode AND s.courseID = c.courseID " + 
-                        "AND s.username = p.username AND s.semesterID = " + semesterID + " AND s.username = '" + session.getAttribute("User") + "') AS mine " +
-                        "WHERE co.co_id = mine.co_id";
+                String query = "SELECT co.course_offered_ID, c.courseCode, c.courseID, c.courseName, c.creditHours, p.name, p.username FROM " + 
+                        "course_offered AS co, course AS c, profile AS p WHERE " +
+                        "co.courseCode = c.courseCode AND co.courseID = c.courseID AND " +
+                        "co.username = p.username AND co.semesterID = " + semesterID;
                 ResultSet rs = DB.query(query);
                 while(rs.next()) {
                 %>
                 <tr>
-                    <td><%=rs.getString("mine.courseCode")%> <%=rs.getString("mine.courseID")%></td>
-                    <td><%=rs.getString("mine.courseName")%></td>
-                    <td>
-                        <% 
-                        if(rs.getString("co.penyelaras_id").equals(session.getAttribute("User"))) {
-                        %>
-                        <button type="button" class="btn btn-default" onclick="viewSuperviseCourse('<%=rs.getString("co.co_id")%>', '<%=rs.getString("mine.courseCode")%><%=rs.getString("mine.courseID")%> <%=rs.getString("mine.courseName")%>');">Manage Course</button>
-                        <%
-                        } else {
-                        %>
-                        <%=rs.getString("penyelaras")%>
-                        <% } %>
-                    </td>
+                    <td><%=rs.getString("courseCode")%></td>
+                    <td><%=rs.getString("courseID")%></td>
+                    <td><%=rs.getString("courseName")%></td>
+                    <td><%=rs.getString("creditHours")%></td>
+                    <td><%=rs.getString("name")%></td>
+                </tr>
+                <% } } %>
+                <%
+                if(request.getParameter("semesterID") != null) {
+                String semesterID = request.getParameter("semesterID");
+                String query = "SELECT co.course_offered_ID, c.courseCode, c.courseID, c.courseName, c.creditHours FROM course_offered AS co, course AS c WHERE " +
+                        "co.courseCode = c.courseCode AND co.courseID = c.courseID AND " +
+                        "co.username IS NULL AND co.semesterID = " + semesterID;
+                ResultSet rs = DB.query(query);
+                while(rs.next()) {
+                %>
+                <tr>
+                    <td><%=rs.getString("courseCode")%></td>
+                    <td><%=rs.getString("courseID")%></td>
+                    <td><%=rs.getString("courseName")%></td>
+                    <td><%=rs.getString("creditHours")%></td>
+                    <td> - </td>
                 </tr>
                 <% } } %>
             </tbody>

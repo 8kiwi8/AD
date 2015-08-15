@@ -36,8 +36,10 @@ public class ChangeUsername extends HttpServlet {
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
             String username = request.getParameter("username");
+            String name = request.getParameter("name");
             HttpSession session = request.getSession();
             session.setAttribute("User", username);
+            session.setAttribute("name", name);
             response.sendRedirect(request.getHeader("Referer"));
         }
     }

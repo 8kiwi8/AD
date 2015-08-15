@@ -23,7 +23,7 @@ import javax.servlet.http.HttpSession;
  *
  * @author Kiwi
  */
-public class PermissionCheckFilter implements Filter {
+public class AdminPermissionFilter implements Filter {
     
     private static final boolean debug = true;
 
@@ -32,7 +32,7 @@ public class PermissionCheckFilter implements Filter {
     // configured. 
     private FilterConfig filterConfig = null;
     
-    public PermissionCheckFilter() {
+    public AdminPermissionFilter() {
     }    
     
     private void doBeforeProcessing(ServletRequest request, ServletResponse response)
@@ -103,7 +103,7 @@ public class PermissionCheckFilter implements Filter {
             throws IOException, ServletException {
         
         if (debug) {
-            log("PermissionCheckFilter:doFilter()");
+            log("AdminPermissionFilter:doFilter()");
         }
         
         doBeforeProcessing(request, response);
@@ -173,7 +173,7 @@ public class PermissionCheckFilter implements Filter {
         this.filterConfig = filterConfig;
         if (filterConfig != null) {
             if (debug) {                
-                log("PermissionCheckFilter:Initializing filter");
+                log("AdminPermissionFilter:Initializing filter");
             }
         }
     }
@@ -184,9 +184,9 @@ public class PermissionCheckFilter implements Filter {
     @Override
     public String toString() {
         if (filterConfig == null) {
-            return ("PermissionCheckFilter()");
+            return ("AdminPermissionFilterFilter()");
         }
-        StringBuffer sb = new StringBuffer("PermissionCheckFilter(");
+        StringBuffer sb = new StringBuffer("AdminPermissionFilter(");
         sb.append(filterConfig);
         sb.append(")");
         return (sb.toString());

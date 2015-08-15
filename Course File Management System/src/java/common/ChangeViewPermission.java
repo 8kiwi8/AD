@@ -3,9 +3,8 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package root;
+package common;
 
-import common.DB;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -13,13 +12,14 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
  * @author Kiwi
  */
-@WebServlet(name = "UpdateSectionServlet", urlPatterns = {"/UpdateSectionServlet"})
-public class UpdateSectionServlet extends HttpServlet {
+@WebServlet(name = "ChangeViewPermission", urlPatterns = {"/ChangeViewPermission"})
+public class ChangeViewPermission extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -35,23 +35,10 @@ public class UpdateSectionServlet extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
-            String username = request.getParameter("username");
-            String sectionNo = request.getParameter("sectionNo");
-            String sectionID = request.getParameter("sectionID");
-            String sectionMajor = request.getParameter("sectionMajor");
-            String query = "UPDATE section SET username = '"+username+"', sectionNo = " + sectionNo +", sectionMajor='" + sectionMajor +"' " +
-                    "WHERE sectionID="+ sectionID;
-            int rs = DB.update(query);
+            String permission = request.getParameter("permission");
+            HttpSession session = request.getSession();
+            session.setAttribute("viewPermission", permission);
             response.sendRedirect(request.getHeader("Referer"));
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet UpdateSectionServlet</title>");            
-            out.println("</head>");
-            out.println("<body>");
-            //out.println("<h1>" +query+ "</h1>");
-            out.println("</body>");
-            out.println("</html>");
         }
     }
 

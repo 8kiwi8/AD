@@ -43,12 +43,14 @@ public class LoginServlet extends HttpServlet {
             String username = request.getParameter("inputUsername");
             String password = request.getParameter("inputPassword");
             HttpSession session = ((HttpServletRequest) request).getSession();
-            String query = "SELECT password, usertype FROM user WHERE username='" + username + "'";
+            String query = "SELECT * FROM user AS u, profile AS p WHERE u.username = p.username AND u.username='" + username + "'";
             ResultSet rs = DB.query(query);
             if (rs.next()) {  
                 String userTypeFromDB = rs.getString("usertype");
                 if (rs.getString("password").equals(password)) { // If valid password
                     session.setAttribute("User", username); // Saves username string in the session object
+                    session.setAttribute("name",  rs.getString("name"));
+                    session.setAttribute("viewPermission",  rs.getString("viewPermission"));
                     if(userTypeFromDB.equals("super")) {
                         session.setAttribute("userType", "root");
                         session.setAttribute("isSuper", "true");

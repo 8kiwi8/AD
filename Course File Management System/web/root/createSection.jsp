@@ -6,40 +6,10 @@
     <meta charset="UTF-8">
     <title>Create Section - <%=session.getAttribute("User").toString()%></title>
     <script>
-        var semester = [];
-        $.getJSON("<%=request.getContextPath()%>/ListSemesterServlet", {
-            label: "[year] / [semester]",
-            value: "[year] / [semester]"
-        },
-        function( json ) {
-            var keys = Object.keys(json);
-            keys.forEach(function(key){
-                semester.push(json[key]);
-            });
-        });
-        jQuery(function(){
-            $(".semester-label").autocomplete( {
-                source: semester,
-                select: function( event, ui ) {
-                    dataSet = { 
-                        "semesterID":ui.item.semesterID, 
-                        "semester":ui.item.label 
-                    };
-                    var uri = new URI(window.location.href);
-                    var query = new URI(uri.search());
-                    var query = query.setSearch(dataSet);
-                    var uri = uri.pathname();
-                    var newQueryUrl = uri + query;
-                    window.location.href = uri + query;
-                }
-            });
-        });
-    </script>
-    <script>
         <%if(request.getParameter("semesterID") != null) { %>
         $( document ).ready( function () {
-            $(".semesterID").val("<%=request.getParameter("semesterID")%>");
-            $(".semester-label").val("<%=request.getParameter("semester")%>");
+            $(".semester-label").val($("#semester :selected").text());
+            $(".semesterID").val($("#semester").val());
             $("#filterCourse").prop("disabled", false);
             <% if (request.getParameter("courseLabel") != null) { %>
             $(".courseCode").val("<%=request.getParameter("courseCode")%>");
@@ -144,18 +114,22 @@
 </head>
 <body>
     <div class="container">
-        <input class="form-control semester-label" placeholder="Choose Semester">
+        <jsp:include page="../component/semesterAutoComplete.jsp"/>
         <input class="form-control" id="filterCourse" placeholder="Filter by Course" disabled>
-        <table class="table" id="tblSemesters">
-            <thread>
+        <table class="table" id="resultTable"
+            data-toggle="table" 
+            data-search="true"
+            data-pagination="true"
+            data-show-toggle="true">
+            <thead>
                 <tr>
-                    <th>Course</th>
-                    <th>Lecturer</th>
-                    <th>Section</th>
-                    <th>Major</th>
-                    <th>Action</th>
+                    <th data-sortable="true">Course</th>
+                    <th data-sortable="true">Lecturer</th>
+                    <th data-sortable="true">Section</th>
+                    <th data-sortable="true">Major</th>
+                    <th data-sortable="true">Action</th>
                 </tr>
-            </thread>
+            </thead>
             <tbody>
                 <%
                 if(request.getParameter("semesterID") != null) {
@@ -164,14 +138,14 @@
                     if(request.getParameter("courseCode") != null && request.getParameter("courseID") != null) {
                         String courseCode = request.getParameter("courseCode");
                         String courseID = request.getParameter("courseID");
-                        query = "SELECT * FROM section AS s, course AS c, profile AS p WHERE " +
-                                "s.courseCode = c.courseCode AND s.courseID = c.courseID AND " +
+                        query = "SELECT * FROM course_offered AS co, section AS s, course AS c, profile AS p WHERE " +
+                                "s.course_offered_ID = co.course_offered_ID AND s.courseCode = c.courseCode AND s.courseID = c.courseID AND " +
                                 "s.username = p.username AND s.semesterID = " + semesterID + " " +
                                 "AND s.courseCode = '" + courseCode + "' AND s.courseID = '" + courseID + "'";
                     }
                     else {
-                        query = "SELECT * FROM section AS s, course AS c, profile AS p WHERE " +
-                                "s.courseCode = c.courseCode AND s.courseID = c.courseID AND " +
+                        query = "SELECT * FROM course_offered AS co, section AS s, course AS c, profile AS p WHERE " +
+                                "s.course_offered_ID = co.course_offered_ID AND s.courseCode = c.courseCode AND s.courseID = c.courseID AND " +
                                 "s.username = p.username AND s.semesterID = " + semesterID;
                     }
                     ResultSet rs = DB.query(query);
@@ -211,6 +185,20 @@
                                                 }
                                                 %>
                                             </select>
+                                            <label>Section Major:</label>
+                                            <select class="form-control" name="sectionMajor" id="sectionMajor">
+                                                <%
+                                                String[] majors = {"SCSJ", "SCSR", "SCSV", "SCSB"};
+                                                for(String major: majors) {
+                                                    if(major.equals(rs.getString("s.sectionMajor"))) 
+                                                        out.print("<option selected>");
+                                                    else
+                                                        out.print("<option>");
+                                                    out.print(major);
+                                                    out.print("</option>");
+                                                }
+                                                %>
+                                            </select>
                                             <div class= "">
                                                 <input class="semesterID" name="semesterID">
                                                 <input id="username-<%=rs.getString("s.course_offered_ID")%>" name="username" value="<%=rs.getString("username")%>">
@@ -229,6 +217,13 @@
                             </div>
                         </div>
                         <a href="<%=request.getContextPath()%>/DeleteSectionServlet?sectionID=<%=rs.getString("sectionID")%>" class="btn btn-danger">Delete</a>
+                        <%
+                        if(rs.getString("co.username") != null && !rs.getString("co.username").equals("") && rs.getString("co.username").equals(rs.getString("s.username"))) {
+                        %>
+                        <span class="label label-primary">Penyelaras</span>
+                        <% } else { %>
+                        <a href="<%=request.getContextPath()%>/UpdatePenyelarasServlet?course_offered_ID=<%=rs.getString("s.course_offered_ID")%>&username=<%=rs.getString("s.username")%>" class="btn btn-default">Set Penyelaras</a>
+                        <% } %>
                     </td>
                 </tr>
                 <% } } %>

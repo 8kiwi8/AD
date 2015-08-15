@@ -8,6 +8,10 @@ package root;
 import common.DB;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -29,16 +33,30 @@ public class CreateSemesterServlet extends HttpServlet {
      * @param response servlet response
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
+     * @throws java.sql.SQLException
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+            throws ServletException, IOException, SQLException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
             String year = request.getParameter("year");
             int semester = Integer.parseInt(request.getParameter("semester"));
             String query = "INSERT INTO year_semester (year, semester) VALUES (\'"+year+"\', "+semester+")";
+            
             int rs = DB.update(query);
+            
+            ResultSet rs1 = DB.query("SELECT courseCode, courseID FROM batch_courses WHERE label=1");
+            ResultSet rs2 = DB.query("SELECT semesterID FROM year_semester ORDER BY semesterID DESC LIMIT 1");
+            rs2.next();
+            while(rs1.next())
+            {
+              int rs3 = DB.update("INSERT INTO course_offered (semesterID, courseCode, courseID) VALUES ("+rs2.getString(1)+", '"+rs1.getString(1)+"', "+rs1.getString(2)+")");
+
+           }
+            
+        //    int rs4 = DB.update("UPDATE batch_courses SET label= label - 1 WHERE label > 0");
+            
             response.sendRedirect(request.getHeader("Referer"));
             out.println("<!DOCTYPE html>");
             out.println("<html>");
@@ -66,7 +84,11 @@ public class CreateSemesterServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        try {
+            processRequest(request, response);
+        } catch (SQLException ex) {
+            Logger.getLogger(CreateSemesterServlet.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**
@@ -80,7 +102,11 @@ public class CreateSemesterServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        try {
+            processRequest(request, response);
+        } catch (SQLException ex) {
+            Logger.getLogger(CreateSemesterServlet.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**

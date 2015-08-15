@@ -19,6 +19,11 @@ public class Pair<L,R> {
         this.left = left;
         this.right = right;
     }
+    
+    public Pair(Pair<L, R> that) {
+        this.left = that.left;
+        this.right = that.right;
+    }
 
     public L getLeft() { return left; }
     public R getRight() { return right; }
@@ -34,5 +39,9 @@ public class Pair<L,R> {
         if (!(o instanceof Pair)) return false;
         Pair pairo = (Pair) o;
         return this.left.equals(pairo.getLeft()) && this.right.equals(pairo.getRight());
+    }
+    
+    public String toFraction() {
+        return left + " / " + right;
     }
 }

@@ -154,7 +154,7 @@ public class Upload extends HttpServlet
         {
             throw new ServletException(ex);
         }
-        response.sendRedirect("lecturer/upload.jsp?semesterID=" + semesterID + "&sectionID=" + sectionID + "&username=" + username);
+        response.sendRedirect(request.getHeader("Referer"));
     }
     
     @Override

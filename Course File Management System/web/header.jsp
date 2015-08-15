@@ -1,3 +1,4 @@
+<%@page import="common.ViewPermission"%>
 <%@page import="java.sql.ResultSet"%>
 <%@page import="common.DB"%>
 <%@page import="java.util.ArrayList, common.Page" %>
@@ -55,12 +56,13 @@
     //pages.add(new Page("root", "createOfferedCourse.jsp", "Current Offered Courses"));
     pages.add(new Page("root", request.getContextPath() + "/root/createSection.jsp", "Create Section"));
     
-    pages.add(new Page("admin", request.getContextPath() + "/course/viewCourses.jsp", "Courses"));
-    pages.add(new Page("admin", request.getContextPath() + "/report/viewLecturers.jsp", "View Lecturers"));
     
     pages.add(new Page("lecturer", request.getContextPath() + "/course/myCourse.jsp", "My Courses"));
-    pages.add(new Page("lecturer", request.getContextPath() + "/course/viewCourses.jsp", "Courses"));
     pages.add(new Page("lecturer", request.getContextPath() + "/upload/chooseSection.jsp", "Upload"));
+    pages.add(new Page("lecturer", request.getContextPath() + "/upload/uploadSearch.jsp", "Manage Upload"));
+    pages.add(new Page("lecturer", request.getContextPath() + "/user/lecturerProfile.jsp", "Profile"));
+    
+
     
 %>
 
@@ -87,11 +89,17 @@
 
 <link rel="stylesheet" href="<%=request.getContextPath()%>/css/auto-complete.css">
 <link rel="stylesheet" href="<%=request.getContextPath()%>/css/bootstrap-table.css">
+<link rel="stylesheet" href="<%=request.getContextPath()%>/css/select2.min.css">
 <script type="text/javascript" src="<%=request.getContextPath()%>/javascript/jquery-2.1.4.min.js"></script>
 <script type="text/javascript" src="<%=request.getContextPath()%>/javascript/jquery-ui-1.9.2.custom.min.js"></script>
 <script type="text/javascript" src="<%=request.getContextPath()%>/javascript/jquery.URI.min.js"></script>
-<script type="text/javascript" src="<%=request.getContextPath()%>/javascript/bootstrap-table.js"></script>
 <script type="text/javascript" src="<%=request.getContextPath()%>/javascript/bootstrap.min.js"></script>
+<script type="text/javascript" src="<%=request.getContextPath()%>/javascript/bootstrap-table.js"></script>
+<script type="text/javascript" src="<%=request.getContextPath()%>/javascript/select2.min.js"></script>
+
+
+
+<!---// load the mcDropdown CSS stylesheet //--->
 
 
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -174,16 +182,16 @@
                     
                     <%
                         if (session.getAttribute("userType") != null && session.getAttribute("userType").equals("root")) {
-                    %>
-                            <li class="dropdown">
-                                <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
-                                    Course<span class="caret"></span>
-                                </a>
-                                <ul class="dropdown-menu">
-                                    <li><a href="<%=request.getContextPath()%>/root/viewCourses.jsp">View Courses</a></li>
-                                    <li><a href="<%=request.getContextPath()%>/root/createOfferedCourse.jsp">Current Offered Courses</a></li>
-                                </ul>
-                            </li>
+                    %> 
+                                    <li class="dropdown">
+                                        <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
+                                            Courses<span class="caret"></span>
+                                        </a>
+                                        <ul class ="dropdown-menu">
+                                            <li><a href="<%=request.getContextPath()%>/root/viewCourses.jsp">All Courses</a></li>
+                                            <li><a href="<%=request.getContextPath()%>/root/createOfferedCourse.jsp">Offered Course</a></li>
+                                        </ul>
+                                    </li>
                     <%
                         }
                     %>
@@ -192,14 +200,14 @@
                 <% if (isLoggedIn) { %>
                     <ul class="nav navbar-nav navbar-right">
                         
+                        <!--- Super Admin Component -->
                         <% if (session.getAttribute("isSuper") != null && session.getAttribute("isSuper").equals("true")) { %>
                             <li class="dropdown">
                                 <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
-                                    Change User<span class="caret"></span>
+                                    Role: <%=session.getAttribute("userType")%><span class="caret"></span>
                                 </a>
                                 <ul class="dropdown-menu">
                                     <li><a href="<%=request.getContextPath()%>/ChangeUserRole?userType=root">Admin</a></li>
-                                    <li><a href="<%=request.getContextPath()%>/ChangeUserRole?userType=admin">Pentadbir</a></li>
                                     <li><a href="<%=request.getContextPath()%>/ChangeUserRole?userType=lecturer">Lecturer</a></li>
                                 </ul>
                             </li>
@@ -207,15 +215,25 @@
                                 ResultSet rs = DB.query("SELECT * FROM user, profile WHERE user.username = profile.username AND user.usertype = 'lecturer'");
                             %>
                             <li class="dropdown">
-                                <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false"> To Lecturer <span class="caret"></span></a>
+                                <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false"> Lecturer: <%=session.getAttribute("name")%> <span class="caret"></span></a>
                                 <ul class="dropdown-menu">
                                     <% while(rs.next()) { %>
-                                    <li><a href="<%=request.getContextPath()%>/ChangeUsername?username=<%=rs.getString("username")%>"><%=rs.getString("name")%></a></li>
+                                    <li><a href="<%=request.getContextPath()%>/ChangeUsername?username=<%=rs.getString("username")%>&name=<%=rs.getString("name")%>"><%=rs.getString("name")%></a></li>
+                                    <% } %>
+                                </ul>
+                            </li>
+                            <li class="dropdown">
+                                <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false"> Permission: <%=session.getAttribute("viewPermission")%> <span class="caret"></span></a>
+                                <ul class="dropdown-menu">
+                                    <% for (ViewPermission permission : ViewPermission.values()) { %>
+                                    <li><a href="<%=request.getContextPath()%>/ChangeViewPermission?permission=<%=permission.name()%>"><%=permission%></a></li>
                                     <% } %>
                                 </ul>
                             </li>
                             <% } %>
                         <% } %>
+                        <!--- Super Admin Component END -->
+                        
                         
                         <li class="dropdown">
                             <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">

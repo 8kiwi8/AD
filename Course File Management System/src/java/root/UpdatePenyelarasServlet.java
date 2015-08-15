@@ -6,8 +6,13 @@
 package root;
 
 import common.DB;
+import common.ViewPermission;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -37,8 +42,36 @@ public class UpdatePenyelarasServlet extends HttpServlet {
             /* TODO output your page here. You may use following sample code. */
             String username = request.getParameter("username");
             String co_ID = request.getParameter("course_offered_ID");
-            String query = "UPDATE course_offered SET username = '"+username+"' WHERE course_offered_ID="+ co_ID;
-            int rs = DB.update(query);
+            String query1 = "SELECT * FROM course_offered AS co WHERE co.course_offered_ID = " + co_ID;
+            ResultSet rs1 = DB.query(query1);
+            rs1.next();
+            
+            String query2 = "UPDATE course_offered SET username = '"+username+"' WHERE course_offered_ID="+ co_ID;
+            DB.update(query2);
+            query2 = "SELECT * FROM user WHERE username = '" + username + "'";
+            ResultSet rs2 = DB.query(query2);
+            rs2.next();
+            ViewPermission permission2 = ViewPermission.valueOf(rs2.getString("viewPermission"));
+            if(permission2.ordinal() <= ViewPermission.PENYELARAS.ordinal()) {
+                query2 = "UPDATE user SET viewPermission='" + ViewPermission.PENYELARAS.name() + "' WHERE username='" + username + "'";
+                DB.update(query2);
+            }
+            if(rs1.getString("username") != null && !rs1.getString("username").equals("")) {
+                String previous = rs1.getString("username");
+                query1 = "SELECT * FROM user WHERE username = '" + previous + "'";
+                rs1 = DB.query(query1);
+                rs1.next();
+                ViewPermission permission1 = ViewPermission.valueOf(rs1.getString("viewPermission"));
+                if(permission1.ordinal() <= ViewPermission.PENYELARAS.ordinal()) {
+                    query1 = "SELECT * FROM course_offered WHERE username = '" + previous + "'";
+                    rs1 = DB.query(query1);
+                    if(!rs1.next()){
+                        query1 = "UPDATE user SET viewPermission='" + ViewPermission.LECTURER.name() + "' WHERE username='" + previous + "'";
+                            out.println(query1);
+                        DB.update(query1);
+                    }
+                }
+            }
             response.sendRedirect(request.getHeader("Referer"));
             out.println("<!DOCTYPE html>");
             out.println("<html>");
@@ -46,9 +79,11 @@ public class UpdatePenyelarasServlet extends HttpServlet {
             out.println("<title>Servlet AddPenyelarasServlet</title>");            
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>"+query+"</h1>");
+            out.println("<h1>"+query1+"</h1>");
             out.println("</body>");
             out.println("</html>");
+        } catch (SQLException ex) {
+            Logger.getLogger(UpdatePenyelarasServlet.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
