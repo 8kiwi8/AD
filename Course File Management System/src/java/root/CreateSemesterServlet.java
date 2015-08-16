@@ -44,7 +44,7 @@ public class CreateSemesterServlet extends HttpServlet {
             int semester = Integer.parseInt(request.getParameter("semester"));
             String query = "INSERT INTO year_semester (year, semester) VALUES (\'"+year+"\', "+semester+")";
             
-            int rs = DB.update(query);
+            DB.update(query);
             
             if(semester!=3){
             
@@ -70,7 +70,6 @@ public class CreateSemesterServlet extends HttpServlet {
             out.println("<body>");
             out.println("<h1>Result</h1>");
             out.println(query+"<br>");
-            out.println(DB.update(query));
             out.println("</body>");
             out.println("</html>");
         }

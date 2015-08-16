@@ -67,10 +67,11 @@ public class DB {
             Connection conn = DB.getConnection();
             statement = conn.createStatement();
             resultRow = statement.executeUpdate(query);
+            connection.commit();
+            statement.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        DB.close();
         return resultRow;
     }
     
@@ -179,17 +180,6 @@ public class DB {
         catch(SQLException sqlEx){
                 System.out.println(sqlEx.getMessage());
                 return null;
-        }
-    }
-    
-    public static void close(){
-        try{
-                statement.close();
-                connection.commit();
-                connection.close();
-        }
-        catch(SQLException sqlEx){
-                System.out.println(sqlEx.getMessage());
         }
     }
 }
