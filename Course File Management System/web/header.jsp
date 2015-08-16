@@ -48,22 +48,22 @@
     pages.add(new Page("all", request.getContextPath() + "/index.jsp", "Home"));
     
     
-    pages.add(new Page("root", request.getContextPath() + "/root/viewLecturers.jsp", "View Lecturers"));
+    pages.add(new Page("root", request.getContextPath() + "/root/viewLecturers.jsp", "Lecturers"));
     pages.add(new Page("root", request.getContextPath() + "/root/createSemester.jsp", "Semester"));
 
     // Below commented out because already present in the form of dropdown
     //pages.add(new Page("root", "viewCourse.jsp", "View Courses"));
     //pages.add(new Page("root", "createOfferedCourse.jsp", "Current Offered Courses"));
-    pages.add(new Page("root", request.getContextPath() + "/root/sections.jsp", "Create Section"));
+    pages.add(new Page("root", request.getContextPath() + "/root/sections.jsp", "Sections"));
     
     
     pages.add(new Page("lecturer", request.getContextPath() + "/course/myCourse.jsp", "My Courses"));
     pages.add(new Page("lecturer", request.getContextPath() + "/upload/chooseSection.jsp", "Upload"));
     pages.add(new Page("lecturer", request.getContextPath() + "/upload/uploadSearch.jsp", "Manage Upload"));
-    pages.add(new Page("lecturer", request.getContextPath() + "/user/lecturerProfile.jsp", "Profile"));
+    //pages.add(new Page("lecturer", request.getContextPath() + "/user/lecturerProfile.jsp", "Profile"));
     
-
-    
+    ViewPermission a = ViewPermission.valueOf(session.getAttribute("viewPermission").toString());
+    String viewPermissionAttribute = a.toString();
 %>
 
 <!DOCTYPE html>
@@ -243,6 +243,20 @@
                                 <span class="caret"></span>
                             </a>
                             <ul class="dropdown-menu">
+                                <li><a href="#">Viewing as: <%=viewPermissionAttribute%></a></li>
+                                <li role="separator" class="divider"></li>
+                                <%
+                                    if (session.getAttribute("userType").toString().equals("lecturer")) {
+                                %>
+                                    <li>
+                                        <a href="<%=request.getContextPath()%>/user/lecturerProfile.jsp">
+                                            <span class="glyphicon glyphicon-wrench" style="padding-right: 10px;"></span>My Profile
+                                        </a>
+                                    </li>
+                                <%
+                                    }
+                                %>
+                                
                                 <li>
                                     <a href="<%=request.getContextPath()%>/LogoutServlet">
                                         <span class="glyphicon glyphicon-off" style="padding-right: 10px;"></span>Log Out
