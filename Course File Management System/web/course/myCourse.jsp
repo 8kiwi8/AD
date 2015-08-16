@@ -4,7 +4,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>My Course</title>
+    <title>My Courses</title>
     <script>
         function viewSuperviseCourse (course) {
             dataSet = { 

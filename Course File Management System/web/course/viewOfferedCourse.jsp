@@ -4,7 +4,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Semesters - Add Semester</title>
+    <title>Offered Courses</title>
     <script>
         var semester = [];
         $.getJSON("<%=request.getContextPath()%>/ListSemesterServlet", {
