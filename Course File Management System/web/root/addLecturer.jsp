@@ -68,14 +68,14 @@
                             <label for="view" class="control-label col-xs-4">View Permission</label>					 
                             <div class="radio col-xs-8">
                             <label class="radio-inline"><input type="radio" name="view" value="LECTURER">Lecturer</label>
-                            <label class="radio-inline"><input type="radio" name="view" value="KETUA JABATAN">Ketua Jabatan</label>
+                            <label class="radio-inline"><input type="radio" name="view" value="KETUA_JABATAN">Ketua Jabatan</label>
                             <label class="radio-inline"><input type="radio" name="view" value="PENTADBIR">Pentadbir</label>
                             </div>
                         </div>
                         
                         <div class="form-group">
                             <div class="col-xs-offset-4 col-xs-8">
-                                <button type="submit" class="btn btn-primary">Add</button>
+                                <button type="submit" class="btn btn-primary" onclick= "return confirm('Are you sure you want to continue')">Add</button>
                             </div>
                         </div>
                     </form>

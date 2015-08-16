@@ -49,7 +49,7 @@
                         
                         <div class="form-group">
                             <div class="col-xs-offset-4 col-xs-8">
-                                <button type="submit" class="btn btn-primary">Add</button>
+                                <button type="submit" class="btn btn-primary" onclick= "return confirm('Are you sure you want to continue')">Add</button>
                             </div>
                         </div>
                     </form>

@@ -33,7 +33,7 @@
                 <td><%=rs.getString(3) %></td>
                 <td><%=rs.getString(4) %></td>
                 <td><a href="updateCourses.jsp?courseCode=<%=rs.getString(1)%>&courseID=<%=rs.getString(2)%>"><button class="btn btn-primary btn-xs"><span class="glyphicon glyphicon-upload"></span>Update</button></a>
-                <a href="<%=request.getContextPath()%>/deleteCourses?courseCode=<%=rs.getString(1)%>&courseID=<%=rs.getString(2)%>"><button class="btn btn-danger btn-xs"><span class="glyphicon glyphicon-remove"></span>Delete</button></a></td>
+                <a href="<%=request.getContextPath()%>/deleteCourses?courseCode=<%=rs.getString(1)%>&courseID=<%=rs.getString(2)%>"><button class="btn btn-danger btn-xs" onclick= "return confirm('Are you sure you want to continue')"><span class="glyphicon glyphicon-remove"></span>Delete</button></a></td>
             </tr>
         <% } %>
         </tbody>
