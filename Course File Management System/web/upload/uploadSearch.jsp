@@ -8,6 +8,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Management View</title>
+    <script src="<%=request.getContextPath()%>/javascript/bootstrap-table-filter-control.js"></script>
     <script>
         $(document).ready(function() {
            $('#sectionResult').bootstrapTable({
@@ -29,7 +30,7 @@
                     sortable: true
                 }, {
                     field: 'name',
-                    title: 'Lecture',
+                    title: 'Lecturer',
                     sortable: true
                 }, {
                     field: 'sectionNo',
@@ -81,15 +82,24 @@
             <jsp:include page="../component/departmentAutoComplete.jsp">
                 <jsp:param name="permission" value="<%=session.getAttribute("viewPermission")%>"/>
             </jsp:include>
-            <jsp:include page="../component/courseAutoComplete.jsp">
+            <%--<jsp:include page="../component/courseAutoComplete.jsp">
                 <jsp:param name="permission" value="<%=session.getAttribute("viewPermission")%>"/>
             </jsp:include>
             <jsp:include page="../component/lecturerAutoComplete.jsp">
                 <jsp:param name="permission" value="<%=session.getAttribute("viewPermission")%>"/>
-            </jsp:include>
-            <button class="btn btn-primary" id="addCourse" >Search</button>
+            </jsp:include>--%>
+            <!--<button class="btn btn-primary" id="addCourse" >Search</button>-->
         </form>
-        <table class="table" id="sectionResult">
+        <table
+            class="table"
+            id="sectionResult"
+            data-filter-control="true">
+            <thead>
+                <tr>
+                    <th data-field="course" data-filter-control="input"></th>
+                    <th data-field="name" data-filter-control="input"></th>
+                </tr>
+            </thead>
         </table>
     </div> <!-- /.container -->
 </body>
