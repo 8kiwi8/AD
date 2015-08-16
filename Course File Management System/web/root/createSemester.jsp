@@ -9,6 +9,13 @@
 <!DOCTYPE html>
 <html>
     <head>
+        <script>
+            jQuery(function($) {
+                $('form').bind('submit', function() {
+                    $(this).find(':input').removeAttr('disabled');
+                });
+            });
+        </script>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Create Semester - <%=session.getAttribute("User").toString()%></title>
     </head>

@@ -46,6 +46,8 @@ public class CreateSemesterServlet extends HttpServlet {
             
             int rs = DB.update(query);
             
+            if(semester!=3){
+            
             ResultSet rs1 = DB.query("SELECT courseCode, courseID FROM batch_courses WHERE label=1");
             ResultSet rs2 = DB.query("SELECT semesterID FROM year_semester ORDER BY semesterID DESC LIMIT 1");
             rs2.next();
@@ -56,6 +58,8 @@ public class CreateSemesterServlet extends HttpServlet {
            }
             
         //    int rs4 = DB.update("UPDATE batch_courses SET label= label - 1 WHERE label > 0");
+            
+            }
             
             response.sendRedirect(request.getHeader("Referer"));
             out.println("<!DOCTYPE html>");
