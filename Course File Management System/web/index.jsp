@@ -19,7 +19,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Login</title>
+    <title>UTM Course File Management System</title>
 </head>
 <body>
     <div class="container">

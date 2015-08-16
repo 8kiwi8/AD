@@ -62,8 +62,8 @@
     pages.add(new Page("lecturer", request.getContextPath() + "/upload/uploadSearch.jsp", "Manage Upload"));
     //pages.add(new Page("lecturer", request.getContextPath() + "/user/lecturerProfile.jsp", "Profile"));
     
-
-    
+    ViewPermission a = ViewPermission.valueOf(session.getAttribute("viewPermission").toString());
+    String viewPermissionAttribute = a.toString();
 %>
 
 <!DOCTYPE html>
@@ -242,6 +242,8 @@
                                 <span class="caret"></span>
                             </a>
                             <ul class="dropdown-menu">
+                                <li><a href="#">Viewing as: <%=viewPermissionAttribute%></a></li>
+                                <li role="separator" class="divider"></li>
                                 <%
                                     if (session.getAttribute("userType").toString().equals("lecturer")) {
                                 %>
