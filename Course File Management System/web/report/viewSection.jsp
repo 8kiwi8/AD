@@ -1,6 +1,5 @@
-<jsp:include page="../auth.jsp"/>
 <jsp:include page="../header.jsp"/>
-<%@ page import ="java.sql.*, common.DB" %>
+<%@ page import ="java.sql.*, common.DB, java.util.ArrayList" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -17,6 +16,21 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title><%= section_rs.getString(5) %> <%= courseID %></title>
+        <script type="text/javascript">
+            // Test
+            var semester = [];
+            $.getJSON("<%=request.getContextPath()%>/ListSemesterServlet", {
+                label: "[year] / [semester]",
+                value: "[year] / [semester]"               
+            },
+            function( json ) {
+                var keys = Object.keys(json);
+                console.table(keys);
+                keys.forEach(function(key){
+                    semester.push(json[key]);
+                });
+            });
+        </script>
     </head>
     <body>
         <h1><%= section_rs.getString(5) %> <%= courseID %></h1>
@@ -30,6 +44,7 @@
             String label;
             String fileID;
             String fileDirectory;
+            ArrayList cl_arr = new ArrayList();
             
             // Get the list of files for the section
             sql = "SELECT * FROM lecturer_upload WHERE sectionID="+sectionID+" ORDER BY checklistID";
@@ -51,12 +66,19 @@
                 fileDirectory = rs5.getString(2);
                 
                 // Get the label for the file based on the checklistID
-                sql = "SELECT * FROM upload_checklist WHERE checklistID="+checklistID;
+                /*sql = "SELECT * FROM upload_checklist WHERE checklistID="+checklistID;
                 rs6 = DB.query(sql);
                 rs6.next();
-                label = rs6.getString(2);
+                label = rs6.getString(2);*/
+                
+                sql = "SELECT * FROM upload_checklist";
+                rs6 = DB.query(sql);
+                
+                while (rs6.next()) {
+                    cl_arr.add(rs6.getString(2));
+                }
         %>
-        <a href="<%= fileDirectory %>"><p><%= label %></p></a>
+        <a href="<%= fileDirectory %>"><p><%= cl_arr.get(Integer.parseInt(checklistID)-1) %></p></a>
         <% } %>
     </body>
 </html>

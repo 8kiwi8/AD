@@ -10,10 +10,10 @@
 
 <%
     ResultSet rs;
-    String department = request.getParameter("department");
+    String department = request.getParameter("departmentID");
     String sql;
     if (department != null) {
-        sql = "SELECT * FROM profile, user WHERE user.username=profile.username AND user.usertype='lecturer' AND profile.department='"+department+"'";
+        sql = "SELECT * FROM profile, user WHERE user.username=profile.username AND user.usertype='lecturer' AND profile.departmentID='"+department+"'";
     } else {
         sql = "SELECT * FROM profile, user WHERE user.username = profile.username AND user.usertype = 'lecturer'";
     }
@@ -21,10 +21,11 @@
     rs = DB.query(sql);
 %>
     <div class="container">
-        <a href="viewLecturers.jsp">All</a>
-        <a href="?department=Information%20System">Information System</a>
-        <a href="?department=Software%20Engineering">Software Engineering</a>
-        <a href="?department=Computer%20Science">Computer Science</a>
+        Filter by:
+        <a href="viewLecturers.jsp">None</a>, 
+        <a href="?departmentID=Information%20System">Information System</a>, 
+        <a href="?departmentID=2">Software Engineering</a>, 
+        <a href="?departmentID=Computer%20Science">Computer Science</a>
         <table 
             data-toggle="table" 
             data-search="true"
@@ -47,7 +48,13 @@
                     <td><%=rs.getString(1) %></td>
                     <td><%=rs.getString(2) %></td>
                     <td><%=rs.getString(3) %></td>
-                    <td><%=rs.getString(4) %></td>
+                    <td>
+                        <%
+                            if (rs.getString(4).equals("2")) {
+                                out.print("Software Engineering");
+                            }
+                        %>
+                    </td>
                     <td><%=rs.getString(5) %></td>
                 </tr>
             <% } %>
