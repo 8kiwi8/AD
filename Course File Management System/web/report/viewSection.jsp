@@ -21,7 +21,7 @@
             var semester = [];
             $.getJSON("<%=request.getContextPath()%>/ListSemesterServlet", {
                 label: "[year] / [semester]",
-                value: "[year] / [semester]"               
+                value: "[year] / [semester]"
             },
             function( json ) {
                 var keys = Object.keys(json);
