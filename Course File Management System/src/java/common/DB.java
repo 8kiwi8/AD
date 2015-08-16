@@ -26,17 +26,19 @@ public class DB {
     
     public static Connection getConnection() {
         try {
-            Properties prop = new Properties();
-            InputStream inputStream = DB.class.getClassLoader().getResourceAsStream("/db.properties");
-            System.out.println(inputStream);
-            prop.load(inputStream);
-            String driver = prop.getProperty("driver");
-            String url = prop.getProperty("url");
-            String user = prop.getProperty("user");
-            String password = prop.getProperty("password");
-            Class.forName(driver);
-            connection = DriverManager.getConnection(url, user, password);
-            connection.setAutoCommit(false);
+            if(connection == null) {
+                Properties prop = new Properties();
+                InputStream inputStream = DB.class.getClassLoader().getResourceAsStream("/db.properties");
+                System.out.println(inputStream);
+                prop.load(inputStream);
+                String driver = prop.getProperty("driver");
+                String url = prop.getProperty("url");
+                String user = prop.getProperty("user");
+                String password = prop.getProperty("password");
+                Class.forName(driver);
+                connection = DriverManager.getConnection(url, user, password);
+                connection.setAutoCommit(false);
+            }
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         } catch (SQLException e) {
