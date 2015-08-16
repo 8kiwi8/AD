@@ -114,7 +114,8 @@ public class LoginCheckFilter implements Filter {
         
         String username = (String) session.getAttribute("User");
         String[] urls = {
-            httpRequest.getContextPath() + "/index.jsp"
+            httpRequest.getContextPath() + "/index.jsp",
+            httpRequest.getContextPath() + "/"
         };
 
         Throwable problem = null;
