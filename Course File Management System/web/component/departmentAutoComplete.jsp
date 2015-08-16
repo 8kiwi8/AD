@@ -20,7 +20,8 @@
 <script>
     $("#departmentName").select2({
         placeholder: "Select A Department",
-        allowClear : true
+        allowClear : true,
+        theme: "bootstrap"
     });
     <% if(request.getParameter("departmentID") != null && !request.getParameter("departmentID").equals("")) { %>
     $("#departmentName").select2("val", "<%=request.getParameter("departmentID")%>");

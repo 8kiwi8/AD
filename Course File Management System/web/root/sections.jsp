@@ -10,13 +10,11 @@
         $( document ).ready( function () {
             $(".semester-label").val($("#semester :selected").text());
             $(".semesterID").val($("#semester").val());
-            $("#filterCourse").prop("disabled", false);
-            <% if (request.getParameter("courseLabel") != null) { %>
-            $(".courseCode").val("<%=request.getParameter("courseCode")%>");
-            $(".courseID").val("<%=request.getParameter("courseID")%>");
-            $(".course_offered_ID").val("<%=request.getParameter("course_offered_ID")%>");
-            $(".course-label").val("<%=request.getParameter("courseLabel")%>");
-            $("#filterCourse").val("<%=request.getParameter("courseLabel")%>");
+            <% if (request.getParameter("course") != null) { %>
+            $(".courseCode").val($("#offeredCourse :selected").attr("courseCode"));
+            $(".courseID").val($("#offeredCourse :selected").attr("courseID"));
+            $(".course_offered_ID").val($("#offeredCourse").val());
+            $(".course-label").val($("#offeredCourse :selected").text());
             <% } %>
         });
         var course = [];
@@ -114,8 +112,14 @@
 </head>
 <body>
     <div class="container">
-        <jsp:include page="../component/semesterAutoComplete.jsp"/>
-        <input class="form-control" id="filterCourse" placeholder="Filter by Course" disabled>
+        <div class="col-xs-5">
+            <jsp:include page="../component/semesterAutoComplete.jsp"/>
+        </div>
+        <div class="col-xs-offset-1 col-xs-6">
+            <jsp:include page="../component/offeredCourseAutoComplete.jsp">
+                <jsp:param name="semesterID" value="<%=request.getParameter("semesterID")%>"/>
+            </jsp:include>
+        </div>
         <table class="table" id="resultTable"
             data-toggle="table" 
             data-search="true"
@@ -135,13 +139,12 @@
                 if(request.getParameter("semesterID") != null) {
                     String semesterID = request.getParameter("semesterID");
                     String query = "";
-                    if(request.getParameter("courseCode") != null && request.getParameter("courseID") != null) {
-                        String courseCode = request.getParameter("courseCode");
-                        String courseID = request.getParameter("courseID");
+                    if(request.getParameter("course_offered_ID") != null && !request.getParameter("course_offered_ID").equals("")) {
+                        String co_ID = request.getParameter("course_offered_ID");
                         query = "SELECT * FROM course_offered AS co, section AS s, course AS c, profile AS p WHERE " +
                                 "s.course_offered_ID = co.course_offered_ID AND s.courseCode = c.courseCode AND s.courseID = c.courseID AND " +
                                 "s.username = p.username AND s.semesterID = " + semesterID + " " +
-                                "AND s.courseCode = '" + courseCode + "' AND s.courseID = '" + courseID + "'";
+                                "AND s.course_offered_ID = " + co_ID; 
                     }
                     else {
                         query = "SELECT * FROM course_offered AS co, section AS s, course AS c, profile AS p WHERE " +
@@ -201,7 +204,7 @@
                                             </select>
                                             <div class= "">
                                                 <input class="semesterID" name="semesterID">
-                                                <input id="username-<%=rs.getString("s.course_offered_ID")%>" name="username" value="<%=rs.getString("username")%>">
+                                                <input id="username-<%=rs.getString("s.course_offered_ID")%>" name="username" value="<%=rs.getString("s.username")%>">
                                                 <input class="course_offered_ID" id="course_offered_ID-<%=rs.getString("s.course_offered_ID")%>" name="course_offered_ID" value="<%=rs.getString("s.course_offered_ID")%>">
                                                 <input class="courseCode" id="courseCode-<%=rs.getString("s.course_offered_ID")%>" name="courseCode" value="<%=rs.getString("courseCode")%>">
                                                 <input class="courseID" id="courseID-<%=rs.getString("s.course_offered_ID")%>" name="courseID" value="<%=rs.getString("courseID")%>">
@@ -229,59 +232,7 @@
                 <% } } %>
                 </tbody>
         </table>
-        <% if(request.getParameter("semesterID") != null) {%>
-        <button type="button" class="btn btn-primary" id="newSectionBtn" data-toggle="modal" data-target="#newSection">Add New Section</button>
-        <div id="newSection" class="modal fade" role="dialog">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        New Section
-                    </div>
-                    <form class='form-horizontal' action="<%=request.getContextPath()%>/CreateSectionServlet">
-                        <div class="modal-body">
-                            <label>Semester: </label>
-                            <input class="form-control semester-label" disabled>
-                            <label>Course:</label>
-                            <input class="form-control course-label" co_ID="-1" name="course">
-                            <label>Lecturer Name:</label>
-                            <input class="form-control lecturerName" co_ID="-1" name="lecturerName">
-                            <label>Section Number:</label>
-                            <select class="form-control" name="sectionNo" id="sectionNo">
-                                <option>1</option>
-                                <option>2</option>
-                                <option>3</option>
-                                <option>4</option>
-                                <option>5</option>
-                                <option>6</option>
-                                <option>7</option>
-                                <option>8</option>
-                                <option>9</option>
-                                <option>10</option>
-                            </select>
-                            <label>Section Number:</label>
-                            <select class="form-control" name="sectionMajor" id="sectionMajor">
-                                <option>SCSJ</option>
-                                <option>SCSR</option>
-                                <option>SCSV</option>
-                                <option>SCSB</option>
-                            </select>
-                            <div class= "">
-                                <input class="semesterID" name="semesterID">
-                                <input id="username--1" name="username">
-                                <input class="course_offered_ID" id="course_offered_ID--1" name="course_offered_ID">
-                                <input class="courseCode" id="courseCode--1" name="courseCode">
-                                <input class="courseID" id="courseID--1" name="courseID">
-                            </div> 
-                        </div>
-                        <div class="modal-footer">
-                            <button type="submit" class='btn btn-primary'>New Section</button>
-                            <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>                        
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
-        <% } %>            
+        <a href="<%=request.getContextPath()%>/root/addSection.jsp?semesterID=<%=request.getParameter("semesterID")%>" class="btn btn-primary">Add New Section</a>
     </div> <!-- /.container -->
 </body>
 </html>

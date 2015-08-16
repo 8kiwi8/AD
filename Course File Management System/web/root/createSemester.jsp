@@ -42,6 +42,7 @@
                         <td><%=rs.getString("semester")%></td>
                         <td>
                             <a href="<%=request.getContextPath()%>/root/createOfferedCourse.jsp?semesterID=<%=rs.getString("semesterID")%>&semester=<%=semester%>" class="btn btn-primary">View Courses</a>
+                            <a href="<%=request.getContextPath()%>/root/createSection.jsp?semesterID=<%=rs.getString("semesterID")%>" class="btn btn-primary">View Section</a>
                         </td>
                     </tr>
                     <% 
@@ -56,7 +57,7 @@
                 <div class="modal-dialog">
                     <div class="modal-content">
                         <div class="modal-header">
-                            New Section
+                            Are you sure you want to create a new Semester?
                         </div>
                         <form class='form-horizontal' action="<%=request.getContextPath()%>/CreateSemesterServlet">
                             <div class="modal-body">
@@ -73,6 +74,7 @@
                                 <input class="form-control" name="year" placeholder="Year" value=<%=year%> disabled>
                                 <label>Semester: </label>
                                 <input class="form-control" name="semester" placeholder="Semester" value=<%=sem%> disabled>
+                                <span class="label label-danger">The change is permanent!</span>
                             </div>
                             <div class="modal-footer">
                                 <button type="submit" class='btn btn-primary'>Confirm</button>

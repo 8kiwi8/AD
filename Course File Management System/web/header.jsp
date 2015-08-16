@@ -54,7 +54,7 @@
     // Below commented out because already present in the form of dropdown
     //pages.add(new Page("root", "viewCourse.jsp", "View Courses"));
     //pages.add(new Page("root", "createOfferedCourse.jsp", "Current Offered Courses"));
-    pages.add(new Page("root", request.getContextPath() + "/root/createSection.jsp", "Create Section"));
+    pages.add(new Page("root", request.getContextPath() + "/root/sections.jsp", "Create Section"));
     
     
     pages.add(new Page("lecturer", request.getContextPath() + "/course/myCourse.jsp", "My Courses"));
@@ -90,6 +90,7 @@
 <link rel="stylesheet" href="<%=request.getContextPath()%>/css/auto-complete.css">
 <link rel="stylesheet" href="<%=request.getContextPath()%>/css/bootstrap-table.css">
 <link rel="stylesheet" href="<%=request.getContextPath()%>/css/select2.min.css">
+<link rel="stylesheet" href="<%=request.getContextPath()%>/css/select2-bootstrap.min.css">
 <script type="text/javascript" src="<%=request.getContextPath()%>/javascript/jquery-2.1.4.min.js"></script>
 <script type="text/javascript" src="<%=request.getContextPath()%>/javascript/jquery-ui-1.9.2.custom.min.js"></script>
 <script type="text/javascript" src="<%=request.getContextPath()%>/javascript/jquery.URI.min.js"></script>

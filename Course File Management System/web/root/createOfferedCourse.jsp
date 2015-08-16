@@ -16,14 +16,6 @@
         $( document ).ready( function () {
             $(".semester-label").val($("#semester :selected").text());
             $("#semesterID").val($("#semester").val());
-
-            $("select.penyelaras").change(function(){
-                var course = $(this);
-                var selected = course.find(":selected");
-                var co_ID = selected.attr("co_ID");
-                var inputField = $("#username\\["+co_ID+"\\]");
-                inputField.val(selected.attr("username"));
-            });
         });
     </script>
 </head>
@@ -46,10 +38,9 @@
                     <%
                     if(request.getParameter("semesterID") != null) {
                     String semesterID = request.getParameter("semesterID");
-                    String query = "SELECT co.course_offered_ID, c.courseCode, c.courseID, c.courseName, c.creditHours, p.name, p.username FROM " + 
-                            "course_offered AS co, course AS c, profile AS p WHERE " +
+                    String query = "SELECT co.username, co.course_offered_ID, c.courseCode, c.courseID, c.courseName, c.creditHours FROM course_offered AS co, course AS c WHERE " +
                             "co.courseCode = c.courseCode AND co.courseID = c.courseID AND " +
-                            "co.username = p.username AND co.semesterID = " + semesterID;
+                            "co.semesterID = " + semesterID;
                     ResultSet rs = DB.query(query);
                     while(rs.next()) {
                     %>
@@ -59,107 +50,16 @@
                         <td><%=rs.getString("courseName")%></td>
                         <td><%=rs.getString("creditHours")%></td>
                         <td>
-                            <button type="button" class="btn btn-success" data-toggle="modal" data-target="#changePenyelaras-<%=rs.getString("co.course_offered_ID")%>"><%=rs.getString("name")%></button>
-                            <div id="changePenyelaras-<%=rs.getString("co.course_offered_ID")%>" class="modal fade" role="dialog">
-                                <div class="modal-dialog">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                            <h4 class="modal-title">Change Penyelaras</h4>
-                                        </div>
-                                        <form class='form-horizontal' action="<%=request.getContextPath()%>/UpdatePenyelarasServlet">
-                                            <div class="modal-body">
-                                                <%
-                                                    String query2 = "SELECT DISTINCT u.username, p.name FROM profile AS p, user AS u, section AS s WHERE " +
-                                                        "u.username=p.username AND u.username=s.username AND "+
-                                                        "s.course_offered_ID = \'"+rs.getString("co.course_offered_ID")+"\' AND s.semesterID="+semesterID;
-                                                    ResultSet rs2 = DB.query(query2);
-                                                %>
-                                                <label>Semester: </label>
-                                                <input class="form-control semester-label" disabled>
-                                                <label>Course Name: </label>
-                                                <input class="form-control" value="<%=rs.getString("courseName")%>" disabled>
-                                                <label>Penyelaras: </label>
-                                                <select class="form-control penyelaras">
-                                                    <option value='' disabled selected style='display:none;'><%=rs.getString("name")%></option>
-                                                    <% while(rs2.next()) { %>
-                                                    <option id="selected" co_ID="<%=rs.getString("co.course_offered_ID")%>" username="<%=rs2.getString("username")%>"><%=rs2.getString("name")%></option>
-                                                    <% } %>
-                                                </select>
-                                                <input class="" id="username[<%=rs.getString("co.course_offered_ID")%>]" name="username" value="<%=rs.getString("username")%>">
-                                                <div class="">
-                                                    <input id="course_offered_ID" name="course_offered_ID" value="<%=rs.getString("course_offered_ID")%>">
-                                                </div>  
-                                            </div>
-                                            <div class="modal-footer">
-                                                <button class="btn btn-primary" id="addCourse" >Update</button>
-                                                <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-                                            </div>
-                                        </form>
-                                    </div>
-                                </div>
-                            </div>
-                        </td>
-                        <td>
-                            <a href="<%=request.getContextPath()%>/DeleteOfferedCourseServlet?course_offered_ID=<%=rs.getString("co.course_offered_ID")%>" class="btn btn-danger">Delete</a>
-                        </td>
-                    </tr>
-                    <% } } %>
-                    <%
-                    if(request.getParameter("semesterID") != null) {
-                    String semesterID = request.getParameter("semesterID");
-                    String query = "SELECT co.course_offered_ID, c.courseCode, c.courseID, c.courseName, c.creditHours FROM course_offered AS co, course AS c WHERE " +
-                            "co.courseCode = c.courseCode AND co.courseID = c.courseID AND " +
-                            "co.username IS NULL AND co.semesterID = " + semesterID;
-                    ResultSet rs = DB.query(query);
-                    while(rs.next()) {
-                    %>
-                    <tr>
-                        <td><%=rs.getString("courseCode")%></td>
-                        <td><%=rs.getString("courseID")%></td>
-                        <td><%=rs.getString("courseName")%></td>
-                        <td><%=rs.getString("creditHours")%></td>
-                        <td>
-                            <button type="button" class="btn btn-default" data-toggle="modal" data-target="#changePenyelaras-<%=rs.getString("co.course_offered_ID")%>">New Penyelaras</button>
-                            <div id="changePenyelaras-<%=rs.getString("co.course_offered_ID")%>" class="modal fade" role="dialog">
-                                <div class="modal-dialog">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                            <h4 class="modal-title">Change Penyelaras</h4>
-                                        </div>
-                                        <form class='form' action="<%=request.getContextPath()%>/UpdatePenyelarasServlet">
-                                            <div class="modal-body">
-                                                <%
-                                                    String query2 = "SELECT DISTINCT u.username, p.name FROM profile AS p, user AS u, section AS s WHERE " +
-                                                        "u.username=p.username AND u.username=s.username AND "+
-                                                        "s.course_offered_ID = \'"+rs.getString("co.course_offered_ID")+"\' AND s.semesterID="+semesterID;
-                                                    ResultSet rs2 = DB.query(query2);
-                                                %>
-                                                <label>Semester: </label>
-                                                <input class="form-control semester-label" disabled>
-                                                <label>Course Name: </label>
-                                                <input class="form-control" value="<%=rs.getString("courseName")%>" disabled>
-                                                <label>Penyelaras: </label>
-                                                <select class="form-control penyelaras">
-                                                    <option value='' disabled selected style='display:none;'>Select New Penyelaras</option>
-                                                    <% while(rs2.next()) { %>
-                                                    <option id="selected" co_ID="<%=rs.getString("co.course_offered_ID")%>" username="<%=rs2.getString("username")%>"><%=rs2.getString("name")%></option>
-                                                    <% } %>
-                                                </select>
-                                                <input class="" id="username[<%=rs.getString("co.course_offered_ID")%>]" name="username">
-                                                <div class="">
-                                                    <input id="course_offered_ID" name="course_offered_ID" value="<%=rs.getString("course_offered_ID")%>">
-                                                </div>  
-                                            </div>
-                                            <div class="modal-footer">
-                                                <button class="btn btn-primary" id="addCourse" >Update</button>
-                                                <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-                                            </div>
-                                        </form>
-                                    </div>
-                                </div>
-                            </div>
+                            <%
+                            if(rs.getString("username")!=null && !rs.getString("username").equals("")) {
+                                String penyelaras = rs.getString("username");
+                                ResultSet rs2 = DB.query("SELECT * FROM profile WHERE username='"+penyelaras+"'");
+                                rs2.next();
+                                out.println(rs2.getString("name"));
+                            } else {
+                                out.println("No Penyelaras Yet");
+                            }
+                            %>
                         </td>
                         <td>
                             <a href="<%=request.getContextPath()%>/DeleteOfferedCourseServlet?course_offered_ID=<%=rs.getString("co.course_offered_ID")%>" class="btn btn-danger">Delete</a>

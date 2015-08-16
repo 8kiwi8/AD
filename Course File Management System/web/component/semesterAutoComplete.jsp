@@ -8,7 +8,10 @@
 <%@page import="AutoComplete.Select2OptionGenerator"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
-<select class="form-control" id="semester">
+<% if(request.getParameter("label") != null && !request.getParameter("label").equals("")) { %>
+<label><%=request.getParameter("label")%></label>
+<% } %>
+<select name="semesterID" id="semester" class="form-control">
 <%
     String query = "Select * FROM year_semester ORDER BY year DESC, semester DESC";
     HashMap<String,String> extra = new HashMap();
@@ -20,7 +23,8 @@
 <script>
     $("#semester").select2({
         placeholder: "Select A Semester",
-        allowClear : true
+        allowClear : true,
+        theme: "bootstrap"
     });
     <% if(request.getParameter("semesterID") != null && !request.getParameter("semesterID").equals("")) { %>
     $("#semester").select2("val", "<%=request.getParameter("semesterID")%>");

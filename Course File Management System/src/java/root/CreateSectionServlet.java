@@ -8,11 +8,16 @@ package root;
 import common.DB;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -35,27 +40,49 @@ public class CreateSectionServlet extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
-            String username = request.getParameter("username");
-            String courseID = request.getParameter("courseID");
-            String courseCode = request.getParameter("courseCode");
-            int semesterID = Integer.parseInt(request.getParameter("semesterID"));
-            int sectionNo = Integer.parseInt(request.getParameter("sectionNo"));
-            String sectionMajor = request.getParameter("sectionMajor");
-            int course_offered_ID = Integer.parseInt(request.getParameter("course_offered_ID"));
-            String query = "INSERT INTO section(username, semesterID, sectionNo, course_offered_ID, courseCode, courseID, sectionMajor) " +
-                    "VALUES('"+username+"', "+semesterID+
-                    ", "+sectionNo+", "+course_offered_ID+", '"+courseCode+"', '"+courseID+"', '" + sectionMajor+"')";
-            int rs = DB.update(query);
-            response.sendRedirect(request.getHeader("Referer"));
+            if(request.getParameter("semesterID") == null ||
+                    request.getParameter("course_offered_ID") == null ||
+                    request.getParameter("username") == null ||
+                    request.getParameter("sectionNo") == null ||
+                    request.getParameterValues("sectionMajor") == null
+                    ) {
+                HttpSession session = request.getSession();
+                session.setAttribute("Form Error", "You missed some field.");
+                response.sendRedirect(request.getHeader("Referer"));
+            }
+            String semesterID = request.getParameter("semesterID");
+            String co_ID[] = request.getParameterValues("course_offered_ID");
+            String username[] = request.getParameterValues("username");
+            String sectionNo[] = request.getParameterValues("sectionNo");
+            String sectionMajor[] = request.getParameterValues("sectionMajor");
+            String courseCode = "", courseID = "", lastco_ID = "";
+            for(int i = 0; i < co_ID.length; ++ i) {
+                if(!lastco_ID.equals(co_ID[i])) {
+                    lastco_ID = co_ID[i];
+                    String query1 = "SELECT * FROM course_offered WHERE course_offered_ID = "+co_ID[i];
+                    ResultSet rs1 = DB.query(query1);
+                    rs1.next();
+                    courseCode = rs1.getString("courseCode");
+                    courseID = rs1.getString("courseID");
+                }
+                String query2 = "INSERT INTO section(username, semesterID, sectionNo, course_offered_ID, courseCode, courseID, sectionMajor) " +
+                        "VALUES('"+username[i]+"', "+semesterID+
+                        ", "+sectionNo[i]+", "+co_ID[i]+", '"+courseCode+"', '"+courseID+"', '" + sectionMajor[i]+"')";
+                out.print(query2);
+                int rs2 = DB.update(query2);
+            }
+            response.sendRedirect(request.getContextPath() + "/root/sections.jsp?semesterID="+semesterID);
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
             out.println("<title>Servlet createCourseServlet</title>");            
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>"+query+"</h1>");
+            out.println("<h1></h1>");
             out.println("</body>");
             out.println("</html>");
+        } catch (SQLException ex) {
+            Logger.getLogger(CreateSectionServlet.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 

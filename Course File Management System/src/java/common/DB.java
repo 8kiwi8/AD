@@ -37,7 +37,7 @@ public class DB {
                 String password = prop.getProperty("password");
                 Class.forName(driver);
                 connection = DriverManager.getConnection(url, user, password);
-                connection.setAutoCommit(false);
+                connection.setAutoCommit(true);
             }
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
@@ -53,22 +53,20 @@ public class DB {
     
     public static ResultSet query(String query) {
         try {
-            Connection conn = DB.getConnection();
-            statement = conn.createStatement();
+            DB.getConnection();
+            statement = connection.createStatement();
             resultSet = statement.executeQuery(query);
         } catch (SQLException e) {
             e.printStackTrace();
         }
         return resultSet;
     }
-    
+     
     public static int update(String query) {
         try {
-            Connection conn = DB.getConnection();
-            statement = conn.createStatement();
+            DB.getConnection();
+            statement = connection.createStatement();
             resultRow = statement.executeUpdate(query);
-            connection.commit();
-            statement.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -180,6 +178,28 @@ public class DB {
         catch(SQLException sqlEx){
                 System.out.println(sqlEx.getMessage());
                 return null;
+        }
+    }
+    
+    
+    
+    public static void close(){
+        try{
+            if(resultSet != null) {
+                resultSet.close();
+                resultSet = null;
+            }
+            if(statement != null) {
+                statement.close();
+                statement = null;
+            }
+            if(connection != null) {
+                connection.close();
+                connection = null;
+            }
+        }
+        catch(SQLException sqlEx){
+                System.out.println(sqlEx.getMessage());
         }
     }
 }

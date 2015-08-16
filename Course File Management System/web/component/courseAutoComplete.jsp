@@ -31,7 +31,8 @@
 <script>
     $("#courseName").select2({
         placeholder: "Select A Course",
-        allowClear: true
+        allowClear: true,
+        theme: "bootstrap"
     });
     <% if(request.getParameter("course") != null && !request.getParameter("course").equals("")) { %>
     $("#courseName").select2("val", "<%=request.getParameter("course")%>");
