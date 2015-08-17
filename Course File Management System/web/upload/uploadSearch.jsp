@@ -13,7 +13,7 @@
         $(document).ready(function() {
            $('#sectionResult').bootstrapTable({
                 url: "<%=request.getContextPath()%>/SectionSearch",
-                search: "true",
+                search: false,
                 pagination: "true",
                 queryParams: function (p) {
                     return {
