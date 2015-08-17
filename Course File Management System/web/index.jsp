@@ -80,13 +80,13 @@
                             <div class="form-group">
                                 <label for="username" class="control-label col-xs-4">Username</label>
                                 <div class="col-xs-8">
-                                    <input type="text" class="form-control" name="inputUsername" placeholder="Username">
+                                    <input type="text" class="form-control" name="inputUsername" placeholder="Username" required>
                                 </div>
                             </div>
                             <div class="form-group <% if (invalidPassword) out.println("has-error"); %>">
                                 <label for="inputPassword" class="control-label col-xs-4">Password</label>
                                 <div class="col-xs-8">
-                                    <input type="password" class="form-control" name="inputPassword" placeholder="Password">
+                                    <input type="password" class="form-control" name="inputPassword" placeholder="Password" required>
                                 </div>
                             </div>
 

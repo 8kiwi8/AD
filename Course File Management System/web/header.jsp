@@ -61,7 +61,7 @@
     pages.add(new Page("lecturer", request.getContextPath() + "/upload/chooseSection.jsp", "Upload"));
     pages.add(new Page("lecturer", request.getContextPath() + "/upload/uploadSearch.jsp", "Manage Upload"));
     //pages.add(new Page("lecturer", request.getContextPath() + "/user/lecturerProfile.jsp", "Profile"));
-    
+
     String viewPermissionAttribute = "Guest";
     
     if (session.getAttribute("viewPermission") != null) {
@@ -219,7 +219,7 @@
                                     <li><a href="<%=request.getContextPath()%>/ChangeUserRole?userType=lecturer">Lecturer</a></li>
                                 </ul>
                             </li>
-                            <% if(session.getAttribute("userType").equals("lecturer")) { 
+                            <% if(session.getAttribute("userType").equals("lecturer")) {
                                 ResultSet rs = DB.query("SELECT * FROM user, profile WHERE user.username = profile.username AND user.usertype = 'lecturer'");
                             %>
                             <li class="dropdown">
