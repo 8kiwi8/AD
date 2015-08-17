@@ -73,6 +73,13 @@
             }
         });
     </script>
+    
+    <style type="text/css">
+        form {
+            max-width: 400px;
+            margin: auto;
+        }
+    </style>
 </head>
 <body>
     
