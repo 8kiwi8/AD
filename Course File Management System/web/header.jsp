@@ -74,6 +74,9 @@
 
 <link rel="stylesheet" href="<%=request.getContextPath()%>/css/bootstrap.min.css">
 <link rel="stylesheet" href="<%=request.getContextPath()%>/css/bootstrap-theme.min.css">
+<link rel="icon" 
+      type="image/ico" 
+      href="<%=request.getContextPath()%>/img/favicon.ico">
 
 <style>
     .website-title {
