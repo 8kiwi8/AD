@@ -62,8 +62,12 @@
     pages.add(new Page("lecturer", request.getContextPath() + "/upload/uploadSearch.jsp", "Manage Upload"));
     //pages.add(new Page("lecturer", request.getContextPath() + "/user/lecturerProfile.jsp", "Profile"));
     
-    ViewPermission a = ViewPermission.valueOf(session.getAttribute("viewPermission").toString());
-    String viewPermissionAttribute = a.toString();
+    String viewPermissionAttribute = "Guest";
+    
+    if (session.getAttribute("viewPermission") != null) {
+        ViewPermission a = ViewPermission.valueOf(session.getAttribute("viewPermission").toString());
+        viewPermissionAttribute = a.toString();
+    }
 %>
 
 <!DOCTYPE html>
@@ -235,7 +239,7 @@
                         <% } %>
                         <!--- Super Admin Component END -->
                         
-                        
+                        <% if (session.getAttribute("viewPermission") != null) { %>
                         <li class="dropdown">
                             <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
                                 <span class="glyphicon glyphicon-user" aria-hidden="true" style="padding-right: 5px"></span>
@@ -264,6 +268,7 @@
                                 </li>
                             </ul>
                         </li>
+                        <% } %>
                     </ul>
                 <% } %>
 

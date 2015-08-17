@@ -10,17 +10,17 @@ package common;
  * @author Kiwi
  */
 public enum ViewPermission {
-    LECTURER("Lecturer"), 
+    LECTURER("Lecturer"),
     PENYELARAS("Penyelaras"),
-    KETUA_JABATAN("Ketua Jabatan"), 
+    KETUA_JABATAN("Ketua Jabatan"),
     PENTADBIR("Pentadbir");
     
     private String label;
     ViewPermission(String label) {
         this.label = label;
     }
-    @Override 
-    public String toString(){ 
-        return label; 
-    } 
+    @Override
+    public String toString(){
+        return label;
+    }
 }

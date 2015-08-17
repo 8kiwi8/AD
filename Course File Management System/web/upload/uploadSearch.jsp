@@ -38,7 +38,7 @@
                     sortable: true
                 }, {
                     field: 'stat',
-                    title: 'Upload Status',
+                    title: 'Upload Status'
                 }, {
                     field: 'sectionID',
                     title: 'Section ID',
