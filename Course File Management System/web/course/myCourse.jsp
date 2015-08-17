@@ -31,6 +31,7 @@
                     <th data-sortable="true">Course Code ID</th>
                     <th data-sortable="true">Course Name</th>
                     <th data-sortable="true">Penyelaras</th>
+                    <th>Upload</th>
                 </tr>
             </thead>
             <tbody>
@@ -75,6 +76,11 @@
                         %>
                         <%=rs2.getString("name")%>
                         <% } %>
+                    </td>
+                    <td> 
+                        <a href = "<%=request.getContextPath()%>/upload/upload.jsp?sectionID=<%=rs.getString("mine.sectionID")%>"> 
+                            <button class="btn btn-info" type="button"><i class = "glyphicon glyphicon-upload"></i> Upload </button>
+                        </a>
                     </td>
                 </tr>
                 <% } %>

@@ -29,6 +29,7 @@
                 position: relative;
                 overflow: hidden;
                 margin: 10px;
+                text-align: left;
             }
             .fileUpload input.upload {
                 position: absolute;
@@ -116,7 +117,7 @@
                     -webkit-border-top-right-radius:3px;
                     border-top-right-radius:3px;
             }
-            table tr {                  
+            table tr { 
                     padding-left:20px;
             }
             table td:first-child {
@@ -157,10 +158,14 @@
                     background: -webkit-gradient(linear, left top, left bottom, from(#f2f2f2), to(#f0f0f0));
                     background: -moz-linear-gradient(top,  #f2f2f2,  #f0f0f0);	
             }
+            
         </style>
     </head>
     <body>
-        <div class = "container">
+        <script src="../javascript/jquery.ui.widget.js"></script>
+        <script src="../javascript/jquery.iframe-transport.js"></script>
+        <script src="../javascript/jquery.fileupload.js"></script>
+        <div class = "container">      
         <form method="post" action="<%=request.getContextPath()%>/Upload" enctype="multipart/form-data">
             <div class="">
                 <% String semesterID = request.getParameter("semesterID"); %>
@@ -168,7 +173,12 @@
                 <% String username = request.getParameter("username"); %>
                 <% Upload.setID (semesterID, sectionID, username); %>
                 <% Delete.setID (semesterID, sectionID, username); %>
-            </div>        
+                <% boolean owner = false;
+                    ResultSet rs3 = DB.query("SELECT * FROM section WHERE sectionID="+sectionID+" AND username='"+session.getAttribute("User")+"'");
+                    if(rs3.next()){
+                        owner = true;
+                    } %>
+            </div>            
             <table style = "width:100%">
                 <thead>
                 <th>No.</th>
@@ -186,18 +196,11 @@
                     <td><%=rs.getString("checklistID") %></td>
                     <td><%=rs.getString("label") %></td>
                     <td>
-                    <%
-                    boolean owner = false;
-                    ResultSet rs3 = DB.query("SELECT * FROM section WHERE sectionID="+sectionID+" AND username='"+session.getAttribute("User")+"'");
-                    if(rs3.next()){
-                        owner = true;
-                    }
-                    
+                    <%                                       
                     boolean found = false;
                     while(rs2.next()){
                         found = true;
-                        %>                         
-                        <img src = "<%=request.getContextPath()%>/img/tick.png" width="35" height="35" alt = "submit"></img>                         
+                        %>                                                                          
                         <%String path = rs2.getString("fileDirectory");
                           Path path1 = Paths.get(path);%>                                                                        
                         <a href = "<%=rs2.getString("fileDirectory")%>" download ="<%=path1.getFileName()%>"> 
@@ -209,15 +212,16 @@
                         </a> 
                         <% } %>
                         <%=path1.getFileName()%>
-                        <br>
-                        
+                        <br>                 
                     <%}%> 
                     <% if(!found && owner) { %>                              
                         <div class="fileUpload btn btn-default">
                             <input id="uploadFile-<%=rs.getString("checklistID")%>" placeholder="Choose File" disabled = "disabled"/>
                             <button class="browse btn btn-primary" type="button"><i class="glyphicon glyphicon-folder-open"></i> Browse</button>
-                            <input name="checklist-<%=rs.getString("checklistID")%>" type="file" cl_ID="<%=rs.getString("checklistID")%>" class="upload" multiple onchange="updateList();" id = "file"/> 
-                            <div id = "fileList"> </div>
+                            <input name="checklist-<%=rs.getString("checklistID")%>" type="file" cl_ID="<%=rs.getString("checklistID")%>" class="upload" multiple id = "file"/> <br>
+                            
+                            <div id = "fileList-<%=rs.getString("checklistID")%>"> </div>
+                            
                         </div>
                     </td>
                     <%} else if (!found && !owner) {%>
@@ -226,15 +230,25 @@
                 </tr>
             <% } %>
                 <tbody>
-            </table> <br>                
-            <input type="submit" value="Upload" class="btn btn-primary"/>
+            </table> <br>
+               <% if (owner) {%>
+                <input type="submit" value="Upload" class="btn btn-primary"/>
+               <%} %>
         </form>
         <script type="text/javascript">            
-            $(".upload").change(function () 
-            {
+            $(".upload").change(function (e, data) 
+            {          
                 cl_id = $(this).attr("cl_id");
                 $("#uploadFile-"+cl_id).val($(this).val().slice(12));
                 console.log(this.value);
+                
+                output = $("#fileList-"+cl_id);
+                output.html('<ul>');
+                console.table($(this));
+                for (var i = 0; i <$(this).prop("files").length; ++i) {
+                  output.append( '<li>' + $(this).prop("files")[i].name + " (" + ($(this).prop("files")[i].size/1000).toFixed(2) +'KiB) </li>');
+                }
+                output.append( '</ul>');
             });
             
             function DeleteConfirmation ()
@@ -245,17 +259,7 @@
                 else
                   return false;
             };
-            
-            updateList = function() {
-            var input = document.getElementById('file');
-            var output = document.getElementById('fileList');
-
-            output.innerHTML = '<ul>';
-            for (var i = 0; i < input.files.length; ++i) {
-              output.innerHTML += '<li>' + input.files.item(i).name + '</li>';
-            }
-            output.innerHTML += '</ul>';
-            };
+                       
         </script>
         <div>
     </body>
