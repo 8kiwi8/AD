@@ -62,6 +62,7 @@
                             %>
                         </td>
                         <td>
+                            <a href="<%=request.getContextPath()%>/root/sections.jsp?semesterID=<%=request.getParameter("semesterID")%>&course_offered_ID=<%=rs.getString("co.course_offered_ID")%>" class="btn btn-primary">View Section</a>
                             <a href="<%=request.getContextPath()%>/DeleteOfferedCourseServlet?course_offered_ID=<%=rs.getString("co.course_offered_ID")%>" class="btn btn-danger">Delete</a>
                         </td>
                     </tr>

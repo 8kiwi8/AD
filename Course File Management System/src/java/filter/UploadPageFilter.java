@@ -117,32 +117,34 @@ public class UploadPageFilter implements Filter {
             String username = (String) session.getAttribute("User");
             ViewPermission userPermission = ViewPermission.valueOf((String)session.getAttribute("viewPermission"));
             String sectionID = request.getParameter("sectionID");
-            String query = "";
             
-            if(userPermission == ViewPermission.LECTURER) {
-                query = "SELECT * FROM section WHERE sectionID=" + sectionID +" AND username = '"+username + "'";
-            } else if(userPermission == ViewPermission.PENYELARAS) {
-                query = "SELECT * FROM section AS s, course_offered AS co WHERE " +
-                        "s.course_offered_ID = co.course_offered_ID AND s.sectionID=" + sectionID +" AND co.username = '"+username + "'"; 
-            } else if(userPermission == ViewPermission.KETUA_JABATAN) {
-                String query2 = "SELECT * FROM profile where username = '" + username + "'";
-                String department = DB.getDataAt(query2, 0, "departmentID");
-                query = "SELECT * FROM section AS s, profile AS p WHERE s.username = p.username AND " +
-                        "p.departmentID = " + department + " AND s.sectionID=" + sectionID; 
-            } else if(userPermission == ViewPermission.PENTADBIR) {
-                query = "SELECT * FROM section";
-            } else {
-                session.setAttribute("Access Error", "You're not allowed to access this page");
-                httpResponse.sendRedirect(filterConfig.getServletContext().getContextPath() + "/upload/chooseSection.jsp");
-            }
-            System.out.println(query);
+            String query = "SELECT * FROM section WHERE sectionID=" + sectionID +" AND username = '"+username + "'";
             ResultSet rs= DB.query(query);
-            if(!rs.next())
-            {
-                session.setAttribute("Access Error", "You're not allowed to access this page");
-                httpResponse.sendRedirect(filterConfig.getServletContext().getContextPath() + "/upload/chooseSection.jsp");
-            }                      
-            chain.doFilter(request, response);
+            if(!rs.next()) {
+                if(userPermission == ViewPermission.LECTURER) {
+                    query = "SELECT * FROM section WHERE sectionID=" + sectionID +" AND username = '"+username + "'";
+                } else if(userPermission == ViewPermission.PENYELARAS) {
+                    query = "SELECT * FROM section AS s, course_offered AS co WHERE " +
+                        "s.course_offered_ID = co.course_offered_ID AND s.sectionID=" + sectionID +" AND co.username = '"+username + "'";
+                } else if(userPermission == ViewPermission.KETUA_JABATAN) {
+                    String query2 = "SELECT * FROM profile where username = '" + username + "'";
+                    String department = DB.getDataAt(query2, 0, "departmentID");
+                    query = "SELECT * FROM section AS s, profile AS p WHERE s.username = p.username AND " +
+                            "p.departmentID = " + department + " AND s.sectionID=" + sectionID; 
+                } else if(userPermission == ViewPermission.PENTADBIR) {
+                    query = "SELECT * FROM section";
+                }
+                rs= DB.query(query);
+                if(!rs.next())
+                {
+                    session.setAttribute("Access Error", "You're not allowed to access this page");
+                    httpResponse.sendRedirect(filterConfig.getServletContext().getContextPath() + "/index.jsp");
+                }                      
+                chain.doFilter(request, response);
+            }
+            else {
+                chain.doFilter(request, response);
+            }
         } catch (Throwable t) {
 	    // If an exception is thrown somewhere down the filter chain,
             // we still want to execute our after processing, and then
