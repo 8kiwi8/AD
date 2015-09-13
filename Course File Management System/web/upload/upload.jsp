@@ -218,10 +218,8 @@
                         <div class="fileUpload btn btn-default">
                             <input id="uploadFile-<%=rs.getString("checklistID")%>" placeholder="Choose File" disabled = "disabled"/>
                             <button class="browse btn btn-primary" type="button"><i class="glyphicon glyphicon-folder-open"></i> Browse</button>
-                            <input name="checklist-<%=rs.getString("checklistID")%>" type="file" cl_ID="<%=rs.getString("checklistID")%>" class="upload" multiple id = "file"/> <br>
-                            
-                            <div id = "fileList-<%=rs.getString("checklistID")%>"> </div>
-                            
+                            <input name="checklist-<%=rs.getString("checklistID")%>" type="file" cl_ID="<%=rs.getString("checklistID")%>" class="upload" multiple id = "file" accept = ".pdf"/> <br>                          
+                            <div id = "fileList-<%=rs.getString("checklistID")%>"> </div>                           
                         </div>
                     </td>
                     <%} else if (!found && !owner) {%>
@@ -259,7 +257,19 @@
                 else
                   return false;
             };
-                       
+            
+            var file = document.getElementById('file');
+            file.onchange = function(e){
+                var ext = this.value.match(/\.([^\.]+)$/)[1];
+                switch(ext)
+                {
+                    case 'pdf':                    
+                        break;
+                    default:
+                        alert('This file type is not allowed');
+                        this.value='';
+                }
+            };
         </script>
         <div>
     </body>

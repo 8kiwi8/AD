@@ -37,9 +37,9 @@ public class Upload extends HttpServlet
 {       
     private static final long serialVersionUID = 1L;
     private static final String DATA_DIRECTORY = "data";
-    private static final int MAX_FILE_SIZE = 1024 * 1024 * 40; // 40MB
+    private static final int MAX_FILE_SIZE = 1024 * 1024 * 400; // 400MB
     private static final int MAX_MEMORY_SIZE = 1024 * 1024 * 5; //5MB
-    private static final int MAX_REQUEST_SIZE = 1024 * 1024 * 50; //50MB
+    private static final int MAX_REQUEST_SIZE = 1024 * 1024 * 500; //500MB
     
     String fileName = " ";
     static String sectionID = " ";

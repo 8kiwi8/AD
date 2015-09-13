@@ -123,9 +123,10 @@
             </a>
         </div>
 
-        <div class="col-xs-offset-1 col-xs-4">
+        <div class="col-xs-offset-1 col-xs-6">
             <div style="margin-top: -25px;">
                 <h1>Course File Management System<br>
+                    Faculty Of Computing <br>
                     <small class="website-title">Universiti Teknologi Malaysia</small>
                 </h1>
                 <div style="margin-top:-5px;opacity:0.8;margin-left:-2px;">
@@ -134,7 +135,7 @@
             </div>
         </div>
 
-        <div class="col-xs-4">
+        <div class="col-xs-2">
             <span style="margin:0px;float:right;margin-top:auto;">
                 <img width=20 src="http://www.utm.my/dev/2014/social-media-icon/mobile-icon(small).jpg" alt="Mobile" onClick="alert('This website can be viewed in mobile device')">
                 <a target="_blank" href="http://www.facebook.com/univteknologimalaysia"><img width=24 src="http://www.utm.my/dev/2014/social-media-icon/iconmonstr-facebook-2-icon.svg" alt="Facebook"></a>
