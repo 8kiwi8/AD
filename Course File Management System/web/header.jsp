@@ -55,6 +55,7 @@
     //pages.add(new Page("root", "viewCourse.jsp", "View Courses"));
     //pages.add(new Page("root", "createOfferedCourse.jsp", "Current Offered Courses"));
     pages.add(new Page("root", request.getContextPath() + "/root/sections.jsp", "Sections"));
+    pages.add(new Page("root", request.getContextPath() + "/root/viewChecklist.jsp", "Checklists"));
     
     
     pages.add(new Page("lecturer", request.getContextPath() + "/course/myCourse.jsp", "My Courses"));
