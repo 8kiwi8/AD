@@ -55,7 +55,7 @@
             });
             window.operateEvents = {
                 'click .stats': function (e, value, row, index) {
-                    dataSet = { 
+                    dataSet = {                       
                         "sectionID": [row.sectionID]
                     };
                     var uri = new URI("<%=request.getContextPath()%>/upload/upload.jsp");

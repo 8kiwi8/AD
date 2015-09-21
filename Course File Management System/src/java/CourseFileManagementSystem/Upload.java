@@ -41,16 +41,12 @@ public class Upload extends HttpServlet
     private static final int MAX_MEMORY_SIZE = 1024 * 1024 * 5; //5MB
     private static final int MAX_REQUEST_SIZE = 1024 * 1024 * 500; //500MB
     
-    String fileName = " ";
-    static String sectionID = " ";
-    static String semesterID = " ";
-    static String username = " ";
+    String fileName = "";
+    static String sectionID = "";
     
-    public static void setID(String semID, String secID, String user_name)
+    public static void setID(String secID)
     {
-        semesterID = semID;
         sectionID = secID;
-        username = user_name;
     }
     
     @Override
@@ -82,14 +78,22 @@ public class Upload extends HttpServlet
         factory.setRepository(new File(System.getProperty("java.io.tmpdir")));
 
         // constructs the folder where uploaded file will be stored
-        String dataFolder  = getServletContext().getRealPath("") + File.separator + DATA_DIRECTORY;
-        File uploadD = new File(dataFolder);
-        if (!uploadD.exists()) 
-        {
-            uploadD.mkdir();
-        }     
-        String uploadFolder = getServletContext().getRealPath("") + File.separator + DATA_DIRECTORY + File.separator + semesterID + " - " + sectionID;
-
+        String temp_folder = " ";
+         try {
+            String dataFolder  = getServletContext().getRealPath("") + File.separator + DATA_DIRECTORY;
+            temp_folder = dataFolder;
+            File uploadD = new File(dataFolder);
+            if (!uploadD.exists()) 
+            {
+                uploadD.mkdir();
+            }     
+            
+            ResultSet rs5 = DB.query("SELECT * FROM course AS c, section AS s, year_semester AS ys, upload_checklist AS uc WHERE s.courseCode = c.courseCode "
+                           + "AND s.semesterID = ys.semesterID AND s.courseID = c.courseID AND s.sectionID=" + sectionID);                                
+            rs5.next(); 
+            //String uploadFolder = getServletContext().getRealPath("") + File.separator + DATA_DIRECTORY + File.separator + rs5.getString("year") + "-" + rs5.getString("semester") + File.separator + rs5.getString("courseCode") 
+            //                    + rs5.getString("courseID") + " - " + rs5.getString("courseName") + File.separator + "section - " + rs5.getString("sectionNo") + " - (" + sectionID + ")" + File.separator + rs.getString ("label");
+            
         // Create a new file upload handler
         ServletFileUpload upload = new ServletFileUpload(factory);
         
@@ -98,16 +102,43 @@ public class Upload extends HttpServlet
         
         // Set overall request size constraint
         upload.setSizeMax(MAX_REQUEST_SIZE);
-
-        // creates the directory if it does not exist
-        File uploadDir = new File(uploadFolder);
-        if (!uploadDir.exists()) 
-        {
-            uploadDir.mkdir();
-        }      
         
-        try 
+        // creates the directory if it does not exist
+        String path1 = getServletContext().getContextPath()+ "/" + DATA_DIRECTORY + "/";
+        String temp_semester = rs5.getString("year") + "-" + rs5.getString("semester");
+        String real_path = temp_folder + File.separator + temp_semester;
+        File semester = new File (real_path); 
+
+        if (!semester.exists()) 
         {
+            semester.mkdir();           
+        }
+        path1 += temp_semester + "/";
+        real_path += File.separator;       
+    
+        String temp_course = rs5.getString("courseCode") + rs5.getString("courseID") + "-" + rs5.getString("courseName");
+        String real_path1 = real_path + temp_course;
+        File course = new File (real_path1);
+        if (!course.exists()) 
+        {
+            course.mkdir();           
+        }
+         path1 += temp_course + "/";
+         real_path1 += File.separator;       
+        
+        String temp_section = "section-" + rs5.getString("sectionNo");
+        String real_path2 = real_path1 + temp_section;
+        File section = new File (real_path2); 
+        if (!section.exists()) 
+        {
+            section.mkdir();
+            path1 += temp_section + "/";
+            real_path2 += File.separator;
+        }
+        path1 += temp_section + "/";
+        real_path2 += File.separator;         
+        String sectionPath = path1;
+        
             // Parse the request
             List<FileItem> items = upload.parseRequest(request);
             if (items != null && items.size() > 0) 
@@ -118,29 +149,44 @@ public class Upload extends HttpServlet
                     // processes only fields that are not form fields
                     if (!item.isFormField() && !item.getName().equals("")) 
                     {
-                        System.out.println(item.getName()+" file is for checklist " + item.getFieldName());
+                        String DBPath = "";
+                        System.out.println(item.getName()+" file is for " + item.getFieldName());
                         Scanner field_name = new Scanner(item.getFieldName()).useDelimiter("[^0-9]+");
                         int id = field_name.nextInt();
-                        fileName = new File(item.getName()).getName();                                         
-                        String path = request.getContextPath() + "/" + DATA_DIRECTORY + "/" + semesterID + " - " + sectionID + "/" + fileName;
-                        String filePath = uploadFolder + File.separator + fileName;
-                        File uploadedFile = new File(filePath);
-                        System.out.println(filePath); 
-                          
+                        fileName = new File(item.getName()).getName();
+                        ResultSet rs = DB.query("SELECT * FROM upload_checklist WHERE checklistID =" + id);
+                        rs.next();
+                        String temp_file = rs.getString ("label");
+                        String real_path3 = real_path2 + temp_file;
+                        File file_type = new File (real_path3); 
+                        if (!file_type.exists()) 
+                            file_type.mkdir();
+                        DBPath = sectionPath + "/" + temp_file + "/";
+                        real_path3 += File.separator;
+                        //String path = request.getContextPath() + "/" + DATA_DIRECTORY + "/" + rs5.getString("year") + "-" + rs5.getString("semester") + "/" + rs5.getString("courseCode") 
+                        //            + rs5.getString("courseID") + " - " + rs5.getString("courseName") + "/" + "section - " + rs5.getString("sectionNo") + " - (" + sectionID + ")" + "/" + rs.getString ("label");
+
+                        String filePath = real_path3 + fileName;
+                        DBPath += fileName;
+                        String changeFilePath = filePath.replace('/','\\'); 
+                        String changeFilePath1 = changeFilePath.replace("Course_File_Management_System\\", "");
+                        File uploadedFile = new File(changeFilePath1);
+                        System.out.println("Change filepath = "+changeFilePath1); 
+                        System.out.println("DBPath = " +DBPath);
                         // saves the file to upload directory
                         item.write(uploadedFile); 
-                        String query = "INSERT INTO files (fileDirectory) values('"+path+"')";
+                        String query = "INSERT INTO files (fileDirectory) values('"+DBPath+"')";
                         DB.update(query);
-                        ResultSet rs = DB.query("SELECT label FROM upload_checklist WHERE id=" + id);
-                        while(rs.next()) 
+                        ResultSet rs3 = DB.query("SELECT label FROM upload_checklist WHERE id=" + id);
+                        while(rs3.next()) 
                         { 
-                            String label = rs.getString("label");
-                            out.write("<a href=\"Upload?fileName=" + filePath + "\">Download "+ label+"</a>");
+                            String label = rs3.getString("label");
+                            out.write("<a href=\"Upload?fileName=" + changeFilePath1 + "\">Download "+ label +"</a>");
                             out.write("<br><br>");                            
                         }
-                        ResultSet rs1 = DB.query("SELECT * FROM files ORDER BY fileID DESC LIMIT 1");
-                        rs1.next();
-                        String query2 = "INSERT INTO lecturer_upload (fileID, sectionID, checklistID) values("+rs1.getString("fileID")+", "+sectionID+", "+id+")";
+                        ResultSet rs4 = DB.query("SELECT * FROM files ORDER BY fileID DESC LIMIT 1");
+                        rs4.next();
+                        String query2 = "INSERT INTO lecturer_upload (fileID, sectionID, checklistID) values("+rs4.getString("fileID")+", "+sectionID+", "+id+")";
                         DB.update(query2);
                     }
                 }    

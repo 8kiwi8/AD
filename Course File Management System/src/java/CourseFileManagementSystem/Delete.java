@@ -7,8 +7,13 @@ package CourseFileManagementSystem;
 
 import common.DB;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -24,14 +29,10 @@ public class Delete extends HttpServlet {
     
     private static final long serialVersionUID = 1L;
     static String sectionID = " ";
-    static String semesterID = " ";
-    static String username = " ";
     
-    public static void setID(String semID, String secID, String user_name)
+    public static void setID(String secID)
     {
-        semesterID = semID;
         sectionID = secID;
-        username = user_name;
     }
 
     /**
@@ -49,21 +50,33 @@ public class Delete extends HttpServlet {
         PrintWriter out = response.getWriter();
         out.write("<html><head></head><body>");
         String fileID = request.getParameter("fileID");
-        String filePath = request.getParameter("filePath");
-        String changeFilePath = filePath.replace('/','\\');
-        String changeFilePath1 = changeFilePath.replace("Course_File_Management_System\\", "");
-        String uploadFolder = getServletContext().getRealPath("") + changeFilePath1;
-        File file = new File (uploadFolder);       
-        System.out.println (uploadFolder);
-        boolean blnDeleted = file.delete(); 
-        System.out.println("Was file deleted ? : " + blnDeleted);
-        String query1 = "DELETE FROM lecturer_upload WHERE fileID=" + fileID;
-        String query2 = "DELETE FROM files WHERE fileID=" + fileID;
-        System.out.print(query1);
-        System.out.print(query2);
-        DB.update(query1);
-        DB.update(query2);
-        response.sendRedirect(request.getHeader("Referer"));
+        ResultSet rs = DB.query("SELECT * FROM files WHERE fileID =" + fileID);
+        
+        try {
+            rs.next();
+            String filePath = rs.getString("fileDirectory");
+            String changeFilePath = filePath.replace('/','\\');
+            String changeFilePath1 = changeFilePath.replace("Course_File_Management_System\\", "");
+            String uploadFolder = getServletContext().getRealPath("") + changeFilePath1;
+            System.out.println(uploadFolder);
+            FileInputStream in = new FileInputStream(uploadFolder);
+            in.close();
+            File file = new File (uploadFolder);
+            System.out.println (uploadFolder);
+            boolean blnDeleted = file.delete();
+            System.out.println("Was file deleted ? : " + blnDeleted);
+            String query1 = "DELETE FROM lecturer_upload WHERE fileID=" + fileID;
+            String query2 = "DELETE FROM files WHERE fileID=" + fileID;
+            System.out.print(query1);
+            System.out.print(query2);
+            DB.update(query1);
+            DB.update(query2);
+            response.sendRedirect(request.getHeader("Referer"));
+        } 
+        catch (SQLException ex) 
+        {
+            Logger.getLogger(Delete.class.getName()).log(Level.SEVERE, null, ex);
+        }       
     }
 
     /**

@@ -127,8 +127,7 @@
         <div class="col-xs-offset-1 col-xs-6">
             <div style="margin-top: -25px;">
                 <h1>Course File Management System<br>
-                    Faculty Of Computing <br>
-                    <small class="website-title">Universiti Teknologi Malaysia</small>
+                    <small class="website-title">Faculty Of Computing</small>
                 </h1>
                 <div style="margin-top:-5px;opacity:0.8;margin-left:-2px;">
                     <img alt="UTM Tagline" height="20" src="http://cdn.utm.my/wp-content/themes/enterprise/images-2014/tagline-bi.png" />

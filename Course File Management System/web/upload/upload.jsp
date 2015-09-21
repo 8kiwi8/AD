@@ -168,11 +168,9 @@
         <div class = "container">      
         <form method="post" action="<%=request.getContextPath()%>/Upload" enctype="multipart/form-data">
             <div class="">
-                <% String semesterID = request.getParameter("semesterID"); %>
-                <% String sectionID = request.getParameter("sectionID"); %>
-                <% String username = request.getParameter("username"); %>
-                <% Upload.setID (semesterID, sectionID, username); %>
-                <% Delete.setID (semesterID, sectionID, username); %>
+                <% String sectionID = request.getParameter("sectionID"); %>               
+                <% Upload.setID (sectionID); %>
+                <% Delete.setID (sectionID); %>
                 <% boolean owner = false;
                     ResultSet rs3 = DB.query("SELECT * FROM section WHERE sectionID="+sectionID+" AND username='"+session.getAttribute("User")+"'");
                     if(rs3.next()){
@@ -207,7 +205,7 @@
                             <button class="btn btn-primary" type="button"><i class = "glyphicon glyphicon-download-alt"></i> Download </button>                     
                         </a>
                         <% if(owner) { %>
-                        <a href = "<%=request.getContextPath()%>/Delete?fileID=<%=rs2.getString("fileID")%>&filePath=<%=rs2.getString("fileDirectory")%>" name = "Delete" onclick = "return DeleteConfirmation();"> 
+                        <a href = "<%=request.getContextPath()%>/Delete?fileID=<%=rs2.getString("fileID")%>" name = "Delete" onclick = "return DeleteConfirmation();"> 
                             <button class="btn btn-danger" type="button"><i class = "glyphicon glyphicon-trash" ></i> Delete </button>                     
                         </a> 
                         <% } %>
@@ -233,20 +231,39 @@
                 <input type="submit" value="Upload" class="btn btn-primary"/>
                <%} %>
         </form>
-        <script type="text/javascript">            
+        <script type="text/javascript">    
             $(".upload").change(function (e, data) 
-            {          
+            {
+                valid = true;
+                for (var i = 0; i <$(this).prop("files").length; ++i) 
+                {
+                    var ext = $(this).prop("files")[i].name.match(/\.([^\.]+)$/)[1];
+                    switch(ext) 
+                    {
+                        case "pdf":
+                            break;
+                        default:
+                            valid = false;
+                            alert ("Only PDF file is allowed!!");
+                            break;
+                    }
+                }
+                if(!valid) 
+                {
+                    $(this).val("");
+                }
                 cl_id = $(this).attr("cl_id");
                 $("#uploadFile-"+cl_id).val($(this).val().slice(12));
                 console.log(this.value);
-                
+
                 output = $("#fileList-"+cl_id);
                 output.html('<ul>');
                 console.table($(this));
-                for (var i = 0; i <$(this).prop("files").length; ++i) {
+                for (var i = 0; i <$(this).prop("files").length; ++i) 
+                {
                   output.append( '<li>' + $(this).prop("files")[i].name + " (" + ($(this).prop("files")[i].size/1000).toFixed(2) +'KiB) </li>');
                 }
-                output.append( '</ul>');
+                output.append( '</ul>');                     
             });
             
             function DeleteConfirmation ()
@@ -256,20 +273,7 @@
                    return true;
                 else
                   return false;
-            };
-            
-            var file = document.getElementById('file');
-            file.onchange = function(e){
-                var ext = this.value.match(/\.([^\.]+)$/)[1];
-                switch(ext)
-                {
-                    case 'pdf':                    
-                        break;
-                    default:
-                        alert('This file type is not allowed');
-                        this.value='';
-                }
-            };
+            };                                                
         </script>
         <div>
     </body>
