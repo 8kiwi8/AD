@@ -176,7 +176,10 @@
                     if(rs3.next()){
                         owner = true;
                     } %>
-            </div>            
+            </div>
+                    <a role="button" class="btn btn-primary" href="<%=request.getContextPath()%>/DownloadAsZip?sectionID=<%=sectionID%>&zipAs=section">
+                Download As Zip
+            </a>
             <table style = "width:100%">
                 <thead>
                 <th>No.</th>
@@ -211,7 +214,13 @@
                         </a> 
                         <% } %>
                         <%=path1.getFileName()%>
-                        <br>                 
+                        <br>
+                        <div class="fileUpload btn btn-default">
+                            <input id="uploadFile-<%=rs.getString("checklistID")%>" placeholder="Choose File" disabled = "disabled"/>
+                            <button class="browse btn btn-primary" type="button"><i class="glyphicon glyphicon-folder-open"></i> Browse</button>
+                            <input name="checklist-<%=rs.getString("checklistID")%>" type="file" cl_ID="<%=rs.getString("checklistID")%>" class="upload" multiple id = "file" accept = ".pdf"/> <br>                          
+                            <div id = "fileList-<%=rs.getString("checklistID")%>"> </div>                           
+                        </div>
                     <%}%> 
                     <% if(!found && owner) { %>                              
                         <div class="fileUpload btn btn-default">
@@ -239,6 +248,7 @@
                 for (var i = 0; i <$(this).prop("files").length; ++i) 
                 {
                     var ext = $(this).prop("files")[i].name.match(/\.([^\.]+)$/)[1];
+                    var ext = ext.toLowerCase();
                     switch(ext) 
                     {
                         case "pdf":

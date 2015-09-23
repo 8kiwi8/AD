@@ -132,8 +132,6 @@ public class Upload extends HttpServlet
         if (!section.exists()) 
         {
             section.mkdir();
-            path1 += temp_section + "/";
-            real_path2 += File.separator;
         }
         path1 += temp_section + "/";
         real_path2 += File.separator;         
