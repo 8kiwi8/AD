@@ -71,6 +71,8 @@
                     '</a>  '
                 ].join('');
             }
+            $($(document).find("th[data-field=name]")).find("input[type=text]").attr('placeholder', "Filter by Name");
+            $($(document).find("th[data-field=course]")).find("input[type=text]").attr('placeholder', "Filter by Course");
         });
     </script>
     
@@ -85,10 +87,15 @@
     
     <div class="container">
         <form class='form-horizontal' action="<%=request.getContextPath()%>/SectionSearch">
-            <jsp:include page="../component/semesterAutoComplete.jsp"/>
-            <jsp:include page="../component/departmentAutoComplete.jsp">
-                <jsp:param name="permission" value="<%=session.getAttribute("viewPermission")%>"/>
+            <jsp:include page="../component/semesterAutoComplete.jsp">
+                <jsp:param name="placeholder" value='Filter by Semester'/>
             </jsp:include>
+            <% if(session.getAttribute("viewPermission")==ViewPermission.PENTADBIR) {%>
+                <jsp:include page="../component/departmentAutoComplete.jsp">
+                    <jsp:param name="permission" value='<%=session.getAttribute("viewPermission")%>'/>
+                    <jsp:param name="placeholder" value='Filter by Department'/>
+                </jsp:include>
+            <% } %>
             <%--<jsp:include page="../component/courseAutoComplete.jsp">
                 <jsp:param name="permission" value="<%=session.getAttribute("viewPermission")%>"/>
             </jsp:include>
@@ -110,4 +117,5 @@
         </table>
     </div> <!-- /.container -->
 </body>
-</html>
+<jsp:include page="../footer.jsp"/>
+<html>

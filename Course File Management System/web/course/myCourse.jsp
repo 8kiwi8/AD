@@ -6,9 +6,9 @@
     <meta charset="UTF-8">
     <title>My Courses</title>
     <script>
-        function viewSuperviseCourse (course) {
+        function viewSuperviseCourse (semesterID, course) {
             dataSet = { 
-                "semesterID": <%=request.getParameter("semesterID")%>,
+                "semesterID": semesterID,
                 "course": course
             };
             var uri = new URI("<%=request.getContextPath()%>/upload/uploadSearch.jsp");
@@ -39,14 +39,14 @@
                 String query = "";
                 if(request.getParameter("semesterID") != null && !request.getParameter("semesterID").equals("")) {
                 String semesterID = request.getParameter("semesterID");
-                query = "SELECT * FROM (SELECT course_offered_ID AS co_id, username AS penyelaras_id " +
+                query = "SELECT * FROM (SELECT semesterID as sID, course_offered_ID AS co_id, username AS penyelaras_id " +
                         "from course_offered) AS co, " +
                         "(SELECT c.courseCode, c.courseID, c.courseName, s.sectionID, s.sectionNO, s.course_offered_id AS co_id " +
                         "FROM section AS s, course AS c, profile AS p WHERE s.courseCode = c.courseCode AND s.courseID = c.courseID " + 
                         "AND s.username = p.username AND s.semesterID = " + semesterID + " AND s.username = '" + session.getAttribute("User") + "') AS mine " +
                         "WHERE co.co_id = mine.co_id";
                 } else {
-                query = "SELECT * FROM (SELECT course_offered_ID AS co_id, username AS penyelaras_id " +
+                query = "SELECT * FROM (SELECT semesterID as sID, course_offered_ID AS co_id, username AS penyelaras_id " +
                         "from course_offered) AS co, " +
                         "(SELECT c.courseCode, c.courseID, c.courseName, s.sectionID, s.sectionNO, s.course_offered_id AS co_id " +
                         "FROM section AS s, course AS c, profile AS p WHERE s.courseCode = c.courseCode AND s.courseID = c.courseID " + 
@@ -67,7 +67,7 @@
                         <%
                         } else if(rs.getString("co.penyelaras_id").equals(session.getAttribute("User"))) {
                         %>
-                        <button type="button" class="btn btn-default" onclick="viewSuperviseCourse('<%=rs.getString("mine.courseCode")%>/<%=rs.getString("mine.courseID")%>');">Manage Course</button>
+                        <button type="button" class="btn btn-default" onclick="viewSuperviseCourse(<%=rs.getString("co.sID")%>, '<%=rs.getString("mine.courseCode")%>/<%=rs.getString("mine.courseID")%>');">Manage Course</button>
                         <%
                         } else {
                             String query2 = "SELECT * FROM profile WHERE username = '" + rs.getString("co.penyelaras_id") + "'";
@@ -88,4 +88,5 @@
         </table>
     </div> <!-- /.container -->
 </body>
+<jsp:include page="../footer.jsp"/>
 </html>

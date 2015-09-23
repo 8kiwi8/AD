@@ -30,7 +30,11 @@
 </div>
 <script>
     $("#courseName").select2({
+        <% if(request.getParameter("placeholder") != null && !request.getParameter("placeholder").equals("")) { %>
+        placeholder: "<%=request.getParameter("placeholder")%>",
+        <% } else {%>
         placeholder: "Select A Course",
+        <% } %>
         allowClear: true,
         theme: "bootstrap"
     });

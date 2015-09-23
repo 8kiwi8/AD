@@ -22,7 +22,7 @@
                     <button id="addRow" class="btn btn-default" type="button" disabled>Add Section</button>
                 </span>
                 <jsp:include page="../component/offeredCourseAutoComplete.jsp">
-                    <jsp:param name="semesterID" value="<%=request.getParameter("semesterID")%>"/>
+                    <jsp:param name="semesterID" value='<%=request.getParameter("semesterID")%>'/>
                     <jsp:param name="selectAction" value="none"/>
                     <jsp:param name="id" value="offeredCourse"/>
                 </jsp:include>
@@ -122,5 +122,6 @@
             </div>
         </div>
     </body>
+    <jsp:include page="../footer.jsp"/>
 </html>
 

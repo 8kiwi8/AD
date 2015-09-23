@@ -185,13 +185,14 @@
                 </thead>
                 <tbody>
                 <%
-                    ResultSet rs = DB.query("SELECT * FROM upload_checklist");
+                    ResultSet rs = DB.query("SELECT * FROM upload_checklist WHERE status='active'");
+                    int cnt = 1;
                     while(rs.next()) {
                     ResultSet rs2 = DB.query("SELECT * FROM files AS f, lecturer_upload AS lu, section AS s WHERE lu.sectionID = s.sectionID AND f.fileID = lu.fileID AND lu.sectionID="+sectionID+
                         " AND lu.checklistID="+rs.getString("checklistID"));
                 %>
                 <tr>
-                    <td><%=rs.getString("checklistID") %></td>
+                    <td><%=cnt++%></td>
                     <td><%=rs.getString("label") %></td>
                     <td>
                     <%                                       
@@ -275,6 +276,7 @@
                   return false;
             };                                                
         </script>
-        <div>
+        </div>
     </body>
+    <jsp:include page="../footer.jsp"/>
 </html>

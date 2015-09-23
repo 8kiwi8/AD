@@ -117,7 +117,7 @@
         </div>
         <div class="col-xs-offset-1 col-xs-6">
             <jsp:include page="../component/offeredCourseAutoComplete.jsp">
-                <jsp:param name="semesterID" value="<%=request.getParameter("semesterID")%>"/>
+                <jsp:param name="semesterID" value='<%=request.getParameter("semesterID")%>'/>
             </jsp:include>
         </div>
         <table class="table" id="resultTable"
@@ -235,4 +235,5 @@
         <a href="<%=request.getContextPath()%>/root/addSection.jsp?semesterID=<%=request.getParameter("semesterID")%>" class="btn btn-primary">Add New Section</a>
     </div> <!-- /.container -->
 </body>
+<jsp:include page="../footer.jsp"/>
 </html>

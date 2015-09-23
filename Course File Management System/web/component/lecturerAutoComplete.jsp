@@ -24,7 +24,11 @@
 <% if(request.getParameter("prebuild") != null && !request.getParameter("prebuild").equals("")) { %>
     <script>
         $(".lecturerName").select2({
-            placeholder: "Select A Lecturer",
+            <% if(request.getParameter("placeholder") != null && !request.getParameter("placeholder").equals("")) { %>
+        placeholder: "<%=request.getParameter("placeholder")%>",
+        <% } else {%>
+        placeholder: "Select A Lecturer",
+        <% } %>
             allowClear : true,
             theme: "bootstrap"
         });

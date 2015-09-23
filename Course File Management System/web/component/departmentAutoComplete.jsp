@@ -19,7 +19,11 @@
 </select>
 <script>
     $("#departmentName").select2({
+        <% if(request.getParameter("placeholder") != null && !request.getParameter("placeholder").equals("")) { %>
+        placeholder: "<%=request.getParameter("placeholder")%>",
+        <% } else {%>
         placeholder: "Select A Department",
+        <% } %>
         allowClear : true,
         theme: "bootstrap"
     });

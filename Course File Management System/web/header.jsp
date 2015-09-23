@@ -98,6 +98,7 @@
 <link rel="stylesheet" href="<%=request.getContextPath()%>/css/bootstrap-table.css">
 <link rel="stylesheet" href="<%=request.getContextPath()%>/css/select2.min.css">
 <link rel="stylesheet" href="<%=request.getContextPath()%>/css/select2-bootstrap.min.css">
+<link rel="stylesheet" href="<%=request.getContextPath()%>/css/footer-style.css">
 <script type="text/javascript" src="<%=request.getContextPath()%>/javascript/jquery-2.1.4.min.js"></script>
 <script type="text/javascript" src="<%=request.getContextPath()%>/javascript/jquery-ui-1.9.2.custom.min.js"></script>
 <script type="text/javascript" src="<%=request.getContextPath()%>/javascript/jquery.URI.min.js"></script>

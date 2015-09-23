@@ -22,7 +22,11 @@
 </select>
 <script>
     $("#semester").select2({
+        <% if(request.getParameter("placeholder") != null && !request.getParameter("placeholder").equals("")) { %>
+        placeholder: "<%=request.getParameter("placeholder")%>",
+        <% } else {%>
         placeholder: "Select A Semester",
+        <% } %>
         allowClear : true,
         theme: "bootstrap"
     });

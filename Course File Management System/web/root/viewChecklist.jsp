@@ -10,7 +10,7 @@
 <body>
 
 <%
-    ResultSet rs = DB.query("SELECT * FROM upload_checklist");
+    ResultSet rs = DB.query("SELECT * FROM upload_checklist WHERE status='active'");
     int cnt = 1;
 %>
 
@@ -47,4 +47,5 @@
 
     </div> <!-- /.container -->
 </body>
+<jsp:include page="../footer.jsp"/>
 </html>
