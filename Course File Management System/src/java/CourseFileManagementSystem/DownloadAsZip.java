@@ -15,7 +15,6 @@ import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.ServletException;
-import javax.servlet.ServletOutputStream;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -58,8 +57,7 @@ public class DownloadAsZip extends HttpServlet {
             File tempDirectory = new File(getServletContext().getRealPath("") + File.separator + zipPath);
             System.out.println("PATH = " + getServletContext().getRealPath("") + File.separator + zipPath);
             if (!tempDirectory.exists()) 
-            {
-                
+            {                
                 tempDirectory.mkdir();
             }
             zipPath += File.separator;
@@ -68,18 +66,20 @@ public class DownloadAsZip extends HttpServlet {
             
             String name = "";
 
-            if(zipAs.equals("course")) {
+            if(zipAs.equals("course")) 
+            {
                 folderPath += course;
                 zipPath += course + ".zip";
-                name = course;
-                
+                name = course;               
             }
-            else if(zipAs.equals("section")) {
+            else if(zipAs.equals("section")) 
+            {
                 folderPath += course + File.separator + section;
                 zipPath += course + " - " + section + ".zip";
                 name = section;
             }
-            else if(zipAs.equals("checklist")) {
+            else if(zipAs.equals("checklist")) 
+            {
                 folderPath += course + File.separator + section + File.separator + checklist;
                 zipPath += course + " - " + section + " - " + checklist + ".zip";
                 name = checklist;
@@ -87,7 +87,6 @@ public class DownloadAsZip extends HttpServlet {
             String zipRealPath = getServletContext().getRealPath("") + File.separator + zipPath;
             String zipContextPath = getServletContext().getContextPath() + File.separator + zipPath;
             ZipUtil.pack(new File(folderPath), new File(zipRealPath));
-
             
             out.println("<!DOCTYPE html>");
             out.println("<html>");
@@ -102,7 +101,9 @@ public class DownloadAsZip extends HttpServlet {
                         "<i class = \"glyphicon glyphicon-download-alt\"></i> Download </button></a>");
             out.println("</body>");
             out.println("</html>");
-        } catch (SQLException ex) {
+        } 
+        catch (SQLException ex) 
+        {
             Logger.getLogger(DownloadAsZip.class.getName()).log(Level.SEVERE, null, ex);
         }
     }

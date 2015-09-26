@@ -6,24 +6,20 @@
 package CourseFileManagementSystem;
 import java.sql.*; 
 import common.DB;
-
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.PrintWriter;
 import java.util.List;
-
 import java.util.Scanner;
 import javax.servlet.ServletContext;
-
 import javax.servlet.ServletException;
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
 import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.fileupload.FileUploadException;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
@@ -90,9 +86,7 @@ public class Upload extends HttpServlet
             
             ResultSet rs5 = DB.query("SELECT * FROM course AS c, section AS s, year_semester AS ys, upload_checklist AS uc WHERE s.courseCode = c.courseCode "
                            + "AND s.semesterID = ys.semesterID AND s.courseID = c.courseID AND s.sectionID=" + sectionID);                                
-            rs5.next(); 
-            //String uploadFolder = getServletContext().getRealPath("") + File.separator + DATA_DIRECTORY + File.separator + rs5.getString("year") + "-" + rs5.getString("semester") + File.separator + rs5.getString("courseCode") 
-            //                    + rs5.getString("courseID") + " - " + rs5.getString("courseName") + File.separator + "section - " + rs5.getString("sectionNo") + " - (" + sectionID + ")" + File.separator + rs.getString ("label");
+            rs5.next();           
             
         // Create a new file upload handler
         ServletFileUpload upload = new ServletFileUpload(factory);
@@ -160,9 +154,7 @@ public class Upload extends HttpServlet
                         if (!file_type.exists()) 
                             file_type.mkdir();
                         DBPath = sectionPath + "/" + temp_file + "/";
-                        real_path3 += File.separator;
-                        //String path = request.getContextPath() + "/" + DATA_DIRECTORY + "/" + rs5.getString("year") + "-" + rs5.getString("semester") + "/" + rs5.getString("courseCode") 
-                        //            + rs5.getString("courseID") + " - " + rs5.getString("courseName") + "/" + "section - " + rs5.getString("sectionNo") + " - (" + sectionID + ")" + "/" + rs.getString ("label");
+                        real_path3 += File.separator;                        
 
                         String filePath = real_path3 + fileName;
                         DBPath += fileName;

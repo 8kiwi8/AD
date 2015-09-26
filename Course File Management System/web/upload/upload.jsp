@@ -28,9 +28,9 @@
             .fileUpload {
                 position: relative;
                 overflow: hidden;
-                margin: 10px;
+                margin: 0px;
                 text-align: left;
-            }
+            }           
             .fileUpload input.upload {
                 position: absolute;
                 top: 0;
@@ -80,10 +80,10 @@
             table {
                     font-family:Arial, Helvetica, sans-serif;
                     color:#666;
-                    font-size:12px;
+                    font-size:13px;
                     text-shadow: 1px 1px 0px #fff;
                     background:#eaebec; //light grayish blue
-                    margin:20px;
+                    margin:10px;
                     border:#ccc 1px solid;
 
                     -moz-border-radius:3px;
@@ -95,7 +95,7 @@
                     box-shadow: 0 1px 2px #d1d1d1;
             }
             table th {
-                    padding:21px 25px 22px 25px;
+                    padding:21px 15px 22px 15px;
                     border-top:1px solid #fafafa; //very light gray
                     border-bottom:1px solid #e0e0e0; //very light gray
 
@@ -105,7 +105,7 @@
             }
             table th:first-child {
                     text-align: left;
-                    padding-left:20px;
+                    padding-left:10px;
             }
             table tr:first-child th:first-child {
                     -moz-border-radius-topleft:3px;
@@ -118,11 +118,11 @@
                     border-top-right-radius:3px;
             }
             table tr { 
-                    padding-left:20px;
+                    padding-left:10px;
             }
             table td:first-child {
                     text-align: left;
-                    padding-left:20px;
+                    padding-left:10px;
                     border-left: 0;
             }
             table td {
@@ -157,8 +157,7 @@
                     background: #f2f2f2;
                     background: -webkit-gradient(linear, left top, left bottom, from(#f2f2f2), to(#f0f0f0));
                     background: -moz-linear-gradient(top,  #f2f2f2,  #f0f0f0);	
-            }
-            
+            }           
         </style>
     </head>
     <body>
@@ -177,9 +176,14 @@
                         owner = true;
                     } %>
             </div>
-                    <a role="button" class="btn btn-primary" href="<%=request.getContextPath()%>/DownloadAsZip?sectionID=<%=sectionID%>&zipAs=section" target="_blank">
-                Download As Zip
-            </a>
+            <div class="col-xs-2 media-left" >
+            <a role="button" class="btn btn-primary" href="<%=request.getContextPath()%>/DownloadAsZip?sectionID=<%=sectionID%>&zipAs=section" target="_blank">
+                Download Section
+            </a> </div> 
+            <% if (owner) {%>
+            <div class="col-xs-2 media-left">
+                <input type="submit" value="Upload" class="btn btn-primary"/>
+               <%} %> </div> <br> <br>
             <table style = "width:100%">
                 <thead>
                 <th>No.</th>
@@ -223,13 +227,18 @@
                             <input name="checklist-<%=rs.getString("checklistID")%>" type="file" cl_ID="<%=rs.getString("checklistID")%>" class="upload" multiple id = "file" accept = ".pdf"/> <br>                          
                             <div id = "fileList-<%=rs.getString("checklistID")%>"> </div>                           
                         </div>
+                    <% if (found) { %>                         
+                        <a role="button" class="btn btn-primary" href="<%=request.getContextPath()%>/DownloadAsZip?sectionID=<%=sectionID%>&zipAs=checklist" target="_blank" style="float: right;">
+                            <font color = "white">Download Checklist</font>
+                        </a>  
+                    <%}%>
                     <% } else if(!found && owner) { %>                             
                         <div class="fileUpload btn btn-default">
                             <input id="uploadFile-<%=rs.getString("checklistID")%>" placeholder="Choose File" disabled = "disabled"/>
                             <button class="browse btn btn-primary" type="button"><i class="glyphicon glyphicon-folder-open"></i> Browse</button>
                             <input name="checklist-<%=rs.getString("checklistID")%>" type="file" cl_ID="<%=rs.getString("checklistID")%>" class="upload" multiple id = "file" accept = ".pdf"/> <br>                          
                             <div id = "fileList-<%=rs.getString("checklistID")%>"> </div>                           
-                        </div>
+                        </div>                       
                     </td>
                     <%} else if (!found && !owner) {%>
                     No Upload Yet
@@ -238,9 +247,7 @@
             <% } %>
                 <tbody>
             </table> <br>
-               <% if (owner) {%>
-                <input type="submit" value="Upload" class="btn btn-primary"/>
-               <%} %>
+               
         </form>
         <script type="text/javascript">    
             $(".upload").change(function (e, data) 
