@@ -15,6 +15,7 @@ import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.ServletException;
+import javax.servlet.ServletOutputStream;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -49,37 +50,54 @@ public class DownloadAsZip extends HttpServlet {
             String semester = rs.getString("year") + "-" + rs.getString("semester");
             String course = rs.getString("courseCode") + rs.getString("courseID") + "-" + rs.getString("courseName");
             String section = "section-" + rs.getString("sectionNo");
+            String checklist = rs.getString("label");
             
             String folderPath = getServletContext().getRealPath("") + File.separator + "data" + File.separator + semester + File.separator;
-            String zipRealPath = getServletContext().getContextPath() + File.separator + "data" + File.separator + semester + File.separator;
+            
+            String zipPath = "temp";
+            File tempDirectory = new File(getServletContext().getRealPath("") + File.separator + zipPath);
+            System.out.println("PATH = " + getServletContext().getRealPath("") + File.separator + zipPath);
+            if (!tempDirectory.exists()) 
+            {
+                
+                tempDirectory.mkdir();
+            }
+            zipPath += File.separator;
+            
             String zipAs = request.getParameter("zipAs");
-            String zipPath = "";
+            
             String name = "";
 
             if(zipAs.equals("course")) {
-                zipPath = folderPath+File.separator+course+".zip";
-                zipRealPath = zipRealPath+File.separator+course+".zip";
-                ZipUtil.pack(new File(folderPath+course), new File(zipPath));
+                folderPath += course;
+                zipPath += course + ".zip";
                 name = course;
+                
             }
             else if(zipAs.equals("section")) {
-                folderPath += course +File.separator;
-                zipRealPath += course +File.separator;
-                zipPath = folderPath+section+".zip";
-                zipRealPath = zipRealPath+section+".zip";
-                ZipUtil.pack(new File(folderPath+section), new File(zipPath));
+                folderPath += course + File.separator + section;
+                zipPath += course + " - " + section + ".zip";
                 name = section;
             }
             else if(zipAs.equals("checklist")) {
-                
+                folderPath += course + File.separator + section + File.separator + checklist;
+                zipPath += course + " - " + section + " - " + checklist + ".zip";
+                name = checklist;
             }
+            String zipRealPath = getServletContext().getRealPath("") + File.separator + zipPath;
+            String zipContextPath = getServletContext().getContextPath() + File.separator + zipPath;
+            ZipUtil.pack(new File(folderPath), new File(zipRealPath));
+
+            
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
             out.println("<title>Servlet DownloadAsZip</title>");            
+            out.println("<meta http-equiv=\"refresh\" content=\"0; url="+zipContextPath+"\"/>"); 
+            out.println("<script>setTimeout(\"window.close()\", 100);</script>"); 
             out.println("</head>");
             out.println("<body>");
-            out.println("<a href = \""+zipRealPath+"\" download =\""+name+"\">" +
+            out.println("<a href = \""+zipContextPath+"\" download =\""+name+"\">" +
                         "<button class=\"btn btn-primary\" type=\"button\">" +
                         "<i class = \"glyphicon glyphicon-download-alt\"></i> Download </button></a>");
             out.println("</body>");

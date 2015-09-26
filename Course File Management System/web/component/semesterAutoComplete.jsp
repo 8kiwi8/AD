@@ -4,6 +4,8 @@
     Author     : Kiwi
 --%>
 
+<%@page import="java.sql.ResultSet"%>
+<%@page import="common.DB"%>
 <%@page import="java.util.HashMap"%>
 <%@page import="AutoComplete.Select2OptionGenerator"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -30,10 +32,23 @@
         allowClear : true,
         theme: "bootstrap"
     });
-    <% if(request.getParameter("semesterID") != null && !request.getParameter("semesterID").equals("")) { %>
+    <% if(request.getParameter("semesterID") != null && (!request.getParameter("semesterID").equals("") || !request.getParameter("semesterID").equals("null"))) { %>
     $("#semester").select2("val", "<%=request.getParameter("semesterID")%>");
-    <% } else { %>
-    $("#semester").select2("val", "");    
+    <% } else { 
+        query = "Select * FROM year_semester ORDER BY year DESC, semester DESC";
+        ResultSet rs = DB.query(query);
+        rs.next();
+    %>
+    $("#semester").select2("val", "<%=rs.getString("semesterID")%>");
+    dataSet = { 
+        "semesterID":$("#semester").val()
+    };
+    var uri = new URI(window.location.href);
+    var query = new URI(uri.search());
+    var query = query.setSearch(dataSet);
+    var uri = uri.pathname();
+    var newQueryUrl = uri + query;
+    window.location.href = newQueryUrl; 
     <% } %>
     $("#semester").change(function() {
         dataSet = { 
