@@ -36,7 +36,7 @@ public class DeleteChecklistServlet extends HttpServlet {
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
             String checklistID = request.getParameter("checklistID");
-            String query = "UPDATE upload_checklist SET status='deactive' WHERE checklistID="+checklistID;
+            String query = "UPDATE upload_checklist SET status='inactive' WHERE checklistID="+checklistID;
             DB.update(query);
             response.sendRedirect(request.getHeader("Referer"));
             out.println("<!DOCTYPE html>");

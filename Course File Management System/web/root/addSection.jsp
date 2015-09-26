@@ -59,9 +59,12 @@
             <script>
             $button = $('#addRow');
             var rowNum = 0;
+            if($("#offeredCourse").val() !== null) {
+                $button.prop("disabled", false);
+            }
             $("#offeredCourse").change( function() {
                 if($(this).val() !== null) {
-                    $button.prop("disabled", false);
+                    $button.prop("disabled", false); 
                 } else {
                     $button.prop("disabled", true);
                 }

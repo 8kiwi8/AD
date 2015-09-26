@@ -160,65 +160,7 @@
                     <td><%=rs.getString("sectionNo")%></td>
                     <td><%=rs.getString("sectionMajor")%></td>
                     <td>
-                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#updateSection-<%=rs.getString("sectionID")%>">Update</button>
-                        <div id="updateSection-<%=rs.getString("sectionID")%>" class="modal fade" role="dialog">
-                            <div class="modal-dialog">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        Update Section
-                                    </div>
-                                    <form class='form-horizontal' action="<%=request.getContextPath()%>/UpdateSectionServlet">
-                                        <div class="modal-body">
-                                            <label>Semester: </label>
-                                            <input class="form-control semester-label" disabled>
-                                            <label>Course:</label>
-                                            <input class="form-control course-label" co_ID=<%=rs.getString("s.course_offered_ID")%> name="course" value="<%=rs.getString("courseCode")%> <%=rs.getString("courseID")%>" disabled>
-                                            <label>Lecturer Name:</label>
-                                            <input class="form-control lecturerName" co_ID=<%=rs.getString("s.course_offered_ID")%> name="lecturerName" value="<%=rs.getString("name")%>">
-                                            <label>Section Number:</label>
-                                            <select class="form-control" name="sectionNo" id="sectionNo">
-                                                <% 
-                                                for(int i = 1; i <= 10; ++i) {
-                                                    if(i == Integer.parseInt((rs.getString("s.sectionNo")))) 
-                                                        out.print("<option selected>");
-                                                    else
-                                                        out.print("<option>");
-                                                    out.print(i);
-                                                    out.print("</option>");
-                                                }
-                                                %>
-                                            </select>
-                                            <label>Section Major:</label>
-                                            <select class="form-control" name="sectionMajor" id="sectionMajor">
-                                                <%
-                                                String[] majors = {"SCSJ", "SCSR", "SCSV", "SCSB"};
-                                                for(String major: majors) {
-                                                    if(major.equals(rs.getString("s.sectionMajor"))) 
-                                                        out.print("<option selected>");
-                                                    else
-                                                        out.print("<option>");
-                                                    out.print(major);
-                                                    out.print("</option>");
-                                                }
-                                                %>
-                                            </select>
-                                            <div class= "">
-                                                <input class="semesterID" name="semesterID">
-                                                <input id="username-<%=rs.getString("s.course_offered_ID")%>" name="username" value="<%=rs.getString("s.username")%>">
-                                                <input class="course_offered_ID" id="course_offered_ID-<%=rs.getString("s.course_offered_ID")%>" name="course_offered_ID" value="<%=rs.getString("s.course_offered_ID")%>">
-                                                <input class="courseCode" id="courseCode-<%=rs.getString("s.course_offered_ID")%>" name="courseCode" value="<%=rs.getString("courseCode")%>">
-                                                <input class="courseID" id="courseID-<%=rs.getString("s.course_offered_ID")%>" name="courseID" value="<%=rs.getString("courseID")%>">
-                                                <input class="sectionID" name="sectionID" value="<%=rs.getString("sectionID")%>">
-                                            </div> 
-                                        </div>
-                                        <div class="modal-footer">
-                                            <button type="submit" class='btn btn-primary'>Update Section</button>
-                                            <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>                        
-                                        </div>
-                                    </form>
-                                </div>
-                            </div>
-                        </div>
+                        <a href="updateSection.jsp?sectionID=<%=rs.getString("sectionID")%>" class="btn btn-primary">Update</a>
                         <a href="<%=request.getContextPath()%>/DeleteSectionServlet?sectionID=<%=rs.getString("sectionID")%>" class="btn btn-danger">Delete</a>
                         <%
                         if(rs.getString("co.username") != null && !rs.getString("co.username").equals("") && rs.getString("co.username").equals(rs.getString("s.username"))) {
@@ -232,7 +174,7 @@
                 <% } } %>
                 </tbody>
         </table>
-        <a href="<%=request.getContextPath()%>/root/addSection.jsp?semesterID=<%=request.getParameter("semesterID")%>" class="btn btn-primary">Add New Section</a>
+        <a href="<%=request.getContextPath()%>/root/addSection.jsp?semesterID=<%=request.getParameter("semesterID")%>&course_offered_ID=<%=request.getParameter("course_offered_ID")%>" class="btn btn-primary">Add New Section</a>
     </div> <!-- /.container -->
 </body>
 <jsp:include page="../footer.jsp"/>
