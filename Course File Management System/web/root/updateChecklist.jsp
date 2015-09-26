@@ -32,14 +32,14 @@
             </div>
 
             <div class="form-group">
-                <label for="courseName" class="control-label col-xs-4">Label</label>
+                <label for="courseName" class="control-label col-xs-4">Label:</label>
                 <div class="col-xs-8">
                     <input type="text" class="form-control" name="label" value="<%=rs.getString("label") %>">
                 </div>
             </div>
 
             <div class="form-group">
-                <label for="courseName" class="control-label col-xs-4">Label</label>
+                <label for="courseName" class="control-label col-xs-4">Description:</label>
                 <div class="col-xs-8">
                     <input type="text" class="form-control" name="description" value="<%=rs.getString("description") %>">
                 </div>

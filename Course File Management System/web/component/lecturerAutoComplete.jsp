@@ -9,7 +9,7 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <select name= "username" class="form-control lecturerName" 
-        <% if(request.getParameter("id") != null && !request.getParameter("id").equals("")) { %>
+        <% if(request.getParameter("id") != null && !request.getParameter("id").equals("") && !request.getParameter("id").equals("null")) { %>
         id="<%=request.getParameter("id")%>"
         <% } %>
         >
@@ -32,10 +32,10 @@
             allowClear : true,
             theme: "bootstrap"
         });
-        <% if(request.getParameter("username") != null && !request.getParameter("username").equals("")) { %>
+        <% if(request.getParameter("username") != null && (!request.getParameter("username").equals("") || !request.getParameter("username").equals("null"))) { %>
         $(".lecturerName").select2("val", "<%=request.getParameter("username")%>");
         <% } else { %>
-        $("#lecturerName").select2("val", "");    
+        $(".lecturerName").select2("val", "");    
         <% } %>
         $(".lecturerName").change(function() {
             <% if(request.getParameter("selectAction") != null) { 

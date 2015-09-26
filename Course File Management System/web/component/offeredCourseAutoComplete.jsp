@@ -18,7 +18,7 @@
         <% } %>
         >
 <%
-    if(request.getParameter("semesterID") == null || request.getParameter("semesterID").equals("")) {
+    if(request.getParameter("semesterID") == null || request.getParameter("semesterID").equals("") || request.getParameter("semesterID").equals("null")) {
     } else {
         String semesterID = request.getParameter("semesterID");
         String query = "Select * FROM course_offered AS co, course AS c WHERE co.courseID = c.courseID AND " +
@@ -41,7 +41,7 @@
         allowClear: true,
         theme: "bootstrap"
     });
-    <% if(request.getParameter("course_offered_ID") != null && !request.getParameter("course_offered_ID").equals("")) { %>
+    <% if(request.getParameter("course_offered_ID") != null && (!request.getParameter("course_offered_ID").equals("") || !request.getParameter("course_offered_ID").equals("null"))) { %>
     $(".offeredCourse").select2("val", "<%=request.getParameter("course_offered_ID")%>");
     <% } else { %>
     $(".offeredCourse").select2("val", "");    
@@ -66,7 +66,7 @@
     });
 </script>
 <% 
-if(request.getParameter("semesterID") == null || request.getParameter("semesterID").equals("")) {
+if(request.getParameter("semesterID") == null || request.getParameter("semesterID").equals("") || request.getParameter("semesterID").equals("null")) {
 %>
 <script>
     $(".offeredCourse").prop("disabled", true);
