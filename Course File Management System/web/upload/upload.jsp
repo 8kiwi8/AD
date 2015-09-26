@@ -213,16 +213,17 @@
                             <button class="btn btn-danger" type="button"><i class = "glyphicon glyphicon-trash" ></i> Delete </button>                     
                         </a> 
                         <% } %>
-                        <%=path1.getFileName()%>
-                        <br>
+                        <%=path1.getFileName()%> <br>
+                        <br>             
+                    <%}%>
+                    <% if (owner) {%>
                         <div class="fileUpload btn btn-default">
                             <input id="uploadFile-<%=rs.getString("checklistID")%>" placeholder="Choose File" disabled = "disabled"/>
                             <button class="browse btn btn-primary" type="button"><i class="glyphicon glyphicon-folder-open"></i> Browse</button>
                             <input name="checklist-<%=rs.getString("checklistID")%>" type="file" cl_ID="<%=rs.getString("checklistID")%>" class="upload" multiple id = "file" accept = ".pdf"/> <br>                          
                             <div id = "fileList-<%=rs.getString("checklistID")%>"> </div>                           
                         </div>
-                    <%}%> 
-                    <% if(!found && owner) { %>                              
+                    <% } else if(!found && owner) { %>                             
                         <div class="fileUpload btn btn-default">
                             <input id="uploadFile-<%=rs.getString("checklistID")%>" placeholder="Choose File" disabled = "disabled"/>
                             <button class="browse btn btn-primary" type="button"><i class="glyphicon glyphicon-folder-open"></i> Browse</button>
