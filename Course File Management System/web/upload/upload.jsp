@@ -183,7 +183,7 @@
             <% if (owner) {%>
             <div class="col-xs-2 media-left">
                 <input type="submit" value="Upload" class="btn btn-primary"/>
-               <%} %> </div> <br> <br>
+               <%} %> </div> <br> 
             <table style = "width:100%">
                 <thead>
                 <th>No.</th>
@@ -242,7 +242,10 @@
                     </td>
                     <%} else if (!found && !owner) {%>
                     No Upload Yet
-                    <% } %>
+                    <% } else if (found && !owner) {%>
+                    <a role="button" class="btn btn-primary" href="<%=request.getContextPath()%>/DownloadAsZip?sectionID=<%=sectionID%>&zipAs=checklist" target="_blank" style="float: right;">
+                            <font color = "white">Download Checklist</font>
+                    </a> <%}%>
                 </tr>
             <% } %>
                 <tbody>
