@@ -79,7 +79,7 @@
                     </td>
                     <td> 
                         <a href = "<%=request.getContextPath()%>/upload/upload.jsp?sectionID=<%=rs.getString("mine.sectionID")%>"> 
-                            <button class="btn btn-info" type="button"><i class = "glyphicon glyphicon-upload"></i> Upload </button>
+                            <button class="btn btn-info" type="button"><i class = "glyphicon glyphicon-upload"></i> Upload/View </button>
                         </a>
                     </td>
                 </tr>

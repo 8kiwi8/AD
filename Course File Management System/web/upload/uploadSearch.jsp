@@ -66,7 +66,7 @@
             };
             function operateFormatter(value, row, index) {
                 return [
-                    '<a class="stats" href="javascript:void(0)" title="Stats">',
+                    '<a class="stats" href="javascript:void(0)" title="Manage Upload">',
                     '<i class="glyphicon glyphicon-stats"></i>',
                     '</a>  '
                 ].join('');

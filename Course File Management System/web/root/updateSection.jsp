@@ -24,16 +24,20 @@
     <body>
         <div class="container">
             <form class='form-horizontal' action="<%=request.getContextPath()%>/UpdateSectionServlet">
-                <div class="modal-body">
-                    <label>Course:</label>
-                    <input class="form-control" name="course" value="<%=rs.getString("courseCode")%> <%=rs.getString("courseID")%> - <%=rs.getString("courseName")%>" disabled>
+                <div class="form-group">
+                    <label for="course" >Course:</label>
+                    <input id="course" type="text" class="form-control" name="course" value="<%=rs.getString("courseCode")%> <%=rs.getString("courseID")%> - <%=rs.getString("courseName")%>" disabled>
+                </div>
+                <div class="form-group">
                     <label>Lecturer Name:</label>
                     <jsp:include page="../component/lecturerAutoComplete.jsp">
                         <jsp:param name="username" value='<%=rs.getString("s.username")%>'/>
                         <jsp:param name="prebuild" value='yes'/>
                         <jsp:param name="selectAction" value='none'/>
                     </jsp:include>
-                    <label>Section Number:</label>
+                </div>
+                <div class="form-group">
+                    <label for="sectionNo">Section Number:</label>
                     <select class="form-control" name="sectionNo" id="sectionNo">
                         <% 
                         for(int i = 1; i <= 10; ++i) {
@@ -46,7 +50,9 @@
                         }
                         %>
                     </select>
-                    <label>Section Major:</label>
+                </div>
+                <div class="form-group">
+                    <label for="sectionMajor">Section Major:</label>
                     <select class="form-control" name="sectionMajor" id="sectionMajor">
                         <%
                         String[] majors = {"SCSJ", "SCSR", "SCSV", "SCSB"};
@@ -60,10 +66,13 @@
                         }
                         %>
                     </select>
-                    <div class= "hidden">
-                        <input class="sectionID" name="sectionID" value="<%=rs.getString("sectionID")%>">
-                    </div> 
+                </div>
+                <div class= "hidden">
+                    <input class="sectionID" name="sectionID" value="<%=rs.getString("sectionID")%>">
+                </div> 
+                <div class="form-group">
                     <button type="submit" class='btn btn-primary'>Update Section</button>
+                </div>
             </form>
         </div>
     </body>
