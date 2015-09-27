@@ -39,29 +39,20 @@
         <div class= "<% if (!isLoggedIn) out.println("col-xs-8"); %>">
             <div class="panel panel-default">
                 <div class="panel-heading">
-                    <h3 class="panel-title"><strong>News</strong></h3>
+                    <h3 class="panel-title"><strong>What is Course File?</strong></h3>
                 </div>
-                <div class="panel-body">
-                    <p>The European languages are members of the same family. Their separate existence is a myth. For science, music, sport, etc, Europe uses the same vocabulary. 
-                        The languages only differ in their grammar, their pronunciation and their most common words.</p>
+                    <div class="panel-body">
+                    <p>Course files are printed and given to every student at the beginning of each semester. This practice is helping the teachers and students enormously.
+                        The course file contains</p>
+                    <ul>
+                        <li>Syllabus</li>
+                        <li>Lecturer Schedules</li>
+                        <li>Depth of study defined by learning objectives of the subject, Short answer questions (40 per chapter) and long answer questions (20 per chapter).</li>
+                    </ul>
 
-                    <p>Everyone realizes why a new common language would be desirable: one could refuse to pay expensive translators. To achieve this, it would be necessary to 
-                        have uniform grammar, pronunciation and more common words. If several languages coalesce, the grammar of the resulting language is more simple and regular 
-                        than that of the individual languages.</p>
+                    <p>With this, the students can come prepared for the topic to be discussed which results in Active Learning. The students also can understand the depth upto which the subject must be studied with the help of questions given in the course file.</p>
 
-                    <p>The new common language will be more simple and regular than the existing European languages. It will be as simple as Occidental; in fact, it will be 
-                        Occidental. To an English person, it will seem like simplified English, as a skeptical Cambridge friend of mine told me what Occidental is. The European 
-                        languages are members of the same family.</p>
-
-                    <p>Their separate existence is a myth. For science, music, sport, etc, Europe uses the same vocabulary. The languages only differ in their grammar, 
-                        their pronunciation and their most common words. Everyone realizes why a new common language would be desirable: one could refuse to pay expensive 
-                        translators.</p>
-
-                    <p>To achieve this, it would be necessary to have uniform grammar, pronunciation and more common words. If several languages coalesce, the grammar of 
-                        the resulting language is more simple and regular than that of the individual languages. The new common language will be more simple and regular than 
-                        the existing European languages. It will be as simple as Occidental; in fact, it will be Occidental. To an English person, it will seem like simplified 
-                        English, as a skeptical Cambridge friend of mine told me what Occidental is. The European languages are members of the same family. Their separate existence 
-                        is a</p>
+                    <p>This is also helping new teacher to understand the depth upto which the subject has to be taught.</p>
                 </div>
             </div>
         </div>
