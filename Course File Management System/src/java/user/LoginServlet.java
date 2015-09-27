@@ -44,6 +44,7 @@ public class LoginServlet extends HttpServlet {
             String password = request.getParameter("inputPassword");
             HttpSession session = ((HttpServletRequest) request).getSession();
             String query = "SELECT * FROM user AS u, profile AS p WHERE u.username = p.username AND u.username='" + username + "'";
+            System.out.println(query);
             ResultSet rs = DB.query(query);
             if (rs.next()) {  
                 String userTypeFromDB = rs.getString("usertype");

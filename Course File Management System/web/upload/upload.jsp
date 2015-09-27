@@ -183,6 +183,7 @@
                         <% } %>
                     </td>
                     <td>
+                        <% if (owner) {%>
                         <button type="button" class="open-AddBookDialog btn btn-success btn-md glyphicon glyphicon-upload" data-id=<%=rs.getString("checklistID")%> data-toggle="modal" data-target="#confirm-upload-<%=rs.getString("checklistID")%>"></button>
                         <!-- Modal -->
                         <div id="confirm-upload-<%=rs.getString("checklistID")%>" class="modal fade" role="dialog">
@@ -202,15 +203,14 @@
                                                 </div>
                                             </div>
                                             <div class="modal-footer">
-                                                <% if (owner) {%>
                                                 <input type="submit" value="Submit" class="btn btn-primary"/>
-                                                <%} %>
                                             </div>
                                         </form>
                                     </div>
                                 </div>
                             </div>
                         </div>
+                        <%} %>
                     </td>
                 </tr>
             <% } %>
