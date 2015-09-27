@@ -38,9 +38,18 @@
                 opacity: 0;
                 filter: alpha(opacity=0);
             }
+            .footer {
+                position: absolute;
+                bottom: 0;
+                width: 100%;
+                /* height: 60px; */
+                background-color: #00000;
+            }
+            
             input[type="submit"] {
                 display: block;
             }
+            
             #uploadFile {
                 line-height: 28px;
             }           
@@ -97,26 +106,6 @@
                     background: -moz-linear-gradient(top,  #fbfbfb,  #fafafa);
             }
             
-            .upload-drop-zone {
-                height: 200px;
-                border-width: 2px;
-                 margin-bottom: 20px;
-            }
-
-/* skin.css Style*/
-            .upload-drop-zone {
-                color: #ccc;
-                border-style: dashed;
-                border-color: #ccc;
-                line-height: 200px;
-                text-align: center
-            }
-            
-            .upload-drop-zone.drop {
-                color: #222;
-                border-color: #222;
-            }
-            
         </style>
     </head>
     <body>
@@ -136,9 +125,10 @@
                         owner = true;
                     } %>
             </div>
-                    <a role="button" class="btn btn-primary" href="<%=request.getContextPath()%>/DownloadAsZip?sectionID=<%=sectionID%>&zipAs=section">
+                    <a role="button" class="btn btn-primary glyphicon glyphicon-download" href="<%=request.getContextPath()%>/DownloadAsZip?sectionID=<%=sectionID%>&zipAs=section">
                 Download As Zip
             </a>
+                
             <table style = "width:100%">
                 <thead>
                 <th>No.</th>
@@ -183,47 +173,11 @@
                         <% } %>
                     </td>
                     <td>
-                        <button type="button" class="open-AddBookDialog btn btn-success btn-md glyphicon glyphicon-upload" data-id=<%=rs.getString("checklistID")%> data-toggle="modal" data-target="#confirm-upload"></button>
-                        
-                        <script type="text/javascript">   
-                        
-                            $(document).on("click", ".open-AddBookDialog", function () {
-                            var checklistID = $(this).data('id');
-                            $(".modal-body #checklistID").val( checklistID );
-                        });
-                        </script>
-                        
-                        
-                        <!-- Modal -->
-                <div id="confirm-upload" class="modal fade" role="dialog">
-                <div class="modal-dialog">
-
-                <!-- Modal content-->
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal">&times;</button>
-                    <h4 class="modal-title">Upload files</h4>   
-                    </div>
-                    <div class="modal-body">
-                        <h4>Select files from your computer</h4>
-                            <form method="post" action="<%=request.getContextPath()%>/Upload" enctype="multipart/form-data">
-                                <div class="form-inline">
-                                <div class="form-group">
-                                    <input name="checklist-checklistID" type="file" cl_ID="checklistID" class="upload" multiple id = "file" accept = ".pdf"/> <br>                          
-                                    <div id = "fileList-checklistID" </div>
-                                </div>
-                                </div>
-                                
-                    <div class="modal-footer">
-                        <% if (owner) {%>
-                        <input type="submit" value="Submit" class="btn btn-primary"/>
-                        <%} %>
-
-                    </div>
-
-                    </div>
-                    </form>
-            </div></div></div>
+                        <div class="fileUpload">
+                            <button type="button" class="btn btn-success btn-md glyphicon glyphicon-upload"></button>
+                            <input name="checklist-<%=rs.getString("checklistID")%>" type="file" cl_ID="<%=rs.getString("checklistID")%>" class="upload" multiple id = "file" accept = ".pdf"/> <br>                          
+                            <div id = "fileList-<%=rs.getString("checklistID")%>"> </div>                           
+                        </div>
                         
                 </td>
                     
@@ -233,9 +187,7 @@
             <% } %>
             </tbody>
             </table> <br>
-               <% if (owner) {%>
-                <input type="submit" value="Save changes" class="btn btn-primary"/>
-               <%} %>
+               
         </form>
         <script type="text/javascript">    
             $(".upload").change(function (e, data) 
@@ -283,6 +235,19 @@
             };                                                
         </script>
         </div>
+            
+            <footer class="footer">
+    <div class="navbar navbar-inverse navbar-fixed-bottom">
+        <div class="navbar-inner">
+            <div class="container">
+                <% if (owner) {%>
+                <input type="submit" value="Save changes" class="btn btn-primary btn-lg"/>
+               <%} %>
+            </div>
+        </div>
+    </div>
+</footer>
+            
     </body>
     <jsp:include page="../footer.jsp"/>
 </html>
