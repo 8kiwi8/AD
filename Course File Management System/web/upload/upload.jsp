@@ -136,7 +136,7 @@
                         owner = true;
                     } %>
             </div>
-                    <a role="button" class="btn btn-primary" href="<%=request.getContextPath()%>/DownloadAsZip?sectionID=<%=sectionID%>&zipAs=section">
+                    <a role="button" class="btn btn-primary" href="<%=request.getContextPath()%>/DownloadAsZip?sectionID=<%=sectionID%>&zipAs=section" target="_blank">
                 Download As Zip
             </a>
             <table style = "width:100%">
@@ -165,7 +165,7 @@
                         %>                                                                          
                         <%String path = rs2.getString("fileDirectory");
                           Path path1 = Paths.get(path);%>
-                          <%=path1.getFileName()%>
+                          <p>  
                         <a href = "<%=rs2.getString("fileDirectory")%>" download ="<%=path1.getFileName()%>"> 
                             <button class="btn btn-primary btn-xs" type="button"><i class = "glyphicon glyphicon-download-alt"></i></button>                     
                         </a>
@@ -174,8 +174,8 @@
                             <button class="btn btn-danger btn-xs" type="button"><i class = "glyphicon glyphicon-trash" ></i></button>                     
                         </a> 
                         <% } %>
-                        
-                        <br>
+                        <%=path1.getFileName()%>
+                        </p>
 
                         <%}%> 
                         <% if(!found) { %>       
@@ -183,59 +183,39 @@
                         <% } %>
                     </td>
                     <td>
-                        <button type="button" class="open-AddBookDialog btn btn-success btn-md glyphicon glyphicon-upload" data-id=<%=rs.getString("checklistID")%> data-toggle="modal" data-target="#confirm-upload"></button>
-                        
-                        <script type="text/javascript">   
-                        
-                            $(document).on("click", ".open-AddBookDialog", function () {
-                            var checklistID = $(this).data('id');
-                            $(".modal-body #checklistID").val( checklistID );
-                        });
-                        </script>
-                        
-                        
+                        <button type="button" class="open-AddBookDialog btn btn-success btn-md glyphicon glyphicon-upload" data-id=<%=rs.getString("checklistID")%> data-toggle="modal" data-target="#confirm-upload-<%=rs.getString("checklistID")%>"></button>
                         <!-- Modal -->
-                <div id="confirm-upload" class="modal fade" role="dialog">
-                <div class="modal-dialog">
-
-                <!-- Modal content-->
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal">&times;</button>
-                    <h4 class="modal-title">Upload files</h4>   
-                    </div>
-                    <div class="modal-body">
-                        <h4>Select files from your computer</h4>
-                            <form method="post" action="<%=request.getContextPath()%>/Upload" enctype="multipart/form-data">
-                                <div class="form-inline">
-                                <div class="form-group">
-                                    <input name="checklist-checklistID" type="file" cl_ID="checklistID" class="upload" multiple id = "file" accept = ".pdf"/> <br>                          
-                                    <div id = "fileList-checklistID" </div>
+                        <div id="confirm-upload-<%=rs.getString("checklistID")%>" class="modal fade" role="dialog">
+                            <div class="modal-dialog">
+                                <!-- Modal content-->
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                        <h4 class="modal-title">Upload files</h4>   
+                                    </div>
+                                    <div class="modal-body">
+                                        <h4>Select files from your computer</h4>
+                                        <form method="post" action="<%=request.getContextPath()%>/Upload" enctype="multipart/form-data">
+                                            <div class="form-inline">
+                                                <div class="form-group">
+                                                    <input name="checklist-<%=rs.getString("checklistID")%>" type="file" class="upload" multiple id = "file" accept = ".pdf"/> <br>                          
+                                                </div>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <% if (owner) {%>
+                                                <input type="submit" value="Submit" class="btn btn-primary"/>
+                                                <%} %>
+                                            </div>
+                                        </form>
+                                    </div>
                                 </div>
-                                </div>
-                                
-                    <div class="modal-footer">
-                        <% if (owner) {%>
-                        <input type="submit" value="Submit" class="btn btn-primary"/>
-                        <%} %>
-
-                    </div>
-
-                    </div>
-                    </form>
-            </div></div></div>
-                        
-                </td>
-                    
-                
-                                
+                            </div>
+                        </div>
+                    </td>
                 </tr>
             <% } %>
             </tbody>
             </table> <br>
-               <% if (owner) {%>
-                <input type="submit" value="Save changes" class="btn btn-primary"/>
-               <%} %>
         </form>
         <script type="text/javascript">    
             $(".upload").change(function (e, data) 
