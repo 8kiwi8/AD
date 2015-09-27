@@ -22,13 +22,9 @@
         <!-- bootstrap.js below is only needed if you wish to the feature of viewing details
              of text file preview via modal dialog -->       
         <style type="text/css">
-            form{
-                margin-left: 10px;
-            }
             .fileUpload {
                 position: relative;
                 overflow: hidden;
-                margin: 10px;
                 text-align: left;
             }
             .fileUpload input.upload {
@@ -48,20 +44,7 @@
             #uploadFile {
                 line-height: 28px;
             }           
-            .btn-aidan { 
-            color: #F7F3F2; 
-            background-color: #7AA7DE; 
-            border-color: #EBE017; 
-            }            
-            .btn btn-primary.outline
-            {
-                border: 8px solid darkturquoise;
-                color: darkturquoise;
-            }      
-            .btn btn-primary.round 
-            {
-                border-radius: 8px;
-            }
+            
             table a:link {
             color: #666; //dark grey
             font-weight: bold;
@@ -80,7 +63,7 @@
             table {
                     font-family:Arial, Helvetica, sans-serif;
                     color:#666;
-                    font-size:12px;
+                    font-size:14px;
                     text-shadow: 1px 1px 0px #fff;
                     background:#eaebec; //light grayish blue
                     margin:20px;
@@ -95,7 +78,7 @@
                     box-shadow: 0 1px 2px #d1d1d1;
             }
             table th {
-                    padding:21px 25px 22px 25px;
+                    padding:5px 10px 10px 10px;
                     border-top:1px solid #fafafa; //very light gray
                     border-bottom:1px solid #e0e0e0; //very light gray
 
@@ -103,30 +86,8 @@
                     background: -webkit-gradient(linear, left top, left bottom, from(#ededed), to(#ebebeb));
                     background: -moz-linear-gradient(top,  #ededed,  #ebebeb);
             }
-            table th:first-child {
-                    text-align: left;
-                    padding-left:20px;
-            }
-            table tr:first-child th:first-child {
-                    -moz-border-radius-topleft:3px;
-                    -webkit-border-top-left-radius:3px;
-                    border-top-left-radius:3px;
-            }
-            table tr:first-child th:last-child {
-                    -moz-border-radius-topright:3px;
-                    -webkit-border-top-right-radius:3px;
-                    border-top-right-radius:3px;
-            }
-            table tr { 
-                    padding-left:20px;
-            }
-            table td:first-child {
-                    text-align: left;
-                    padding-left:20px;
-                    border-left: 0;
-            }
             table td {
-                    padding:18px;
+                    padding:5px;
                     border-top: 1px solid #ffffff;
                     border-bottom:1px solid #e0e0e0;
                     border-left: 1px solid #e0e0e0;
@@ -135,28 +96,25 @@
                     background: -webkit-gradient(linear, left top, left bottom, from(#fbfbfb), to(#fafafa));
                     background: -moz-linear-gradient(top,  #fbfbfb,  #fafafa);
             }
-            table tr.even td {
-                    background: #f6f6f6;
-                    background: -webkit-gradient(linear, left top, left bottom, from(#f8f8f8), to(#f6f6f6));
-                    background: -moz-linear-gradient(top,  #f8f8f8,  #f6f6f6);
+            
+            .upload-drop-zone {
+                height: 200px;
+                border-width: 2px;
+                 margin-bottom: 20px;
             }
-            table tr:last-child td {
-                    border-bottom:0;
+
+/* skin.css Style*/
+            .upload-drop-zone {
+                color: #ccc;
+                border-style: dashed;
+                border-color: #ccc;
+                line-height: 200px;
+                text-align: center
             }
-            table tr:last-child td:first-child {
-                    -moz-border-radius-bottomleft:3px;
-                    -webkit-border-bottom-left-radius:3px;
-                    border-bottom-left-radius:3px;
-            }
-            table tr:last-child td:last-child {
-                    -moz-border-radius-bottomright:3px;
-                    -webkit-border-bottom-right-radius:3px;
-                    border-bottom-right-radius:3px;
-            }
-            table tr:hover td {
-                    background: #f2f2f2;
-                    background: -webkit-gradient(linear, left top, left bottom, from(#f2f2f2), to(#f0f0f0));
-                    background: -moz-linear-gradient(top,  #f2f2f2,  #f0f0f0);	
+            
+            .upload-drop-zone.drop {
+                color: #222;
+                border-color: #222;
             }
             
         </style>
@@ -165,6 +123,7 @@
         <script src="../javascript/jquery.ui.widget.js"></script>
         <script src="../javascript/jquery.iframe-transport.js"></script>
         <script src="../javascript/jquery.fileupload.js"></script>
+        <script src="dist/bootstrap.fd.js"></script>
         <div class = "container">      
         <form method="post" action="<%=request.getContextPath()%>/Upload" enctype="multipart/form-data">
             <div class="">
@@ -177,7 +136,7 @@
                         owner = true;
                     } %>
             </div>
-                    <a role="button" class="btn btn-primary" href="<%=request.getContextPath()%>/DownloadAsZip?sectionID=<%=sectionID%>&zipAs=section" target="_blank">
+                    <a role="button" class="btn btn-primary" href="<%=request.getContextPath()%>/DownloadAsZip?sectionID=<%=sectionID%>&zipAs=section">
                 Download As Zip
             </a>
             <table style = "width:100%">
@@ -185,6 +144,7 @@
                 <th>No.</th>
                 <th>Label</th>
                 <th>Status</th>
+                <th>Upload</th>
                 </thead>
                 <tbody>
                 <%
@@ -204,42 +164,77 @@
                         found = true;
                         %>                                                                          
                         <%String path = rs2.getString("fileDirectory");
-                          Path path1 = Paths.get(path);%>                                                                        
+                          Path path1 = Paths.get(path);%>
+                          <%=path1.getFileName()%>
                         <a href = "<%=rs2.getString("fileDirectory")%>" download ="<%=path1.getFileName()%>"> 
-                            <button class="btn btn-primary" type="button"><i class = "glyphicon glyphicon-download-alt"></i> Download </button>                     
+                            <button class="btn btn-primary btn-xs" type="button"><i class = "glyphicon glyphicon-download-alt"></i></button>                     
                         </a>
                         <% if(owner) { %>
                         <a href = "<%=request.getContextPath()%>/Delete?fileID=<%=rs2.getString("fileID")%>" name = "Delete" onclick = "return DeleteConfirmation();"> 
-                            <button class="btn btn-danger" type="button"><i class = "glyphicon glyphicon-trash" ></i> Delete </button>                     
+                            <button class="btn btn-danger btn-xs" type="button"><i class = "glyphicon glyphicon-trash" ></i></button>                     
                         </a> 
                         <% } %>
-                        <%=path1.getFileName()%> <br>
-                        <br>             
-                    <%}%>
-                    <% if (owner) {%>
-                        <div class="fileUpload btn btn-default">
-                            <input id="uploadFile-<%=rs.getString("checklistID")%>" placeholder="Choose File" disabled = "disabled"/>
-                            <button class="browse btn btn-primary" type="button"><i class="glyphicon glyphicon-folder-open"></i> Browse</button>
-                            <input name="checklist-<%=rs.getString("checklistID")%>" type="file" cl_ID="<%=rs.getString("checklistID")%>" class="upload" multiple id = "file" accept = ".pdf"/> <br>                          
-                            <div id = "fileList-<%=rs.getString("checklistID")%>"> </div>                           
-                        </div>
-                    <% } else if(!found && owner) { %>                             
-                        <div class="fileUpload btn btn-default">
-                            <input id="uploadFile-<%=rs.getString("checklistID")%>" placeholder="Choose File" disabled = "disabled"/>
-                            <button class="browse btn btn-primary" type="button"><i class="glyphicon glyphicon-folder-open"></i> Browse</button>
-                            <input name="checklist-<%=rs.getString("checklistID")%>" type="file" cl_ID="<%=rs.getString("checklistID")%>" class="upload" multiple id = "file" accept = ".pdf"/> <br>                          
-                            <div id = "fileList-<%=rs.getString("checklistID")%>"> </div>                           
-                        </div>
+                        
+                        <br>
+
+                        <%}%> 
+                        <% if(!found) { %>       
+                        No upload yet
+                        <% } %>
                     </td>
-                    <%} else if (!found && !owner) {%>
-                    No Upload Yet
-                    <% } %>
+                    <td>
+                        <button type="button" class="open-AddBookDialog btn btn-success btn-md glyphicon glyphicon-upload" data-id=<%=rs.getString("checklistID")%> data-toggle="modal" data-target="#confirm-upload"></button>
+                        
+                        <script type="text/javascript">   
+                        
+                            $(document).on("click", ".open-AddBookDialog", function () {
+                            var checklistID = $(this).data('id');
+                            $(".modal-body #checklistID").val( checklistID );
+                        });
+                        </script>
+                        
+                        
+                        <!-- Modal -->
+                <div id="confirm-upload" class="modal fade" role="dialog">
+                <div class="modal-dialog">
+
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Upload files</h4>   
+                    </div>
+                    <div class="modal-body">
+                        <h4>Select files from your computer</h4>
+                            <form method="post" action="<%=request.getContextPath()%>/Upload" enctype="multipart/form-data">
+                                <div class="form-inline">
+                                <div class="form-group">
+                                    <input name="checklist-checklistID" type="file" cl_ID="checklistID" class="upload" multiple id = "file" accept = ".pdf"/> <br>                          
+                                    <div id = "fileList-checklistID" </div>
+                                </div>
+                                </div>
+                                
+                    <div class="modal-footer">
+                        <% if (owner) {%>
+                        <input type="submit" value="Submit" class="btn btn-primary"/>
+                        <%} %>
+
+                    </div>
+
+                    </div>
+                    </form>
+            </div></div></div>
+                        
+                </td>
+                    
+                
+                                
                 </tr>
             <% } %>
-                <tbody>
+            </tbody>
             </table> <br>
                <% if (owner) {%>
-                <input type="submit" value="Upload" class="btn btn-primary"/>
+                <input type="submit" value="Save changes" class="btn btn-primary"/>
                <%} %>
         </form>
         <script type="text/javascript">    
@@ -256,7 +251,7 @@
                             break;
                         default:
                             valid = false;
-                            alert ("Only PDF file is allowed!!");
+                            alert ("Only accept pdf files");
                             break;
                     }
                 }
