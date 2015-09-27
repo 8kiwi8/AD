@@ -35,16 +35,14 @@ public class updateLecturerDB extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
-            System.out.println("USERNAME=" + request.getParameter("username"));
-        String username = request.getParameter("username");
+            String username = request.getParameter("username");
 	String name = request.getParameter("name");
 	String emailAdd = request.getParameter("emailAdd");
 	String phoneNo = request.getParameter("phoneNo");
 	String department = request.getParameter("department");
 	String status = request.getParameter("status");
         String view = request.getParameter("view");
-        
-        System.out.println("UPDATE profile SET name='"+ name+ "', emailAdd='"+ emailAdd +"', phoneNo='"+ phoneNo +"', departmentID='"+ department +"', status='"+ status +"' WHERE username = '"+ username +"'");
+
 	int rs = DB.update("UPDATE profile SET name='"+ name+ "', emailAdd='"+ emailAdd +"', phoneNo='"+ phoneNo +"', departmentID='"+ department +"', status='"+ status +"' WHERE username = '"+ username +"'");
         int rs2 = DB.update("UPDATE user SET viewPermission='"+ view+ "' WHERE username = '"+ username +"'");
         

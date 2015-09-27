@@ -1,4 +1,3 @@
-<%@page import="common.ViewPermission"%>
 <jsp:include page="../header.jsp"/>
 <%@ page import ="java.sql.*, common.DB" %>
 <!doctype html>
@@ -51,36 +50,26 @@
                         <div class="form-group">
                             <label for="department" class="control-label col-xs-4">Department</label>
                             <div class="radio col-xs-8">
-                                <% 
-                                String query = "SELECT * FROM department";
-                                ResultSet rs = DB.query(query);
-                                while(rs.next()) {
-                                %>
-                                    <label class="radio-inline"><input type="radio" name="department" value="<%=rs.getString("departmentID")%>"><%=rs.getString("department")%></label>
-                                <% } %>
+                            <label class="radio-inline"><input type="radio" name="department" value="2">Software Engineering</label>
+                            <label class="radio-inline"><input type="radio" name="department" value="3">Computer Science</label>
+                            <label class="radio-inline"><input type="radio" name="department" value="4">Information System</label>
                             </div>
                         </div>
 
                         <div class="form-group">
                             <label for="status" class="control-label col-xs-4">Status</label>
                             <div class="radio col-xs-8">
-                                <%
-                                String[] statuses = {"Active", "Inactive"};
-                                for(String status: statuses) {
-                                %>
-                                    <label class="radio-inline"><input type="radio" name="status" value="<%=status%>"><%=status%></label>
-                                <% } %>
+                            <label class="radio-inline"><input type="radio" name="status" value="Active">Active</label>
+                            <label class="radio-inline"><input type="radio" name="status" value="Inactive">Inactive</label>
                             </div>
                         </div>
             
                         <div class="form-group">
                             <label for="view" class="control-label col-xs-4">View Permission</label>					 
                             <div class="radio col-xs-8">
-                                <% 
-                                for(ViewPermission vp: ViewPermission.values()) {
-                                %>
-                                    <label class="radio-inline"><input type="radio" name="view" value="<%=vp.name()%>"><%=vp.toString()%></label>
-                                <% } %>
+                            <label class="radio-inline"><input type="radio" name="view" value="LECTURER">Lecturer</label>
+                            <label class="radio-inline"><input type="radio" name="view" value="KETUA_JABATAN">Ketua Jabatan</label>
+                            <label class="radio-inline"><input type="radio" name="view" value="PENTADBIR">Pentadbir</label>
                             </div>
                         </div>
                         
