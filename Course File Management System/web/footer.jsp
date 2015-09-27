@@ -8,6 +8,6 @@
 <!DOCTYPE html>
 <footer>
     <div class="container">
-        <p class="text-muted">© 2015 Optex-Ranger All Rights Reserved</p>
+        <p class="text-muted">CFMS - Alpha v1.0 © 2015 Optex-Ranger All Rights Reserved</p>
     </div>
 </footer>

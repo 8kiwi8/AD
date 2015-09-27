@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Sep 23, 2015 at 12:35 PM
+-- Generation Time: Sep 27, 2015 at 11:26 AM
 -- Server version: 5.6.16
 -- PHP Version: 5.5.9
 
@@ -17,7 +17,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8 */;
 
 --
--- Database: `cfms`
+-- Database: `cfms-clean`
 --
 
 -- --------------------------------------------------------
@@ -308,7 +308,6 @@ CREATE TABLE IF NOT EXISTS `profile` (
   `departmentID` int(255) NOT NULL,
   `status` varchar(255) NOT NULL,
   `username` varchar(255) NOT NULL,
-  PRIMARY KEY (`emailAdd`),
   KEY `username` (`username`),
   KEY `department` (`departmentID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -369,7 +368,7 @@ INSERT INTO `upload_checklist` (`checklistID`, `label`, `description`, `status`)
 (1, 'Appointment Letter', 'Appointment Letter of Lecturer', 'active'),
 (2, 'L1', 'L1', 'active'),
 (3, 'Student List', 'Student List', 'active'),
-(4, 'Slides', 'Copy of Teaching Material', 'deactive'),
+(4, 'Slides', 'Copy of Teaching Material', 'active'),
 (5, 'Course Work', 'Assignments/Tutorials/Labs Related/Others', 'active'),
 (6, 'Quizes/Mid-Term', 'Quizes/Mid-Term Exams papers with answer scheme', 'active'),
 (7, 'Final Exam', 'Final Exam Papers with answer scheme', 'active'),
@@ -417,17 +416,14 @@ CREATE TABLE IF NOT EXISTS `year_semester` (
   PRIMARY KEY (`semesterID`),
   UNIQUE KEY `session` (`year`,`semester`),
   KEY `semester` (`semester`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=118 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=101 ;
 
 --
 -- Dumping data for table `year_semester`
 --
 
 INSERT INTO `year_semester` (`semesterID`, `year`, `semester`) VALUES
-(100, '20142015', 1),
-(115, '20142015', 2),
-(116, '20142015', 3),
-(117, '20152016', 1);
+(100, '20152016', 1);
 
 --
 -- Constraints for dumped tables

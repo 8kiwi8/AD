@@ -24,7 +24,7 @@ public class LecturerUploadValidator {
         Pair<Integer, Integer> complete;
         checklist = new HashMap();
         complete = new Pair(0, 0);
-        String query1 = "SELECT * FROM upload_checklist";
+        String query1 = "SELECT * FROM upload_checklist WHERE status='active'";
         try {
             ResultSet rs1 = DB.query(query1);
             while(rs1.next()) {
