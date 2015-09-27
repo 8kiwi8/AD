@@ -42,7 +42,7 @@
                         <td><%=rs.getString("semester")%></td>
                         <td>
                             <a href="<%=request.getContextPath()%>/root/createOfferedCourse.jsp?semesterID=<%=rs.getString("semesterID")%>&semester=<%=semester%>" class="btn btn-primary">View Courses</a>
-                            <a href="<%=request.getContextPath()%>/root/sections.jsp?semesterID=<%=rs.getString("semesterID")%>" class="btn btn-primary">View Section</a>
+                            <a href="<%=request.getContextPath()%>/root/createSection.jsp?semesterID=<%=rs.getString("semesterID")%>" class="btn btn-primary">View Section</a>
                         </td>
                     </tr>
                     <% 
