@@ -140,10 +140,7 @@
             <a role="button" class="btn btn-primary" href="<%=request.getContextPath()%>/DownloadAsZip?sectionID=<%=sectionID%>&zipAs=section" target="_blank">
                 Download Section
             </a> </div> 
-            <% if (owner) {%>
-            <div class="col-xs-2 media-left">
-                <input type="submit" value="Upload" class="btn btn-primary"/>
-               <%} %> </div> <br> 
+             <br> <br> <br>
             <table style = "width:100%">
                 <thead>
                 <th>No.</th>
@@ -181,8 +178,12 @@
                         <% } %>
                         <%=path1.getFileName()%>
                         </p>
-
-                        <%}%> 
+                        <%}%>
+                        <% if(found) { %>       
+                        <a role="button" class="btn btn-primary" href="<%=request.getContextPath()%>/DownloadAsZip?sectionID=<%=sectionID%>&zipAs=checklist&checklistID=<%=rs.getString("checklistID")%>"  target="_blank" style="float:right;">
+                            <font color = "white">Download Checklist</font>
+                        </a>
+                        <% } %>
                         <% if(!found) { %>       
                         No upload yet
                         <% } %>

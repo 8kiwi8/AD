@@ -24,6 +24,7 @@ import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.fileupload.FileUploadException;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
+import org.apache.commons.io.FilenameUtils;
 /**
  *
  * @author zavie_000
@@ -137,7 +138,7 @@ public class Upload extends HttpServlet
             {
                 // iterates over form's fields
                 for (FileItem item : items) 
-                {
+                {                    
                     // processes only fields that are not form fields
                     if (!item.isFormField() && !item.getName().equals("")) 
                     {
@@ -154,12 +155,34 @@ public class Upload extends HttpServlet
                         if (!file_type.exists()) 
                             file_type.mkdir();
                         DBPath = sectionPath + "/" + temp_file + "/";
-                        real_path3 += File.separator;                        
+                        String context_path = DBPath;
+                        real_path3 += File.separator;  
+                        String filePath = real_path3 + fileName;                        
+                        DBPath += fileName;                                               
+                        String temp_DBPath = DBPath;
+                        
+                        int count = 0;
+                        File f = new File (filePath);
+                        String temp_fileName = f.getName();
+                        String fileNameWithOutExt = FilenameUtils.removeExtension(temp_fileName);
+                        String extension = FilenameUtils.getExtension(filePath);
+                        String newFullPath = filePath;
+                        String tempFileName = " ";
 
-                        String filePath = real_path3 + fileName;
-                        DBPath += fileName;
+                        while(f.exists()) 
+                        {
+                            ++count;
+                            tempFileName = fileNameWithOutExt + "_(" + count + ").";
+                            newFullPath = real_path3 + tempFileName + extension;
+                            temp_DBPath = context_path + tempFileName + extension;
+                            f = new File (newFullPath);
+                        } 
+                                              
+                        filePath = newFullPath;
+                        System.out.println ("New path: " + filePath);
+                        DBPath = temp_DBPath;
                         String changeFilePath = filePath.replace('/','\\'); 
-                        String changeFilePath1 = changeFilePath.replace("Course_File_Management_System\\", "");
+                        String changeFilePath1 = changeFilePath.replace("Course_File_Management_System\\", "");                                                                      
                         File uploadedFile = new File(changeFilePath1);
                         System.out.println("Change filepath = "+changeFilePath1); 
                         System.out.println("DBPath = " +DBPath);
