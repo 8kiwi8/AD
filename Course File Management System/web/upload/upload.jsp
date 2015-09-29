@@ -26,7 +26,7 @@
                 position: relative;
                 overflow: hidden;
                 text-align: left;
-            }
+            }           
             .fileUpload input.upload {
                 position: absolute;
                 top: 0;
@@ -66,7 +66,7 @@
                     font-size:14px;
                     text-shadow: 1px 1px 0px #fff;
                     background:#eaebec; //light grayish blue
-                    margin:20px;
+                    margin:10px;
                     border:#ccc 1px solid;
 
                     -moz-border-radius:3px;
@@ -136,9 +136,11 @@
                         owner = true;
                     } %>
             </div>
-                    <a role="button" class="btn btn-primary" href="<%=request.getContextPath()%>/DownloadAsZip?sectionID=<%=sectionID%>&zipAs=section" target="_blank">
-                Download As Zip
-            </a>
+            <div class="col-xs-2 media-left" >
+            <a role="button" class="btn btn-primary" href="<%=request.getContextPath()%>/DownloadAsZip?sectionID=<%=sectionID%>&zipAs=section" target="_blank">
+                Download Section
+            </a> </div> 
+             <br> <br> <br>
             <table style = "width:100%">
                 <thead>
                 <th>No.</th>
@@ -176,8 +178,12 @@
                         <% } %>
                         <%=path1.getFileName()%>
                         </p>
-
-                        <%}%> 
+                        <%}%>
+                        <% if(found) { %>       
+                        <a role="button" class="btn btn-primary" href="<%=request.getContextPath()%>/DownloadAsZip?sectionID=<%=sectionID%>&zipAs=checklist&checklistID=<%=rs.getString("checklistID")%>"  target="_blank" style="float:right;">
+                            <font color = "white">Download Checklist</font>
+                        </a>
+                        <% } %>
                         <% if(!found) { %>       
                         No upload yet
                         <% } %>

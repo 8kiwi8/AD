@@ -15,7 +15,6 @@ import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.ServletException;
-import javax.servlet.ServletOutputStream;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -43,6 +42,7 @@ public class DownloadAsZip extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             String sectionID = request.getParameter("sectionID");
+            String checklist_id = request.getParameter("checklistID");
             ResultSet rs = DB.query("SELECT * FROM course AS c, section AS s, year_semester AS ys, upload_checklist AS uc WHERE s.courseCode = c.courseCode "
                            + "AND s.semesterID = ys.semesterID AND s.courseID = c.courseID AND s.sectionID=" + sectionID);                                
             rs.next(); 
@@ -50,7 +50,10 @@ public class DownloadAsZip extends HttpServlet {
             String semester = rs.getString("year") + "-" + rs.getString("semester");
             String course = rs.getString("courseCode") + rs.getString("courseID") + "-" + rs.getString("courseName");
             String section = "section-" + rs.getString("sectionNo");
-            String checklist = rs.getString("label");
+            
+            ResultSet rs1 = DB.query ("SELECT * FROM upload_checklist WHERE checklistID=" + checklist_id);
+            rs1.next();
+            String checklist = rs1.getString("label");
             
             String folderPath = getServletContext().getRealPath("") + File.separator + "data" + File.separator + semester + File.separator;
             
@@ -58,8 +61,7 @@ public class DownloadAsZip extends HttpServlet {
             File tempDirectory = new File(getServletContext().getRealPath("") + File.separator + zipPath);
             System.out.println("PATH = " + getServletContext().getRealPath("") + File.separator + zipPath);
             if (!tempDirectory.exists()) 
-            {
-                
+            {                
                 tempDirectory.mkdir();
             }
             zipPath += File.separator;
@@ -68,18 +70,20 @@ public class DownloadAsZip extends HttpServlet {
             
             String name = "";
 
-            if(zipAs.equals("course")) {
+            if(zipAs.equals("course")) 
+            {
                 folderPath += course;
                 zipPath += course + ".zip";
-                name = course;
-                
+                name = course;               
             }
-            else if(zipAs.equals("section")) {
+            else if(zipAs.equals("section")) 
+            {
                 folderPath += course + File.separator + section;
                 zipPath += course + " - " + section + ".zip";
                 name = section;
             }
-            else if(zipAs.equals("checklist")) {
+            else if(zipAs.equals("checklist")) 
+            {
                 folderPath += course + File.separator + section + File.separator + checklist;
                 zipPath += course + " - " + section + " - " + checklist + ".zip";
                 name = checklist;
@@ -87,7 +91,6 @@ public class DownloadAsZip extends HttpServlet {
             String zipRealPath = getServletContext().getRealPath("") + File.separator + zipPath;
             String zipContextPath = getServletContext().getContextPath() + File.separator + zipPath;
             ZipUtil.pack(new File(folderPath), new File(zipRealPath));
-
             
             out.println("<!DOCTYPE html>");
             out.println("<html>");
@@ -102,7 +105,9 @@ public class DownloadAsZip extends HttpServlet {
                         "<i class = \"glyphicon glyphicon-download-alt\"></i> Download </button></a>");
             out.println("</body>");
             out.println("</html>");
-        } catch (SQLException ex) {
+        } 
+        catch (SQLException ex) 
+        {
             Logger.getLogger(DownloadAsZip.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
