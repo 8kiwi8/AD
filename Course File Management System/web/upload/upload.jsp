@@ -117,15 +117,6 @@
                 border-color: #222;
             }
             
-            .footer {
-                position: absolute;
-                bottom: 0;
-                width: 100%;
-                height: 30px;
-                margin: auto;
-                background-color: #ffffff;
-            }
-            
         </style>
     </head>
     <body>
@@ -145,15 +136,17 @@
                         owner = true;
                     } %>
             </div>
-            
+            <div class="col-xs-2 media-left" >
+            <a href="<%=request.getContextPath()%>/DownloadAsZip?sectionID=<%=sectionID%>&zipAs=section" target="_blank">
+               <button class="btn btn-primary" type="button"><i class = "glyphicon glyphicon-download-alt"></i> Download Section </button>
+            </a> </div> 
+             <br> <br> <br>
             <table style = "width:100%">
                 <thead>
                 <th>No.</th>
                 <th>Label</th>
                 <th>Status</th>
-                <% if (owner) {%>
                 <th>Upload</th>
-                <% } %>
                 </thead>
                 <tbody>
                 <%
@@ -187,17 +180,16 @@
                         </p>
                         <%}%>
                         <% if(found) { %>       
-                        <a role="button" class="btn btn-primary btn-sm glyphicon glyphicon-download-alt" href="<%=request.getContextPath()%>/DownloadAsZip?sectionID=<%=sectionID%>&zipAs=checklist&checklistID=<%=rs.getString("checklistID")%>"  target="_blank" style="float:right;">
-                            <font color = "white">Checklist</font>
+                        <a href="<%=request.getContextPath()%>/DownloadAsZip?sectionID=<%=sectionID%>&zipAs=checklist&checklistID=<%=rs.getString("checklistID")%>"  target="_blank" style="float:right;">
+                            <button class="btn btn-primary" type="button"><i class = "glyphicon glyphicon-download-alt"></i> Download Checklist </button>
                         </a>
                         <% } %>
                         <% if(!found) { %>       
                         No upload yet
                         <% } %>
                     </td>
-                    <% if (owner) {%>
                     <td>
-                        
+                        <% if (owner) {%>
                         <button type="button" class="open-AddBookDialog btn btn-success btn-md glyphicon glyphicon-upload" data-id=<%=rs.getString("checklistID")%> data-toggle="modal" data-target="#confirm-upload-<%=rs.getString("checklistID")%>"></button>
                         <!-- Modal -->
                         <div id="confirm-upload-<%=rs.getString("checklistID")%>" class="modal fade" role="dialog">
@@ -224,9 +216,8 @@
                                 </div>
                             </div>
                         </div>
-                        
+                        <%} %>
                     </td>
-                    <%} %>
                 </tr>
             <% } %>
             </tbody>
@@ -278,23 +269,6 @@
             };                                                
         </script>
         </div>
-            
-    <footer class="footer">
-        <div class="navbar navbar-inverse navbar-fixed-bottom nav-right">
-            <div class="navbar-inner">
-                <div class="container">
-                    <% if (owner) {%>
-                    <a role="button" class="btn btn-primary pull-right" href="<%=request.getContextPath()%>/upload/uploadSearch.jsp">
-                        Save Changes
-                    </a>
-                    <%} %>
-                    <a role="button" class="btn btn-primary " href="<%=request.getContextPath()%>/DownloadAsZip?sectionID=<%=sectionID%>&zipAs=section" target="_blank">
-                        Download Section
-                    </a> 
-                </div>
-            </div>
-            </div>
-    </footer>
     </body>
     <jsp:include page="../footer.jsp"/>
 </html>
