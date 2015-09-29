@@ -137,8 +137,8 @@
                     } %>
             </div>
             <div class="col-xs-2 media-left" >
-            <a role="button" class="btn btn-primary" href="<%=request.getContextPath()%>/DownloadAsZip?sectionID=<%=sectionID%>&zipAs=section" target="_blank">
-                Download Section
+            <a href="<%=request.getContextPath()%>/DownloadAsZip?sectionID=<%=sectionID%>&zipAs=section" target="_blank">
+               <button class="btn btn-primary" type="button"><i class = "glyphicon glyphicon-download-alt"></i> Download Section </button>
             </a> </div> 
              <br> <br> <br>
             <table style = "width:100%">
@@ -180,8 +180,8 @@
                         </p>
                         <%}%>
                         <% if(found) { %>       
-                        <a role="button" class="btn btn-primary" href="<%=request.getContextPath()%>/DownloadAsZip?sectionID=<%=sectionID%>&zipAs=checklist&checklistID=<%=rs.getString("checklistID")%>"  target="_blank" style="float:right;">
-                            <font color = "white">Download Checklist</font>
+                        <a href="<%=request.getContextPath()%>/DownloadAsZip?sectionID=<%=sectionID%>&zipAs=checklist&checklistID=<%=rs.getString("checklistID")%>"  target="_blank" style="float:right;">
+                            <button class="btn btn-primary" type="button"><i class = "glyphicon glyphicon-download-alt"></i> Download Checklist </button>
                         </a>
                         <% } %>
                         <% if(!found) { %>       
