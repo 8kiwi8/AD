@@ -42,24 +42,18 @@ public class DownloadAsZip extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             String sectionID = request.getParameter("sectionID");
-            String checklist_id = request.getParameter("checklistID");
             ResultSet rs = DB.query("SELECT * FROM course AS c, section AS s, year_semester AS ys, upload_checklist AS uc WHERE s.courseCode = c.courseCode "
                            + "AND s.semesterID = ys.semesterID AND s.courseID = c.courseID AND s.sectionID=" + sectionID);                                
             rs.next(); 
             
             String semester = rs.getString("year") + "-" + rs.getString("semester");
             String course = rs.getString("courseCode") + rs.getString("courseID") + "-" + rs.getString("courseName");
-            String section = "section-" + rs.getString("sectionNo");
-            
-            ResultSet rs1 = DB.query ("SELECT * FROM upload_checklist WHERE checklistID=" + checklist_id);
-            rs1.next();
-            String checklist = rs1.getString("label");
-            
-            String folderPath = getServletContext().getRealPath("") + File.separator + "data" + File.separator + semester + File.separator;
-            
+            String section = "section-" + rs.getString("sectionNo");                                  
+            String folderPath = getServletContext().getRealPath("") + File.separator + "data" + File.separator + semester + File.separator;           
             String zipPath = "temp";
             File tempDirectory = new File(getServletContext().getRealPath("") + File.separator + zipPath);
             System.out.println("PATH = " + getServletContext().getRealPath("") + File.separator + zipPath);
+            
             if (!tempDirectory.exists()) 
             {                
                 tempDirectory.mkdir();
@@ -84,6 +78,11 @@ public class DownloadAsZip extends HttpServlet {
             }
             else if(zipAs.equals("checklist")) 
             {
+                String checklist_id = request.getParameter("checklistID");
+                ResultSet rs1 = DB.query ("SELECT * FROM upload_checklist WHERE checklistID=" + checklist_id);
+                rs1.next();
+                
+                String checklist = rs1.getString("label");     
                 folderPath += course + File.separator + section + File.separator + checklist;
                 zipPath += course + " - " + section + " - " + checklist + ".zip";
                 name = checklist;
