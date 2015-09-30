@@ -48,7 +48,9 @@ public class DownloadAsZip extends HttpServlet {
             
             String semester = rs.getString("year") + "-" + rs.getString("semester");
             String course = rs.getString("courseCode") + rs.getString("courseID") + "-" + rs.getString("courseName");
-            String section = "section-" + rs.getString("sectionNo");                                  
+            String section = "section-" + rs.getString("sectionNo");
+            String courseName = rs.getString("courseName");
+            String shortForm = rs.getString ("shortForm");
             String folderPath = getServletContext().getRealPath("") + File.separator + "data" + File.separator + semester + File.separator;           
             String zipPath = "temp";
             File tempDirectory = new File(getServletContext().getRealPath("") + File.separator + zipPath);
@@ -68,7 +70,7 @@ public class DownloadAsZip extends HttpServlet {
             {
                 folderPath += course;
                 zipPath += course + ".zip";
-                name = course;               
+                name = course;
             }
             else if(zipAs.equals("section")) 
             {
@@ -88,20 +90,19 @@ public class DownloadAsZip extends HttpServlet {
                 name = checklist;
             }
             String zipRealPath = getServletContext().getRealPath("") + File.separator + zipPath;
+            String zipRealPath1 = zipRealPath.replace(courseName, shortForm);
             String zipContextPath = getServletContext().getContextPath() + File.separator + zipPath;
-            ZipUtil.pack(new File(folderPath), new File(zipRealPath));
+            String zipContextPath1 = zipContextPath.replace(courseName, shortForm);
+            ZipUtil.pack(new File(folderPath), new File(zipRealPath1));            
             
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
             out.println("<title>Servlet DownloadAsZip</title>");            
-            out.println("<meta http-equiv=\"refresh\" content=\"0; url="+zipContextPath+"\"/>"); 
+            out.println("<meta http-equiv=\"refresh\" content=\"0; url="+zipContextPath1+"\"/>"); 
             out.println("<script>setTimeout(\"window.close()\", 100);</script>"); 
             out.println("</head>");
             out.println("<body>");
-            out.println("<a href = \""+zipContextPath+"\" download =\""+name+"\">" +
-                        "<button class=\"btn btn-primary\" type=\"button\">" +
-                        "<i class = \"glyphicon glyphicon-download-alt\"></i> Download </button></a>");
             out.println("</body>");
             out.println("</html>");
         } 
