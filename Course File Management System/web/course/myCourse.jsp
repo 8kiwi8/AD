@@ -33,7 +33,6 @@
                     <th data-sortable="true">Course Name</th>
                     <th data-sortable="true">Penyelaras</th>
                     <th>Upload</th>
-                    <th>Download</th>
                 </tr>
             </thead>
             <tbody>
@@ -83,12 +82,7 @@
                         <a href = "<%=request.getContextPath()%>/upload/upload.jsp?sectionID=<%=rs.getString("sectionID")%>"> 
                             <button class="btn btn-info" type="button"><i class = "glyphicon glyphicon-upload"></i> View/Upload </button>
                         </a>
-                    </td>
-                    <td>
-                        <a href="<%=request.getContextPath()%>/DownloadAsZip?sectionID=<%=rs.getString("sectionID")%>&zipAs=course" target="_blank">
-                            <button class="btn btn-primary" type="button"><i class = "glyphicon glyphicon-download-alt"></i> Download Course </button>
-                        </a>
-                    </td>
+                    </td>                    
                 </tr>
                 <% } %>
             </tbody>
