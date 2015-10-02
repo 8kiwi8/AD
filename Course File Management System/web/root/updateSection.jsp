@@ -49,7 +49,7 @@
                     <label>Section Major:</label>
                     <select class="form-control" name="sectionMajor" id="sectionMajor">
                         <%
-                        String[] majors = {"SCSJ", "SCSR", "SCSV", "SCSB"};
+                        String[] majors = {"SCSJ", "SCSR", "SCSV", "SCSB", "Mixed", "UNSRI"};
                         for(String major: majors) {
                             if(major.equals(rs.getString("s.sectionMajor"))) 
                                 out.print("<option selected>");

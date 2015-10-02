@@ -1,5 +1,5 @@
+<%@page import="common.ResultList"%>
 <%@page import="common.ViewPermission"%>
-<%@page import="java.sql.ResultSet"%>
 <%@page import="common.DB"%>
 <%@page import="java.util.ArrayList, common.Page" %>
 <%
@@ -222,7 +222,7 @@
                                 </ul>
                             </li>
                             <% if(session.getAttribute("userType").equals("lecturer")) {
-                                ResultSet rs = DB.query("SELECT * FROM user, profile WHERE user.username = profile.username AND user.usertype = 'lecturer'");
+                                ResultList rs = DB.query("SELECT * FROM user, profile WHERE user.username = profile.username AND user.usertype = 'lecturer'");
                             %>
                             <li class="dropdown">
                                 <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false"> Lecturer: <%=session.getAttribute("name")%> <span class="caret"></span></a>

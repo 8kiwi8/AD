@@ -51,33 +51,57 @@ public class DB {
         return connection;
     }
     
-    public static ResultSet query(String query) {
+    public static ResultList query(String query) {
+        ArrayList list = new ArrayList();
+        ResultList result = new ResultList(list);
         try {
             DB.getConnection();
             statement = connection.createStatement();
             resultSet = statement.executeQuery(query);
+            ResultSetMetaData md = resultSet.getMetaData();
+            int columns = md.getColumnCount();
+            list.add(new HashMap(columns));
+            while (resultSet.next()) {
+                HashMap row = new HashMap(columns);
+                for(int i=1; i<=columns; ++i){           
+                    row.put(md.getColumnName(i),resultSet.getString(i));
+                }
+                list.add(row);
+            }
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return resultSet;
+        close();
+        return result;
     }
      
     public static int update(String query) {
         try {
             DB.getConnection();
+            if(resultSet != null) {
+                resultSet.close();
+                resultSet = null;
+            }
+            if(statement != null) {
+                statement.close();
+                statement = null;
+            }
             statement = connection.createStatement();
             resultRow = statement.executeUpdate(query);
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        close();
         return resultRow;
     }
     
     public static JSONArray createJson(String query, String label, String value) {
-        resultSet = DB.query(query);
         //Get the formating of lable
         JSONArray jsonArray = new JSONArray();
         try {
+            DB.getConnection();
+            statement = connection.createStatement();
+            resultSet = statement.executeQuery(query);
             rsmd = resultSet.getMetaData();
             int total_cols = resultSet.getMetaData().getColumnCount();
             while (resultSet.next()) {
@@ -99,14 +123,17 @@ public class DB {
         } catch (JSONException ex) {
             ex.printStackTrace();
         }
+        close();
         return jsonArray;
     }
     
     public static JSONArray createJson(String query, HashMap<String, String> extra) {
-        resultSet = DB.query(query);
         //Get the formating of lable
         JSONArray jsonArray = new JSONArray();
         try {
+            DB.getConnection();
+            statement = connection.createStatement();
+            resultSet = statement.executeQuery(query);
             rsmd = resultSet.getMetaData();
             int total_cols = resultSet.getMetaData().getColumnCount();
             while (resultSet.next()) {
@@ -133,14 +160,17 @@ public class DB {
         } catch (JSONException ex) {
             ex.printStackTrace();
         }
+        close();
         return jsonArray;
     }
         
     public static JSONArray createJson(String query, String label, String value, String term) {
-        resultSet = DB.query(query);
         //Get the formating of lable
         JSONArray jsonArray = new JSONArray();
         try {
+            DB.getConnection();
+            statement = connection.createStatement();
+            resultSet = statement.executeQuery(query);
             rsmd = resultSet.getMetaData();
             int total_cols = resultSet.getMetaData().getColumnCount();
             while (resultSet.next()) {
@@ -166,17 +196,23 @@ public class DB {
         {
             ex.printStackTrace();
         }
+        close();
         return jsonArray;
     }
     
     public static String getDataAt(String query, int row, String columnName){
         try{
-                query(query);
-                resultSet.absolute(row+1);
-                return resultSet.getString(columnName);
+            DB.getConnection();
+            statement = connection.createStatement();
+            resultSet = statement.executeQuery(query);
+            resultSet.absolute(row+1);
+            String result = resultSet.getString(columnName);
+            close();
+            return result;
         }
         catch(SQLException sqlEx){
                 System.out.println(sqlEx.getMessage());
+                close();
                 return null;
         }
     }

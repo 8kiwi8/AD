@@ -6,6 +6,7 @@
 package user;
 
 import common.DB;
+import common.ResultList;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.ResultSet;
@@ -45,7 +46,7 @@ public class LoginServlet extends HttpServlet {
             HttpSession session = ((HttpServletRequest) request).getSession();
             String query = "SELECT * FROM user AS u, profile AS p WHERE u.username = p.username AND u.username='" + username + "'";
             System.out.println(query);
-            ResultSet rs = DB.query(query);
+            ResultList rs = DB.query(query);
             if (rs.next()) {  
                 String userTypeFromDB = rs.getString("usertype");
                 if (rs.getString("password").equals(password)) { // If valid password
@@ -78,8 +79,6 @@ public class LoginServlet extends HttpServlet {
             out.println("<h1>Servlet LoginServlet at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
-        } catch (SQLException ex) {
-            Logger.getLogger(LoginServlet.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 

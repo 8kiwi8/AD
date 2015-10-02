@@ -102,24 +102,25 @@
                 </div>
                 <div id="selectSectionNo">
                     <select class="form-control" name="sectionNo" id="sectionNo">
-                        <option>1</option>
-                        <option>2</option>
-                        <option>3</option>
-                        <option>4</option>
-                        <option>5</option>
-                        <option>6</option>
-                        <option>7</option>
-                        <option>8</option>
-                        <option>9</option>
-                        <option>10</option>
+                        <% 
+                        for(int i = 1; i <= 10; ++i) {
+                            out.print("<option>");
+                            out.print(i);
+                            out.print("</option>");
+                        }
+                        %>
                     </select>
                 </div>
                 <div id="selectSectionMajor">
                     <select class="form-control" name="sectionMajor" id="sectionMajor">
-                        <option>SCSJ</option>
-                        <option>SCSR</option>
-                        <option>SCSV</option>
-                        <option>SCSB</option>
+                        <%
+                        String[] majors = {"SCSJ", "SCSR", "SCSV", "SCSB", "Mixed", "UNSRI"};
+                        for(String major: majors) {
+                            out.print("<option>");
+                            out.print(major);
+                            out.print("</option>");
+                        }
+                        %>
                     </select>
                 </div>
             </div>
