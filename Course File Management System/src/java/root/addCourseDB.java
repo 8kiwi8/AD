@@ -41,9 +41,10 @@ public class addCourseDB extends HttpServlet {
             }
             String courseID = request.getParameter("courseID");
             String courseName = request.getParameter("courseName");
+            String shortForm = request.getParameter("shortForm");
             String creditHours = request.getParameter("creditHours");
 
-            String query = "INSERT INTO course VALUES ('"+courseCode+"', '"+courseID+"', '"+courseName+"', '"+creditHours+"')";
+            String query = "INSERT INTO course VALUES ('"+courseCode+"', '"+courseID+"', '"+courseName+"', '"+shortForm+"', '"+creditHours+"')";
             int rs = DB.update(query);
             
             response.sendRedirect("root/viewCourses.jsp");

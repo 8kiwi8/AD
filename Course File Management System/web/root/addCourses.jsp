@@ -34,6 +34,14 @@
                     <input type="text" class="form-control" name="courseName" placeholder="Course Name">
                 </div>
             </div>
+            
+            <div class="form-group">
+                <label for="courseName" class="control-label col-xs-4">Course Short Form</label>
+                <div class="col-xs-8">
+                    <input type="text" class="form-control" name="shortForm" placeholder="Short Form">
+                </div>
+            </div>
+            
             <div class="form-group">
                 <label for="creditHours" class="control-label col-xs-4">Credit Hours</label>
                 <div class="radio col-xs-8">
