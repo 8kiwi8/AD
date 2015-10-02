@@ -1,3 +1,4 @@
+<%@page import="common.ResultList"%>
 <jsp:include page="../header.jsp"/>
 <%@ page import ="java.sql.*, common.DB, java.util.*" %>
 <!doctype html>
@@ -151,7 +152,7 @@
                                 "s.course_offered_ID = co.course_offered_ID AND s.courseCode = c.courseCode AND s.courseID = c.courseID AND " +
                                 "s.username = p.username AND s.semesterID = " + semesterID;
                     }
-                    ResultSet rs = DB.query(query);
+                    ResultList rs = DB.query(query);
                     while(rs.next()) {
                 %>
                 <tr>

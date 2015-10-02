@@ -4,6 +4,7 @@
     Author     : Kiwi
 --%>
 
+<%@page import="common.ResultList"%>
 <%@page import="java.sql.ResultSet"%>
 <%@page import="common.DB"%>
 <%@page import="java.util.HashMap"%>
@@ -36,7 +37,7 @@
     $("#semester").select2("val", "<%=request.getParameter("semesterID")%>");
     <% } else { 
         query = "Select * FROM year_semester ORDER BY year DESC, semester DESC";
-        ResultSet rs = DB.query(query);
+        ResultList rs = DB.query(query);
         rs.next();
     %>
     $("#semester").select2("val", "<%=rs.getString("semesterID")%>");

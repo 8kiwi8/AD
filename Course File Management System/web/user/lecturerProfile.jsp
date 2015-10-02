@@ -1,8 +1,9 @@
+<%@page import="common.ResultList"%>
 <jsp:include page="../header.jsp"/>
 <%@ page import ="java.sql.*, common.DB" %>
 <%
     String query = "SELECT * FROM user AS u, profile AS p WHERE p.username = u.username AND p.username = '"+session.getAttribute("User")+"'";
-    ResultSet rs = DB.query(query);
+    ResultList rs = DB.query(query);
     rs.next();
 %>
 
@@ -15,7 +16,7 @@
 
 <body>
     <div class="container">
-    <form class="form-horizontal" method="post" action="<%=request.getContextPath()%>/lecturerProfileDB?username=<%=rs.getString(1) %>">
+    <form class="form-horizontal" method="post" action="<%=request.getContextPath()%>/lecturerProfileDB?username=<%=rs.getString("username") %>">
             <div class="form-group">
                  <label for="username" class="control-label col-xs-4">Username</label>
                      <div class="col-xs-8">

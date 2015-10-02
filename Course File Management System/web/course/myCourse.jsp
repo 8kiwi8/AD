@@ -1,3 +1,4 @@
+<%@page import="common.ResultList"%>
 <jsp:include page="../header.jsp"/>
 <%@ page import ="java.sql.*, common.DB, java.util.*" %>
 <!doctype html>
@@ -54,7 +55,7 @@
                         "AND s.username = p.username AND s.username = '" + session.getAttribute("User") + "') AS mine " +
                         "WHERE co.co_id = mine.co_id";        
                 }
-                ResultSet rs = DB.query(query);
+                ResultList rs = DB.query(query);
                 while(rs.next()) {
                 %>
                 <tr>
@@ -72,7 +73,7 @@
                         <%
                         } else {
                             String query2 = "SELECT * FROM profile WHERE username = '" + rs.getString("co.penyelaras_id") + "'";
-                            ResultSet rs2 = DB.query(query2);
+                            ResultList rs2 = DB.query(query2);
                             rs2.next();
                         %>
                         <%=rs2.getString("name")%>

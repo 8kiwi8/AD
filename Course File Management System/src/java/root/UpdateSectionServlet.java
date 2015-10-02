@@ -6,12 +6,9 @@
 package root;
 
 import common.DB;
+import common.ResultList;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -47,7 +44,7 @@ public class UpdateSectionServlet extends HttpServlet {
                     "WHERE sectionID="+ sectionID;
             DB.update(query);
             query = "SELECT * from section where sectionID=" + sectionID;
-            ResultSet rs = DB.query(query);
+            ResultList rs = DB.query(query);
             rs.next();
             response.sendRedirect("root/sections.jsp?semesterID="+rs.getString("semesterID")+"&course_offered_ID="+rs.getString("course_offered_ID"));
             out.println("<!DOCTYPE html>");
@@ -59,10 +56,7 @@ public class UpdateSectionServlet extends HttpServlet {
             out.println("<h1>" +query+ "</h1>");
             out.println("</body>");
             out.println("</html>");
-        } catch (SQLException ex) {
-            Logger.getLogger(UpdateSectionServlet.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
+        }    }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**

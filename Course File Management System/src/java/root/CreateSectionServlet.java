@@ -8,10 +8,7 @@ package root;
 import common.DB;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import common.ResultList;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -60,7 +57,7 @@ public class CreateSectionServlet extends HttpServlet {
                 if(!lastco_ID.equals(co_ID[i])) {
                     lastco_ID = co_ID[i];
                     String query1 = "SELECT * FROM course_offered WHERE course_offered_ID = "+co_ID[i];
-                    ResultSet rs1 = DB.query(query1);
+                    ResultList rs1 = DB.query(query1);
                     rs1.next();
                     courseCode = rs1.getString("courseCode");
                     courseID = rs1.getString("courseID");
@@ -81,10 +78,7 @@ public class CreateSectionServlet extends HttpServlet {
             out.println("<h1></h1>");
             out.println("</body>");
             out.println("</html>");
-        } catch (SQLException ex) {
-            Logger.getLogger(CreateSectionServlet.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
+        }    }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**

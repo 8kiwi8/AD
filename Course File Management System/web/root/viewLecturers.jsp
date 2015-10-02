@@ -1,3 +1,4 @@
+<%@page import="common.ResultList"%>
 <jsp:include page="../header.jsp"/>
 <%@ page import ="java.sql.*, common.DB" %>
 <!doctype html>
@@ -26,13 +27,13 @@
         <tbody>
         <%
             String query1 = "SELECT * FROM department";
-            ResultSet rs1 = DB.query(query1);
+            ResultList rs1 = DB.query(query1);
             while(rs1.next()) {
         %>
         <tr><td><b>Dept. of <%=rs1.getString("department")%></b></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
             <%
                 String query2 = "SELECT * FROM profile, user WHERE user.username = profile.username AND user.usertype = 'lecturer' AND profile.departmentID="+rs1.getString("departmentID");
-                ResultSet rs2 = DB.query(query2);   
+                ResultList rs2 = DB.query(query2);   
                 while(rs2.next()) {
             %>
             <tr>
@@ -41,7 +42,7 @@
                 <td><%=rs2.getString("emailAdd") %></td>
                 <td><%=rs2.getString("phoneNo") %></td>
                 <td><%=rs2.getString("status") %></td>
-                <td><%=rs2.getString("viewPERMISSION") %></td>
+                <td><%=rs2.getString("viewPermission") %></td>
                 <td><a href="updateLecturer.jsp?username=<%=rs2.getString("username")%>"><button class="btn btn-primary btn-xs">Update</button></a>
                 <a href="<%=request.getContextPath()%>/deleteLecturer?username=<%=rs2.getString("username")%>"><button class="btn btn-danger btn-xs" onclick= "return confirm('Are you sure you want to continue')">Delete</button></a></td>
             </tr>

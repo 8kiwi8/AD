@@ -1,3 +1,4 @@
+<%@page import="common.ResultList"%>
 <jsp:include page="../header.jsp"/>
 <%@ page import ="java.sql.*, common.DB" %>
 <!doctype html>
@@ -69,7 +70,7 @@ if(request.getParameter("batchID") != null) {
     String batchID = request.getParameter("batchID");
     int i=1 ;
     while(i <=8){
-    ResultSet rs = DB.query("SELECT * FROM batch, batch_courses, course "
+    ResultList rs = DB.query("SELECT * FROM batch, batch_courses, course "
             + "WHERE batch.batchID = batch_courses.batchID "
             + "AND batch.batchID= '"+batchID+"'"
             + "AND batch_courses.sem= '"+i+"'"
@@ -81,10 +82,10 @@ if(request.getParameter("batchID") != null) {
         <tr><td><b>Sem <%=i %> </b></td><td></td><td></td><td></td></tr><% i++; %>
          <%while(rs.next()){ %>
             <tr>
-                <td><%=rs.getString(1) %></td>
-                <td><%=rs.getString(5) %> <%=rs.getString(6) %></td>
-                <td><%=rs.getString(9) %></td>
-                <td><%=rs.getString(10) %></td>
+                <td><%=rs.getString("intake") %></td>
+                <td><%=rs.getString("courseCode") %> <%=rs.getString("courseID") %></td>
+                <td><%=rs.getString("courseName") %></td>
+                <td><%=rs.getString("creditHours") %></td>
             </tr>
         <% 
 

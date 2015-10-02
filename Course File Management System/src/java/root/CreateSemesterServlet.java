@@ -6,6 +6,7 @@
 package root;
 
 import common.DB;
+import common.ResultList;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.ResultSet;
@@ -48,12 +49,12 @@ public class CreateSemesterServlet extends HttpServlet {
             
             if(semester!=3){
             
-            ResultSet rs1 = DB.query("SELECT courseCode, courseID FROM batch_courses WHERE label=1");
-            ResultSet rs2 = DB.query("SELECT semesterID FROM year_semester ORDER BY semesterID DESC LIMIT 1");
+            ResultList rs1 = DB.query("SELECT courseCode, courseID FROM batch_courses WHERE label=1");
+            ResultList rs2 = DB.query("SELECT semesterID FROM year_semester ORDER BY semesterID DESC LIMIT 1");
             rs2.next();
             while(rs1.next())
             {
-              int rs3 = DB.update("INSERT INTO course_offered (semesterID, courseCode, courseID) VALUES ("+rs2.getString(1)+", '"+rs1.getString(1)+"', "+rs1.getString(2)+")");
+              int rs3 = DB.update("INSERT INTO course_offered (semesterID, courseCode, courseID) VALUES ("+rs2.getString("semesterID")+", '"+rs1.getString("courseCode")+"', "+rs1.getString("courseID")+")");
 
            }
             
