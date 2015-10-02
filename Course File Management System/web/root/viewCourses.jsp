@@ -1,3 +1,4 @@
+<%@page import="common.ResultList"%>
 <jsp:include page="../header.jsp"/>
 <%@ page import ="java.sql.*, common.DB" %>
 <!doctype html>
@@ -9,7 +10,7 @@
 <body>
 
 <%
-    ResultSet rs = DB.query("SELECT * FROM course");
+    ResultList rs = DB.query("SELECT * FROM course");
 %>
 
     <div class="container">
@@ -29,11 +30,11 @@
         <tbody>
         <%while(rs.next()){ %>
             <tr>
-                <td><%=rs.getString(1) %> <%=rs.getString(2) %></td>
-                <td><%=rs.getString(3) %></td>
-                <td><%=rs.getString(4) %></td>
-                <td><a href="updateCourses.jsp?courseCode=<%=rs.getString(1)%>&courseID=<%=rs.getString(2)%>"><button class="btn btn-primary btn-xs"><span class="glyphicon glyphicon-upload"></span>Update</button></a>
-                <a href="<%=request.getContextPath()%>/deleteCourses?courseCode=<%=rs.getString(1)%>&courseID=<%=rs.getString(2)%>"><button class="btn btn-danger btn-xs" onclick= "return confirm('Are you sure you want to continue')"><span class="glyphicon glyphicon-remove"></span>Delete</button></a></td>
+                <td><%=rs.getString("courseCode") %> <%=rs.getString("courseID") %></td>
+                <td><%=rs.getString("courseName") %></td>
+                <td><%=rs.getString("creditHours") %></td>
+                <td><a href="updateCourses.jsp?courseCode=<%=rs.getString("courseCode")%>&courseID=<%=rs.getString("courseID")%>"><button class="btn btn-primary btn-xs"><span class="glyphicon glyphicon-upload"></span>Update</button></a>
+                <a href="<%=request.getContextPath()%>/deleteCourses?courseCode=<%=rs.getString("courseCode")%>&courseID=<%=rs.getString("courseID")%>"><button class="btn btn-danger btn-xs" onclick= "return confirm('Are you sure you want to continue')"><span class="glyphicon glyphicon-remove"></span>Delete</button></a></td>
             </tr>
         <% } %>
         </tbody>

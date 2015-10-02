@@ -1,10 +1,11 @@
+<%@page import="common.ResultList"%>
 <jsp:include page="../header.jsp"/>
 <%@ page import ="java.sql.*, common.DB" %>
 <%
 	String courseCode = request.getParameter("courseCode");
     String courseID = request.getParameter("courseID");
 
-	ResultSet rs = DB.query("SELECT * FROM course WHERE courseCode= '"+courseCode +"' AND courseID= '" + courseID + "'");
+	ResultList rs = DB.query("SELECT * FROM course WHERE courseCode= '"+courseCode +"' AND courseID= '" + courseID + "'");
         rs.next();
 %>
 
@@ -17,18 +18,18 @@
 
 <body>
     <div class="container">
-	<form class="form-horizontal" method="post" action="<%=request.getContextPath()%>/updateCoursesDB?courseCode=<%=rs.getString(1)%>&courseID=<%=rs.getString(2)%>">
+	<form class="form-horizontal" method="post" action="<%=request.getContextPath()%>/updateCoursesDB?courseCode=<%=rs.getString("courseCode")%>&courseID=<%=rs.getString("courseID")%>">
             <div class="form-group">
                             <label for="courseCode" class="control-label col-xs-4">Course Code</label>
                             <div class="col-xs-8">
-                                <input type="text" class="form-control" value="<%=rs.getString(1) %> <%=rs.getString(2) %>" disabled>
+                                <input type="text" class="form-control" value="<%=rs.getString("courseCode") %> <%=rs.getString("courseID") %>" disabled>
                             </div>
                         </div>
 
                         <div class="form-group">
                             <label for="courseName" class="control-label col-xs-4">Course Name</label>
                             <div class="col-xs-8">
-                                <input type="text" class="form-control" name="courseName" value="<%=rs.getString(3) %>">
+                                <input type="text" class="form-control" name="courseName" value="<%=rs.getString("courseName") %>">
                             </div>
                         </div>
 
@@ -36,7 +37,7 @@
                         <div class="form-group">
                             <label for="creditHours" class="control-label col-xs-4">Credit Hours</label>
                             <div class="col-xs-8">
-                                <input type="text" class="form-control" value="<%=rs.getString(4) %>" disabled>
+                                <input type="text" class="form-control" value="<%=rs.getString("creditHours") %>" disabled>
                             <div class="radio">
                             <label class="radio-inline"><input type="radio" name="creditHours" value="1">1</label>
                             <label class="radio-inline"><input type="radio" name="creditHours" value="2">2</label>

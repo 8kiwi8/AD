@@ -1,4 +1,5 @@
 
+<%@page import="common.ResultList"%>
 <jsp:include page="../header.jsp"/>
 <%@ page import ="java.sql.*, common.DB" %>
 <!doctype html>
@@ -10,7 +11,7 @@
 <body>
 
 <%
-    ResultSet rs = DB.query("SELECT * FROM upload_checklist WHERE status='active'");
+    ResultList rs = DB.query("SELECT * FROM upload_checklist WHERE status='active'");
     int cnt = 1;
 %>
 
@@ -40,9 +41,10 @@
         </tbody>
       </table>
  <p>
-   <a role="button" pull-right class="btn btn-primary btn-lg" href="addChecklist.jsp">
-      Add
-   </a>
+    <br>  
+    <a role="button" pull-right class="btn btn-primary btn-md glyphicon glyphicon-plus-sign" href="addChecklist.jsp">
+       <font color = "white" size = "3.5"> Add </font>
+    </a>
 </p>
 
     </div> <!-- /.container -->

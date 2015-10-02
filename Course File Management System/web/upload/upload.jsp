@@ -4,6 +4,7 @@
     Author     : zavie_000
 --%>
 
+<%@page import="common.ResultList"%>
 <%@page import="CourseFileManagementSystem.Delete"%>
 <%@page import="java.nio.file.Paths"%>
 <%@page import="java.nio.file.Path"%>
@@ -138,7 +139,7 @@
                 <% Upload.setID (sectionID); %>
                 <% Delete.setID (sectionID); %>
                 <% boolean owner = false;
-                    ResultSet rs3 = DB.query("SELECT * FROM section WHERE sectionID="+sectionID+" AND username='"+session.getAttribute("User")+"'");
+                    ResultList rs3 = DB.query("SELECT * FROM section WHERE sectionID="+sectionID+" AND username='"+session.getAttribute("User")+"'");
                     if(rs3.next()){
                         owner = true;
                     } %>
@@ -154,10 +155,10 @@
                 </thead>
                 <tbody>
                 <%
-                    ResultSet rs = DB.query("SELECT * FROM upload_checklist WHERE status='active'");
+                    ResultList rs = DB.query("SELECT * FROM upload_checklist WHERE status='active'");
                     int cnt = 1;
                     while(rs.next()) {
-                    ResultSet rs2 = DB.query("SELECT * FROM files AS f, lecturer_upload AS lu, section AS s WHERE lu.sectionID = s.sectionID AND f.fileID = lu.fileID AND lu.sectionID="+sectionID+
+                    ResultList rs2 = DB.query("SELECT * FROM files AS f, lecturer_upload AS lu, section AS s WHERE lu.sectionID = s.sectionID AND f.fileID = lu.fileID AND lu.sectionID="+sectionID+
                         " AND lu.checklistID="+rs.getString("checklistID"));
                 %>
                 <tr>

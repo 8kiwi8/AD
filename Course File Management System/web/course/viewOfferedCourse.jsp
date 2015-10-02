@@ -1,3 +1,4 @@
+<%@page import="common.ResultList"%>
 <jsp:include page="../header.jsp"/>
 <%@ page import ="java.sql.*, common.DB, java.util.*" %>
 <!doctype html>
@@ -70,7 +71,7 @@
                         "course_offered AS co, course AS c, profile AS p WHERE " +
                         "co.courseCode = c.courseCode AND co.courseID = c.courseID AND " +
                         "co.username = p.username AND co.semesterID = " + semesterID;
-                ResultSet rs = DB.query(query);
+                ResultList rs = DB.query(query);
                 while(rs.next()) {
                 %>
                 <tr>
@@ -87,7 +88,7 @@
                 String query = "SELECT co.course_offered_ID, c.courseCode, c.courseID, c.courseName, c.creditHours FROM course_offered AS co, course AS c WHERE " +
                         "co.courseCode = c.courseCode AND co.courseID = c.courseID AND " +
                         "co.username IS NULL AND co.semesterID = " + semesterID;
-                ResultSet rs = DB.query(query);
+                ResultList rs = DB.query(query);
                 while(rs.next()) {
                 %>
                 <tr>

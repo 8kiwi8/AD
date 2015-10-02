@@ -6,12 +6,12 @@
 package filter;
 
 import common.DB;
+import common.ResultList;
 import common.ViewPermission;
 import java.io.IOException;
 import java.io.PrintStream;
 import java.io.PrintWriter;
 import java.io.StringWriter;
-import java.sql.ResultSet;
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
 import javax.servlet.FilterConfig;
@@ -119,7 +119,7 @@ public class UploadPageFilter implements Filter {
             String sectionID = request.getParameter("sectionID");
             
             String query = "SELECT * FROM section WHERE sectionID=" + sectionID +" AND username = '"+username + "'";
-            ResultSet rs= DB.query(query);
+            ResultList rs= DB.query(query);
             if(!rs.next()) {
                 if(userPermission == ViewPermission.LECTURER) {
                     query = "SELECT * FROM section WHERE sectionID=" + sectionID +" AND username = '"+username + "'";

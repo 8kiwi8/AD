@@ -7,13 +7,10 @@ package CourseFileManagementSystem;
 
 import static CourseFileManagementSystem.Upload.sectionID;
 import common.DB;
+import common.ResultList;
 import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -42,7 +39,7 @@ public class DownloadAsZip extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             String sectionID = request.getParameter("sectionID");
-            ResultSet rs = DB.query("SELECT * FROM course AS c, section AS s, year_semester AS ys, upload_checklist AS uc WHERE s.courseCode = c.courseCode "
+            ResultList rs = DB.query("SELECT * FROM course AS c, section AS s, year_semester AS ys, upload_checklist AS uc WHERE s.courseCode = c.courseCode "
                            + "AND s.semesterID = ys.semesterID AND s.courseID = c.courseID AND s.sectionID=" + sectionID);                                
             rs.next(); 
             
@@ -81,7 +78,7 @@ public class DownloadAsZip extends HttpServlet {
             else if(zipAs.equals("checklist")) 
             {
                 String checklist_id = request.getParameter("checklistID");
-                ResultSet rs1 = DB.query ("SELECT * FROM upload_checklist WHERE checklistID=" + checklist_id);
+                ResultList rs1 = DB.query ("SELECT * FROM upload_checklist WHERE checklistID=" + checklist_id);
                 rs1.next();
                 
                 String checklist = rs1.getString("label");     
@@ -106,10 +103,6 @@ public class DownloadAsZip extends HttpServlet {
             out.println("</body>");
             out.println("</html>");
         } 
-        catch (SQLException ex) 
-        {
-            Logger.getLogger(DownloadAsZip.class.getName()).log(Level.SEVERE, null, ex);
-        }
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

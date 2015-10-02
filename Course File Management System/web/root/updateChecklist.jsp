@@ -1,9 +1,10 @@
+<%@page import="common.ResultList"%>
 <jsp:include page="../header.jsp"/>
 <%@ page import ="java.sql.*, common.DB" %>
 <%
 	String checklistID = request.getParameter("checklistID");
 
-	ResultSet rs = DB.query("SELECT * FROM upload_checklist WHERE checklistID= '"+checklistID +"'");
+	ResultList rs = DB.query("SELECT * FROM upload_checklist WHERE checklistID= '"+checklistID +"'");
         rs.next();
 %>
 

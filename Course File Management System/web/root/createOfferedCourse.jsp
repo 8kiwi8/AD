@@ -1,3 +1,4 @@
+<%@page import="common.ResultList"%>
 <jsp:include page="../header.jsp"/>
 <%@ page import ="java.sql.*, common.DB, java.util.*" %>
 <!doctype html>
@@ -41,7 +42,7 @@
                     String query = "SELECT co.username, co.course_offered_ID, c.courseCode, c.courseID, c.courseName, c.creditHours FROM course_offered AS co, course AS c WHERE " +
                             "co.courseCode = c.courseCode AND co.courseID = c.courseID AND " +
                             "co.semesterID = " + semesterID;
-                    ResultSet rs = DB.query(query);
+                    ResultList rs = DB.query(query);
                     while(rs.next()) {
                     %>
                     <tr>
@@ -53,7 +54,7 @@
                             <%
                             if(rs.getString("username")!=null && !rs.getString("username").equals("")) {
                                 String penyelaras = rs.getString("username");
-                                ResultSet rs2 = DB.query("SELECT * FROM profile WHERE username='"+penyelaras+"'");
+                                ResultList rs2 = DB.query("SELECT * FROM profile WHERE username='"+penyelaras+"'");
                                 rs2.next();
                                 out.println(rs2.getString("name"));
                             } else {

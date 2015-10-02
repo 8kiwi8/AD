@@ -72,8 +72,8 @@
                         <button type="button" class="btn btn-default" onclick="viewSuperviseCourse(<%=rs.getString("sID")%>, '<%=rs.getString("courseCode")%>/<%=rs.getString("courseID")%>');">Manage Course</button>
                         <%
                         } else {
-                            String query2 = "SELECT * FROM profile WHERE username = '" + rs.getString("penyelaras_id") + "'";
-                            ResultSet rs2 = DB.query(query2);
+                            String query2 = "SELECT * FROM profile WHERE username = '" + rs.getString("co.penyelaras_id") + "'";
+                            ResultList rs2 = DB.query(query2);
                             rs2.next();
                         %>
                         <%=rs2.getString("name")%>

@@ -1,3 +1,4 @@
+<%@page import="common.ResultList"%>
 <jsp:include page="../header.jsp"/>
 <%@ page import ="java.sql.*, common.DB" %>
 <!doctype html>
@@ -9,7 +10,7 @@
 <body>
 
 <%
-    ResultSet rs = DB.query("SELECT * FROM course");
+   ResultList rs = DB.query("SELECT * FROM course");
 %>
 
     <div class="container">
@@ -28,9 +29,9 @@
         <tbody>
         <%while(rs.next()){ %>
             <tr>
-                <td><%=rs.getString(1) %> <%=rs.getString(2) %></td>
-                <td><%=rs.getString(3) %></td>
-                <td><%=rs.getString(4) %></td>
+                <td><%=rs.getString("courseCode") %> <%=rs.getString("courseID") %></td>
+                <td><%=rs.getString("courseName") %></td>
+                <td><%=rs.getString("creditHours") %></td>
             </tr>
         <% } %>
         </tbody>

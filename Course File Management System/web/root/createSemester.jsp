@@ -1,4 +1,5 @@
-    <%-- 
+    <%@page import="common.ResultList"%>
+<%-- 
     Document   : createSemester
     Created on : Jul 30, 2015, 4:30:28 PM
     Author     : Kiwi
@@ -32,7 +33,7 @@
                 </thead>
                 <tbody>
                     <%
-                        ResultSet rs = DB.query("SELECT * FROM year_semester");
+                        ResultList rs = DB.query("SELECT * FROM year_semester");
                         int year=0, sem=0;
                         while(rs.next()) {
                             String semester=rs.getString("year") + " / " + rs.getString("semester");

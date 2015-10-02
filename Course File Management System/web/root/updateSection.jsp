@@ -3,6 +3,7 @@
     Created on : Sep 26, 2015, 11:16:03 AM
     Author     : Kiwi
 --%>
+<%@page import="common.ResultList"%>
 <jsp:include page="../header.jsp"/>
 <%@page import="java.sql.ResultSet"%>
 <%@page import="common.DB"%>
@@ -13,7 +14,7 @@
         String query = "SELECT * FROM course_offered AS co, section AS s, course AS c, profile AS p WHERE " +
                                 "s.course_offered_ID = co.course_offered_ID AND s.courseCode = c.courseCode AND s.courseID = c.courseID AND " +
                                 "s.username = p.username AND s.sectionID = " + sectionID;
-	ResultSet rs = DB.query(query);
+	ResultList rs = DB.query(query);
         rs.next();
 %>
 <html>

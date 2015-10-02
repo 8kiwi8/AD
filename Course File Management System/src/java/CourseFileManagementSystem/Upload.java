@@ -4,8 +4,8 @@
  * and open the template in the editor.
  */
 package CourseFileManagementSystem;
-import java.sql.*; 
 import common.DB;
+import common.ResultList;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -85,7 +85,7 @@ public class Upload extends HttpServlet
                 uploadD.mkdir();
             }     
             
-            ResultSet rs5 = DB.query("SELECT * FROM course AS c, section AS s, year_semester AS ys, upload_checklist AS uc WHERE s.courseCode = c.courseCode "
+            ResultList rs5 = DB.query("SELECT * FROM course AS c, section AS s, year_semester AS ys, upload_checklist AS uc WHERE s.courseCode = c.courseCode "
                            + "AND s.semesterID = ys.semesterID AND s.courseID = c.courseID AND s.sectionID=" + sectionID);                                
             rs5.next();           
             
@@ -147,7 +147,7 @@ public class Upload extends HttpServlet
                         Scanner field_name = new Scanner(item.getFieldName()).useDelimiter("[^0-9]+");
                         int id = field_name.nextInt();
                         fileName = new File(item.getName()).getName();
-                        ResultSet rs = DB.query("SELECT * FROM upload_checklist WHERE checklistID =" + id);
+                        ResultList rs = DB.query("SELECT * FROM upload_checklist WHERE checklistID =" + id);
                         rs.next();
                         String temp_file = rs.getString ("label");
                         String real_path3 = real_path2 + temp_file;
@@ -190,14 +190,14 @@ public class Upload extends HttpServlet
                         item.write(uploadedFile); 
                         String query = "INSERT INTO files (fileDirectory) values('"+DBPath+"')";
                         DB.update(query);
-                        ResultSet rs3 = DB.query("SELECT label FROM upload_checklist WHERE id=" + id);
+                        ResultList rs3 = DB.query("SELECT label FROM upload_checklist WHERE id=" + id);
                         while(rs3.next()) 
                         { 
                             String label = rs3.getString("label");
                             out.write("<a href=\"Upload?fileName=" + changeFilePath1 + "\">Download "+ label +"</a>");
                             out.write("<br><br>");                            
                         }
-                        ResultSet rs4 = DB.query("SELECT * FROM files ORDER BY fileID DESC LIMIT 1");
+                        ResultList rs4 = DB.query("SELECT * FROM files ORDER BY fileID DESC LIMIT 1");
                         rs4.next();
                         String query2 = "INSERT INTO lecturer_upload (fileID, sectionID, checklistID) values("+rs4.getString("fileID")+", "+sectionID+", "+id+")";
                         DB.update(query2);
