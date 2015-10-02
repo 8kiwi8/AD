@@ -1,3 +1,4 @@
+<%@page import="common.ResultList"%>
 <jsp:include page="../header.jsp"/>
 <%@ page import ="java.sql.*, common.DB, java.util.*" %>
 <!doctype html>
@@ -54,24 +55,24 @@
                         "AND s.username = p.username AND s.username = '" + session.getAttribute("User") + "') AS mine " +
                         "WHERE co.co_id = mine.co_id";        
                 }
-                ResultSet rs = DB.query(query);
+                ResultList rs = DB.query(query);
                 while(rs.next()) {
                 %>
                 <tr>
-                    <td><%=rs.getString("mine.courseCode")%> <%=rs.getString("mine.courseID")%></td>
-                    <td><%=rs.getString("mine.courseName")%></td>
+                    <td><%=rs.getString("courseCode")%> <%=rs.getString("courseID")%></td>
+                    <td><%=rs.getString("courseName")%></td>
                     <td>
                         <% 
-                        if(rs.getString("co.penyelaras_id") == null || rs.getString("co.penyelaras_id").equals("")) {
+                        if(rs.getString("penyelaras_id") == null || rs.getString("penyelaras_id").equals("")) {
                         %>
                         <span class="label label-default">No Penyelaras</span>
                         <%
-                        } else if(rs.getString("co.penyelaras_id").equals(session.getAttribute("User"))) {
+                        } else if(rs.getString("penyelaras_id").equals(session.getAttribute("User"))) {
                         %>
-                        <button type="button" class="btn btn-default" onclick="viewSuperviseCourse(<%=rs.getString("co.sID")%>, '<%=rs.getString("mine.courseCode")%>/<%=rs.getString("mine.courseID")%>');">Manage Course</button>
+                        <button type="button" class="btn btn-default" onclick="viewSuperviseCourse(<%=rs.getString("sID")%>, '<%=rs.getString("courseCode")%>/<%=rs.getString("courseID")%>');">Manage Course</button>
                         <%
                         } else {
-                            String query2 = "SELECT * FROM profile WHERE username = '" + rs.getString("co.penyelaras_id") + "'";
+                            String query2 = "SELECT * FROM profile WHERE username = '" + rs.getString("penyelaras_id") + "'";
                             ResultSet rs2 = DB.query(query2);
                             rs2.next();
                         %>
@@ -79,12 +80,12 @@
                         <% } %>
                     </td>
                     <td> 
-                        <a href = "<%=request.getContextPath()%>/upload/upload.jsp?sectionID=<%=rs.getString("mine.sectionID")%>"> 
+                        <a href = "<%=request.getContextPath()%>/upload/upload.jsp?sectionID=<%=rs.getString("sectionID")%>"> 
                             <button class="btn btn-info" type="button"><i class = "glyphicon glyphicon-upload"></i> View/Upload </button>
                         </a>
                     </td>
                     <td>
-                        <a href="<%=request.getContextPath()%>/DownloadAsZip?sectionID=<%=rs.getString("mine.sectionID")%>&zipAs=course" target="_blank">
+                        <a href="<%=request.getContextPath()%>/DownloadAsZip?sectionID=<%=rs.getString("sectionID")%>&zipAs=course" target="_blank">
                             <button class="btn btn-primary" type="button"><i class = "glyphicon glyphicon-download-alt"></i> Download Course </button>
                         </a>
                     </td>

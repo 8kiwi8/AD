@@ -36,6 +36,9 @@ public class addCourseDB extends HttpServlet {
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
             String courseCode = request.getParameter("courseCode");
+            if(courseCode.equals("other")) {
+                courseCode = request.getParameter("otherCode");
+            }
             String courseID = request.getParameter("courseID");
             String courseName = request.getParameter("courseName");
             String creditHours = request.getParameter("creditHours");
