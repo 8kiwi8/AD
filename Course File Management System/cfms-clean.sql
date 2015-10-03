@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.1.12
+-- version 4.1.6
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Sep 30, 2015 at 05:50 AM
+-- Generation Time: Oct 03, 2015 at 11:56 AM
 -- Server version: 5.6.16
--- PHP Version: 5.5.11
+-- PHP Version: 5.5.9
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -347,6 +347,21 @@ CREATE TABLE IF NOT EXISTS `section` (
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `section_lecturer`
+--
+
+CREATE TABLE IF NOT EXISTS `section_lecturer` (
+  `section_lecturer_id` int(11) NOT NULL AUTO_INCREMENT,
+  `username` varchar(255) NOT NULL,
+  `sectionID` int(11) NOT NULL,
+  PRIMARY KEY (`section_lecturer_id`),
+  KEY `username` (`username`),
+  KEY `sectionID` (`sectionID`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=10 ;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `upload_checklist`
 --
 
@@ -460,6 +475,13 @@ ALTER TABLE `section`
   ADD CONSTRAINT `section_ibfk_1` FOREIGN KEY (`username`) REFERENCES `user` (`username`),
   ADD CONSTRAINT `section_ibfk_2` FOREIGN KEY (`semesterID`) REFERENCES `year_semester` (`semesterID`),
   ADD CONSTRAINT `section_ibfk_3` FOREIGN KEY (`course_offered_ID`) REFERENCES `course_offered` (`course_offered_ID`);
+
+--
+-- Constraints for table `section_lecturer`
+--
+ALTER TABLE `section_lecturer`
+  ADD CONSTRAINT `section_lecturer_ibfk_1` FOREIGN KEY (`username`) REFERENCES `user` (`username`),
+  ADD CONSTRAINT `section_lecturer_ibfk_2` FOREIGN KEY (`sectionID`) REFERENCES `section` (`sectionID`);
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
