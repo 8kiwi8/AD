@@ -19,7 +19,7 @@
                 </jsp:include>
                 <div class="input-group">
                 <span class="input-group-btn">
-                    <button id="addRow" class="btn btn-default" type="button" disabled>Add Section</button>
+                    <button id="addRow" class="btn btn-primary" type="button" disabled>Add Section</button>
                 </span>
                 <jsp:include page="../component/offeredCourseAutoComplete.jsp">
                     <jsp:param name="semesterID" value='<%=request.getParameter("semesterID")%>'/>
