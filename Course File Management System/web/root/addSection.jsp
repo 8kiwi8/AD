@@ -72,16 +72,17 @@
             $button2 = $('.remove-row');
             $(function () {
                 $button.click(function () {
-                    var row = "<tr id=\"rowNum\">";
+                    var row = "<tr id=\""+rowNum+"\">";
                     row += "<td>" + $(".offeredCourse :selected").text();
                     row += "<input name=\"course_offered_ID\" class=\"hidden\" value=\""+$(".offeredCourse").val()+"\"></td>";
                     row += "<td>" + $("#selectLecturer").html() + "</td>";
                     row += "<td>" + $("#selectSectionNo").html() + "</td>";
                     row += "<td>" + $("#selectSectionMajor").html() + "</td>";
-                    row += "<td><button type=\"button\" class=\"btn btn-info remove-row\"><span class=\"glyphicon glyphicon-remove\"></span> Remove</button></td>";
+                    row += "<td><button type=\"button\" class=\"btn btn-sm btn-info remove-row\"><span class=\"glyphicon glyphicon-remove\"></span> Remove</button></td>";
                     row += "</tr>";
                     $('#sectionTable tbody:last').append(row);
                     $("#sectionTable tr").last().find("#lecturerName").select2();
+                    $("#sectionTable tr").last().find("#lecturerName").attr("name", "username-"+rowNum);
                     $("#sectionTable tr").last().find(".remove-row").click( function() {
                         $(this).closest('tr').remove();
                         --rowNum;
@@ -98,6 +99,7 @@
                 <div id="selectLecturer">
                     <jsp:include page="../component/lecturerAutoComplete.jsp">
                         <jsp:param name="id" value="lecturerName"/>
+                        <jsp:param name="multiple" value="true"/>
                     </jsp:include>
                 </div>
                 <div id="selectSectionNo">

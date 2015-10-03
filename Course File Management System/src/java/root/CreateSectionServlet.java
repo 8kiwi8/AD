@@ -39,7 +39,7 @@ public class CreateSectionServlet extends HttpServlet {
             /* TODO output your page here. You may use following sample code. */
             if(request.getParameter("semesterID") == null ||
                     request.getParameter("course_offered_ID") == null ||
-                    request.getParameter("username") == null ||
+                    request.getParameter("username-0") == null ||
                     request.getParameter("sectionNo") == null ||
                     request.getParameterValues("sectionMajor") == null
                     ) {
@@ -49,7 +49,7 @@ public class CreateSectionServlet extends HttpServlet {
             }
             String semesterID = request.getParameter("semesterID");
             String co_ID[] = request.getParameterValues("course_offered_ID");
-            String username[] = request.getParameterValues("username");
+            
             String sectionNo[] = request.getParameterValues("sectionNo");
             String sectionMajor[] = request.getParameterValues("sectionMajor");
             String courseCode = "", courseID = "", lastco_ID = "";
@@ -62,13 +62,32 @@ public class CreateSectionServlet extends HttpServlet {
                     courseCode = rs1.getString("courseCode");
                     courseID = rs1.getString("courseID");
                 }
+                String username[] = request.getParameterValues("username-"+i);
                 String query2 = "INSERT INTO section(username, semesterID, sectionNo, course_offered_ID, courseCode, courseID, sectionMajor) " +
-                        "VALUES('"+username[i]+"', "+semesterID+
-                        ", "+sectionNo[i]+", "+co_ID[i]+", '"+courseCode+"', '"+courseID+"', '" + sectionMajor[i]+"')";
-                out.print(query2);
-                int rs2 = DB.update(query2);
+                    "VALUES('"+username[0]+"', "+semesterID+
+                    ", "+sectionNo[i]+", "+co_ID[i]+", '"+courseCode+"', '"+courseID+"', '" + sectionMajor[i]+"')";
+                out.print(query2+"<br>");
+                int result = DB.update(query2);
+                if(result != 0) {
+                    String query3 = "SELECT * FROM section ORDER BY sectionID DESC";
+                    ResultList rs = DB.query(query3);
+                    rs.next();
+                    String sectionID = rs.getString("sectionID");
+                    out.print(sectionID+"<br>");
+                    for(String name: username) {
+                        out.println("Username:" + name + "<br>");
+                        String query4 = "INSERT INTO section_lecturer(username, sectionID) VALUES('"+name+"', "+sectionID+")";
+                        out.print(query4+"<br>");
+                        DB.update(query4);
+                    }
+                } else {
+                    out.println("Some error occur on section number.<br>");
+                    HttpSession session = request.getSession();
+                    session.setAttribute("Form Error", "Some error occur on section number.");
+                    //response.sendRedirect(request.getHeader("Referer"));
+                }
             }
-            response.sendRedirect(request.getContextPath() + "/root/sections.jsp?semesterID="+semesterID);
+            //response.sendRedirect(request.getContextPath() + "/root/sections.jsp?semesterID="+semesterID);
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");

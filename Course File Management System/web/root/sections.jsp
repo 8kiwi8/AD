@@ -154,10 +154,18 @@
                     }
                     ResultList rs = DB.query(query);
                     while(rs.next()) {
+                        query = "SELECT * FROM section_lecturer AS sl, profile WHERE sl.username = profile.username AND sectionID=" + rs.getString("sectionID");
+                        ResultList rs2 = DB.query(query);
                 %>
                 <tr>
                     <td><%=rs.getString("courseCode") + " " + rs.getString("courseID") + " " + rs.getString("courseName")%></td>
-                    <td><%=rs.getString("name")%></td>
+                    <td>
+                    <%
+                    while(rs2.next()) {
+                        out.print(rs2.getString("name")+"<br>");
+                    }
+                    %>
+                    </td>
                     <td><%=rs.getString("sectionNo")%></td>
                     <td><%=rs.getString("sectionMajor")%></td>
                     <td>
