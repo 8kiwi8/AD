@@ -3,8 +3,6 @@
     Created on : Sep 26, 2015, 11:16:03 AM
     Author     : Kiwi
 --%>
-<%@page import="java.util.HashMap"%>
-<%@page import="AutoComplete.Select2OptionGenerator"%>
 <%@page import="common.ResultList"%>
 <jsp:include page="../header.jsp"/>
 <%@page import="java.sql.ResultSet"%>
@@ -31,37 +29,16 @@
                     <label>Course:</label>
                     <input class="form-control" name="course" value="<%=rs.getString("courseCode")%> <%=rs.getString("courseID")%> - <%=rs.getString("courseName")%>" disabled>
                     <label>Lecturer Name:</label>
-                    <select name= "username" class="form-control lecturerName" multiple="multiple">
-                    <%
-                        query = "Select u.username, p.name FROM user AS u, profile AS p WHERE u.username = p.username AND u.userType = 'lecturer' ORDER BY name";
-                        HashMap<String,String> extra = new HashMap();
-                        extra.put("value", "[username]");
-                        extra.put("text", "[name]");
-                        out.print(Select2OptionGenerator.generate(query, "text", extra));
-                    %>
-                    </select>
-                    <script>
-                        $(".lecturerName").select2({
-                            placeholder: "Select A Lecturer",
-                            allowClear : true,
-                            theme: "bootstrap"
-                        });
-                        var lecturer = [
-                        <%
-                        query = "SELECT * FROM section_lecturer AS sl WHERE sl.sectionID = " + sectionID;
-                        ResultList rs2 = DB.query(query);
-                        while(rs2.next()) {
-                            out.print("\""+rs2.getString("username")+"\",");
-                        }
-                        %>
-                        ];
-                        $(".lecturerName").select2("val", lecturer);
-                    </script>
+                    <jsp:include page="../component/lecturerAutoComplete.jsp">
+                        <jsp:param name="username" value='<%=rs.getString("s.username")%>'/>
+                        <jsp:param name="prebuild" value='yes'/>
+                        <jsp:param name="selectAction" value='none'/>
+                    </jsp:include>
                     <label>Section Number:</label>
                     <select class="form-control" name="sectionNo" id="sectionNo">
                         <% 
                         for(int i = 1; i <= 10; ++i) {
-                            if(i == Integer.parseInt((rs.getString("sectionNo")))) 
+                            if(i == Integer.parseInt((rs.getString("s.sectionNo")))) 
                                 out.print("<option selected>");
                             else
                                 out.print("<option>");
@@ -90,7 +67,6 @@
                     <button type="submit" class='btn btn-primary'>Update Section</button>
             </form>
         </div>
-        
     </body>
     <jsp:include page="../footer.jsp"/>
 </html>

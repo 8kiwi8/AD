@@ -9,11 +9,8 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <select name= "username" class="form-control lecturerName" 
-        <% if(request.getParameter("id") != null && !(request.getParameter("id").equals("") || request.getParameter("id").equals("null"))) { %>
+        <% if(request.getParameter("id") != null && !request.getParameter("id").equals("") && !request.getParameter("id").equals("null")) { %>
         id="<%=request.getParameter("id")%>"
-        <% } %>
-        <% if(request.getParameter("multiple") != null && !(request.getParameter("multiple").equals("") || request.getParameter("id").equals("null"))) { %>
-        multiple="multiple"
         <% } %>
         >
 <%
