@@ -254,6 +254,17 @@
                             <ul class="dropdown-menu">
                                 <li><a href="#">Viewing as: <%=viewPermissionAttribute%></a></li>
                                 <li role="separator" class="divider"></li>
+                                <%
+                                    if (session.getAttribute("userType").toString().equals("lecturer")) {
+                                %>
+                                    <li>
+                                        <a href="<%=request.getContextPath()%>/user/lecturerProfile.jsp">
+                                            <span class="glyphicon glyphicon-wrench" style="padding-right: 10px;"></span>My Profile
+                                        </a>
+                                    </li>
+                                <%
+                                    }
+                                %>
                                 
                                 <li>
                                     <a href="<%=request.getContextPath()%>/LogoutServlet">
