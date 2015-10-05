@@ -37,7 +37,7 @@ public class DeleteSectionServlet extends HttpServlet {
             /* TODO output your page here. You may use following sample code. */
             String sectionID = request.getParameter("sectionID");
             String query = "DELETE FROM section WHERE sectionID="+sectionID;
-            int rs = DB.update(query);
+            DB.update(query);
             response.sendRedirect(request.getHeader("Referer"));
             out.println("<!DOCTYPE html>");
             out.println("<html>");

@@ -14,6 +14,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -36,13 +37,27 @@ public class UpdateSectionServlet extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
-            String username = request.getParameter("username");
+            if(request.getParameter("username") == null) {
+                HttpSession session = request.getSession();
+                session.setAttribute("Form Error", "You missed some field.");
+                response.sendRedirect(request.getHeader("Referer"));
+                return;
+            }
+            String username[] = request.getParameterValues("username");
             String sectionNo = request.getParameter("sectionNo");
             String sectionID = request.getParameter("sectionID");
             String sectionMajor = request.getParameter("sectionMajor");
-            String query = "UPDATE section SET username = '"+username+"', sectionNo = " + sectionNo +", sectionMajor='" + sectionMajor +"' " +
+            String query = "UPDATE section SET username = '"+username[0]+"', sectionNo = " + sectionNo +", sectionMajor='" + sectionMajor +"' " +
                     "WHERE sectionID="+ sectionID;
             DB.update(query);
+            //Delete current list
+            String query2 = "DELETE FROM section_lecturer WHERE sectionID="+sectionID;
+            DB.update(query2);
+            for(String name: username) {
+                out.println("Username:" + name + "<br>");
+                String query3 = "INSERT INTO section_lecturer(username, sectionID) VALUES('"+name+"', "+sectionID+")";
+                DB.update(query3);
+            }
             query = "SELECT * from section where sectionID=" + sectionID;
             ResultList rs = DB.query(query);
             rs.next();

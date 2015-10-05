@@ -84,10 +84,10 @@ public class CreateSectionServlet extends HttpServlet {
                     out.println("Some error occur on section number.<br>");
                     HttpSession session = request.getSession();
                     session.setAttribute("Form Error", "Some error occur on section number.");
-                    //response.sendRedirect(request.getHeader("Referer"));
+                    response.sendRedirect(request.getHeader("Referer"));
                 }
             }
-            //response.sendRedirect(request.getContextPath() + "/root/sections.jsp?semesterID="+semesterID);
+            response.sendRedirect(request.getContextPath() + "/root/sections.jsp?semesterID="+semesterID);
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
