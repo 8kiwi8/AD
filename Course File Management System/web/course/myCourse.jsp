@@ -73,12 +73,16 @@
                         <button type="button" class="btn btn-default" onclick="viewSuperviseCourse(<%=rs.getString("sID")%>, '<%=rs.getString("courseCode")%>/<%=rs.getString("courseID")%>');">Manage Course</button>
                         <%
                         } else {
-                            String query2 = "SELECT * FROM profile WHERE username = '" + rs.getString("co.penyelaras_id") + "'";
+                            String query2 = "SELECT * FROM profile WHERE username = '" + rs.getString("penyelaras_id") + "'";
                             ResultList rs2 = DB.query(query2);
                             rs2.next();
+                            if(rs.getString("name") != null && !rs.getString("name").equals("")) {
+                                out.print(rs2.getString("name"));
+                            } else {
+                                out.print("No Penyelaras Yet");
+                            }
+                        }
                         %>
-                        <%=rs2.getString("name")%>
-                        <% } %>
                     </td>
                     <td> 
                         <a href = "<%=request.getContextPath()%>/upload/upload.jsp?sectionID=<%=rs.getString("sectionID")%>"> 

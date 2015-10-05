@@ -248,7 +248,7 @@
                         <li class="dropdown">
                             <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
                                 <span class="glyphicon glyphicon-user" aria-hidden="true" style="padding-right: 5px"></span>
-                                <%=session.getAttribute("User").toString()%>
+                                <%=session.getAttribute("name").toString()%>
                                 <span class="caret"></span>
                             </a>
                             <ul class="dropdown-menu">
