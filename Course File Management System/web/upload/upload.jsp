@@ -139,7 +139,7 @@
                 <% Upload.setID (sectionID); %>
                 <% Delete.setID (sectionID); %>
                 <% boolean owner = false;
-                    ResultList rs3 = DB.query("SELECT * FROM section WHERE sectionID="+sectionID+" AND username='"+session.getAttribute("User")+"'");
+                    ResultList rs3 = DB.query("SELECT * FROM section_lecturer WHERE sectionID="+sectionID+" AND username='"+session.getAttribute("User")+"'");
                     if(rs3.next()){
                         owner = true;
                     } %>

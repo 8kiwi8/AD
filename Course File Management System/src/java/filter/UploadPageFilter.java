@@ -118,7 +118,7 @@ public class UploadPageFilter implements Filter {
             ViewPermission userPermission = ViewPermission.valueOf((String)session.getAttribute("viewPermission"));
             String sectionID = request.getParameter("sectionID");
             
-            String query = "SELECT * FROM section WHERE sectionID=" + sectionID +" AND username = '"+username + "'";
+            String query = "SELECT * FROM section_lecturer WHERE sectionID=" + sectionID +" AND username = '"+username + "'";
             ResultList rs= DB.query(query);
             if(!rs.next()) {
                 if(userPermission == ViewPermission.LECTURER) {

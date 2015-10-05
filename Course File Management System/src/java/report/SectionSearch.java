@@ -9,6 +9,7 @@ import CourseFileManagementSystem.LecturerUploadValidator;
 import common.ViewPermission;
 import common.DB;
 import common.Pair;
+import common.ResultList;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.HashMap;
@@ -60,8 +61,8 @@ public class SectionSearch extends HttpServlet {
             extra.put("course", "[courseCode] [courseID] [courseName]");
 
             query = "SELECT c.courseCode, c.courseID, c.courseName, p.name, s.sectionID, s.sectionNo " +
-                    "FROM year_semester AS y, department AS d, section AS s, profile AS p, course AS c , course_offered AS co WHERE " +
-                    "y.semesterID = s.semesterID AND s.username = p.username AND s.courseCode = c.courseCode AND " +
+                    "FROM year_semester AS y, department AS d, section_lecturer AS sl, section AS s, profile AS p, course AS c , course_offered AS co WHERE " +
+                    "y.semesterID = s.semesterID AND s.username = p.username AND s.courseCode = c.courseCode AND s.sectionID = sl.sectionID AND " +
                     "co.course_offered_ID = s.course_offered_ID AND .s.courseID = c.courseID AND d.departmentID = p.departmentID ";
             if(departmentID!=null && !departmentID.equals("")) {
                 query += "AND d.departmentID = '" + departmentID + "' ";
@@ -73,19 +74,21 @@ public class SectionSearch extends HttpServlet {
                 query += "AND c.courseID = " + courseID + " AND c.courseCode = '" + courseCode + "' ";
             }
             if(username != null && !username.equals("")) {
-                query += "AND s.username ='" + username + "' ";
+                query += "AND sl.username ='" + username + "' ";
             }
             if(semesterID != null && !semesterID.equals("")) {
                 query += "AND s.semesterID = " + semesterID + " ";
             }
 
             if(userPermission == ViewPermission.LECTURER) {
-                query += " AND s.username = '" + loggedUser + "'";
+                query += " AND sl.username = '" + loggedUser + "'";
             } else if(userPermission == ViewPermission.PENYELARAS) {
                 query += " AND co.username = '" + loggedUser + "'"; 
             } else if(userPermission == ViewPermission.KETUA_JABATAN) {
                 String query2 = "SELECT * FROM profile where username = '" + loggedUser + "'";
-                String department = DB.getDataAt(query2, 0, "departmentID");
+                ResultList rs = DB.query(query2);
+                rs.next();
+                String department = rs.getString("departmentID");
                 query += " AND d.departmentID = " + department;
             }
             query += " limit 500";

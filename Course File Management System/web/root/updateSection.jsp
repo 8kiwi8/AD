@@ -3,9 +3,9 @@
     Created on : Sep 26, 2015, 11:16:03 AM
     Author     : Kiwi
 --%>
-<%@page import="java.util.HashMap"%>
-<%@page import="AutoComplete.Select2OptionGenerator"%>
 <%@page import="common.ResultList"%>
+<%@page import="AutoComplete.Select2OptionGenerator"%>
+<%@page import="java.util.HashMap"%>
 <jsp:include page="../header.jsp"/>
 <%@page import="java.sql.ResultSet"%>
 <%@page import="common.DB"%>
@@ -27,9 +27,11 @@
     <body>
         <div class="container">
             <form class='form-horizontal' action="<%=request.getContextPath()%>/UpdateSectionServlet">
-                <div class="modal-body">
-                    <label>Course:</label>
-                    <input class="form-control" name="course" value="<%=rs.getString("courseCode")%> <%=rs.getString("courseID")%> - <%=rs.getString("courseName")%>" disabled>
+                <div class="form-group">
+                    <label for="course" >Course:</label>
+                    <input id="course" type="text" class="form-control" name="course" value="<%=rs.getString("courseCode")%> <%=rs.getString("courseID")%> - <%=rs.getString("courseName")%>" disabled>
+                </div>
+                <div class="form-group">
                     <label>Lecturer Name:</label>
                     <select name= "username" class="form-control lecturerName" multiple="multiple">
                     <%
@@ -57,7 +59,9 @@
                         ];
                         $(".lecturerName").select2("val", lecturer);
                     </script>
-                    <label>Section Number:</label>
+                </div>
+                <div class="form-group">
+                    <label for="sectionNo">Section Number:</label>
                     <select class="form-control" name="sectionNo" id="sectionNo">
                         <% 
                         for(int i = 1; i <= 10; ++i) {
@@ -70,7 +74,9 @@
                         }
                         %>
                     </select>
-                    <label>Section Major:</label>
+                </div>
+                <div class="form-group">
+                    <label for="sectionMajor">Section Major:</label>
                     <select class="form-control" name="sectionMajor" id="sectionMajor">
                         <%
                         String[] majors = {"SCSJ", "SCSR", "SCSV", "SCSB", "Mixed", "UNSRI"};
@@ -84,13 +90,15 @@
                         }
                         %>
                     </select>
-                    <div class= "hidden">
-                        <input class="sectionID" name="sectionID" value="<%=rs.getString("sectionID")%>">
-                    </div> 
+                </div>
+                <div class= "hidden">
+                    <input class="sectionID" name="sectionID" value="<%=rs.getString("sectionID")%>">
+                </div> 
+                <div class="form-group">
                     <button type="submit" class='btn btn-primary'>Update Section</button>
+                </div>
             </form>
         </div>
-        
     </body>
     <jsp:include page="../footer.jsp"/>
 </html>
