@@ -75,7 +75,7 @@
                         <%
                         String[] majors = {"SCSJ", "SCSR", "SCSV", "SCSB", "Mixed", "UNSRI"};
                         for(String major: majors) {
-                            if(major.equals(rs.getString("s.sectionMajor"))) 
+                            if(major.equals(rs.getString("sectionMajor"))) 
                                 out.print("<option selected>");
                             else
                                 out.print("<option>");

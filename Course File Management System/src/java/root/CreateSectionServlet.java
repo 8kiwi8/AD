@@ -49,7 +49,6 @@ public class CreateSectionServlet extends HttpServlet {
             }
             String semesterID = request.getParameter("semesterID");
             String co_ID[] = request.getParameterValues("course_offered_ID");
-            
             String sectionNo[] = request.getParameterValues("sectionNo");
             String sectionMajor[] = request.getParameterValues("sectionMajor");
             String courseCode = "", courseID = "", lastco_ID = "";
