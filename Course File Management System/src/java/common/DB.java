@@ -64,7 +64,7 @@ public class DB {
             while (resultSet.next()) {
                 HashMap row = new HashMap(columns);
                 for(int i=1; i<=columns; ++i){           
-                    row.put(md.getColumnName(i),resultSet.getString(i));
+                    row.put(md.getColumnLabel(i),resultSet.getString(i));
                 }
                 list.add(row);
             }

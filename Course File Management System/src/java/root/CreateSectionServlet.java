@@ -46,6 +46,7 @@ public class CreateSectionServlet extends HttpServlet {
                 HttpSession session = request.getSession();
                 session.setAttribute("Form Error", "You missed some field.");
                 response.sendRedirect(request.getHeader("Referer"));
+                return;
             }
             String semesterID = request.getParameter("semesterID");
             String co_ID[] = request.getParameterValues("course_offered_ID");
@@ -84,9 +85,10 @@ public class CreateSectionServlet extends HttpServlet {
                     HttpSession session = request.getSession();
                     session.setAttribute("Form Error", "Some error occur on section number.");
                     response.sendRedirect(request.getHeader("Referer"));
+                    return;
                 }
             }
-            response.sendRedirect(request.getContextPath() + "/root/sections.jsp?semesterID="+semesterID);
+            response.sendRedirect(request.getContextPath() + "/root/sections.jsp?semesterID="+semesterID+"&course_offered_ID="+co_ID[0]);
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");

@@ -142,13 +142,17 @@
                     String query = "";
                     if(request.getParameter("course_offered_ID") != null && !request.getParameter("course_offered_ID").equals("")) {
                         String co_ID = request.getParameter("course_offered_ID");
-                        query = "SELECT * FROM course_offered AS co, section AS s, course AS c, profile AS p WHERE " +
+                        query = "SELECT c.courseCode AS courseCode, c.courseID AS courseID, c.courseName AS courseName, s.course_offered_ID AS course_offered_ID, " +
+                                "s.sectionID AS sectionID, co.username AS penyelaras, s.username AS lecturer, s.sectionNo AS sectionNo, s.sectionMajor AS sectionMajor " +
+                                "FROM course_offered AS co, section AS s, course AS c, profile AS p WHERE " +
                                 "s.course_offered_ID = co.course_offered_ID AND s.courseCode = c.courseCode AND s.courseID = c.courseID AND " +
                                 "s.username = p.username AND s.semesterID = " + semesterID + " " +
-                                "AND s.course_offered_ID = " + co_ID; 
+                                "AND s.course_offered_ID = " + co_ID;
                     }
                     else {
-                        query = "SELECT * FROM course_offered AS co, section AS s, course AS c, profile AS p WHERE " +
+                        query = "SELECT c.courseCode AS courseCode, c.courseID AS courseID, c.courseName AS courseName, s.course_offered_ID AS course_offered_ID, " +
+                                "s.sectionID AS sectionID, co.username AS penyelaras, s.username AS lecturer, s.sectionNo AS sectionNo, s.sectionMajor AS sectionMajor " +
+                                "FROM course_offered AS co, section AS s, course AS c, profile AS p WHERE " +
                                 "s.course_offered_ID = co.course_offered_ID AND s.courseCode = c.courseCode AND s.courseID = c.courseID AND " +
                                 "s.username = p.username AND s.semesterID = " + semesterID;
                     }
@@ -162,7 +166,18 @@
                     <td>
                     <%
                     while(rs2.next()) {
-                        out.print(rs2.getString("name")+"<br>");
+                    %>
+                        <p>
+                        <%
+                        if(rs.getString("penyelaras") != null && !rs.getString("penyelaras").equals("") && rs.getString("penyelaras").equals(rs2.getString("username"))) {
+                        %>
+                        <span class="label label-primary">Penyelaras</span>
+                        <% } else { %>
+                        <a href="<%=request.getContextPath()%>/UpdatePenyelarasServlet?course_offered_ID=<%=rs.getString("course_offered_ID")%>&username=<%=rs2.getString("username")%>" class="btn btn-xs btn-default">Set Penyelaras</a>
+                        <% } %>
+                        <%=rs2.getString("name")%>
+                        </p>
+                    <%    
                     }
                     %>
                     </td>
@@ -171,13 +186,7 @@
                     <td>
                         <a href="updateSection.jsp?sectionID=<%=rs.getString("sectionID")%>" class="btn btn-primary">Update</a>
                         <a href="<%=request.getContextPath()%>/DeleteSectionServlet?sectionID=<%=rs.getString("sectionID")%>" class="btn btn-danger">Delete</a>
-                        <%
-                        if(rs.getString("co.username") != null && !rs.getString("co.username").equals("") && rs.getString("co.username").equals(rs.getString("s.username"))) {
-                        %>
-                        <span class="label label-primary">Penyelaras</span>
-                        <% } else { %>
-                        <a href="<%=request.getContextPath()%>/UpdatePenyelarasServlet?course_offered_ID=<%=rs.getString("s.course_offered_ID")%>&username=<%=rs.getString("s.username")%>" class="btn btn-default">Set Penyelaras</a>
-                        <% } %>
+                        
                     </td>
                 </tr>
                 <% } } %>
